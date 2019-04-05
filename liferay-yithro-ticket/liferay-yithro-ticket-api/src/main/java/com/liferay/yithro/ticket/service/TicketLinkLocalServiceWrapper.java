@@ -35,6 +35,18 @@ public class TicketLinkLocalServiceWrapper
 		_ticketLinkLocalService = ticketLinkLocalService;
 	}
 
+	@Override
+	public void addTicketLink(
+			long userId, long ticketEntryId, long ticketSolutionId,
+			String[] urls, Integer[] types, int visibility,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketLinkLocalService.addTicketLink(
+			userId, ticketEntryId, ticketSolutionId, urls, types, visibility,
+			serviceContext);
+	}
+
 	/**
 	 * Adds the ticket link to the database. Also notifies the appropriate model listeners.
 	 *
@@ -85,6 +97,21 @@ public class TicketLinkLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketLinkLocalService.deleteTicketLink(ticketLinkId);
+	}
+
+	@Override
+	public void deleteTicketLink(long userId, long ticketLinkId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketLinkLocalService.deleteTicketLink(userId, ticketLinkId);
+	}
+
+	@Override
+	public void deleteTicketLink(
+			long userId, com.liferay.yithro.ticket.model.TicketLink ticketLink)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketLinkLocalService.deleteTicketLink(userId, ticketLink);
 	}
 
 	/**
@@ -262,6 +289,30 @@ public class TicketLinkLocalServiceWrapper
 		return _ticketLinkLocalService.getTicketLinks(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketLink>
+		getTicketLinks(long ticketEntryId, int visibility) {
+
+		return _ticketLinkLocalService.getTicketLinks(
+			ticketEntryId, visibility);
+	}
+
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketLink>
+		getTicketLinks(long ticketEntryId, int[] visibilities) {
+
+		return _ticketLinkLocalService.getTicketLinks(
+			ticketEntryId, visibilities);
+	}
+
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketLink>
+		getTicketLinks(long ticketEntryId, long ticketSolutionId) {
+
+		return _ticketLinkLocalService.getTicketLinks(
+			ticketEntryId, ticketSolutionId);
+	}
+
 	/**
 	 * Returns the number of ticket links.
 	 *
@@ -270,6 +321,18 @@ public class TicketLinkLocalServiceWrapper
 	@Override
 	public int getTicketLinksCount() {
 		return _ticketLinkLocalService.getTicketLinksCount();
+	}
+
+	@Override
+	public int getTicketLinksCount(long ticketEntryId, int visibility) {
+		return _ticketLinkLocalService.getTicketLinksCount(
+			ticketEntryId, visibility);
+	}
+
+	@Override
+	public int getTicketLinksCount(long ticketEntryId, int[] visibilities) {
+		return _ticketLinkLocalService.getTicketLinksCount(
+			ticketEntryId, visibilities);
 	}
 
 	/**
