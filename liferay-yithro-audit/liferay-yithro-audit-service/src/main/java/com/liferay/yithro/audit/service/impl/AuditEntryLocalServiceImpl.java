@@ -76,6 +76,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 
 		AuditEntry auditEntry = auditEntryPersistence.create(auditEntryId);
 
+		auditEntry.setCompanyId(user.getCompanyId());
 		auditEntry.setUserId(userId);
 		auditEntry.setUserName(user.getFullName());
 		auditEntry.setCreateDate(createDate);

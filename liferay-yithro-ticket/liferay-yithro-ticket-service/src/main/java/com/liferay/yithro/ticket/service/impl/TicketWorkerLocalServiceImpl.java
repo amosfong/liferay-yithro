@@ -50,6 +50,7 @@ public class TicketWorkerLocalServiceImpl
 			boolean primary)
 		throws PortalException {
 
+		User user = userLocalService.getUser(userId);
 		User workerUser = userLocalService.getUser(workerUserId);
 		Date now = new Date();
 
@@ -65,6 +66,7 @@ public class TicketWorkerLocalServiceImpl
 
 		ticketWorker = ticketWorkerPersistence.create(ticketWorkerId);
 
+		ticketWorker.setCompanyId(user.getCompanyId());
 		ticketWorker.setUserId(workerUserId);
 		ticketWorker.setUserName(workerUser.getFullName());
 		ticketWorker.setTicketEntryId(ticketEntryId);

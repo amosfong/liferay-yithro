@@ -78,6 +78,7 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 			TicketLink ticketLink = ticketLinkPersistence.create(ticketLinkId);
 
+			ticketLink.setCompanyId(user.getCompanyId());
 			ticketLink.setUserId(user.getUserId());
 			ticketLink.setUserName(user.getFullName());
 			ticketLink.setCreateDate(now);
