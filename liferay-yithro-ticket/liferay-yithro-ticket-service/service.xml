@@ -393,4 +393,9 @@
 			<finder-column name="sourceClassPK" />
 		</finder>
 	</entity>
+	<exceptions>
+		<exception>TicketLinkType</exception>
+		<exception>TicketLinkURL</exception>
+		<exception>TicketLinkVisibility</exception>
+	</exceptions>
 </service-builder>
