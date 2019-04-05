@@ -1,0 +1,20 @@
+create table Yithro_AuditEntry (
+	auditEntryId LONG not null primary key,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	classNameId LONG,
+	classPK LONG,
+	auditSetId LONG,
+	fieldClassNameId LONG,
+	fieldClassPK LONG,
+	action INTEGER,
+	field VARCHAR(75) null,
+	visibility INTEGER,
+	oldLabel VARCHAR(255) null,
+	oldValue STRING null,
+	newLabel VARCHAR(255) null,
+	newValue STRING null,
+	description STRING null,
+	i18n BOOLEAN
+);
