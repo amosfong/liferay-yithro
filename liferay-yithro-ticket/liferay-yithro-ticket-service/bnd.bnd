@@ -1,5 +1,5 @@
-Bundle-Name: Liferay Yithro Audit Service
-Bundle-SymbolicName: com.liferay.yithro.audit.service
+Bundle-Name: Liferay Yithro Ticket Service
+Bundle-SymbolicName: com.liferay.yithro.ticket.service
 Bundle-Version: 1.0.0
 Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
