@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.yithro.audit.model.AuditEntry">
+		<field name="auditEntryId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="classNameId" type="long" />
+		<field name="classPK" type="long" />
+		<field name="auditSetId" type="long" />
+		<field name="fieldClassNameId" type="long" />
+		<field name="fieldClassPK" type="long" />
+		<field name="action" type="int" />
+		<field name="field" type="String" />
+		<field name="visibility" type="int" />
+		<field name="oldLabel" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="oldValue" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="newLabel" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="newValue" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="i18n" type="boolean" />
+	</model>
+</model-hints>

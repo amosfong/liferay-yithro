@@ -1,0 +1,9 @@
+Bundle-Name: Liferay Yithro Audit API
+Bundle-SymbolicName: com.liferay.yithro.audit.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.yithro.audit.constants,\
+	com.liferay.yithro.audit.exception,\
+	com.liferay.yithro.audit.model,\
+	com.liferay.yithro.audit.service,\
+	com.liferay.yithro.audit.service.persistence

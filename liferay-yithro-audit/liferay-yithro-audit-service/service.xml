@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder package-path="com.liferay.yithro.audit">
+	<namespace>Yithro</namespace>
+	<entity local-service="true" name="AuditEntry" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="auditEntryId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="classNameId" type="long" />
+		<column name="classPK" type="long" />
+		<column name="auditSetId" type="long" />
+		<column name="fieldClassNameId" type="long" />
+		<column name="fieldClassPK" type="long" />
+		<column name="action" type="int" />
+		<column name="field" type="String" />
+		<column name="visibility" type="int" />
+		<column name="oldLabel" type="String" />
+		<column name="oldValue" type="String" />
+		<column name="newLabel" type="String" />
+		<column name="newValue" type="String" />
+		<column name="description" type="String" />
+		<column name="i18n" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="createDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="GtCD_C" return-type="Collection">
+			<finder-column name="createDate" comparator=">" />
+			<finder-column name="classNameId" />
+		</finder>
+		<finder name="C_C_V" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+			<finder-column arrayable-operator="OR" name="visibility" />
+		</finder>
+		<finder name="FC_FC_F" return-type="Collection">
+			<finder-column name="fieldClassNameId" />
+			<finder-column name="fieldClassPK" />
+			<finder-column name="field" />
+		</finder>
+		<finder name="C_C_F_A" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+			<finder-column name="field" />
+			<finder-column name="action" />
+		</finder>
+	</entity>
+</service-builder>
