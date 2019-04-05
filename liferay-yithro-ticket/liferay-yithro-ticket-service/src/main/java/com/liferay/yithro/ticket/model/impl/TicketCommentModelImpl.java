@@ -72,12 +72,13 @@ public class TicketCommentModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketComment";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketCommentId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"body", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"format", Types.VARCHAR}, {"visibility", Types.INTEGER},
-		{"settings_", Types.VARCHAR}, {"status", Types.INTEGER}
+		{"ticketCommentId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"ticketEntryId", Types.BIGINT}, {"body", Types.VARCHAR},
+		{"type_", Types.INTEGER}, {"format", Types.VARCHAR},
+		{"visibility", Types.INTEGER}, {"settings_", Types.VARCHAR},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -85,6 +86,7 @@ public class TicketCommentModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketCommentId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -99,7 +101,7 @@ public class TicketCommentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketComment (ticketCommentId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,body TEXT null,type_ INTEGER,format VARCHAR(75) null,visibility INTEGER,settings_ VARCHAR(75) null,status INTEGER)";
+		"create table Yithro_TicketComment (ticketCommentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,body TEXT null,type_ INTEGER,format VARCHAR(75) null,visibility INTEGER,settings_ VARCHAR(75) null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketComment";
@@ -152,6 +154,7 @@ public class TicketCommentModelImpl
 		TicketComment model = new TicketCommentImpl();
 
 		model.setTicketCommentId(soapModel.getTicketCommentId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -292,6 +295,10 @@ public class TicketCommentModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketCommentId",
 			(BiConsumer<TicketComment, Long>)TicketComment::setTicketCommentId);
+		attributeGetterFunctions.put("companyId", TicketComment::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketComment, Long>)TicketComment::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketComment::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
@@ -356,6 +363,17 @@ public class TicketCommentModelImpl
 		_columnBitmask = -1L;
 
 		_ticketCommentId = ticketCommentId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -590,7 +608,7 @@ public class TicketCommentModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketComment.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketComment.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -616,6 +634,7 @@ public class TicketCommentModelImpl
 		TicketCommentImpl ticketCommentImpl = new TicketCommentImpl();
 
 		ticketCommentImpl.setTicketCommentId(getTicketCommentId());
+		ticketCommentImpl.setCompanyId(getCompanyId());
 		ticketCommentImpl.setUserId(getUserId());
 		ticketCommentImpl.setUserName(getUserName());
 		ticketCommentImpl.setCreateDate(getCreateDate());
@@ -735,6 +754,8 @@ public class TicketCommentModelImpl
 			new TicketCommentCacheModel();
 
 		ticketCommentCacheModel.ticketCommentId = getTicketCommentId();
+
+		ticketCommentCacheModel.companyId = getCompanyId();
 
 		ticketCommentCacheModel.userId = getUserId();
 
@@ -871,6 +892,7 @@ public class TicketCommentModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketCommentId;
+	private long _companyId;
 	private long _userId;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;

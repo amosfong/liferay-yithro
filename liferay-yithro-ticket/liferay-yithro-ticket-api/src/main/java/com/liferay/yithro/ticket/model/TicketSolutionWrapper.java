@@ -46,6 +46,7 @@ public class TicketSolutionWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketSolutionId", getTicketSolutionId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -68,6 +69,12 @@ public class TicketSolutionWrapper
 
 		if (ticketSolutionId != null) {
 			setTicketSolutionId(ticketSolutionId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -141,6 +148,16 @@ public class TicketSolutionWrapper
 		if (statusReason != null) {
 			setStatusReason(statusReason);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this ticket solution.
+	 *
+	 * @return the company ID of this ticket solution
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -386,6 +403,16 @@ public class TicketSolutionWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this ticket solution.
+	 *
+	 * @param companyId the company ID of this ticket solution
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

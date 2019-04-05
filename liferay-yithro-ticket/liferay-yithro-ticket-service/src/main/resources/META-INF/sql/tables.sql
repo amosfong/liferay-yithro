@@ -1,5 +1,6 @@
 create table Yithro_TicketAttachment (
 	ticketAttachmentId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -14,6 +15,7 @@ create table Yithro_TicketAttachment (
 
 create table Yithro_TicketComment (
 	ticketCommentId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -29,6 +31,7 @@ create table Yithro_TicketComment (
 
 create table Yithro_TicketCommentTemplate (
 	ticketCommentTemplateId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -40,6 +43,7 @@ create table Yithro_TicketCommentTemplate (
 
 create table Yithro_TicketEntry (
 	ticketEntryId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -60,6 +64,7 @@ create table Yithro_TicketEntry (
 
 create table Yithro_TicketFlag (
 	ticketFlagId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	modifiedDate DATE null,
 	ticketEntryId LONG,
@@ -69,6 +74,7 @@ create table Yithro_TicketFlag (
 
 create table Yithro_TicketInformation (
 	ticketInformationId LONG not null primary key,
+	companyId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
 	ticketEntryId LONG,
@@ -78,6 +84,7 @@ create table Yithro_TicketInformation (
 
 create table Yithro_TicketLink (
 	ticketLinkId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -90,6 +97,7 @@ create table Yithro_TicketLink (
 
 create table Yithro_TicketSolution (
 	ticketSolutionId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -106,6 +114,7 @@ create table Yithro_TicketSolution (
 
 create table Yithro_TicketWorker (
 	ticketWorkerId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	ticketEntryId LONG,

@@ -70,10 +70,11 @@ public class TicketWorkerModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketWorker";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketWorkerId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"ticketEntryId", Types.BIGINT},
-		{"sourceClassNameId", Types.BIGINT}, {"sourceClassPK", Types.BIGINT},
-		{"role_", Types.INTEGER}, {"primary_", Types.BOOLEAN}
+		{"ticketWorkerId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"ticketEntryId", Types.BIGINT}, {"sourceClassNameId", Types.BIGINT},
+		{"sourceClassPK", Types.BIGINT}, {"role_", Types.INTEGER},
+		{"primary_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -81,6 +82,7 @@ public class TicketWorkerModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketWorkerId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
@@ -91,7 +93,7 @@ public class TicketWorkerModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketWorker (ticketWorkerId LONG not null primary key,userId LONG,userName VARCHAR(75) null,ticketEntryId LONG,sourceClassNameId LONG,sourceClassPK LONG,role_ INTEGER,primary_ BOOLEAN)";
+		"create table Yithro_TicketWorker (ticketWorkerId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,ticketEntryId LONG,sourceClassNameId LONG,sourceClassPK LONG,role_ INTEGER,primary_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketWorker";
@@ -142,6 +144,7 @@ public class TicketWorkerModelImpl
 		TicketWorker model = new TicketWorkerImpl();
 
 		model.setTicketWorkerId(soapModel.getTicketWorkerId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
@@ -278,6 +281,10 @@ public class TicketWorkerModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketWorkerId",
 			(BiConsumer<TicketWorker, Long>)TicketWorker::setTicketWorkerId);
+		attributeGetterFunctions.put("companyId", TicketWorker::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketWorker, Long>)TicketWorker::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketWorker::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<TicketWorker, Long>)TicketWorker::setUserId);
@@ -323,6 +330,17 @@ public class TicketWorkerModelImpl
 	@Override
 	public void setTicketWorkerId(long ticketWorkerId) {
 		_ticketWorkerId = ticketWorkerId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -496,7 +514,7 @@ public class TicketWorkerModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketWorker.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketWorker.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -522,6 +540,7 @@ public class TicketWorkerModelImpl
 		TicketWorkerImpl ticketWorkerImpl = new TicketWorkerImpl();
 
 		ticketWorkerImpl.setTicketWorkerId(getTicketWorkerId());
+		ticketWorkerImpl.setCompanyId(getCompanyId());
 		ticketWorkerImpl.setUserId(getUserId());
 		ticketWorkerImpl.setUserName(getUserName());
 		ticketWorkerImpl.setTicketEntryId(getTicketEntryId());
@@ -624,6 +643,8 @@ public class TicketWorkerModelImpl
 
 		ticketWorkerCacheModel.ticketWorkerId = getTicketWorkerId();
 
+		ticketWorkerCacheModel.companyId = getCompanyId();
+
 		ticketWorkerCacheModel.userId = getUserId();
 
 		ticketWorkerCacheModel.userName = getUserName();
@@ -719,6 +740,7 @@ public class TicketWorkerModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketWorkerId;
+	private long _companyId;
 	private long _userId;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;

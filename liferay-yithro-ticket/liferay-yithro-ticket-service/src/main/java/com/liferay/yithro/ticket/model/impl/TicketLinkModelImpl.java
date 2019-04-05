@@ -71,11 +71,11 @@ public class TicketLinkModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketLink";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketLinkId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"ticketEntryId", Types.BIGINT}, {"ticketSolutionId", Types.BIGINT},
-		{"url", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"visibility", Types.INTEGER}
+		{"ticketLinkId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
+		{"ticketSolutionId", Types.BIGINT}, {"url", Types.VARCHAR},
+		{"type_", Types.INTEGER}, {"visibility", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -83,6 +83,7 @@ public class TicketLinkModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketLinkId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -94,7 +95,7 @@ public class TicketLinkModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
+		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketLink";
 
@@ -140,6 +141,7 @@ public class TicketLinkModelImpl
 		TicketLink model = new TicketLinkImpl();
 
 		model.setTicketLinkId(soapModel.getTicketLinkId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -275,6 +277,10 @@ public class TicketLinkModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketLinkId",
 			(BiConsumer<TicketLink, Long>)TicketLink::setTicketLinkId);
+		attributeGetterFunctions.put("companyId", TicketLink::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketLink, Long>)TicketLink::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketLink::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<TicketLink, Long>)TicketLink::setUserId);
@@ -322,6 +328,17 @@ public class TicketLinkModelImpl
 	@Override
 	public void setTicketLinkId(long ticketLinkId) {
 		_ticketLinkId = ticketLinkId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -481,7 +498,7 @@ public class TicketLinkModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketLink.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketLink.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -507,6 +524,7 @@ public class TicketLinkModelImpl
 		TicketLinkImpl ticketLinkImpl = new TicketLinkImpl();
 
 		ticketLinkImpl.setTicketLinkId(getTicketLinkId());
+		ticketLinkImpl.setCompanyId(getCompanyId());
 		ticketLinkImpl.setUserId(getUserId());
 		ticketLinkImpl.setUserName(getUserName());
 		ticketLinkImpl.setCreateDate(getCreateDate());
@@ -600,6 +618,8 @@ public class TicketLinkModelImpl
 		TicketLinkCacheModel ticketLinkCacheModel = new TicketLinkCacheModel();
 
 		ticketLinkCacheModel.ticketLinkId = getTicketLinkId();
+
+		ticketLinkCacheModel.companyId = getCompanyId();
 
 		ticketLinkCacheModel.userId = getUserId();
 
@@ -711,6 +731,7 @@ public class TicketLinkModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketLinkId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

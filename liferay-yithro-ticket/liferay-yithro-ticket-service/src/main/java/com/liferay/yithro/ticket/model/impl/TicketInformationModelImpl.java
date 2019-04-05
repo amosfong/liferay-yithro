@@ -68,9 +68,10 @@ public class TicketInformationModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketInformation";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketInformationId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"fieldId", Types.BIGINT}, {"data_", Types.VARCHAR}
+		{"ticketInformationId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"ticketEntryId", Types.BIGINT}, {"fieldId", Types.BIGINT},
+		{"data_", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -78,6 +79,7 @@ public class TicketInformationModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketInformationId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
@@ -86,7 +88,7 @@ public class TicketInformationModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketInformation (ticketInformationId LONG not null primary key,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,fieldId LONG,data_ STRING null)";
+		"create table Yithro_TicketInformation (ticketInformationId LONG not null primary key,companyId LONG,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,fieldId LONG,data_ STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketInformation";
@@ -131,6 +133,7 @@ public class TicketInformationModelImpl
 		TicketInformation model = new TicketInformationImpl();
 
 		model.setTicketInformationId(soapModel.getTicketInformationId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
@@ -272,6 +275,12 @@ public class TicketInformationModelImpl
 			(BiConsumer<TicketInformation, Long>)
 				TicketInformation::setTicketInformationId);
 		attributeGetterFunctions.put(
+			"companyId", TicketInformation::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketInformation, Long>)
+				TicketInformation::setCompanyId);
+		attributeGetterFunctions.put(
 			"createDate", TicketInformation::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
@@ -313,6 +322,17 @@ public class TicketInformationModelImpl
 	@Override
 	public void setTicketInformationId(long ticketInformationId) {
 		_ticketInformationId = ticketInformationId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -412,7 +432,7 @@ public class TicketInformationModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketInformation.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketInformation.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -439,6 +459,7 @@ public class TicketInformationModelImpl
 			new TicketInformationImpl();
 
 		ticketInformationImpl.setTicketInformationId(getTicketInformationId());
+		ticketInformationImpl.setCompanyId(getCompanyId());
 		ticketInformationImpl.setCreateDate(getCreateDate());
 		ticketInformationImpl.setModifiedDate(getModifiedDate());
 		ticketInformationImpl.setTicketEntryId(getTicketEntryId());
@@ -528,6 +549,8 @@ public class TicketInformationModelImpl
 
 		ticketInformationCacheModel.ticketInformationId =
 			getTicketInformationId();
+
+		ticketInformationCacheModel.companyId = getCompanyId();
 
 		Date createDate = getCreateDate();
 
@@ -634,6 +657,7 @@ public class TicketInformationModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketInformationId;
+	private long _companyId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;

@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 /**
  * The base model interface for the TicketWorker service. Represents a row in the &quot;Yithro_TicketWorker&quot; database table, with each column mapped to a property of this class.
@@ -31,7 +32,8 @@ import com.liferay.portal.kernel.model.BaseModel;
  * @generated
  */
 @ProviderType
-public interface TicketWorkerModel extends BaseModel<TicketWorker> {
+public interface TicketWorkerModel
+	extends BaseModel<TicketWorker>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -66,6 +68,22 @@ public interface TicketWorkerModel extends BaseModel<TicketWorker> {
 	 * @param ticketWorkerId the ticket worker ID of this ticket worker
 	 */
 	public void setTicketWorkerId(long ticketWorkerId);
+
+	/**
+	 * Returns the company ID of this ticket worker.
+	 *
+	 * @return the company ID of this ticket worker
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket worker.
+	 *
+	 * @param companyId the company ID of this ticket worker
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this ticket worker.

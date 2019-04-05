@@ -17,6 +17,7 @@ package com.liferay.yithro.ticket.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -32,7 +33,7 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface TicketFlagModel extends BaseModel<TicketFlag> {
+public interface TicketFlagModel extends BaseModel<TicketFlag>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -67,6 +68,22 @@ public interface TicketFlagModel extends BaseModel<TicketFlag> {
 	 * @param ticketFlagId the ticket flag ID of this ticket flag
 	 */
 	public void setTicketFlagId(long ticketFlagId);
+
+	/**
+	 * Returns the company ID of this ticket flag.
+	 *
+	 * @return the company ID of this ticket flag
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket flag.
+	 *
+	 * @param companyId the company ID of this ticket flag
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this ticket flag.

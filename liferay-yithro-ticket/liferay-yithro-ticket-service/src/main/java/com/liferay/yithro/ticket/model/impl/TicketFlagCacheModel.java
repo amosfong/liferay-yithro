@@ -64,10 +64,12 @@ public class TicketFlagCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{ticketFlagId=");
 		sb.append(ticketFlagId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", modifiedDate=");
@@ -88,6 +90,7 @@ public class TicketFlagCacheModel
 		TicketFlagImpl ticketFlagImpl = new TicketFlagImpl();
 
 		ticketFlagImpl.setTicketFlagId(ticketFlagId);
+		ticketFlagImpl.setCompanyId(companyId);
 		ticketFlagImpl.setUserId(userId);
 
 		if (modifiedDate == Long.MIN_VALUE) {
@@ -110,6 +113,8 @@ public class TicketFlagCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		ticketFlagId = objectInput.readLong();
 
+		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
@@ -124,6 +129,8 @@ public class TicketFlagCacheModel
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(ticketFlagId);
 
+		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(modifiedDate);
 
@@ -135,6 +142,7 @@ public class TicketFlagCacheModel
 	}
 
 	public long ticketFlagId;
+	public long companyId;
 	public long userId;
 	public long modifiedDate;
 	public long ticketEntryId;

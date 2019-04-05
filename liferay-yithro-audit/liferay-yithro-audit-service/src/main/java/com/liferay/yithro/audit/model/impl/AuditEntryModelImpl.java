@@ -75,15 +75,16 @@ public class AuditEntryModelImpl
 	public static final String TABLE_NAME = "Yithro_AuditEntry";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"auditEntryId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
-		{"auditSetId", Types.BIGINT}, {"fieldClassNameId", Types.BIGINT},
-		{"fieldClassPK", Types.BIGINT}, {"action", Types.INTEGER},
-		{"field", Types.VARCHAR}, {"visibility", Types.INTEGER},
-		{"oldLabel", Types.VARCHAR}, {"oldValue", Types.VARCHAR},
-		{"newLabel", Types.VARCHAR}, {"newValue", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"i18n", Types.BOOLEAN}
+		{"auditEntryId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"classNameId", Types.BIGINT},
+		{"classPK", Types.BIGINT}, {"auditSetId", Types.BIGINT},
+		{"fieldClassNameId", Types.BIGINT}, {"fieldClassPK", Types.BIGINT},
+		{"action", Types.INTEGER}, {"field", Types.VARCHAR},
+		{"visibility", Types.INTEGER}, {"oldLabel", Types.VARCHAR},
+		{"oldValue", Types.VARCHAR}, {"newLabel", Types.VARCHAR},
+		{"newValue", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"i18n", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -91,6 +92,7 @@ public class AuditEntryModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("auditEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -111,7 +113,7 @@ public class AuditEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_AuditEntry (auditEntryId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action INTEGER,field VARCHAR(75) null,visibility INTEGER,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null,i18n BOOLEAN)";
+		"create table Yithro_AuditEntry (auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action INTEGER,field VARCHAR(75) null,visibility INTEGER,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null,i18n BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_AuditEntry";
 
@@ -165,6 +167,7 @@ public class AuditEntryModelImpl
 		AuditEntry model = new AuditEntryImpl();
 
 		model.setAuditEntryId(soapModel.getAuditEntryId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -309,6 +312,10 @@ public class AuditEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"auditEntryId",
 			(BiConsumer<AuditEntry, Long>)AuditEntry::setAuditEntryId);
+		attributeGetterFunctions.put("companyId", AuditEntry::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<AuditEntry, Long>)AuditEntry::setCompanyId);
 		attributeGetterFunctions.put("userId", AuditEntry::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<AuditEntry, Long>)AuditEntry::setUserId);
@@ -390,6 +397,17 @@ public class AuditEntryModelImpl
 	@Override
 	public void setAuditEntryId(long auditEntryId) {
 		_auditEntryId = auditEntryId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -755,7 +773,7 @@ public class AuditEntryModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, AuditEntry.class.getName(), getPrimaryKey());
+			getCompanyId(), AuditEntry.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -781,6 +799,7 @@ public class AuditEntryModelImpl
 		AuditEntryImpl auditEntryImpl = new AuditEntryImpl();
 
 		auditEntryImpl.setAuditEntryId(getAuditEntryId());
+		auditEntryImpl.setCompanyId(getCompanyId());
 		auditEntryImpl.setUserId(getUserId());
 		auditEntryImpl.setUserName(getUserName());
 		auditEntryImpl.setCreateDate(getCreateDate());
@@ -899,6 +918,8 @@ public class AuditEntryModelImpl
 		AuditEntryCacheModel auditEntryCacheModel = new AuditEntryCacheModel();
 
 		auditEntryCacheModel.auditEntryId = getAuditEntryId();
+
+		auditEntryCacheModel.companyId = getCompanyId();
 
 		auditEntryCacheModel.userId = getUserId();
 
@@ -1058,6 +1079,7 @@ public class AuditEntryModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _auditEntryId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

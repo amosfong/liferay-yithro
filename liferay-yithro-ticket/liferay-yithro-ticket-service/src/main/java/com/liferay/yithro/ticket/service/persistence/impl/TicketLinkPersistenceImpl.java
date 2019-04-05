@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
+import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -2112,6 +2114,8 @@ public class TicketLinkPersistenceImpl
 		ticketLink.setNew(true);
 		ticketLink.setPrimaryKey(ticketLinkId);
 
+		ticketLink.setCompanyId(companyProvider.getCompanyId());
+
 		return ticketLink;
 	}
 
@@ -2755,6 +2759,9 @@ public class TicketLinkPersistenceImpl
 	}
 
 	private boolean _columnBitmaskEnabled;
+
+	@Reference(service = CompanyProviderWrapper.class)
+	protected CompanyProvider companyProvider;
 
 	@Reference
 	protected EntityCache entityCache;

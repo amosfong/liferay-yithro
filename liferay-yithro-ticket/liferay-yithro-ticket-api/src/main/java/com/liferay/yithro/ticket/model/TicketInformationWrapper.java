@@ -46,6 +46,7 @@ public class TicketInformationWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketInformationId", getTicketInformationId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
@@ -61,6 +62,12 @@ public class TicketInformationWrapper
 
 		if (ticketInformationId != null) {
 			setTicketInformationId(ticketInformationId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -92,6 +99,16 @@ public class TicketInformationWrapper
 		if (data != null) {
 			setData(data);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this ticket information.
+	 *
+	 * @return the company ID of this ticket information
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -167,6 +184,16 @@ public class TicketInformationWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this ticket information.
+	 *
+	 * @param companyId the company ID of this ticket information
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

@@ -35,6 +35,7 @@ public class AuditEntrySoap implements Serializable {
 		AuditEntrySoap soapModel = new AuditEntrySoap();
 
 		soapModel.setAuditEntryId(model.getAuditEntryId());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
@@ -111,6 +112,14 @@ public class AuditEntrySoap implements Serializable {
 
 	public void setAuditEntryId(long auditEntryId) {
 		_auditEntryId = auditEntryId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	public long getUserId() {
@@ -254,6 +263,7 @@ public class AuditEntrySoap implements Serializable {
 	}
 
 	private long _auditEntryId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

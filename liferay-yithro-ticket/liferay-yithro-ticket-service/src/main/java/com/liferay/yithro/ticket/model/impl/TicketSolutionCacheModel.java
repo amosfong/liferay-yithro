@@ -65,10 +65,12 @@ public class TicketSolutionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{ticketSolutionId=");
 		sb.append(ticketSolutionId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", userName=");
@@ -103,6 +105,7 @@ public class TicketSolutionCacheModel
 		TicketSolutionImpl ticketSolutionImpl = new TicketSolutionImpl();
 
 		ticketSolutionImpl.setTicketSolutionId(ticketSolutionId);
+		ticketSolutionImpl.setCompanyId(companyId);
 		ticketSolutionImpl.setUserId(userId);
 
 		if (userName == null) {
@@ -164,6 +167,8 @@ public class TicketSolutionCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		ticketSolutionId = objectInput.readLong();
 
+		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
@@ -186,6 +191,8 @@ public class TicketSolutionCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(ticketSolutionId);
+
+		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
 
@@ -233,6 +240,7 @@ public class TicketSolutionCacheModel
 	}
 
 	public long ticketSolutionId;
+	public long companyId;
 	public long userId;
 	public String userName;
 	public long createDate;

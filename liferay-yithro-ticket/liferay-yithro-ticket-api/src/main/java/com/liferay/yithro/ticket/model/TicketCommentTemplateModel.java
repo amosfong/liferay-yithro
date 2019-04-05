@@ -18,8 +18,10 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.LocaleException;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.LocalizedModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 import java.util.Locale;
@@ -38,7 +40,8 @@ import java.util.Map;
  */
 @ProviderType
 public interface TicketCommentTemplateModel
-	extends BaseModel<TicketCommentTemplate>, LocalizedModel {
+	extends AuditedModel, BaseModel<TicketCommentTemplate>, LocalizedModel,
+			ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -75,10 +78,27 @@ public interface TicketCommentTemplateModel
 	public void setTicketCommentTemplateId(long ticketCommentTemplateId);
 
 	/**
+	 * Returns the company ID of this ticket comment template.
+	 *
+	 * @return the company ID of this ticket comment template
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket comment template.
+	 *
+	 * @param companyId the company ID of this ticket comment template
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
 	 * Returns the user ID of this ticket comment template.
 	 *
 	 * @return the user ID of this ticket comment template
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -86,6 +106,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @param userId the user ID of this ticket comment template
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -93,6 +114,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @return the user uuid of this ticket comment template
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -100,6 +122,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @param userUuid the user uuid of this ticket comment template
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -108,6 +131,7 @@ public interface TicketCommentTemplateModel
 	 * @return the user name of this ticket comment template
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -115,6 +139,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @param userName the user name of this ticket comment template
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -122,6 +147,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @return the create date of this ticket comment template
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -129,6 +155,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @param createDate the create date of this ticket comment template
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -136,6 +163,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @return the modified date of this ticket comment template
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -143,6 +171,7 @@ public interface TicketCommentTemplateModel
 	 *
 	 * @param modifiedDate the modified date of this ticket comment template
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**

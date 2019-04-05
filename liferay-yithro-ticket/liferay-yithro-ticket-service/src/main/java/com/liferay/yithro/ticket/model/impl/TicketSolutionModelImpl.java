@@ -73,13 +73,13 @@ public class TicketSolutionModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketSolution";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketSolutionId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"ticketEntryId", Types.BIGINT}, {"solution", Types.VARCHAR},
-		{"type_", Types.INTEGER}, {"status", Types.INTEGER},
-		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
-		{"statusDate", Types.TIMESTAMP}, {"statusMessage", Types.VARCHAR},
-		{"statusReason", Types.INTEGER}
+		{"ticketSolutionId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
+		{"solution", Types.VARCHAR}, {"type_", Types.INTEGER},
+		{"status", Types.INTEGER}, {"statusByUserId", Types.BIGINT},
+		{"statusByUserName", Types.VARCHAR}, {"statusDate", Types.TIMESTAMP},
+		{"statusMessage", Types.VARCHAR}, {"statusReason", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -87,6 +87,7 @@ public class TicketSolutionModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketSolutionId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -102,7 +103,7 @@ public class TicketSolutionModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketSolution (ticketSolutionId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,solution STRING null,type_ INTEGER,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage TEXT null,statusReason INTEGER)";
+		"create table Yithro_TicketSolution (ticketSolutionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,solution STRING null,type_ INTEGER,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,statusMessage TEXT null,statusReason INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketSolution";
@@ -145,6 +146,7 @@ public class TicketSolutionModelImpl
 		TicketSolution model = new TicketSolutionImpl();
 
 		model.setTicketSolutionId(soapModel.getTicketSolutionId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -289,6 +291,10 @@ public class TicketSolutionModelImpl
 			"ticketSolutionId",
 			(BiConsumer<TicketSolution, Long>)
 				TicketSolution::setTicketSolutionId);
+		attributeGetterFunctions.put("companyId", TicketSolution::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketSolution, Long>)TicketSolution::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketSolution::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
@@ -364,6 +370,17 @@ public class TicketSolutionModelImpl
 	@Override
 	public void setTicketSolutionId(long ticketSolutionId) {
 		_ticketSolutionId = ticketSolutionId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -651,7 +668,7 @@ public class TicketSolutionModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketSolution.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketSolution.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -677,6 +694,7 @@ public class TicketSolutionModelImpl
 		TicketSolutionImpl ticketSolutionImpl = new TicketSolutionImpl();
 
 		ticketSolutionImpl.setTicketSolutionId(getTicketSolutionId());
+		ticketSolutionImpl.setCompanyId(getCompanyId());
 		ticketSolutionImpl.setUserId(getUserId());
 		ticketSolutionImpl.setUserName(getUserName());
 		ticketSolutionImpl.setCreateDate(getCreateDate());
@@ -764,6 +782,8 @@ public class TicketSolutionModelImpl
 			new TicketSolutionCacheModel();
 
 		ticketSolutionCacheModel.ticketSolutionId = getTicketSolutionId();
+
+		ticketSolutionCacheModel.companyId = getCompanyId();
 
 		ticketSolutionCacheModel.userId = getUserId();
 
@@ -902,6 +922,7 @@ public class TicketSolutionModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketSolutionId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

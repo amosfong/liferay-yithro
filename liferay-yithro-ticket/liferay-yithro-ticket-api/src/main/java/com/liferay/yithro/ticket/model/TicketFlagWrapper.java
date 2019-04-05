@@ -46,6 +46,7 @@ public class TicketFlagWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketFlagId", getTicketFlagId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
@@ -61,6 +62,12 @@ public class TicketFlagWrapper
 
 		if (ticketFlagId != null) {
 			setTicketFlagId(ticketFlagId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -92,6 +99,16 @@ public class TicketFlagWrapper
 		if (flag != null) {
 			setFlag(flag);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this ticket flag.
+	 *
+	 * @return the company ID of this ticket flag
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -177,6 +194,16 @@ public class TicketFlagWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this ticket flag.
+	 *
+	 * @param companyId the company ID of this ticket flag
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

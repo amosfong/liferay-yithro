@@ -3,6 +3,7 @@
 <model-hints>
 	<model name="com.liferay.yithro.ticket.model.TicketAttachment">
 		<field name="ticketAttachmentId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -18,6 +19,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketComment">
 		<field name="ticketCommentId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -35,6 +37,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketCommentTemplate">
 		<field name="ticketCommentTemplateId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -45,6 +48,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketEntry">
 		<field name="ticketEntryId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -71,6 +75,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketFlag">
 		<field name="ticketFlagId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="modifiedDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
@@ -79,6 +84,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketInformation">
 		<field name="ticketInformationId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
@@ -89,6 +95,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketLink">
 		<field name="ticketLinkId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -102,6 +109,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketSolution">
 		<field name="ticketSolutionId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -122,6 +130,7 @@
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketWorker">
 		<field name="ticketWorkerId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="ticketEntryId" type="long" />

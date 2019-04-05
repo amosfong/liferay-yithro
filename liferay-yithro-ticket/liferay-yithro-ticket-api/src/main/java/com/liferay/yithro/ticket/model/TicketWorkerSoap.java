@@ -34,6 +34,7 @@ public class TicketWorkerSoap implements Serializable {
 		TicketWorkerSoap soapModel = new TicketWorkerSoap();
 
 		soapModel.setTicketWorkerId(model.getTicketWorkerId());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
@@ -102,6 +103,14 @@ public class TicketWorkerSoap implements Serializable {
 		_ticketWorkerId = ticketWorkerId;
 	}
 
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
 	public long getUserId() {
 		return _userId;
 	}
@@ -163,6 +172,7 @@ public class TicketWorkerSoap implements Serializable {
 	}
 
 	private long _ticketWorkerId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private long _ticketEntryId;

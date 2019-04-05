@@ -46,6 +46,7 @@ public class TicketCommentWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketCommentId", getTicketCommentId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -67,6 +68,12 @@ public class TicketCommentWrapper
 
 		if (ticketCommentId != null) {
 			setTicketCommentId(ticketCommentId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -144,6 +151,16 @@ public class TicketCommentWrapper
 	@Override
 	public String getBody() {
 		return model.getBody();
+	}
+
+	/**
+	 * Returns the company ID of this ticket comment.
+	 *
+	 * @return the company ID of this ticket comment
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -289,6 +306,16 @@ public class TicketCommentWrapper
 	@Override
 	public void setBody(String body) {
 		model.setBody(body);
+	}
+
+	/**
+	 * Sets the company ID of this ticket comment.
+	 *
+	 * @param companyId the company ID of this ticket comment
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

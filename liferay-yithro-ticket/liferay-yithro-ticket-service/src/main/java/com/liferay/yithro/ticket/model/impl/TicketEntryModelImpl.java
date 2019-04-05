@@ -72,15 +72,15 @@ public class TicketEntryModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketEntry";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketEntryId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"languageId", Types.VARCHAR},
-		{"ticketNumber", Types.BIGINT}, {"subject", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"severity", Types.INTEGER},
-		{"status", Types.INTEGER}, {"weight", Types.INTEGER},
-		{"escalationLevel", Types.INTEGER}, {"resolution", Types.INTEGER},
-		{"holdDate", Types.TIMESTAMP}, {"closedDate", Types.TIMESTAMP},
-		{"dueDate", Types.TIMESTAMP}
+		{"ticketEntryId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"languageId", Types.VARCHAR}, {"ticketNumber", Types.BIGINT},
+		{"subject", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"severity", Types.INTEGER}, {"status", Types.INTEGER},
+		{"weight", Types.INTEGER}, {"escalationLevel", Types.INTEGER},
+		{"resolution", Types.INTEGER}, {"holdDate", Types.TIMESTAMP},
+		{"closedDate", Types.TIMESTAMP}, {"dueDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -88,6 +88,7 @@ public class TicketEntryModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -107,7 +108,7 @@ public class TicketEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,severity INTEGER,status INTEGER,weight INTEGER,escalationLevel INTEGER,resolution INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
+		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,severity INTEGER,status INTEGER,weight INTEGER,escalationLevel INTEGER,resolution INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketEntry";
 
@@ -147,6 +148,7 @@ public class TicketEntryModelImpl
 		TicketEntry model = new TicketEntryImpl();
 
 		model.setTicketEntryId(soapModel.getTicketEntryId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -292,6 +294,10 @@ public class TicketEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketEntryId",
 			(BiConsumer<TicketEntry, Long>)TicketEntry::setTicketEntryId);
+		attributeGetterFunctions.put("companyId", TicketEntry::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketEntry, Long>)TicketEntry::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketEntry::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<TicketEntry, Long>)TicketEntry::setUserId);
@@ -372,6 +378,17 @@ public class TicketEntryModelImpl
 	@Override
 	public void setTicketEntryId(long ticketEntryId) {
 		_ticketEntryId = ticketEntryId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -609,7 +626,7 @@ public class TicketEntryModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketEntry.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketEntry.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -635,6 +652,7 @@ public class TicketEntryModelImpl
 		TicketEntryImpl ticketEntryImpl = new TicketEntryImpl();
 
 		ticketEntryImpl.setTicketEntryId(getTicketEntryId());
+		ticketEntryImpl.setCompanyId(getCompanyId());
 		ticketEntryImpl.setUserId(getUserId());
 		ticketEntryImpl.setUserName(getUserName());
 		ticketEntryImpl.setCreateDate(getCreateDate());
@@ -728,6 +746,8 @@ public class TicketEntryModelImpl
 			new TicketEntryCacheModel();
 
 		ticketEntryCacheModel.ticketEntryId = getTicketEntryId();
+
+		ticketEntryCacheModel.companyId = getCompanyId();
 
 		ticketEntryCacheModel.userId = getUserId();
 
@@ -895,6 +915,7 @@ public class TicketEntryModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketEntryId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

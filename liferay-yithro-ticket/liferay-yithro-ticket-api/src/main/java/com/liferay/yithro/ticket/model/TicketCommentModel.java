@@ -17,7 +17,9 @@ package com.liferay.yithro.ticket.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -33,7 +35,8 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface TicketCommentModel extends BaseModel<TicketComment> {
+public interface TicketCommentModel
+	extends AuditedModel, BaseModel<TicketComment>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -70,10 +73,27 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	public void setTicketCommentId(long ticketCommentId);
 
 	/**
+	 * Returns the company ID of this ticket comment.
+	 *
+	 * @return the company ID of this ticket comment
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket comment.
+	 *
+	 * @param companyId the company ID of this ticket comment
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
 	 * Returns the user ID of this ticket comment.
 	 *
 	 * @return the user ID of this ticket comment
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -81,6 +101,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @param userId the user ID of this ticket comment
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -88,6 +109,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @return the user uuid of this ticket comment
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -95,6 +117,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @param userUuid the user uuid of this ticket comment
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -103,6 +126,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 * @return the user name of this ticket comment
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -110,6 +134,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @param userName the user name of this ticket comment
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -117,6 +142,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @return the create date of this ticket comment
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -124,6 +150,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @param createDate the create date of this ticket comment
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -131,6 +158,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @return the modified date of this ticket comment
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -138,6 +166,7 @@ public interface TicketCommentModel extends BaseModel<TicketComment> {
 	 *
 	 * @param modifiedDate the modified date of this ticket comment
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**

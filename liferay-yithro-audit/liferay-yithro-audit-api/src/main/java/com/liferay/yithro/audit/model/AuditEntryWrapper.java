@@ -46,6 +46,7 @@ public class AuditEntryWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("auditEntryId", getAuditEntryId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -73,6 +74,12 @@ public class AuditEntryWrapper
 
 		if (auditEntryId != null) {
 			setAuditEntryId(auditEntryId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -236,6 +243,16 @@ public class AuditEntryWrapper
 	@Override
 	public long getClassPK() {
 		return model.getClassPK();
+	}
+
+	/**
+	 * Returns the company ID of this audit entry.
+	 *
+	 * @return the company ID of this audit entry
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -456,6 +473,16 @@ public class AuditEntryWrapper
 	@Override
 	public void setClassPK(long classPK) {
 		model.setClassPK(classPK);
+	}
+
+	/**
+	 * Sets the company ID of this audit entry.
+	 *
+	 * @param companyId the company ID of this audit entry
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

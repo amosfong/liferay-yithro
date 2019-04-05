@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 import com.liferay.portal.kernel.model.WorkflowedModel;
 
 import java.util.Date;
@@ -35,7 +36,7 @@ import java.util.Date;
  */
 @ProviderType
 public interface TicketSolutionModel
-	extends BaseModel<TicketSolution>, WorkflowedModel {
+	extends BaseModel<TicketSolution>, ShardedModel, WorkflowedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -70,6 +71,22 @@ public interface TicketSolutionModel
 	 * @param ticketSolutionId the ticket solution ID of this ticket solution
 	 */
 	public void setTicketSolutionId(long ticketSolutionId);
+
+	/**
+	 * Returns the company ID of this ticket solution.
+	 *
+	 * @return the company ID of this ticket solution
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket solution.
+	 *
+	 * @param companyId the company ID of this ticket solution
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this ticket solution.

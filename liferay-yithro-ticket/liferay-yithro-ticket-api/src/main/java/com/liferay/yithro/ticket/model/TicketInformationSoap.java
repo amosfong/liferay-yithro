@@ -35,6 +35,7 @@ public class TicketInformationSoap implements Serializable {
 		TicketInformationSoap soapModel = new TicketInformationSoap();
 
 		soapModel.setTicketInformationId(model.getTicketInformationId());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
@@ -109,6 +110,14 @@ public class TicketInformationSoap implements Serializable {
 		_ticketInformationId = ticketInformationId;
 	}
 
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -150,6 +159,7 @@ public class TicketInformationSoap implements Serializable {
 	}
 
 	private long _ticketInformationId;
+	private long _companyId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _ticketEntryId;

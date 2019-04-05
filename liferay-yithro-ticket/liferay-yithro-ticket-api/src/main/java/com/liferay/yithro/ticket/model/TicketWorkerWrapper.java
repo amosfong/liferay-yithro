@@ -45,6 +45,7 @@ public class TicketWorkerWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketWorkerId", getTicketWorkerId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("ticketEntryId", getTicketEntryId());
@@ -62,6 +63,12 @@ public class TicketWorkerWrapper
 
 		if (ticketWorkerId != null) {
 			setTicketWorkerId(ticketWorkerId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -105,6 +112,16 @@ public class TicketWorkerWrapper
 		if (primary != null) {
 			setPrimary(primary);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this ticket worker.
+	 *
+	 * @return the company ID of this ticket worker
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -232,6 +249,16 @@ public class TicketWorkerWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this ticket worker.
+	 *
+	 * @param companyId the company ID of this ticket worker
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

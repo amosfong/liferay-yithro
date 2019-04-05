@@ -71,9 +71,10 @@ public class TicketFlagModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketFlag";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketFlagId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"modifiedDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"type_", Types.INTEGER}, {"flag", Types.INTEGER}
+		{"ticketFlagId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"modifiedDate", Types.TIMESTAMP},
+		{"ticketEntryId", Types.BIGINT}, {"type_", Types.INTEGER},
+		{"flag", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -81,6 +82,7 @@ public class TicketFlagModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketFlagId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
@@ -89,7 +91,7 @@ public class TicketFlagModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketFlag (ticketFlagId LONG not null primary key,userId LONG,modifiedDate DATE null,ticketEntryId LONG,type_ INTEGER,flag INTEGER)";
+		"create table Yithro_TicketFlag (ticketFlagId LONG not null primary key,companyId LONG,userId LONG,modifiedDate DATE null,ticketEntryId LONG,type_ INTEGER,flag INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketFlag";
 
@@ -135,6 +137,7 @@ public class TicketFlagModelImpl
 		TicketFlag model = new TicketFlagImpl();
 
 		model.setTicketFlagId(soapModel.getTicketFlagId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
@@ -267,6 +270,10 @@ public class TicketFlagModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketFlagId",
 			(BiConsumer<TicketFlag, Long>)TicketFlag::setTicketFlagId);
+		attributeGetterFunctions.put("companyId", TicketFlag::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketFlag, Long>)TicketFlag::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketFlag::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<TicketFlag, Long>)TicketFlag::setUserId);
@@ -302,6 +309,17 @@ public class TicketFlagModelImpl
 	@Override
 	public void setTicketFlagId(long ticketFlagId) {
 		_ticketFlagId = ticketFlagId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -418,7 +436,7 @@ public class TicketFlagModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketFlag.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketFlag.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -444,6 +462,7 @@ public class TicketFlagModelImpl
 		TicketFlagImpl ticketFlagImpl = new TicketFlagImpl();
 
 		ticketFlagImpl.setTicketFlagId(getTicketFlagId());
+		ticketFlagImpl.setCompanyId(getCompanyId());
 		ticketFlagImpl.setUserId(getUserId());
 		ticketFlagImpl.setModifiedDate(getModifiedDate());
 		ticketFlagImpl.setTicketEntryId(getTicketEntryId());
@@ -532,6 +551,8 @@ public class TicketFlagModelImpl
 		TicketFlagCacheModel ticketFlagCacheModel = new TicketFlagCacheModel();
 
 		ticketFlagCacheModel.ticketFlagId = getTicketFlagId();
+
+		ticketFlagCacheModel.companyId = getCompanyId();
 
 		ticketFlagCacheModel.userId = getUserId();
 
@@ -625,6 +646,7 @@ public class TicketFlagModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketFlagId;
+	private long _companyId;
 	private long _userId;
 	private Date _modifiedDate;
 	private long _ticketEntryId;

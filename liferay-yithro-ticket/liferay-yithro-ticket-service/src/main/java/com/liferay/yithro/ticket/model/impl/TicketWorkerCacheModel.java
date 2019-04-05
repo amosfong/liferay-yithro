@@ -63,10 +63,12 @@ public class TicketWorkerCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{ticketWorkerId=");
 		sb.append(ticketWorkerId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", userName=");
@@ -91,6 +93,7 @@ public class TicketWorkerCacheModel
 		TicketWorkerImpl ticketWorkerImpl = new TicketWorkerImpl();
 
 		ticketWorkerImpl.setTicketWorkerId(ticketWorkerId);
+		ticketWorkerImpl.setCompanyId(companyId);
 		ticketWorkerImpl.setUserId(userId);
 
 		if (userName == null) {
@@ -115,6 +118,8 @@ public class TicketWorkerCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		ticketWorkerId = objectInput.readLong();
 
+		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 
@@ -132,6 +137,8 @@ public class TicketWorkerCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(ticketWorkerId);
+
+		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
 
@@ -154,6 +161,7 @@ public class TicketWorkerCacheModel
 	}
 
 	public long ticketWorkerId;
+	public long companyId;
 	public long userId;
 	public String userName;
 	public long ticketEntryId;

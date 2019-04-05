@@ -17,7 +17,9 @@ package com.liferay.yithro.ticket.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
+import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -33,7 +35,8 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface TicketEntryModel extends BaseModel<TicketEntry> {
+public interface TicketEntryModel
+	extends AuditedModel, BaseModel<TicketEntry>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -70,10 +73,27 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
+	 * Returns the company ID of this ticket entry.
+	 *
+	 * @return the company ID of this ticket entry
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket entry.
+	 *
+	 * @param companyId the company ID of this ticket entry
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
 	 * Returns the user ID of this ticket entry.
 	 *
 	 * @return the user ID of this ticket entry
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -81,6 +101,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @param userId the user ID of this ticket entry
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -88,6 +109,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @return the user uuid of this ticket entry
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -95,6 +117,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @param userUuid the user uuid of this ticket entry
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -103,6 +126,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 * @return the user name of this ticket entry
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -110,6 +134,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @param userName the user name of this ticket entry
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -117,6 +142,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @return the create date of this ticket entry
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -124,6 +150,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @param createDate the create date of this ticket entry
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -131,6 +158,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @return the modified date of this ticket entry
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -138,6 +166,7 @@ public interface TicketEntryModel extends BaseModel<TicketEntry> {
 	 *
 	 * @param modifiedDate the modified date of this ticket entry
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**

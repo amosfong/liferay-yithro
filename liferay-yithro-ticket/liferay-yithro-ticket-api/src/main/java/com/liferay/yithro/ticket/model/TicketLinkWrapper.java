@@ -46,6 +46,7 @@ public class TicketLinkWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketLinkId", getTicketLinkId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -64,6 +65,12 @@ public class TicketLinkWrapper
 
 		if (ticketLinkId != null) {
 			setTicketLinkId(ticketLinkId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -113,6 +120,16 @@ public class TicketLinkWrapper
 		if (visibility != null) {
 			setVisibility(visibility);
 		}
+	}
+
+	/**
+	 * Returns the company ID of this ticket link.
+	 *
+	 * @return the company ID of this ticket link
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -228,6 +245,16 @@ public class TicketLinkWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this ticket link.
+	 *
+	 * @param companyId the company ID of this ticket link
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

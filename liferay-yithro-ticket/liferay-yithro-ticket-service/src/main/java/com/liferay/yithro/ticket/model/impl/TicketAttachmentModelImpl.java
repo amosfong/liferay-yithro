@@ -73,12 +73,12 @@ public class TicketAttachmentModelImpl
 	public static final String TABLE_NAME = "Yithro_TicketAttachment";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"ticketAttachmentId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"ticketEntryId", Types.BIGINT}, {"ticketSolutionId", Types.BIGINT},
-		{"fileName", Types.VARCHAR}, {"fileSize", Types.BIGINT},
-		{"type_", Types.INTEGER}, {"visibility", Types.INTEGER},
-		{"status", Types.INTEGER}
+		{"ticketAttachmentId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
+		{"ticketSolutionId", Types.BIGINT}, {"fileName", Types.VARCHAR},
+		{"fileSize", Types.BIGINT}, {"type_", Types.INTEGER},
+		{"visibility", Types.INTEGER}, {"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -86,6 +86,7 @@ public class TicketAttachmentModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("ticketAttachmentId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -99,7 +100,7 @@ public class TicketAttachmentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,fileName VARCHAR(255) null,fileSize LONG,type_ INTEGER,visibility INTEGER,status INTEGER)";
+		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,fileName VARCHAR(255) null,fileSize LONG,type_ INTEGER,visibility INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketAttachment";
@@ -154,6 +155,7 @@ public class TicketAttachmentModelImpl
 		TicketAttachment model = new TicketAttachmentImpl();
 
 		model.setTicketAttachmentId(soapModel.getTicketAttachmentId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -298,6 +300,11 @@ public class TicketAttachmentModelImpl
 			"ticketAttachmentId",
 			(BiConsumer<TicketAttachment, Long>)
 				TicketAttachment::setTicketAttachmentId);
+		attributeGetterFunctions.put(
+			"companyId", TicketAttachment::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<TicketAttachment, Long>)TicketAttachment::setCompanyId);
 		attributeGetterFunctions.put("userId", TicketAttachment::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
@@ -364,6 +371,17 @@ public class TicketAttachmentModelImpl
 	@Override
 	public void setTicketAttachmentId(long ticketAttachmentId) {
 		_ticketAttachmentId = ticketAttachmentId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -601,7 +619,7 @@ public class TicketAttachmentModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, TicketAttachment.class.getName(), getPrimaryKey());
+			getCompanyId(), TicketAttachment.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -627,6 +645,7 @@ public class TicketAttachmentModelImpl
 		TicketAttachmentImpl ticketAttachmentImpl = new TicketAttachmentImpl();
 
 		ticketAttachmentImpl.setTicketAttachmentId(getTicketAttachmentId());
+		ticketAttachmentImpl.setCompanyId(getCompanyId());
 		ticketAttachmentImpl.setUserId(getUserId());
 		ticketAttachmentImpl.setUserName(getUserName());
 		ticketAttachmentImpl.setCreateDate(getCreateDate());
@@ -744,6 +763,8 @@ public class TicketAttachmentModelImpl
 
 		ticketAttachmentCacheModel.ticketAttachmentId = getTicketAttachmentId();
 
+		ticketAttachmentCacheModel.companyId = getCompanyId();
+
 		ticketAttachmentCacheModel.userId = getUserId();
 
 		ticketAttachmentCacheModel.userName = getUserName();
@@ -858,6 +879,7 @@ public class TicketAttachmentModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _ticketAttachmentId;
+	private long _companyId;
 	private long _userId;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;

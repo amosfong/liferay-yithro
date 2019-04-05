@@ -3,6 +3,7 @@
 <model-hints>
 	<model name="com.liferay.yithro.audit.model.AuditEntry">
 		<field name="auditEntryId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />

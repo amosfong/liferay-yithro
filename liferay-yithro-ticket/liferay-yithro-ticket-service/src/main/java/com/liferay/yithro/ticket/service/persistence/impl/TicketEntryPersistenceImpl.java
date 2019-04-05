@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.service.persistence.CompanyProvider;
+import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -727,6 +729,8 @@ public class TicketEntryPersistenceImpl
 		ticketEntry.setNew(true);
 		ticketEntry.setPrimaryKey(ticketEntryId);
 
+		ticketEntry.setCompanyId(companyProvider.getCompanyId());
+
 		return ticketEntry;
 	}
 
@@ -1244,6 +1248,9 @@ public class TicketEntryPersistenceImpl
 	}
 
 	private boolean _columnBitmaskEnabled;
+
+	@Reference(service = CompanyProviderWrapper.class)
+	protected CompanyProvider companyProvider;
 
 	@Reference
 	protected EntityCache entityCache;

@@ -64,10 +64,12 @@ public class AuditEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{auditEntryId=");
 		sb.append(auditEntryId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", userName=");
@@ -112,6 +114,7 @@ public class AuditEntryCacheModel
 		AuditEntryImpl auditEntryImpl = new AuditEntryImpl();
 
 		auditEntryImpl.setAuditEntryId(auditEntryId);
+		auditEntryImpl.setCompanyId(companyId);
 		auditEntryImpl.setUserId(userId);
 
 		if (userName == null) {
@@ -190,6 +193,8 @@ public class AuditEntryCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		auditEntryId = objectInput.readLong();
 
+		companyId = objectInput.readLong();
+
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
@@ -220,6 +225,8 @@ public class AuditEntryCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(auditEntryId);
+
+		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
 
@@ -292,6 +299,7 @@ public class AuditEntryCacheModel
 	}
 
 	public long auditEntryId;
+	public long companyId;
 	public long userId;
 	public String userName;
 	public long createDate;

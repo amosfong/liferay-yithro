@@ -48,6 +48,7 @@ public class TicketCommentTemplateWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("ticketCommentTemplateId", getTicketCommentTemplateId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -66,6 +67,12 @@ public class TicketCommentTemplateWrapper
 
 		if (ticketCommentTemplateId != null) {
 			setTicketCommentTemplateId(ticketCommentTemplateId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -114,6 +121,16 @@ public class TicketCommentTemplateWrapper
 	@Override
 	public String[] getAvailableLanguageIds() {
 		return model.getAvailableLanguageIds();
+	}
+
+	/**
+	 * Returns the company ID of this ticket comment template.
+	 *
+	 * @return the company ID of this ticket comment template
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -371,6 +388,16 @@ public class TicketCommentTemplateWrapper
 		throws com.liferay.portal.kernel.exception.LocaleException {
 
 		model.prepareLocalizedFieldsForImport(defaultImportLocale);
+	}
+
+	/**
+	 * Sets the company ID of this ticket comment template.
+	 *
+	 * @param companyId the company ID of this ticket comment template
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

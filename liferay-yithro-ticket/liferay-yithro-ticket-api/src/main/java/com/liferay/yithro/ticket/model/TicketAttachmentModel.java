@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -33,7 +34,8 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface TicketAttachmentModel extends BaseModel<TicketAttachment> {
+public interface TicketAttachmentModel
+	extends BaseModel<TicketAttachment>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -68,6 +70,22 @@ public interface TicketAttachmentModel extends BaseModel<TicketAttachment> {
 	 * @param ticketAttachmentId the ticket attachment ID of this ticket attachment
 	 */
 	public void setTicketAttachmentId(long ticketAttachmentId);
+
+	/**
+	 * Returns the company ID of this ticket attachment.
+	 *
+	 * @return the company ID of this ticket attachment
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this ticket attachment.
+	 *
+	 * @param companyId the company ID of this ticket attachment
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this ticket attachment.

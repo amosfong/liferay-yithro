@@ -67,10 +67,12 @@ public class TicketInformationCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{ticketInformationId=");
 		sb.append(ticketInformationId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -92,6 +94,7 @@ public class TicketInformationCacheModel
 			new TicketInformationImpl();
 
 		ticketInformationImpl.setTicketInformationId(ticketInformationId);
+		ticketInformationImpl.setCompanyId(companyId);
 
 		if (createDate == Long.MIN_VALUE) {
 			ticketInformationImpl.setCreateDate(null);
@@ -125,6 +128,8 @@ public class TicketInformationCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		ticketInformationId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
@@ -137,6 +142,8 @@ public class TicketInformationCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(ticketInformationId);
+
+		objectOutput.writeLong(companyId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
@@ -153,6 +160,7 @@ public class TicketInformationCacheModel
 	}
 
 	public long ticketInformationId;
+	public long companyId;
 	public long createDate;
 	public long modifiedDate;
 	public long ticketEntryId;

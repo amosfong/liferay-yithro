@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AttachedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -34,7 +35,8 @@ import java.util.Date;
  * @generated
  */
 @ProviderType
-public interface AuditEntryModel extends AttachedModel, BaseModel<AuditEntry> {
+public interface AuditEntryModel
+	extends AttachedModel, BaseModel<AuditEntry>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -69,6 +71,22 @@ public interface AuditEntryModel extends AttachedModel, BaseModel<AuditEntry> {
 	 * @param auditEntryId the audit entry ID of this audit entry
 	 */
 	public void setAuditEntryId(long auditEntryId);
+
+	/**
+	 * Returns the company ID of this audit entry.
+	 *
+	 * @return the company ID of this audit entry
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this audit entry.
+	 *
+	 * @param companyId the company ID of this audit entry
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this audit entry.
