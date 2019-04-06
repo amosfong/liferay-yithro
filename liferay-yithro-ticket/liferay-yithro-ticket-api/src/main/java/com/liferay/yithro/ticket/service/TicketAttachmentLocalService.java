@@ -23,16 +23,21 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import java.util.List;
@@ -71,6 +76,12 @@ public interface TicketAttachmentLocalService
 	public TicketAttachment addTicketAttachment(
 		TicketAttachment ticketAttachment);
 
+	public List<TicketAttachment> addTicketAttachments(
+			long userId, long ticketEntryId, long ticketSolutionId,
+			List<ObjectValuePair<String, File>> files, int visibility,
+			int status, ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Creates a new ticket attachment with the primary key. Does not add the ticket attachment to the database.
 	 *
@@ -79,6 +90,8 @@ public interface TicketAttachmentLocalService
 	 */
 	@Transactional(enabled = false)
 	public TicketAttachment createTicketAttachment(long ticketAttachmentId);
+
+	public void deleteOrphanTicketAttachments() throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -96,6 +109,14 @@ public interface TicketAttachmentLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public TicketAttachment deleteTicketAttachment(long ticketAttachmentId)
+		throws PortalException;
+
+	public TicketAttachment deleteTicketAttachment(
+			long userId, long ticketAttachmentId)
+		throws PortalException;
+
+	public TicketAttachment deleteTicketAttachment(
+			long userId, TicketAttachment ticketAttachment)
 		throws PortalException;
 
 	/**
@@ -178,7 +199,15 @@ public interface TicketAttachmentLocalService
 	public TicketAttachment fetchTicketAttachment(long ticketAttachmentId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketAttachment fetchTicketAttachment(
+		long ticketEntryId, String fileName, int visibility, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public InputStream getFileAsStream(TicketAttachment ticketAttachment)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -220,6 +249,22 @@ public interface TicketAttachmentLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketAttachment> getTicketAttachments(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketAttachment> getTicketAttachments(
+		long ticketEntryId, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketAttachment> getTicketAttachments(
+		long ticketEntryId, int[] visibilities, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketAttachment> getTicketAttachments(
+		long ticketEntryId, long ticketSolutionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketAttachment> getTicketAttachments(
+		long userId, long ticketEntryId, int visibility, int status);
+
 	/**
 	 * Returns the number of ticket attachments.
 	 *
@@ -227,6 +272,16 @@ public interface TicketAttachmentLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketAttachmentsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public File getTicketAttachmentsZipFile(
+			long ticketEntryId, int[] visibilities)
+		throws PortalException;
+
+	public void updateStatus(
+			User user, List<TicketAttachment> ticketAttachments,
+			long ticketEntryId, int status, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the ticket attachment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

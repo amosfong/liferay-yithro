@@ -8,7 +8,6 @@ create table Yithro_TicketAttachment (
 	ticketSolutionId LONG,
 	fileName VARCHAR(255) null,
 	fileSize LONG,
-	type_ INTEGER,
 	visibility INTEGER,
 	status INTEGER
 );

@@ -77,8 +77,8 @@ public class TicketAttachmentModelImpl
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
 		{"ticketSolutionId", Types.BIGINT}, {"fileName", Types.VARCHAR},
-		{"fileSize", Types.BIGINT}, {"type_", Types.INTEGER},
-		{"visibility", Types.INTEGER}, {"status", Types.INTEGER}
+		{"fileSize", Types.BIGINT}, {"visibility", Types.INTEGER},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -94,13 +94,12 @@ public class TicketAttachmentModelImpl
 		TABLE_COLUMNS_MAP.put("ticketSolutionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileSize", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,fileName VARCHAR(255) null,fileSize LONG,type_ INTEGER,visibility INTEGER,status INTEGER)";
+		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,fileName VARCHAR(255) null,fileSize LONG,visibility INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketAttachment";
@@ -127,11 +126,9 @@ public class TicketAttachmentModelImpl
 
 	public static final long TICKETSOLUTIONID_COLUMN_BITMASK = 16L;
 
-	public static final long TYPE_COLUMN_BITMASK = 32L;
+	public static final long USERID_COLUMN_BITMASK = 32L;
 
-	public static final long USERID_COLUMN_BITMASK = 64L;
-
-	public static final long VISIBILITY_COLUMN_BITMASK = 128L;
+	public static final long VISIBILITY_COLUMN_BITMASK = 64L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -163,7 +160,6 @@ public class TicketAttachmentModelImpl
 		model.setTicketSolutionId(soapModel.getTicketSolutionId());
 		model.setFileName(soapModel.getFileName());
 		model.setFileSize(soapModel.getFileSize());
-		model.setType(soapModel.getType());
 		model.setVisibility(soapModel.getVisibility());
 		model.setStatus(soapModel.getStatus());
 
@@ -341,10 +337,6 @@ public class TicketAttachmentModelImpl
 		attributeSetterBiConsumers.put(
 			"fileSize",
 			(BiConsumer<TicketAttachment, Long>)TicketAttachment::setFileSize);
-		attributeGetterFunctions.put("type", TicketAttachment::getType);
-		attributeSetterBiConsumers.put(
-			"type",
-			(BiConsumer<TicketAttachment, Integer>)TicketAttachment::setType);
 		attributeGetterFunctions.put(
 			"visibility", TicketAttachment::getVisibility);
 		attributeSetterBiConsumers.put(
@@ -545,29 +537,6 @@ public class TicketAttachmentModelImpl
 
 	@JSON
 	@Override
-	public int getType() {
-		return _type;
-	}
-
-	@Override
-	public void setType(int type) {
-		_columnBitmask |= TYPE_COLUMN_BITMASK;
-
-		if (!_setOriginalType) {
-			_setOriginalType = true;
-
-			_originalType = _type;
-		}
-
-		_type = type;
-	}
-
-	public int getOriginalType() {
-		return _originalType;
-	}
-
-	@JSON
-	@Override
 	public int getVisibility() {
 		return _visibility;
 	}
@@ -653,7 +622,6 @@ public class TicketAttachmentModelImpl
 		ticketAttachmentImpl.setTicketSolutionId(getTicketSolutionId());
 		ticketAttachmentImpl.setFileName(getFileName());
 		ticketAttachmentImpl.setFileSize(getFileSize());
-		ticketAttachmentImpl.setType(getType());
 		ticketAttachmentImpl.setVisibility(getVisibility());
 		ticketAttachmentImpl.setStatus(getStatus());
 
@@ -738,11 +706,6 @@ public class TicketAttachmentModelImpl
 		ticketAttachmentModelImpl._originalFileName =
 			ticketAttachmentModelImpl._fileName;
 
-		ticketAttachmentModelImpl._originalType =
-			ticketAttachmentModelImpl._type;
-
-		ticketAttachmentModelImpl._setOriginalType = false;
-
 		ticketAttachmentModelImpl._originalVisibility =
 			ticketAttachmentModelImpl._visibility;
 
@@ -797,8 +760,6 @@ public class TicketAttachmentModelImpl
 		}
 
 		ticketAttachmentCacheModel.fileSize = getFileSize();
-
-		ticketAttachmentCacheModel.type = getType();
 
 		ticketAttachmentCacheModel.visibility = getVisibility();
 
@@ -895,9 +856,6 @@ public class TicketAttachmentModelImpl
 	private String _fileName;
 	private String _originalFileName;
 	private long _fileSize;
-	private int _type;
-	private int _originalType;
-	private boolean _setOriginalType;
 	private int _visibility;
 	private int _originalVisibility;
 	private boolean _setOriginalVisibility;

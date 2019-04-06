@@ -59,4 +59,8 @@ public interface TicketAttachment
 
 		};
 
+	public String getFileDir();
+
+	public String getFilePath();
+
 }

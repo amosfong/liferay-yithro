@@ -13,7 +13,6 @@
 			<hint name="max-length">255</hint>
 		</field>
 		<field name="fileSize" type="long" />
-		<field name="type" type="int" />
 		<field name="visibility" type="int" />
 		<field name="status" type="int" />
 	</model>

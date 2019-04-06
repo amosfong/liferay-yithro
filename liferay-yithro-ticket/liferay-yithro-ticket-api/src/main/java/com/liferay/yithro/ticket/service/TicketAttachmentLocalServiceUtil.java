@@ -54,6 +54,21 @@ public class TicketAttachmentLocalServiceUtil {
 		return getService().addTicketAttachment(ticketAttachment);
 	}
 
+	public static java.util.List
+		<com.liferay.yithro.ticket.model.TicketAttachment> addTicketAttachments(
+				long userId, long ticketEntryId, long ticketSolutionId,
+				java.util.List
+					<com.liferay.portal.kernel.util.ObjectValuePair
+						<String, java.io.File>> files,
+				int visibility, int status,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTicketAttachments(
+			userId, ticketEntryId, ticketSolutionId, files, visibility, status,
+			serviceContext);
+	}
+
 	/**
 	 * Creates a new ticket attachment with the primary key. Does not add the ticket attachment to the database.
 	 *
@@ -64,6 +79,12 @@ public class TicketAttachmentLocalServiceUtil {
 		createTicketAttachment(long ticketAttachmentId) {
 
 		return getService().createTicketAttachment(ticketAttachmentId);
+	}
+
+	public static void deleteOrphanTicketAttachments()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteOrphanTicketAttachments();
 	}
 
 	/**
@@ -89,6 +110,23 @@ public class TicketAttachmentLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteTicketAttachment(ticketAttachmentId);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketAttachment
+			deleteTicketAttachment(long userId, long ticketAttachmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteTicketAttachment(userId, ticketAttachmentId);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketAttachment
+			deleteTicketAttachment(
+				long userId,
+				com.liferay.yithro.ticket.model.TicketAttachment
+					ticketAttachment)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().deleteTicketAttachment(userId, ticketAttachment);
 	}
 
 	/**
@@ -195,10 +233,25 @@ public class TicketAttachmentLocalServiceUtil {
 		return getService().fetchTicketAttachment(ticketAttachmentId);
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketAttachment
+		fetchTicketAttachment(
+			long ticketEntryId, String fileName, int visibility, int status) {
+
+		return getService().fetchTicketAttachment(
+			ticketEntryId, fileName, visibility, status);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
 		return getService().getActionableDynamicQuery();
+	}
+
+	public static java.io.InputStream getFileAsStream(
+			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getFileAsStream(ticketAttachment);
 	}
 
 	public static
@@ -256,6 +309,37 @@ public class TicketAttachmentLocalServiceUtil {
 		return getService().getTicketAttachments(start, end);
 	}
 
+	public static java.util.List
+		<com.liferay.yithro.ticket.model.TicketAttachment> getTicketAttachments(
+			long ticketEntryId, int status) {
+
+		return getService().getTicketAttachments(ticketEntryId, status);
+	}
+
+	public static java.util.List
+		<com.liferay.yithro.ticket.model.TicketAttachment> getTicketAttachments(
+			long ticketEntryId, int[] visibilities, int status) {
+
+		return getService().getTicketAttachments(
+			ticketEntryId, visibilities, status);
+	}
+
+	public static java.util.List
+		<com.liferay.yithro.ticket.model.TicketAttachment> getTicketAttachments(
+			long ticketEntryId, long ticketSolutionId) {
+
+		return getService().getTicketAttachments(
+			ticketEntryId, ticketSolutionId);
+	}
+
+	public static java.util.List
+		<com.liferay.yithro.ticket.model.TicketAttachment> getTicketAttachments(
+			long userId, long ticketEntryId, int visibility, int status) {
+
+		return getService().getTicketAttachments(
+			userId, ticketEntryId, visibility, status);
+	}
+
 	/**
 	 * Returns the number of ticket attachments.
 	 *
@@ -263,6 +347,26 @@ public class TicketAttachmentLocalServiceUtil {
 	 */
 	public static int getTicketAttachmentsCount() {
 		return getService().getTicketAttachmentsCount();
+	}
+
+	public static java.io.File getTicketAttachmentsZipFile(
+			long ticketEntryId, int[] visibilities)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getTicketAttachmentsZipFile(
+			ticketEntryId, visibilities);
+	}
+
+	public static void updateStatus(
+			com.liferay.portal.kernel.model.User user,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments,
+			long ticketEntryId, int status,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().updateStatus(
+			user, ticketAttachments, ticketEntryId, status, serviceContext);
 	}
 
 	/**

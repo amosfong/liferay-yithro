@@ -54,7 +54,6 @@ public class TicketAttachmentWrapper
 		attributes.put("ticketSolutionId", getTicketSolutionId());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
-		attributes.put("type", getType());
 		attributes.put("visibility", getVisibility());
 		attributes.put("status", getStatus());
 
@@ -117,12 +116,6 @@ public class TicketAttachmentWrapper
 			setFileSize(fileSize);
 		}
 
-		Integer type = (Integer)attributes.get("type");
-
-		if (type != null) {
-			setType(type);
-		}
-
 		Integer visibility = (Integer)attributes.get("visibility");
 
 		if (visibility != null) {
@@ -156,6 +149,11 @@ public class TicketAttachmentWrapper
 		return model.getCreateDate();
 	}
 
+	@Override
+	public String getFileDir() {
+		return model.getFileDir();
+	}
+
 	/**
 	 * Returns the file name of this ticket attachment.
 	 *
@@ -164,6 +162,11 @@ public class TicketAttachmentWrapper
 	@Override
 	public String getFileName() {
 		return model.getFileName();
+	}
+
+	@Override
+	public String getFilePath() {
+		return model.getFilePath();
 	}
 
 	/**
@@ -224,16 +227,6 @@ public class TicketAttachmentWrapper
 	@Override
 	public long getTicketSolutionId() {
 		return model.getTicketSolutionId();
-	}
-
-	/**
-	 * Returns the type of this ticket attachment.
-	 *
-	 * @return the type of this ticket attachment
-	 */
-	@Override
-	public int getType() {
-		return model.getType();
 	}
 
 	/**
@@ -369,16 +362,6 @@ public class TicketAttachmentWrapper
 	@Override
 	public void setTicketSolutionId(long ticketSolutionId) {
 		model.setTicketSolutionId(ticketSolutionId);
-	}
-
-	/**
-	 * Sets the type of this ticket attachment.
-	 *
-	 * @param type the type of this ticket attachment
-	 */
-	@Override
-	public void setType(int type) {
-		model.setType(type);
 	}
 
 	/**

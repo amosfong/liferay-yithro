@@ -128,259 +128,6 @@ public class TicketAttachmentUtil {
 	}
 
 	/**
-	 * Returns all the ticket attachments where type = &#63;.
-	 *
-	 * @param type the type
-	 * @return the matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(int type) {
-		return getPersistence().findByType(type);
-	}
-
-	/**
-	 * Returns a range of all the ticket attachments where type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @return the range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int type, int start, int end) {
-
-		return getPersistence().findByType(type, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int type, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().findByType(type, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int type, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
-
-		return getPersistence().findByType(
-			type, start, end, orderByComparator, retrieveFromCache);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where type = &#63;.
-	 *
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByType_First(
-			int type, OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByType_First(type, orderByComparator);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where type = &#63;.
-	 *
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByType_First(
-		int type, OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByType_First(type, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where type = &#63;.
-	 *
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByType_Last(
-			int type, OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByType_Last(type, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where type = &#63;.
-	 *
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByType_Last(
-		int type, OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByType_Last(type, orderByComparator);
-	}
-
-	/**
-	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where type = &#63;.
-	 *
-	 * @param ticketAttachmentId the primary key of the current ticket attachment
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a ticket attachment with the primary key could not be found
-	 */
-	public static TicketAttachment[] findByType_PrevAndNext(
-			long ticketAttachmentId, int type,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByType_PrevAndNext(
-			ticketAttachmentId, type, orderByComparator);
-	}
-
-	/**
-	 * Returns all the ticket attachments where type = any &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param types the types
-	 * @return the matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(int[] types) {
-		return getPersistence().findByType(types);
-	}
-
-	/**
-	 * Returns a range of all the ticket attachments where type = any &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param types the types
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @return the range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int[] types, int start, int end) {
-
-		return getPersistence().findByType(types, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where type = any &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param types the types
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int[] types, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().findByType(
-			types, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where type = &#63;, optionally using the finder cache.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByType(
-		int[] types, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
-
-		return getPersistence().findByType(
-			types, start, end, orderByComparator, retrieveFromCache);
-	}
-
-	/**
-	 * Removes all the ticket attachments where type = &#63; from the database.
-	 *
-	 * @param type the type
-	 */
-	public static void removeByType(int type) {
-		getPersistence().removeByType(type);
-	}
-
-	/**
-	 * Returns the number of ticket attachments where type = &#63;.
-	 *
-	 * @param type the type
-	 * @return the number of matching ticket attachments
-	 */
-	public static int countByType(int type) {
-		return getPersistence().countByType(type);
-	}
-
-	/**
-	 * Returns the number of ticket attachments where type = any &#63;.
-	 *
-	 * @param types the types
-	 * @return the number of matching ticket attachments
-	 */
-	public static int countByType(int[] types) {
-		return getPersistence().countByType(types);
-	}
-
-	/**
 	 * Returns all the ticket attachments where createDate &lt; &#63; and ticketEntryId = &#63;.
 	 *
 	 * @param createDate the create date
@@ -569,193 +316,6 @@ public class TicketAttachmentUtil {
 	 */
 	public static int countByCD_TEI(Date createDate, long ticketEntryId) {
 		return getPersistence().countByCD_TEI(createDate, ticketEntryId);
-	}
-
-	/**
-	 * Returns all the ticket attachments where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @return the matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByCD_T(Date createDate, int type) {
-		return getPersistence().findByCD_T(createDate, type);
-	}
-
-	/**
-	 * Returns a range of all the ticket attachments where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @return the range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByCD_T(
-		Date createDate, int type, int start, int end) {
-
-		return getPersistence().findByCD_T(createDate, type, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByCD_T(
-		Date createDate, int type, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().findByCD_T(
-			createDate, type, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByCD_T(
-		Date createDate, int type, int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
-
-		return getPersistence().findByCD_T(
-			createDate, type, start, end, orderByComparator, retrieveFromCache);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByCD_T_First(
-			Date createDate, int type,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByCD_T_First(
-			createDate, type, orderByComparator);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByCD_T_First(
-		Date createDate, int type,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByCD_T_First(
-			createDate, type, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByCD_T_Last(
-			Date createDate, int type,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByCD_T_Last(
-			createDate, type, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByCD_T_Last(
-		Date createDate, int type,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByCD_T_Last(
-			createDate, type, orderByComparator);
-	}
-
-	/**
-	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param ticketAttachmentId the primary key of the current ticket attachment
-	 * @param createDate the create date
-	 * @param type the type
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a ticket attachment with the primary key could not be found
-	 */
-	public static TicketAttachment[] findByCD_T_PrevAndNext(
-			long ticketAttachmentId, Date createDate, int type,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByCD_T_PrevAndNext(
-			ticketAttachmentId, createDate, type, orderByComparator);
-	}
-
-	/**
-	 * Removes all the ticket attachments where createDate &lt; &#63; and type = &#63; from the database.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 */
-	public static void removeByCD_T(Date createDate, int type) {
-		getPersistence().removeByCD_T(createDate, type);
-	}
-
-	/**
-	 * Returns the number of ticket attachments where createDate &lt; &#63; and type = &#63;.
-	 *
-	 * @param createDate the create date
-	 * @param type the type
-	 * @return the number of matching ticket attachments
-	 */
-	public static int countByCD_T(Date createDate, int type) {
-		return getPersistence().countByCD_T(createDate, type);
 	}
 
 	/**
@@ -1145,72 +705,73 @@ public class TicketAttachmentUtil {
 	}
 
 	/**
-	 * Returns all the ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @return the matching ticket attachments
 	 */
-	public static List<TicketAttachment> findByTEI_T_S(
-		long ticketEntryId, int type, int status) {
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int visibility, int status) {
 
-		return getPersistence().findByTEI_T_S(ticketEntryId, type, status);
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibility, status);
 	}
 
 	/**
-	 * Returns a range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns a range of all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @return the range of matching ticket attachments
 	 */
-	public static List<TicketAttachment> findByTEI_T_S(
-		long ticketEntryId, int type, int status, int start, int end) {
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int visibility, int status, int start, int end) {
 
-		return getPersistence().findByTEI_T_S(
-			ticketEntryId, type, status, start, end);
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibility, status, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket attachments
 	 */
-	public static List<TicketAttachment> findByTEI_T_S(
-		long ticketEntryId, int type, int status, int start, int end,
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int visibility, int status, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator) {
 
-		return getPersistence().findByTEI_T_S(
-			ticketEntryId, type, status, start, end, orderByComparator);
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibility, status, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
@@ -1218,134 +779,243 @@ public class TicketAttachmentUtil {
 	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
-	public static List<TicketAttachment> findByTEI_T_S(
-		long ticketEntryId, int type, int status, int start, int end,
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int visibility, int status, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
 		boolean retrieveFromCache) {
 
-		return getPersistence().findByTEI_T_S(
-			ticketEntryId, type, status, start, end, orderByComparator,
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibility, status, start, end, orderByComparator,
 			retrieveFromCache);
 	}
 
 	/**
-	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket attachment
 	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
 	 */
-	public static TicketAttachment findByTEI_T_S_First(
-			long ticketEntryId, int type, int status,
+	public static TicketAttachment findByTEI_V_S_First(
+			long ticketEntryId, int visibility, int status,
 			OrderByComparator<TicketAttachment> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketAttachmentException {
 
-		return getPersistence().findByTEI_T_S_First(
-			ticketEntryId, type, status, orderByComparator);
+		return getPersistence().findByTEI_V_S_First(
+			ticketEntryId, visibility, status, orderByComparator);
 	}
 
 	/**
-	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
 	 */
-	public static TicketAttachment fetchByTEI_T_S_First(
-		long ticketEntryId, int type, int status,
+	public static TicketAttachment fetchByTEI_V_S_First(
+		long ticketEntryId, int visibility, int status,
 		OrderByComparator<TicketAttachment> orderByComparator) {
 
-		return getPersistence().fetchByTEI_T_S_First(
-			ticketEntryId, type, status, orderByComparator);
+		return getPersistence().fetchByTEI_V_S_First(
+			ticketEntryId, visibility, status, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket attachment
 	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
 	 */
-	public static TicketAttachment findByTEI_T_S_Last(
-			long ticketEntryId, int type, int status,
+	public static TicketAttachment findByTEI_V_S_Last(
+			long ticketEntryId, int visibility, int status,
 			OrderByComparator<TicketAttachment> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketAttachmentException {
 
-		return getPersistence().findByTEI_T_S_Last(
-			ticketEntryId, type, status, orderByComparator);
+		return getPersistence().findByTEI_V_S_Last(
+			ticketEntryId, visibility, status, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
 	 */
-	public static TicketAttachment fetchByTEI_T_S_Last(
-		long ticketEntryId, int type, int status,
+	public static TicketAttachment fetchByTEI_V_S_Last(
+		long ticketEntryId, int visibility, int status,
 		OrderByComparator<TicketAttachment> orderByComparator) {
 
-		return getPersistence().fetchByTEI_T_S_Last(
-			ticketEntryId, type, status, orderByComparator);
+		return getPersistence().fetchByTEI_V_S_Last(
+			ticketEntryId, visibility, status, orderByComparator);
 	}
 
 	/**
-	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketAttachmentId the primary key of the current ticket attachment
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next ticket attachment
 	 * @throws NoSuchTicketAttachmentException if a ticket attachment with the primary key could not be found
 	 */
-	public static TicketAttachment[] findByTEI_T_S_PrevAndNext(
-			long ticketAttachmentId, long ticketEntryId, int type, int status,
-			OrderByComparator<TicketAttachment> orderByComparator)
+	public static TicketAttachment[] findByTEI_V_S_PrevAndNext(
+			long ticketAttachmentId, long ticketEntryId, int visibility,
+			int status, OrderByComparator<TicketAttachment> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketAttachmentException {
 
-		return getPersistence().findByTEI_T_S_PrevAndNext(
-			ticketAttachmentId, ticketEntryId, type, status, orderByComparator);
+		return getPersistence().findByTEI_V_S_PrevAndNext(
+			ticketAttachmentId, ticketEntryId, visibility, status,
+			orderByComparator);
 	}
 
 	/**
-	 * Removes all the ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63; from the database.
+	 * Returns all the ticket attachments where ticketEntryId = &#63; and visibility = any &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibilities the visibilities
+	 * @param status the status
+	 * @return the matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int[] visibilities, int status) {
+
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibilities, status);
+	}
+
+	/**
+	 * Returns a range of all the ticket attachments where ticketEntryId = &#63; and visibility = any &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param visibilities the visibilities
+	 * @param status the status
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @return the range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int[] visibilities, int status, int start,
+		int end) {
+
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibilities, status, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and visibility = any &#63; and status = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param visibilities the visibilities
+	 * @param status the status
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int[] visibilities, int status, int start, int end,
+		OrderByComparator<TicketAttachment> orderByComparator) {
+
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibilities, status, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
+	 * @param status the status
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTEI_V_S(
+		long ticketEntryId, int[] visibilities, int status, int start, int end,
+		OrderByComparator<TicketAttachment> orderByComparator,
+		boolean retrieveFromCache) {
+
+		return getPersistence().findByTEI_V_S(
+			ticketEntryId, visibilities, status, start, end, orderByComparator,
+			retrieveFromCache);
+	}
+
+	/**
+	 * Removes all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63; from the database.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param status the status
 	 */
-	public static void removeByTEI_T_S(
-		long ticketEntryId, int type, int status) {
+	public static void removeByTEI_V_S(
+		long ticketEntryId, int visibility, int status) {
 
-		getPersistence().removeByTEI_T_S(ticketEntryId, type, status);
+		getPersistence().removeByTEI_V_S(ticketEntryId, visibility, status);
 	}
 
 	/**
-	 * Returns the number of ticket attachments where ticketEntryId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the number of ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
+	 * @param visibility the visibility
 	 * @param status the status
 	 * @return the number of matching ticket attachments
 	 */
-	public static int countByTEI_T_S(long ticketEntryId, int type, int status) {
-		return getPersistence().countByTEI_T_S(ticketEntryId, type, status);
+	public static int countByTEI_V_S(
+		long ticketEntryId, int visibility, int status) {
+
+		return getPersistence().countByTEI_V_S(
+			ticketEntryId, visibility, status);
+	}
+
+	/**
+	 * Returns the number of ticket attachments where ticketEntryId = &#63; and visibility = any &#63; and status = &#63;.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param visibilities the visibilities
+	 * @param status the status
+	 * @return the number of matching ticket attachments
+	 */
+	public static int countByTEI_V_S(
+		long ticketEntryId, int[] visibilities, int status) {
+
+		return getPersistence().countByTEI_V_S(
+			ticketEntryId, visibilities, status);
 	}
 
 	/**
@@ -1657,343 +1327,6 @@ public class TicketAttachmentUtil {
 
 		return getPersistence().countByTEI_FN_V_S(
 			ticketEntryId, fileName, visibility, status);
-	}
-
-	/**
-	 * Returns all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @return the matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, type, visibility, status);
-	}
-
-	/**
-	 * Returns a range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @return the range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status, int start,
-		int end) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, type, visibility, status, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status, int start,
-		int end, OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, type, visibility, status, start, end,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status, int start,
-		int end, OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, type, visibility, status, start, end,
-			orderByComparator, retrieveFromCache);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByTEI_T_V_S_First(
-			long ticketEntryId, int type, int visibility, int status,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByTEI_T_V_S_First(
-			ticketEntryId, type, visibility, status, orderByComparator);
-	}
-
-	/**
-	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByTEI_T_V_S_First(
-		long ticketEntryId, int type, int visibility, int status,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByTEI_T_V_S_First(
-			ticketEntryId, type, visibility, status, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment findByTEI_T_V_S_Last(
-			long ticketEntryId, int type, int visibility, int status,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByTEI_T_V_S_Last(
-			ticketEntryId, type, visibility, status, orderByComparator);
-	}
-
-	/**
-	 * Returns the last ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
-	 */
-	public static TicketAttachment fetchByTEI_T_V_S_Last(
-		long ticketEntryId, int type, int visibility, int status,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().fetchByTEI_T_V_S_Last(
-			ticketEntryId, type, visibility, status, orderByComparator);
-	}
-
-	/**
-	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketAttachmentId the primary key of the current ticket attachment
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next ticket attachment
-	 * @throws NoSuchTicketAttachmentException if a ticket attachment with the primary key could not be found
-	 */
-	public static TicketAttachment[] findByTEI_T_V_S_PrevAndNext(
-			long ticketAttachmentId, long ticketEntryId, int type,
-			int visibility, int status,
-			OrderByComparator<TicketAttachment> orderByComparator)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketAttachmentException {
-
-		return getPersistence().findByTEI_T_V_S_PrevAndNext(
-			ticketAttachmentId, ticketEntryId, type, visibility, status,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns all the ticket attachments where ticketEntryId = &#63; and type = any &#63; and visibility = any &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param types the types
-	 * @param visibilities the visibilities
-	 * @param status the status
-	 * @return the matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int[] types, int[] visibilities, int status) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, types, visibilities, status);
-	}
-
-	/**
-	 * Returns a range of all the ticket attachments where ticketEntryId = &#63; and type = any &#63; and visibility = any &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param types the types
-	 * @param visibilities the visibilities
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @return the range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int[] types, int[] visibilities, int status,
-		int start, int end) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, types, visibilities, status, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = any &#63; and visibility = any &#63; and status = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param types the types
-	 * @param visibilities the visibilities
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int[] types, int[] visibilities, int status,
-		int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, types, visibilities, status, start, end,
-			orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;, optionally using the finder cache.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @param start the lower bound of the range of ticket attachments
-	 * @param end the upper bound of the range of ticket attachments (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the ordered range of matching ticket attachments
-	 */
-	public static List<TicketAttachment> findByTEI_T_V_S(
-		long ticketEntryId, int[] types, int[] visibilities, int status,
-		int start, int end,
-		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
-
-		return getPersistence().findByTEI_T_V_S(
-			ticketEntryId, types, visibilities, status, start, end,
-			orderByComparator, retrieveFromCache);
-	}
-
-	/**
-	 * Removes all the ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63; from the database.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 */
-	public static void removeByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status) {
-
-		getPersistence().removeByTEI_T_V_S(
-			ticketEntryId, type, visibility, status);
-	}
-
-	/**
-	 * Returns the number of ticket attachments where ticketEntryId = &#63; and type = &#63; and visibility = &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param type the type
-	 * @param visibility the visibility
-	 * @param status the status
-	 * @return the number of matching ticket attachments
-	 */
-	public static int countByTEI_T_V_S(
-		long ticketEntryId, int type, int visibility, int status) {
-
-		return getPersistence().countByTEI_T_V_S(
-			ticketEntryId, type, visibility, status);
-	}
-
-	/**
-	 * Returns the number of ticket attachments where ticketEntryId = &#63; and type = any &#63; and visibility = any &#63; and status = &#63;.
-	 *
-	 * @param ticketEntryId the ticket entry ID
-	 * @param types the types
-	 * @param visibilities the visibilities
-	 * @param status the status
-	 * @return the number of matching ticket attachments
-	 */
-	public static int countByTEI_T_V_S(
-		long ticketEntryId, int[] types, int[] visibilities, int status) {
-
-		return getPersistence().countByTEI_T_V_S(
-			ticketEntryId, types, visibilities, status);
 	}
 
 	/**

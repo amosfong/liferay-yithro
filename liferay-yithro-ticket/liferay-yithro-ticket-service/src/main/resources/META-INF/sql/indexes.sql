@@ -1,11 +1,8 @@
 create index IX_C5CE2300 on Yithro_TicketAttachment (createDate, ticketEntryId);
-create index IX_892A4AE4 on Yithro_TicketAttachment (createDate, type_);
 create index IX_C4AF0A45 on Yithro_TicketAttachment (ticketEntryId, fileName[$COLUMN_LENGTH:255$], visibility, status);
 create index IX_215491E4 on Yithro_TicketAttachment (ticketEntryId, status);
 create index IX_41888312 on Yithro_TicketAttachment (ticketEntryId, ticketSolutionId);
-create index IX_6BDDF6FD on Yithro_TicketAttachment (ticketEntryId, type_, status);
-create index IX_CC32BF83 on Yithro_TicketAttachment (ticketEntryId, type_, visibility, status);
-create index IX_3F136E2 on Yithro_TicketAttachment (type_);
+create index IX_ACD37EA on Yithro_TicketAttachment (ticketEntryId, visibility, status);
 create index IX_C67DC870 on Yithro_TicketAttachment (userId, ticketEntryId, visibility, status);
 
 create index IX_F578A0BF on Yithro_TicketComment (ticketEntryId, type_);

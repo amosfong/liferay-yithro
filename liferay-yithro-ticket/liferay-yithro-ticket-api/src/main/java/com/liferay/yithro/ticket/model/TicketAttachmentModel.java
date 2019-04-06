@@ -202,20 +202,6 @@ public interface TicketAttachmentModel
 	public void setFileSize(long fileSize);
 
 	/**
-	 * Returns the type of this ticket attachment.
-	 *
-	 * @return the type of this ticket attachment
-	 */
-	public int getType();
-
-	/**
-	 * Sets the type of this ticket attachment.
-	 *
-	 * @param type the type of this ticket attachment
-	 */
-	public void setType(int type);
-
-	/**
 	 * Returns the visibility of this ticket attachment.
 	 *
 	 * @return the visibility of this ticket attachment
