@@ -12,21 +12,13 @@
  * details.
  */
 
-package com.liferay.yithro.audit.constants;
+package com.liferay.yithro.ticket.constants;
 
 /**
  * @author Amos Fong
  */
-public class Fields {
+public class TicketAttachmentConstants {
 
-	public static final String FILE = "file";
-
-	public static final String PRIMARY = "primary";
-
-	public static final String ROLE = "role";
-
-	public static final String URL = "url";
-
-	public static final String USER = "user";
+	public static final int TICKET_ENTRY_DEFAULT_ID = 0;
 
 }

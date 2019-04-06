@@ -22,7 +22,6 @@
 		<column name="ticketSolutionId" type="long" />
 		<column name="fileName" type="String" />
 		<column name="fileSize" type="long" />
-		<column name="type" type="int" />
 		<column name="visibility" type="int" />
 		<column name="status" type="int" />
 
@@ -34,16 +33,9 @@
 
 		<!-- Finder methods -->
 
-		<finder name="Type" return-type="Collection">
-			<finder-column arrayable-operator="OR" name="type" />
-		</finder>
 		<finder name="CD_TEI" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
 			<finder-column name="ticketEntryId" />
-		</finder>
-		<finder name="CD_T" return-type="Collection">
-			<finder-column comparator="&lt;" name="createDate" />
-			<finder-column name="type" />
 		</finder>
 		<finder name="TEI_TSI" return-type="Collection">
 			<finder-column name="ticketEntryId" />
@@ -53,9 +45,9 @@
 			<finder-column name="ticketEntryId" />
 			<finder-column name="status" />
 		</finder>
-		<finder name="TEI_T_S" return-type="Collection">
+		<finder name="TEI_V_S" return-type="Collection">
 			<finder-column name="ticketEntryId" />
-			<finder-column name="type" />
+			<finder-column arrayable-operator="OR" name="visibility" />
 			<finder-column name="status" />
 		</finder>
 		<finder name="U_TEI_V_S" return-type="Collection">
@@ -70,16 +62,6 @@
 			<finder-column name="visibility" />
 			<finder-column name="status" />
 		</finder>
-		<finder name="TEI_T_V_S" return-type="Collection">
-			<finder-column name="ticketEntryId" />
-			<finder-column arrayable-operator="OR" name="type" />
-			<finder-column arrayable-operator="OR" name="visibility" />
-			<finder-column name="status" />
-		</finder>
-
-		<!-- References -->
-
-		<reference entity="Organization" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="TicketComment" remote-service="true">
 
@@ -403,6 +385,8 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>DuplicateTicketAttachment</exception>
+		<exception>TicketAttachmentVisibility</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>

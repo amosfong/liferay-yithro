@@ -16,13 +16,37 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketAttachmentImpl extends TicketAttachmentBaseImpl {
 
 	public TicketAttachmentImpl() {
+	}
+
+	public String getFileDir() {
+		StringBundler sb = new StringBundler(4);
+
+		sb.append("yithro/ticket/");
+		sb.append(getTicketEntryId());
+		sb.append(StringPool.SLASH);
+		sb.append(getTicketAttachmentId());
+
+		return sb.toString();
+	}
+
+	public String getFilePath() {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(getFileDir());
+		sb.append(StringPool.SLASH);
+		sb.append(getFileName());
+
+		return sb.toString();
 	}
 
 }
