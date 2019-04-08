@@ -229,6 +229,11 @@
 			<finder-column name="ticketEntryId" />
 			<finder-column name="type" />
 		</finder>
+		<finder name="U_TEI_T" return-type="TicketFlag">
+			<finder-column name="userId" />
+			<finder-column name="ticketEntryId" />
+			<finder-column name="type" />
+		</finder>
 		<finder name="TEI_T_F" return-type="Collection">
 			<finder-column name="ticketEntryId" />
 			<finder-column arrayable-operator="OR" name="type" />
