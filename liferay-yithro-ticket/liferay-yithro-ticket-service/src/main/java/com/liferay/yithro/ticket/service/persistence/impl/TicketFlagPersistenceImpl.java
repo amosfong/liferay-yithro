@@ -1154,6 +1154,256 @@ public class TicketFlagPersistenceImpl
 	private static final String _FINDER_COLUMN_TEI_T_TYPE_2 =
 		"ticketFlag.type = ?";
 
+	private FinderPath _finderPathFetchByU_TEI_T;
+	private FinderPath _finderPathCountByU_TEI_T;
+
+	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or throws a <code>NoSuchTicketFlagException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the matching ticket flag
+	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
+	 */
+	@Override
+	public TicketFlag findByU_TEI_T(long userId, long ticketEntryId, int type)
+		throws NoSuchTicketFlagException {
+
+		TicketFlag ticketFlag = fetchByU_TEI_T(userId, ticketEntryId, type);
+
+		if (ticketFlag == null) {
+			StringBundler msg = new StringBundler(8);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("userId=");
+			msg.append(userId);
+
+			msg.append(", ticketEntryId=");
+			msg.append(ticketEntryId);
+
+			msg.append(", type=");
+			msg.append(type);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchTicketFlagException(msg.toString());
+		}
+
+		return ticketFlag;
+	}
+
+	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
+	 */
+	@Override
+	public TicketFlag fetchByU_TEI_T(
+		long userId, long ticketEntryId, int type) {
+
+		return fetchByU_TEI_T(userId, ticketEntryId, type, true);
+	}
+
+	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
+	 */
+	@Override
+	public TicketFlag fetchByU_TEI_T(
+		long userId, long ticketEntryId, int type, boolean retrieveFromCache) {
+
+		Object[] finderArgs = new Object[] {userId, ticketEntryId, type};
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByU_TEI_T, finderArgs, this);
+		}
+
+		if (result instanceof TicketFlag) {
+			TicketFlag ticketFlag = (TicketFlag)result;
+
+			if ((userId != ticketFlag.getUserId()) ||
+				(ticketEntryId != ticketFlag.getTicketEntryId()) ||
+				(type != ticketFlag.getType())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(5);
+
+			query.append(_SQL_SELECT_TICKETFLAG_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_TYPE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(ticketEntryId);
+
+				qPos.add(type);
+
+				List<TicketFlag> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(
+						_finderPathFetchByU_TEI_T, finderArgs, list);
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							_log.warn(
+								"TicketFlagPersistenceImpl.fetchByU_TEI_T(long, long, int, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					TicketFlag ticketFlag = list.get(0);
+
+					result = ticketFlag;
+
+					cacheResult(ticketFlag);
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(_finderPathFetchByU_TEI_T, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (TicketFlag)result;
+		}
+	}
+
+	/**
+	 * Removes the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the ticket flag that was removed
+	 */
+	@Override
+	public TicketFlag removeByU_TEI_T(long userId, long ticketEntryId, int type)
+		throws NoSuchTicketFlagException {
+
+		TicketFlag ticketFlag = findByU_TEI_T(userId, ticketEntryId, type);
+
+		return remove(ticketFlag);
+	}
+
+	/**
+	 * Returns the number of ticket flags where userId = &#63; and ticketEntryId = &#63; and type = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the number of matching ticket flags
+	 */
+	@Override
+	public int countByU_TEI_T(long userId, long ticketEntryId, int type) {
+		FinderPath finderPath = _finderPathCountByU_TEI_T;
+
+		Object[] finderArgs = new Object[] {userId, ticketEntryId, type};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_COUNT_TICKETFLAG_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_U_TEI_T_TYPE_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(ticketEntryId);
+
+				qPos.add(type);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_TEI_T_USERID_2 =
+		"ticketFlag.userId = ? AND ";
+
+	private static final String _FINDER_COLUMN_U_TEI_T_TICKETENTRYID_2 =
+		"ticketFlag.ticketEntryId = ? AND ";
+
+	private static final String _FINDER_COLUMN_U_TEI_T_TYPE_2 =
+		"ticketFlag.type = ?";
+
 	private FinderPath _finderPathWithPaginationFindByTEI_T_F;
 	private FinderPath _finderPathWithoutPaginationFindByTEI_T_F;
 	private FinderPath _finderPathCountByTEI_T_F;
@@ -2078,6 +2328,14 @@ public class TicketFlagPersistenceImpl
 			entityCacheEnabled, TicketFlagImpl.class,
 			ticketFlag.getPrimaryKey(), ticketFlag);
 
+		finderCache.putResult(
+			_finderPathFetchByU_TEI_T,
+			new Object[] {
+				ticketFlag.getUserId(), ticketFlag.getTicketEntryId(),
+				ticketFlag.getType()
+			},
+			ticketFlag);
+
 		ticketFlag.resetOriginalValues();
 	}
 
@@ -2132,6 +2390,8 @@ public class TicketFlagPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((TicketFlagModelImpl)ticketFlag, true);
 	}
 
 	@Override
@@ -2143,6 +2403,51 @@ public class TicketFlagPersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, TicketFlagImpl.class,
 				ticketFlag.getPrimaryKey());
+
+			clearUniqueFindersCache((TicketFlagModelImpl)ticketFlag, true);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		TicketFlagModelImpl ticketFlagModelImpl) {
+
+		Object[] args = new Object[] {
+			ticketFlagModelImpl.getUserId(),
+			ticketFlagModelImpl.getTicketEntryId(),
+			ticketFlagModelImpl.getType()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByU_TEI_T, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByU_TEI_T, args, ticketFlagModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		TicketFlagModelImpl ticketFlagModelImpl, boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				ticketFlagModelImpl.getUserId(),
+				ticketFlagModelImpl.getTicketEntryId(),
+				ticketFlagModelImpl.getType()
+			};
+
+			finderCache.removeResult(_finderPathCountByU_TEI_T, args);
+			finderCache.removeResult(_finderPathFetchByU_TEI_T, args);
+		}
+
+		if ((ticketFlagModelImpl.getColumnBitmask() &
+			 _finderPathFetchByU_TEI_T.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				ticketFlagModelImpl.getOriginalUserId(),
+				ticketFlagModelImpl.getOriginalTicketEntryId(),
+				ticketFlagModelImpl.getOriginalType()
+			};
+
+			finderCache.removeResult(_finderPathCountByU_TEI_T, args);
+			finderCache.removeResult(_finderPathFetchByU_TEI_T, args);
 		}
 	}
 
@@ -2400,6 +2705,9 @@ public class TicketFlagPersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, TicketFlagImpl.class,
 			ticketFlag.getPrimaryKey(), ticketFlag, false);
+
+		clearUniqueFindersCache(ticketFlagModelImpl, false);
+		cacheUniqueFindersCache(ticketFlagModelImpl);
 
 		ticketFlag.resetOriginalValues();
 
@@ -2736,6 +3044,25 @@ public class TicketFlagPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTEI_T",
 			new String[] {Long.class.getName(), Integer.class.getName()});
+
+		_finderPathFetchByU_TEI_T = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketFlagImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByU_TEI_T",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName()
+			},
+			TicketFlagModelImpl.USERID_COLUMN_BITMASK |
+			TicketFlagModelImpl.TICKETENTRYID_COLUMN_BITMASK |
+			TicketFlagModelImpl.TYPE_COLUMN_BITMASK);
+
+		_finderPathCountByU_TEI_T = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_TEI_T",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName()
+			});
 
 		_finderPathWithPaginationFindByTEI_T_F = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TicketFlagImpl.class,

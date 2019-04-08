@@ -113,7 +113,9 @@ public class TicketFlagModelImpl
 
 	public static final long TYPE_COLUMN_BITMASK = 4L;
 
-	public static final long TICKETFLAGID_COLUMN_BITMASK = 8L;
+	public static final long USERID_COLUMN_BITMASK = 8L;
+
+	public static final long TICKETFLAGID_COLUMN_BITMASK = 16L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -330,6 +332,14 @@ public class TicketFlagModelImpl
 
 	@Override
 	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
 		_userId = userId;
 	}
 
@@ -347,6 +357,10 @@ public class TicketFlagModelImpl
 
 	@Override
 	public void setUserUuid(String userUuid) {
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
 	}
 
 	@JSON
@@ -530,6 +544,10 @@ public class TicketFlagModelImpl
 	public void resetOriginalValues() {
 		TicketFlagModelImpl ticketFlagModelImpl = this;
 
+		ticketFlagModelImpl._originalUserId = ticketFlagModelImpl._userId;
+
+		ticketFlagModelImpl._setOriginalUserId = false;
+
 		ticketFlagModelImpl._originalTicketEntryId =
 			ticketFlagModelImpl._ticketEntryId;
 
@@ -648,6 +666,8 @@ public class TicketFlagModelImpl
 	private long _ticketFlagId;
 	private long _companyId;
 	private long _userId;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
 	private Date _modifiedDate;
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;

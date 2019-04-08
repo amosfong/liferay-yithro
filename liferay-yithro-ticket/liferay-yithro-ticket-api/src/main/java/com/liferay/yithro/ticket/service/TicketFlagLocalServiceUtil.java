@@ -102,6 +102,12 @@ public class TicketFlagLocalServiceUtil {
 		return getService().deleteTicketFlag(ticketFlag);
 	}
 
+	public static void deleteTicketFlags(
+		long ticketEntryId, int type, int flag) {
+
+		getService().deleteTicketFlags(ticketEntryId, type, flag);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
 		dynamicQuery() {
 
@@ -253,6 +259,18 @@ public class TicketFlagLocalServiceUtil {
 		return getService().getTicketFlags(start, end);
 	}
 
+	public static java.util.List<com.liferay.yithro.ticket.model.TicketFlag>
+		getTicketFlags(long ticketEntryId, int type, int flag) {
+
+		return getService().getTicketFlags(ticketEntryId, type, flag);
+	}
+
+	public static java.util.List<com.liferay.yithro.ticket.model.TicketFlag>
+		getTicketFlags(long ticketEntryId, int[] types, int flag) {
+
+		return getService().getTicketFlags(ticketEntryId, types, flag);
+	}
+
 	/**
 	 * Returns the number of ticket flags.
 	 *
@@ -260,6 +278,31 @@ public class TicketFlagLocalServiceUtil {
 	 */
 	public static int getTicketFlagsCount() {
 		return getService().getTicketFlagsCount();
+	}
+
+	public static int getTicketFlagsCount(
+		long ticketEntryId, int type, int flag) {
+
+		return getService().getTicketFlagsCount(ticketEntryId, type, flag);
+	}
+
+	public static int[] getTicketFlagTypes(
+		long ticketEntryId, int[] types, int flag) {
+
+		return getService().getTicketFlagTypes(ticketEntryId, types, flag);
+	}
+
+	public static boolean hasTicketFlag(
+		long ticketEntryId, int type, int flag) {
+
+		return getService().hasTicketFlag(ticketEntryId, type, flag);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketFlag updateTicketFlag(
+			long userId, long ticketEntryId, int type, int flag)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketFlag(userId, ticketEntryId, type, flag);
 	}
 
 	/**

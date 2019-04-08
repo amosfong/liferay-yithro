@@ -481,6 +481,81 @@ public class TicketFlagUtil {
 	}
 
 	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or throws a <code>NoSuchTicketFlagException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the matching ticket flag
+	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
+	 */
+	public static TicketFlag findByU_TEI_T(
+			long userId, long ticketEntryId, int type)
+		throws com.liferay.yithro.ticket.exception.NoSuchTicketFlagException {
+
+		return getPersistence().findByU_TEI_T(userId, ticketEntryId, type);
+	}
+
+	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
+	 */
+	public static TicketFlag fetchByU_TEI_T(
+		long userId, long ticketEntryId, int type) {
+
+		return getPersistence().fetchByU_TEI_T(userId, ticketEntryId, type);
+	}
+
+	/**
+	 * Returns the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
+	 */
+	public static TicketFlag fetchByU_TEI_T(
+		long userId, long ticketEntryId, int type, boolean retrieveFromCache) {
+
+		return getPersistence().fetchByU_TEI_T(
+			userId, ticketEntryId, type, retrieveFromCache);
+	}
+
+	/**
+	 * Removes the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the ticket flag that was removed
+	 */
+	public static TicketFlag removeByU_TEI_T(
+			long userId, long ticketEntryId, int type)
+		throws com.liferay.yithro.ticket.exception.NoSuchTicketFlagException {
+
+		return getPersistence().removeByU_TEI_T(userId, ticketEntryId, type);
+	}
+
+	/**
+	 * Returns the number of ticket flags where userId = &#63; and ticketEntryId = &#63; and type = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketEntryId the ticket entry ID
+	 * @param type the type
+	 * @return the number of matching ticket flags
+	 */
+	public static int countByU_TEI_T(
+		long userId, long ticketEntryId, int type) {
+
+		return getPersistence().countByU_TEI_T(userId, ticketEntryId, type);
+	}
+
+	/**
 	 * Returns all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
