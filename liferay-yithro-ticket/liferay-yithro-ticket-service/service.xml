@@ -144,7 +144,6 @@
 
 		<column localized="true" name="name" type="String" />
 		<column localized="true" name="content" type="String" />
-		<column name="useCount" type="int" />
 
 		<!-- Order -->
 
@@ -392,6 +391,8 @@
 	<exceptions>
 		<exception>DuplicateTicketAttachment</exception>
 		<exception>TicketAttachmentVisibility</exception>
+		<exception>TicketCommentTemplateContent</exception>
+		<exception>TicketCommentTemplateName</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>

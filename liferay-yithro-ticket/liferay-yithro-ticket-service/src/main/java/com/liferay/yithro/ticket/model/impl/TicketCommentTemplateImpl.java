@@ -16,13 +16,26 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.StringPool;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketCommentTemplateImpl extends TicketCommentTemplateBaseImpl {
 
 	public TicketCommentTemplateImpl() {
+	}
+
+	public String getDefaultLocale() {
+		String name = getName();
+
+		if (name == null) {
+			return StringPool.BLANK;
+		}
+
+		return LocalizationUtil.getDefaultLanguageId(name);
 	}
 
 }
