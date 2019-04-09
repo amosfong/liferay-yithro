@@ -67,7 +67,7 @@ public class TicketCommentTemplateCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{ticketCommentTemplateId=");
 		sb.append(ticketCommentTemplateId);
@@ -85,8 +85,6 @@ public class TicketCommentTemplateCacheModel
 		sb.append(name);
 		sb.append(", content=");
 		sb.append(content);
-		sb.append(", useCount=");
-		sb.append(useCount);
 		sb.append("}");
 
 		return sb.toString();
@@ -137,8 +135,6 @@ public class TicketCommentTemplateCacheModel
 			ticketCommentTemplateImpl.setContent(content);
 		}
 
-		ticketCommentTemplateImpl.setUseCount(useCount);
-
 		ticketCommentTemplateImpl.resetOriginalValues();
 
 		return ticketCommentTemplateImpl;
@@ -156,8 +152,6 @@ public class TicketCommentTemplateCacheModel
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
 		content = objectInput.readUTF();
-
-		useCount = objectInput.readInt();
 	}
 
 	@Override
@@ -191,8 +185,6 @@ public class TicketCommentTemplateCacheModel
 		else {
 			objectOutput.writeUTF(content);
 		}
-
-		objectOutput.writeInt(useCount);
 	}
 
 	public long ticketCommentTemplateId;
@@ -203,6 +195,5 @@ public class TicketCommentTemplateCacheModel
 	public long modifiedDate;
 	public String name;
 	public String content;
-	public int useCount;
 
 }

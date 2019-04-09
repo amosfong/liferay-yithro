@@ -82,8 +82,7 @@ public class TicketCommentTemplateModelImpl
 		{"ticketCommentTemplateId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"name", Types.VARCHAR}, {"content", Types.VARCHAR},
-		{"useCount", Types.INTEGER}
+		{"name", Types.VARCHAR}, {"content", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,11 +97,10 @@ public class TicketCommentTemplateModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("content", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("useCount", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketCommentTemplate (ticketCommentTemplateId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,content STRING null,useCount INTEGER)";
+		"create table Yithro_TicketCommentTemplate (ticketCommentTemplateId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,content STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketCommentTemplate";
@@ -151,7 +149,6 @@ public class TicketCommentTemplateModelImpl
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setName(soapModel.getName());
 		model.setContent(soapModel.getContent());
-		model.setUseCount(soapModel.getUseCount());
 
 		return model;
 	}
@@ -331,12 +328,6 @@ public class TicketCommentTemplateModelImpl
 			"content",
 			(BiConsumer<TicketCommentTemplate, String>)
 				TicketCommentTemplate::setContent);
-		attributeGetterFunctions.put(
-			"useCount", TicketCommentTemplate::getUseCount);
-		attributeSetterBiConsumers.put(
-			"useCount",
-			(BiConsumer<TicketCommentTemplate, Integer>)
-				TicketCommentTemplate::setUseCount);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -648,17 +639,6 @@ public class TicketCommentTemplateModelImpl
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
-	@JSON
-	@Override
-	public int getUseCount() {
-		return _useCount;
-	}
-
-	@Override
-	public void setUseCount(int useCount) {
-		_useCount = useCount;
-	}
-
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
@@ -784,7 +764,6 @@ public class TicketCommentTemplateModelImpl
 		ticketCommentTemplateImpl.setModifiedDate(getModifiedDate());
 		ticketCommentTemplateImpl.setName(getName());
 		ticketCommentTemplateImpl.setContent(getContent());
-		ticketCommentTemplateImpl.setUseCount(getUseCount());
 
 		ticketCommentTemplateImpl.resetOriginalValues();
 
@@ -904,8 +883,6 @@ public class TicketCommentTemplateModelImpl
 			ticketCommentTemplateCacheModel.content = null;
 		}
 
-		ticketCommentTemplateCacheModel.useCount = getUseCount();
-
 		return ticketCommentTemplateCacheModel;
 	}
 
@@ -993,7 +970,6 @@ public class TicketCommentTemplateModelImpl
 	private String _nameCurrentLanguageId;
 	private String _content;
 	private String _contentCurrentLanguageId;
-	private int _useCount;
 	private TicketCommentTemplate _escapedModel;
 
 }

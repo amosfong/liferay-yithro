@@ -43,7 +43,6 @@
 		<field name="modifiedDate" type="Date" />
 		<field localized="true" name="name" type="String" />
 		<field localized="true" name="content" type="String" />
-		<field name="useCount" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketEntry">
 		<field name="ticketEntryId" type="long" />

@@ -60,6 +60,9 @@ public interface TicketCommentTemplateLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommentTemplateLocalServiceUtil} to access the ticket comment template local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TicketCommentTemplate addTicketCommentTemplate(
+			long userId, String defaultLanguageId, String name, String content)
+		throws PortalException;
 
 	/**
 	 * Adds the ticket comment template to the database. Also notifies the appropriate model listeners.
@@ -232,6 +235,15 @@ public interface TicketCommentTemplateLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketCommentTemplatesCount();
+
+	public void removeCommentTemplateLocale(
+			long ticketCommentTemplateId, String languageId)
+		throws PortalException;
+
+	public TicketCommentTemplate updateTicketCommentTemplate(
+			long ticketCommentTemplateId, String defaultLanguageId,
+			String languageId, String name, String content)
+		throws PortalException;
 
 	/**
 	 * Updates the ticket comment template in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

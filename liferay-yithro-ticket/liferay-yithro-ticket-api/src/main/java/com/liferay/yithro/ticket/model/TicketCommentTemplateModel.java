@@ -373,20 +373,6 @@ public interface TicketCommentTemplateModel
 	public void setContentMap(
 		Map<Locale, String> contentMap, Locale defaultLocale);
 
-	/**
-	 * Returns the use count of this ticket comment template.
-	 *
-	 * @return the use count of this ticket comment template
-	 */
-	public int getUseCount();
-
-	/**
-	 * Sets the use count of this ticket comment template.
-	 *
-	 * @param useCount the use count of this ticket comment template
-	 */
-	public void setUseCount(int useCount);
-
 	@Override
 	public String[] getAvailableLanguageIds();
 

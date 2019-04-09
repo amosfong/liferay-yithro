@@ -40,6 +40,15 @@ public class TicketCommentTemplateLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentTemplateLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.yithro.ticket.model.TicketCommentTemplate
+			addTicketCommentTemplate(
+				long userId, String defaultLanguageId, String name,
+				String content)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTicketCommentTemplate(
+			userId, defaultLanguageId, name, content);
+	}
 
 	/**
 	 * Adds the ticket comment template to the database. Also notifies the appropriate model listeners.
@@ -267,6 +276,25 @@ public class TicketCommentTemplateLocalServiceUtil {
 	 */
 	public static int getTicketCommentTemplatesCount() {
 		return getService().getTicketCommentTemplatesCount();
+	}
+
+	public static void removeCommentTemplateLocale(
+			long ticketCommentTemplateId, String languageId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().removeCommentTemplateLocale(
+			ticketCommentTemplateId, languageId);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketCommentTemplate
+			updateTicketCommentTemplate(
+				long ticketCommentTemplateId, String defaultLanguageId,
+				String languageId, String name, String content)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketCommentTemplate(
+			ticketCommentTemplateId, defaultLanguageId, languageId, name,
+			content);
 	}
 
 	/**

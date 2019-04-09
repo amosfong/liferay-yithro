@@ -45,7 +45,6 @@ public class TicketCommentTemplateSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
 		soapModel.setContent(model.getContent());
-		soapModel.setUseCount(model.getUseCount());
 
 		return soapModel;
 	}
@@ -172,14 +171,6 @@ public class TicketCommentTemplateSoap implements Serializable {
 		_content = content;
 	}
 
-	public int getUseCount() {
-		return _useCount;
-	}
-
-	public void setUseCount(int useCount) {
-		_useCount = useCount;
-	}
-
 	private long _ticketCommentTemplateId;
 	private long _companyId;
 	private long _userId;
@@ -188,6 +179,5 @@ public class TicketCommentTemplateSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _name;
 	private String _content;
-	private int _useCount;
 
 }

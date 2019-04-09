@@ -36,8 +36,7 @@ create table Yithro_TicketCommentTemplate (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name STRING null,
-	content STRING null,
-	useCount INTEGER
+	content STRING null
 );
 
 create table Yithro_TicketEntry (

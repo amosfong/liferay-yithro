@@ -55,7 +55,6 @@ public class TicketCommentTemplateWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
 		attributes.put("content", getContent());
-		attributes.put("useCount", getUseCount());
 
 		return attributes;
 	}
@@ -109,12 +108,6 @@ public class TicketCommentTemplateWrapper
 
 		if (content != null) {
 			setContent(content);
-		}
-
-		Integer useCount = (Integer)attributes.get("useCount");
-
-		if (useCount != null) {
-			setUseCount(useCount);
 		}
 	}
 
@@ -224,6 +217,11 @@ public class TicketCommentTemplateWrapper
 		return model.getDefaultLanguageId();
 	}
 
+	@Override
+	public String getDefaultLocale() {
+		return model.getDefaultLocale();
+	}
+
 	/**
 	 * Returns the modified date of this ticket comment template.
 	 *
@@ -328,16 +326,6 @@ public class TicketCommentTemplateWrapper
 	@Override
 	public long getTicketCommentTemplateId() {
 		return model.getTicketCommentTemplateId();
-	}
-
-	/**
-	 * Returns the use count of this ticket comment template.
-	 *
-	 * @return the use count of this ticket comment template
-	 */
-	@Override
-	public int getUseCount() {
-		return model.getUseCount();
 	}
 
 	/**
@@ -566,16 +554,6 @@ public class TicketCommentTemplateWrapper
 	@Override
 	public void setTicketCommentTemplateId(long ticketCommentTemplateId) {
 		model.setTicketCommentTemplateId(ticketCommentTemplateId);
-	}
-
-	/**
-	 * Sets the use count of this ticket comment template.
-	 *
-	 * @param useCount the use count of this ticket comment template
-	 */
-	@Override
-	public void setUseCount(int useCount) {
-		model.setUseCount(useCount);
 	}
 
 	/**

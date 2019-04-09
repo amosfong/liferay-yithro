@@ -36,6 +36,17 @@ public class TicketCommentTemplateLocalServiceWrapper
 		_ticketCommentTemplateLocalService = ticketCommentTemplateLocalService;
 	}
 
+	@Override
+	public com.liferay.yithro.ticket.model.TicketCommentTemplate
+			addTicketCommentTemplate(
+				long userId, String defaultLanguageId, String name,
+				String content)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentTemplateLocalService.addTicketCommentTemplate(
+			userId, defaultLanguageId, name, content);
+	}
+
 	/**
 	 * Adds the ticket comment template to the database. Also notifies the appropriate model listeners.
 	 *
@@ -288,6 +299,27 @@ public class TicketCommentTemplateLocalServiceWrapper
 	public int getTicketCommentTemplatesCount() {
 		return _ticketCommentTemplateLocalService.
 			getTicketCommentTemplatesCount();
+	}
+
+	@Override
+	public void removeCommentTemplateLocale(
+			long ticketCommentTemplateId, String languageId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketCommentTemplateLocalService.removeCommentTemplateLocale(
+			ticketCommentTemplateId, languageId);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketCommentTemplate
+			updateTicketCommentTemplate(
+				long ticketCommentTemplateId, String defaultLanguageId,
+				String languageId, String name, String content)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentTemplateLocalService.updateTicketCommentTemplate(
+			ticketCommentTemplateId, defaultLanguageId, languageId, name,
+			content);
 	}
 
 	/**

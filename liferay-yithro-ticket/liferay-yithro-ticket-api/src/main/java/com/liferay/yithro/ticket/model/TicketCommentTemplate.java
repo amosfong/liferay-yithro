@@ -60,4 +60,6 @@ public interface TicketCommentTemplate
 
 			};
 
+	public String getDefaultLocale();
+
 }
