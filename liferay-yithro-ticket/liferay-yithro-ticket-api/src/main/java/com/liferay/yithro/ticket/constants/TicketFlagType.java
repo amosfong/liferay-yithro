@@ -12,23 +12,33 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.model.impl;
+package com.liferay.yithro.ticket.constants;
 
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.yithro.ticket.constants.TicketFlagType;
+import com.liferay.portal.kernel.util.StringPool;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
-public class TicketFlagImpl extends TicketFlagBaseImpl {
+public class TicketFlagType {
 
-	public TicketFlagImpl() {
-	}
+	public static final int[] PENDING_ALL = {
+		TicketFlagType.PENDING_CUSTOMER, TicketFlagType.PENDING_WORKER
+	};
 
-	public String getTypeLabel() {
-		return TicketFlagType.getLabel(getType());
+	public static final int PENDING_CUSTOMER = 1;
+
+	public static final int PENDING_WORKER = 2;
+
+	public static String getLabel(int type) {
+		if (type == PENDING_CUSTOMER) {
+			return "customer";
+		}
+		else if (type == PENDING_WORKER) {
+			return "worker";
+		}
+		else {
+			return StringPool.BLANK;
+		}
 	}
 
 }

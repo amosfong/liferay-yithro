@@ -12,23 +12,32 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.model.impl;
-
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.yithro.ticket.constants.TicketFlagType;
+package com.liferay.yithro.ticket.constants;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
-public class TicketFlagImpl extends TicketFlagBaseImpl {
+public class TicketCommentType {
 
-	public TicketFlagImpl() {
-	}
+	public static final int AUTOMATED = 1;
 
-	public String getTypeLabel() {
-		return TicketFlagType.getLabel(getType());
+	public static final int FORWARD = 2;
+
+	public static final int NORMAL = 0;
+
+	public static String getLabel(int type) {
+		if (type == AUTOMATED) {
+			return "automated";
+		}
+		else if (type == FORWARD) {
+			return "forward";
+		}
+		else if (type == NORMAL) {
+			return "normal";
+		}
+		else {
+			return null;
+		}
 	}
 
 }

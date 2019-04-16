@@ -12,23 +12,15 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.model.impl;
-
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.yithro.ticket.constants.TicketFlagType;
+package com.liferay.yithro.ticket.constants;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
-public class TicketFlagImpl extends TicketFlagBaseImpl {
+public class TicketCommentFormat {
 
-	public TicketFlagImpl() {
-	}
+	public static final String BBCODE = "bbcode";
 
-	public String getTypeLabel() {
-		return TicketFlagType.getLabel(getType());
-	}
+	public static final String PLAIN = "plain";
 
 }

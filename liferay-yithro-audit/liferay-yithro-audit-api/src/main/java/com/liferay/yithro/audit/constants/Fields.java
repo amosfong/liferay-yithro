@@ -19,6 +19,8 @@ package com.liferay.yithro.audit.constants;
  */
 public class Fields {
 
+	public static final String BODY = "body";
+
 	public static final String FILE = "file";
 
 	public static final String PRIMARY = "primary";

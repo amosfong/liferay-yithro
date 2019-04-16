@@ -17,12 +17,16 @@ package com.liferay.yithro.ticket.model.impl;
 import aQute.bnd.annotation.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketEntryImpl extends TicketEntryBaseImpl {
 
 	public TicketEntryImpl() {
+	}
+
+	public boolean isClosed() {
+		return false;
 	}
 
 }

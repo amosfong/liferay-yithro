@@ -16,13 +16,61 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.util.UnicodeProperties;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketCommentImpl extends TicketCommentBaseImpl {
 
 	public TicketCommentImpl() {
 	}
+
+	@Override
+	public String getSettings() {
+		if (_settingsProperties == null) {
+			return super.getSettings();
+		}
+		else {
+			return _settingsProperties.toString();
+		}
+	}
+
+	@Override
+	public UnicodeProperties getSettingsProperties() {
+		if (_settingsProperties == null) {
+			_settingsProperties = new UnicodeProperties(true);
+
+			_settingsProperties.fastLoad(super.getSettings());
+		}
+
+		return _settingsProperties;
+	}
+
+	@Override
+	public String getSettingsProperty(String key) {
+		UnicodeProperties settingsProperties = getSettingsProperties();
+
+		return settingsProperties.getProperty(key);
+	}
+
+	@Override
+	public void setSettingsProperties(UnicodeProperties settingsProperties) {
+		_settingsProperties = settingsProperties;
+
+		super.setSettings(_settingsProperties.toString());
+	}
+
+	@Override
+	public void setSettingsProperty(String key, String value) {
+		UnicodeProperties settingsProperties = getSettingsProperties();
+
+		settingsProperties.put(key, value);
+
+		setSettingsProperties(settingsProperties);
+	}
+
+	private UnicodeProperties _settingsProperties;
 
 }

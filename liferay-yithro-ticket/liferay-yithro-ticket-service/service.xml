@@ -217,7 +217,7 @@
 
 		<column name="ticketEntryId" type="long" />
 		<column name="type" type="int" />
-		<column name="flag" type="int" />
+		<column name="value" type="int" />
 
 		<!-- Finder methods -->
 
@@ -233,10 +233,10 @@
 			<finder-column name="ticketEntryId" />
 			<finder-column name="type" />
 		</finder>
-		<finder name="TEI_T_F" return-type="Collection">
+		<finder name="TEI_T_V" return-type="Collection">
 			<finder-column name="ticketEntryId" />
 			<finder-column arrayable-operator="OR" name="type" />
-			<finder-column name="flag" />
+			<finder-column name="value" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="TicketInformation" remote-service="true">
@@ -391,8 +391,12 @@
 	<exceptions>
 		<exception>DuplicateTicketAttachment</exception>
 		<exception>TicketAttachmentVisibility</exception>
+		<exception>TicketCommentBody</exception>
+		<exception>TicketCommentMaximumDraft</exception>
 		<exception>TicketCommentTemplateContent</exception>
 		<exception>TicketCommentTemplateName</exception>
+		<exception>TicketCommentVisibility</exception>
+		<exception>TicketEntryClosed</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>

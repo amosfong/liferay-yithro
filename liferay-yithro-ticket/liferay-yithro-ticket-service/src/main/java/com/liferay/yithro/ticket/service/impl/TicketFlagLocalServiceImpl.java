@@ -37,31 +37,33 @@ import org.osgi.service.component.annotations.Component;
 )
 public class TicketFlagLocalServiceImpl extends TicketFlagLocalServiceBaseImpl {
 
-	public void deleteTicketFlags(long ticketEntryId, int type, int flag) {
-		ticketFlagPersistence.removeByTEI_T_F(ticketEntryId, type, flag);
+	public void deleteTicketFlags(long ticketEntryId, int type, int value) {
+		ticketFlagPersistence.removeByTEI_T_V(ticketEntryId, type, value);
 	}
 
 	public List<TicketFlag> getTicketFlags(
-		long ticketEntryId, int type, int flag) {
+		long ticketEntryId, int type, int value) {
 
-		return ticketFlagPersistence.findByTEI_T_F(ticketEntryId, type, flag);
+		return ticketFlagPersistence.findByTEI_T_V(ticketEntryId, type, value);
 	}
 
 	public List<TicketFlag> getTicketFlags(
-		long ticketEntryId, int[] types, int flag) {
+		long ticketEntryId, int[] types, int value) {
 
-		return ticketFlagPersistence.findByTEI_T_F(ticketEntryId, types, flag);
+		return ticketFlagPersistence.findByTEI_T_V(ticketEntryId, types, value);
 	}
 
-	public int getTicketFlagsCount(long ticketEntryId, int type, int flag) {
-		return ticketFlagPersistence.countByTEI_T_F(ticketEntryId, type, flag);
+	public int getTicketFlagsCount(long ticketEntryId, int type, int value) {
+		return ticketFlagPersistence.countByTEI_T_V(ticketEntryId, type, value);
 	}
 
-	public int[] getTicketFlagTypes(long ticketEntryId, int[] types, int flag) {
+	public int[] getTicketFlagTypes(
+		long ticketEntryId, int[] types, int value) {
+
 		Set<Integer> ticketFlagTypes = new HashSet<>();
 
-		List<TicketFlag> ticketFlags = ticketFlagPersistence.findByTEI_T_F(
-			ticketEntryId, types, flag);
+		List<TicketFlag> ticketFlags = ticketFlagPersistence.findByTEI_T_V(
+			ticketEntryId, types, value);
 
 		for (TicketFlag ticketFlag : ticketFlags) {
 			ticketFlagTypes.add(ticketFlag.getType());
@@ -70,8 +72,8 @@ public class TicketFlagLocalServiceImpl extends TicketFlagLocalServiceBaseImpl {
 		return ArrayUtil.toArray(ticketFlagTypes.toArray(new Integer[0]));
 	}
 
-	public boolean hasTicketFlag(long ticketEntryId, int type, int flag) {
-		if (ticketFlagPersistence.countByTEI_T_F(ticketEntryId, type, flag) >
+	public boolean hasTicketFlag(long ticketEntryId, int type, int value) {
+		if (ticketFlagPersistence.countByTEI_T_V(ticketEntryId, type, value) >
 				0) {
 
 			return true;
@@ -82,7 +84,7 @@ public class TicketFlagLocalServiceImpl extends TicketFlagLocalServiceBaseImpl {
 	}
 
 	public TicketFlag updateTicketFlag(
-			long userId, long ticketEntryId, int type, int flag)
+			long userId, long ticketEntryId, int type, int value)
 		throws PortalException {
 
 		validate(userId, ticketEntryId, type);
@@ -100,7 +102,7 @@ public class TicketFlagLocalServiceImpl extends TicketFlagLocalServiceBaseImpl {
 		ticketFlag.setModifiedDate(new Date());
 		ticketFlag.setTicketEntryId(ticketEntryId);
 		ticketFlag.setType(type);
-		ticketFlag.setFlag(flag);
+		ticketFlag.setValue(value);
 
 		return ticketFlagPersistence.update(ticketFlag);
 	}
