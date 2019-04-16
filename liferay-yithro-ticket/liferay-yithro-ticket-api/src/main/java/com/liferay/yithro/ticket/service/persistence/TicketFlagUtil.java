@@ -556,21 +556,21 @@ public class TicketFlagUtil {
 	}
 
 	/**
-	 * Returns all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag) {
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value) {
 
-		return getPersistence().findByTEI_T_F(ticketEntryId, type, flag);
+		return getPersistence().findByTEI_T_V(ticketEntryId, type, value);
 	}
 
 	/**
-	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -578,20 +578,20 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @return the range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end) {
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, type, flag, start, end);
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, type, value, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -599,22 +599,22 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end,
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, type, flag, start, end, orderByComparator);
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, type, value, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -622,117 +622,117 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end,
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
 		boolean retrieveFromCache) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, type, flag, start, end, orderByComparator,
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, type, value, start, end, orderByComparator,
 			retrieveFromCache);
 	}
 
 	/**
-	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket flag
 	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
 	 */
-	public static TicketFlag findByTEI_T_F_First(
-			long ticketEntryId, int type, int flag,
+	public static TicketFlag findByTEI_T_V_First(
+			long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.NoSuchTicketFlagException {
 
-		return getPersistence().findByTEI_T_F_First(
-			ticketEntryId, type, flag, orderByComparator);
+		return getPersistence().findByTEI_T_V_First(
+			ticketEntryId, type, value, orderByComparator);
 	}
 
 	/**
-	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
-	public static TicketFlag fetchByTEI_T_F_First(
-		long ticketEntryId, int type, int flag,
+	public static TicketFlag fetchByTEI_T_V_First(
+		long ticketEntryId, int type, int value,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return getPersistence().fetchByTEI_T_F_First(
-			ticketEntryId, type, flag, orderByComparator);
+		return getPersistence().fetchByTEI_T_V_First(
+			ticketEntryId, type, value, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket flag
 	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
 	 */
-	public static TicketFlag findByTEI_T_F_Last(
-			long ticketEntryId, int type, int flag,
+	public static TicketFlag findByTEI_T_V_Last(
+			long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.NoSuchTicketFlagException {
 
-		return getPersistence().findByTEI_T_F_Last(
-			ticketEntryId, type, flag, orderByComparator);
+		return getPersistence().findByTEI_T_V_Last(
+			ticketEntryId, type, value, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
-	public static TicketFlag fetchByTEI_T_F_Last(
-		long ticketEntryId, int type, int flag,
+	public static TicketFlag fetchByTEI_T_V_Last(
+		long ticketEntryId, int type, int value,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return getPersistence().fetchByTEI_T_F_Last(
-			ticketEntryId, type, flag, orderByComparator);
+		return getPersistence().fetchByTEI_T_V_Last(
+			ticketEntryId, type, value, orderByComparator);
 	}
 
 	/**
-	 * Returns the ticket flags before and after the current ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the ticket flags before and after the current ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketFlagId the primary key of the current ticket flag
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next ticket flag
 	 * @throws NoSuchTicketFlagException if a ticket flag with the primary key could not be found
 	 */
-	public static TicketFlag[] findByTEI_T_F_PrevAndNext(
-			long ticketFlagId, long ticketEntryId, int type, int flag,
+	public static TicketFlag[] findByTEI_T_V_PrevAndNext(
+			long ticketFlagId, long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.NoSuchTicketFlagException {
 
-		return getPersistence().findByTEI_T_F_PrevAndNext(
-			ticketFlagId, ticketEntryId, type, flag, orderByComparator);
+		return getPersistence().findByTEI_T_V_PrevAndNext(
+			ticketFlagId, ticketEntryId, type, value, orderByComparator);
 	}
 
 	/**
-	 * Returns all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -740,17 +740,17 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag) {
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value) {
 
-		return getPersistence().findByTEI_T_F(ticketEntryId, types, flag);
+		return getPersistence().findByTEI_T_V(ticketEntryId, types, value);
 	}
 
 	/**
-	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -758,20 +758,20 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @return the range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end) {
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, types, flag, start, end);
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, types, value, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -779,22 +779,22 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end,
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, types, flag, start, end, orderByComparator);
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, types, value, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;, optionally using the finder cache.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;, optionally using the finder cache.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -802,58 +802,60 @@ public class TicketFlagUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
-	public static List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end,
+	public static List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
 		boolean retrieveFromCache) {
 
-		return getPersistence().findByTEI_T_F(
-			ticketEntryId, types, flag, start, end, orderByComparator,
+		return getPersistence().findByTEI_T_V(
+			ticketEntryId, types, value, start, end, orderByComparator,
 			retrieveFromCache);
 	}
 
 	/**
-	 * Removes all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63; from the database.
+	 * Removes all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63; from the database.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 */
-	public static void removeByTEI_T_F(long ticketEntryId, int type, int flag) {
-		getPersistence().removeByTEI_T_F(ticketEntryId, type, flag);
+	public static void removeByTEI_T_V(
+		long ticketEntryId, int type, int value) {
+
+		getPersistence().removeByTEI_T_V(ticketEntryId, type, value);
 	}
 
 	/**
-	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the number of matching ticket flags
 	 */
-	public static int countByTEI_T_F(long ticketEntryId, int type, int flag) {
-		return getPersistence().countByTEI_T_F(ticketEntryId, type, flag);
+	public static int countByTEI_T_V(long ticketEntryId, int type, int value) {
+		return getPersistence().countByTEI_T_V(ticketEntryId, type, value);
 	}
 
 	/**
-	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the number of matching ticket flags
 	 */
-	public static int countByTEI_T_F(
-		long ticketEntryId, int[] types, int flag) {
+	public static int countByTEI_T_V(
+		long ticketEntryId, int[] types, int value) {
 
-		return getPersistence().countByTEI_T_F(ticketEntryId, types, flag);
+		return getPersistence().countByTEI_T_V(ticketEntryId, types, value);
 	}
 
 	/**

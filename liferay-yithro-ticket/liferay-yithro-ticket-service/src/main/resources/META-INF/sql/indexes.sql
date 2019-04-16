@@ -11,7 +11,7 @@ create index IX_B83B990D on Yithro_TicketComment (userId, ticketEntryId, visibil
 
 create index IX_D62A2FD9 on Yithro_TicketEntry (modifiedDate);
 
-create index IX_54834A40 on Yithro_TicketFlag (ticketEntryId, type_, flag);
+create index IX_7826A201 on Yithro_TicketFlag (ticketEntryId, type_, value);
 create index IX_9C71469A on Yithro_TicketFlag (userId, ticketEntryId, type_);
 
 create index IX_E145A39C on Yithro_TicketInformation (ticketEntryId, fieldId);

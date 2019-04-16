@@ -101,8 +101,8 @@ public class TicketFlagLocalServiceWrapper
 	}
 
 	@Override
-	public void deleteTicketFlags(long ticketEntryId, int type, int flag) {
-		_ticketFlagLocalService.deleteTicketFlags(ticketEntryId, type, flag);
+	public void deleteTicketFlags(long ticketEntryId, int type, int value) {
+		_ticketFlagLocalService.deleteTicketFlags(ticketEntryId, type, value);
 	}
 
 	@Override
@@ -269,18 +269,18 @@ public class TicketFlagLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.yithro.ticket.model.TicketFlag>
-		getTicketFlags(long ticketEntryId, int type, int flag) {
+		getTicketFlags(long ticketEntryId, int type, int value) {
 
 		return _ticketFlagLocalService.getTicketFlags(
-			ticketEntryId, type, flag);
+			ticketEntryId, type, value);
 	}
 
 	@Override
 	public java.util.List<com.liferay.yithro.ticket.model.TicketFlag>
-		getTicketFlags(long ticketEntryId, int[] types, int flag) {
+		getTicketFlags(long ticketEntryId, int[] types, int value) {
 
 		return _ticketFlagLocalService.getTicketFlags(
-			ticketEntryId, types, flag);
+			ticketEntryId, types, value);
 	}
 
 	/**
@@ -294,29 +294,32 @@ public class TicketFlagLocalServiceWrapper
 	}
 
 	@Override
-	public int getTicketFlagsCount(long ticketEntryId, int type, int flag) {
+	public int getTicketFlagsCount(long ticketEntryId, int type, int value) {
 		return _ticketFlagLocalService.getTicketFlagsCount(
-			ticketEntryId, type, flag);
+			ticketEntryId, type, value);
 	}
 
 	@Override
-	public int[] getTicketFlagTypes(long ticketEntryId, int[] types, int flag) {
+	public int[] getTicketFlagTypes(
+		long ticketEntryId, int[] types, int value) {
+
 		return _ticketFlagLocalService.getTicketFlagTypes(
-			ticketEntryId, types, flag);
+			ticketEntryId, types, value);
 	}
 
 	@Override
-	public boolean hasTicketFlag(long ticketEntryId, int type, int flag) {
-		return _ticketFlagLocalService.hasTicketFlag(ticketEntryId, type, flag);
+	public boolean hasTicketFlag(long ticketEntryId, int type, int value) {
+		return _ticketFlagLocalService.hasTicketFlag(
+			ticketEntryId, type, value);
 	}
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketFlag updateTicketFlag(
-			long userId, long ticketEntryId, int type, int flag)
+			long userId, long ticketEntryId, int type, int value)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketFlagLocalService.updateTicketFlag(
-			userId, ticketEntryId, type, flag);
+			userId, ticketEntryId, type, value);
 	}
 
 	/**

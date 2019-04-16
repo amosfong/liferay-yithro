@@ -1404,30 +1404,30 @@ public class TicketFlagPersistenceImpl
 	private static final String _FINDER_COLUMN_U_TEI_T_TYPE_2 =
 		"ticketFlag.type = ?";
 
-	private FinderPath _finderPathWithPaginationFindByTEI_T_F;
-	private FinderPath _finderPathWithoutPaginationFindByTEI_T_F;
-	private FinderPath _finderPathCountByTEI_T_F;
-	private FinderPath _finderPathWithPaginationCountByTEI_T_F;
+	private FinderPath _finderPathWithPaginationFindByTEI_T_V;
+	private FinderPath _finderPathWithoutPaginationFindByTEI_T_V;
+	private FinderPath _finderPathCountByTEI_T_V;
+	private FinderPath _finderPathWithPaginationCountByTEI_T_V;
 
 	/**
-	 * Returns all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag) {
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value) {
 
-		return findByTEI_T_F(
-			ticketEntryId, type, flag, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+		return findByTEI_T_V(
+			ticketEntryId, type, value, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 			null);
 	}
 
 	/**
-	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1435,20 +1435,20 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @return the range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end) {
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end) {
 
-		return findByTEI_T_F(ticketEntryId, type, flag, start, end, null);
+		return findByTEI_T_V(ticketEntryId, type, value, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1456,23 +1456,23 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end,
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return findByTEI_T_F(
-			ticketEntryId, type, flag, start, end, orderByComparator, true);
+		return findByTEI_T_V(
+			ticketEntryId, type, value, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1480,7 +1480,7 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1488,8 +1488,8 @@ public class TicketFlagPersistenceImpl
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int type, int flag, int start, int end,
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
 		boolean retrieveFromCache) {
 
@@ -1501,13 +1501,13 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTEI_T_F;
-			finderArgs = new Object[] {ticketEntryId, type, flag};
+			finderPath = _finderPathWithoutPaginationFindByTEI_T_V;
+			finderArgs = new Object[] {ticketEntryId, type, value};
 		}
 		else {
-			finderPath = _finderPathWithPaginationFindByTEI_T_F;
+			finderPath = _finderPathWithPaginationFindByTEI_T_V;
 			finderArgs = new Object[] {
-				ticketEntryId, type, flag, start, end, orderByComparator
+				ticketEntryId, type, value, start, end, orderByComparator
 			};
 		}
 
@@ -1521,7 +1521,7 @@ public class TicketFlagPersistenceImpl
 				for (TicketFlag ticketFlag : list) {
 					if ((ticketEntryId != ticketFlag.getTicketEntryId()) ||
 						(type != ticketFlag.getType()) ||
-						(flag != ticketFlag.getFlag())) {
+						(value != ticketFlag.getValue())) {
 
 						list = null;
 
@@ -1544,11 +1544,11 @@ public class TicketFlagPersistenceImpl
 
 			query.append(_SQL_SELECT_TICKETFLAG_WHERE);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TYPE_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TYPE_2);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_FLAG_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_VALUE_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1573,7 +1573,7 @@ public class TicketFlagPersistenceImpl
 
 				qPos.add(type);
 
-				qPos.add(flag);
+				qPos.add(value);
 
 				if (!pagination) {
 					list = (List<TicketFlag>)QueryUtil.list(
@@ -1606,23 +1606,23 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket flag
 	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
 	 */
 	@Override
-	public TicketFlag findByTEI_T_F_First(
-			long ticketEntryId, int type, int flag,
+	public TicketFlag findByTEI_T_V_First(
+			long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws NoSuchTicketFlagException {
 
-		TicketFlag ticketFlag = fetchByTEI_T_F_First(
-			ticketEntryId, type, flag, orderByComparator);
+		TicketFlag ticketFlag = fetchByTEI_T_V_First(
+			ticketEntryId, type, value, orderByComparator);
 
 		if (ticketFlag != null) {
 			return ticketFlag;
@@ -1638,8 +1638,8 @@ public class TicketFlagPersistenceImpl
 		msg.append(", type=");
 		msg.append(type);
 
-		msg.append(", flag=");
-		msg.append(flag);
+		msg.append(", value=");
+		msg.append(value);
 
 		msg.append("}");
 
@@ -1647,21 +1647,21 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
 	@Override
-	public TicketFlag fetchByTEI_T_F_First(
-		long ticketEntryId, int type, int flag,
+	public TicketFlag fetchByTEI_T_V_First(
+		long ticketEntryId, int type, int value,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		List<TicketFlag> list = findByTEI_T_F(
-			ticketEntryId, type, flag, 0, 1, orderByComparator);
+		List<TicketFlag> list = findByTEI_T_V(
+			ticketEntryId, type, value, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1671,23 +1671,23 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket flag
 	 * @throws NoSuchTicketFlagException if a matching ticket flag could not be found
 	 */
 	@Override
-	public TicketFlag findByTEI_T_F_Last(
-			long ticketEntryId, int type, int flag,
+	public TicketFlag findByTEI_T_V_Last(
+			long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws NoSuchTicketFlagException {
 
-		TicketFlag ticketFlag = fetchByTEI_T_F_Last(
-			ticketEntryId, type, flag, orderByComparator);
+		TicketFlag ticketFlag = fetchByTEI_T_V_Last(
+			ticketEntryId, type, value, orderByComparator);
 
 		if (ticketFlag != null) {
 			return ticketFlag;
@@ -1703,8 +1703,8 @@ public class TicketFlagPersistenceImpl
 		msg.append(", type=");
 		msg.append(type);
 
-		msg.append(", flag=");
-		msg.append(flag);
+		msg.append(", value=");
+		msg.append(value);
 
 		msg.append("}");
 
@@ -1712,27 +1712,27 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the last ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
 	@Override
-	public TicketFlag fetchByTEI_T_F_Last(
-		long ticketEntryId, int type, int flag,
+	public TicketFlag fetchByTEI_T_V_Last(
+		long ticketEntryId, int type, int value,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		int count = countByTEI_T_F(ticketEntryId, type, flag);
+		int count = countByTEI_T_V(ticketEntryId, type, value);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<TicketFlag> list = findByTEI_T_F(
-			ticketEntryId, type, flag, count - 1, count, orderByComparator);
+		List<TicketFlag> list = findByTEI_T_V(
+			ticketEntryId, type, value, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1742,19 +1742,19 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the ticket flags before and after the current ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the ticket flags before and after the current ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketFlagId the primary key of the current ticket flag
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next ticket flag
 	 * @throws NoSuchTicketFlagException if a ticket flag with the primary key could not be found
 	 */
 	@Override
-	public TicketFlag[] findByTEI_T_F_PrevAndNext(
-			long ticketFlagId, long ticketEntryId, int type, int flag,
+	public TicketFlag[] findByTEI_T_V_PrevAndNext(
+			long ticketFlagId, long ticketEntryId, int type, int value,
 			OrderByComparator<TicketFlag> orderByComparator)
 		throws NoSuchTicketFlagException {
 
@@ -1767,14 +1767,14 @@ public class TicketFlagPersistenceImpl
 
 			TicketFlag[] array = new TicketFlagImpl[3];
 
-			array[0] = getByTEI_T_F_PrevAndNext(
-				session, ticketFlag, ticketEntryId, type, flag,
+			array[0] = getByTEI_T_V_PrevAndNext(
+				session, ticketFlag, ticketEntryId, type, value,
 				orderByComparator, true);
 
 			array[1] = ticketFlag;
 
-			array[2] = getByTEI_T_F_PrevAndNext(
-				session, ticketFlag, ticketEntryId, type, flag,
+			array[2] = getByTEI_T_V_PrevAndNext(
+				session, ticketFlag, ticketEntryId, type, value,
 				orderByComparator, false);
 
 			return array;
@@ -1787,9 +1787,9 @@ public class TicketFlagPersistenceImpl
 		}
 	}
 
-	protected TicketFlag getByTEI_T_F_PrevAndNext(
+	protected TicketFlag getByTEI_T_V_PrevAndNext(
 		Session session, TicketFlag ticketFlag, long ticketEntryId, int type,
-		int flag, OrderByComparator<TicketFlag> orderByComparator,
+		int value, OrderByComparator<TicketFlag> orderByComparator,
 		boolean previous) {
 
 		StringBundler query = null;
@@ -1805,11 +1805,11 @@ public class TicketFlagPersistenceImpl
 
 		query.append(_SQL_SELECT_TICKETFLAG_WHERE);
 
-		query.append(_FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2);
+		query.append(_FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2);
 
-		query.append(_FINDER_COLUMN_TEI_T_F_TYPE_2);
+		query.append(_FINDER_COLUMN_TEI_T_V_TYPE_2);
 
-		query.append(_FINDER_COLUMN_TEI_T_F_FLAG_2);
+		query.append(_FINDER_COLUMN_TEI_T_V_VALUE_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1884,7 +1884,7 @@ public class TicketFlagPersistenceImpl
 
 		qPos.add(type);
 
-		qPos.add(flag);
+		qPos.add(value);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -1905,7 +1905,7 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1913,20 +1913,20 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag) {
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value) {
 
-		return findByTEI_T_F(
-			ticketEntryId, types, flag, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+		return findByTEI_T_V(
+			ticketEntryId, types, value, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 			null);
 	}
 
 	/**
-	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns a range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1934,20 +1934,20 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @return the range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end) {
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end) {
 
-		return findByTEI_T_F(ticketEntryId, types, flag, start, end, null);
+		return findByTEI_T_V(ticketEntryId, types, value, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1955,23 +1955,23 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end,
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator) {
 
-		return findByTEI_T_F(
-			ticketEntryId, types, flag, start, end, orderByComparator, true);
+		return findByTEI_T_V(
+			ticketEntryId, types, value, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;, optionally using the finder cache.
+	 * Returns an ordered range of all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;, optionally using the finder cache.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketFlagModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
@@ -1979,7 +1979,7 @@ public class TicketFlagPersistenceImpl
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1987,8 +1987,8 @@ public class TicketFlagPersistenceImpl
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
-	public List<TicketFlag> findByTEI_T_F(
-		long ticketEntryId, int[] types, int flag, int start, int end,
+	public List<TicketFlag> findByTEI_T_V(
+		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
 		boolean retrieveFromCache) {
 
@@ -2002,8 +2002,8 @@ public class TicketFlagPersistenceImpl
 		}
 
 		if (types.length == 1) {
-			return findByTEI_T_F(
-				ticketEntryId, types[0], flag, start, end, orderByComparator);
+			return findByTEI_T_V(
+				ticketEntryId, types[0], value, start, end, orderByComparator);
 		}
 
 		boolean pagination = true;
@@ -2014,12 +2014,12 @@ public class TicketFlagPersistenceImpl
 
 			pagination = false;
 			finderArgs = new Object[] {
-				ticketEntryId, StringUtil.merge(types), flag
+				ticketEntryId, StringUtil.merge(types), value
 			};
 		}
 		else {
 			finderArgs = new Object[] {
-				ticketEntryId, StringUtil.merge(types), flag, start, end,
+				ticketEntryId, StringUtil.merge(types), value, start, end,
 				orderByComparator
 			};
 		}
@@ -2028,13 +2028,13 @@ public class TicketFlagPersistenceImpl
 
 		if (retrieveFromCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
-				_finderPathWithPaginationFindByTEI_T_F, finderArgs, this);
+				_finderPathWithPaginationFindByTEI_T_V, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (TicketFlag ticketFlag : list) {
 					if ((ticketEntryId != ticketFlag.getTicketEntryId()) ||
 						!ArrayUtil.contains(types, ticketFlag.getType()) ||
-						(flag != ticketFlag.getFlag())) {
+						(value != ticketFlag.getValue())) {
 
 						list = null;
 
@@ -2049,12 +2049,12 @@ public class TicketFlagPersistenceImpl
 
 			query.append(_SQL_SELECT_TICKETFLAG_WHERE);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2);
 
 			if (types.length > 0) {
 				query.append("(");
 
-				query.append(_FINDER_COLUMN_TEI_T_F_TYPE_7);
+				query.append(_FINDER_COLUMN_TEI_T_V_TYPE_7);
 
 				query.append(StringUtil.merge(types));
 
@@ -2065,7 +2065,7 @@ public class TicketFlagPersistenceImpl
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_TEI_T_F_FLAG_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_VALUE_2);
 
 			query.setStringAt(
 				removeConjunction(query.stringAt(query.index() - 1)),
@@ -2092,7 +2092,7 @@ public class TicketFlagPersistenceImpl
 
 				qPos.add(ticketEntryId);
 
-				qPos.add(flag);
+				qPos.add(value);
 
 				if (!pagination) {
 					list = (List<TicketFlag>)QueryUtil.list(
@@ -2110,11 +2110,11 @@ public class TicketFlagPersistenceImpl
 				cacheResult(list);
 
 				finderCache.putResult(
-					_finderPathWithPaginationFindByTEI_T_F, finderArgs, list);
+					_finderPathWithPaginationFindByTEI_T_V, finderArgs, list);
 			}
 			catch (Exception e) {
 				finderCache.removeResult(
-					_finderPathWithPaginationFindByTEI_T_F, finderArgs);
+					_finderPathWithPaginationFindByTEI_T_V, finderArgs);
 
 				throw processException(e);
 			}
@@ -2127,17 +2127,17 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Removes all the ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63; from the database.
+	 * Removes all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63; from the database.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 */
 	@Override
-	public void removeByTEI_T_F(long ticketEntryId, int type, int flag) {
+	public void removeByTEI_T_V(long ticketEntryId, int type, int value) {
 		for (TicketFlag ticketFlag :
-				findByTEI_T_F(
-					ticketEntryId, type, flag, QueryUtil.ALL_POS,
+				findByTEI_T_V(
+					ticketEntryId, type, value, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS, null)) {
 
 			remove(ticketFlag);
@@ -2145,18 +2145,18 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = &#63; and flag = &#63;.
+	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the number of matching ticket flags
 	 */
 	@Override
-	public int countByTEI_T_F(long ticketEntryId, int type, int flag) {
-		FinderPath finderPath = _finderPathCountByTEI_T_F;
+	public int countByTEI_T_V(long ticketEntryId, int type, int value) {
+		FinderPath finderPath = _finderPathCountByTEI_T_V;
 
-		Object[] finderArgs = new Object[] {ticketEntryId, type, flag};
+		Object[] finderArgs = new Object[] {ticketEntryId, type, value};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -2165,11 +2165,11 @@ public class TicketFlagPersistenceImpl
 
 			query.append(_SQL_COUNT_TICKETFLAG_WHERE);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TYPE_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TYPE_2);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_FLAG_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_VALUE_2);
 
 			String sql = query.toString();
 
@@ -2186,7 +2186,7 @@ public class TicketFlagPersistenceImpl
 
 				qPos.add(type);
 
-				qPos.add(flag);
+				qPos.add(value);
 
 				count = (Long)q.uniqueResult();
 
@@ -2206,15 +2206,15 @@ public class TicketFlagPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = any &#63; and flag = &#63;.
+	 * Returns the number of ticket flags where ticketEntryId = &#63; and type = any &#63; and value = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param types the types
-	 * @param flag the flag
+	 * @param value the value
 	 * @return the number of matching ticket flags
 	 */
 	@Override
-	public int countByTEI_T_F(long ticketEntryId, int[] types, int flag) {
+	public int countByTEI_T_V(long ticketEntryId, int[] types, int value) {
 		if (types == null) {
 			types = new int[0];
 		}
@@ -2225,23 +2225,23 @@ public class TicketFlagPersistenceImpl
 		}
 
 		Object[] finderArgs = new Object[] {
-			ticketEntryId, StringUtil.merge(types), flag
+			ticketEntryId, StringUtil.merge(types), value
 		};
 
 		Long count = (Long)finderCache.getResult(
-			_finderPathWithPaginationCountByTEI_T_F, finderArgs, this);
+			_finderPathWithPaginationCountByTEI_T_V, finderArgs, this);
 
 		if (count == null) {
 			StringBundler query = new StringBundler();
 
 			query.append(_SQL_COUNT_TICKETFLAG_WHERE);
 
-			query.append(_FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2);
 
 			if (types.length > 0) {
 				query.append("(");
 
-				query.append(_FINDER_COLUMN_TEI_T_F_TYPE_7);
+				query.append(_FINDER_COLUMN_TEI_T_V_TYPE_7);
 
 				query.append(StringUtil.merge(types));
 
@@ -2252,7 +2252,7 @@ public class TicketFlagPersistenceImpl
 				query.append(WHERE_AND);
 			}
 
-			query.append(_FINDER_COLUMN_TEI_T_F_FLAG_2);
+			query.append(_FINDER_COLUMN_TEI_T_V_VALUE_2);
 
 			query.setStringAt(
 				removeConjunction(query.stringAt(query.index() - 1)),
@@ -2271,16 +2271,16 @@ public class TicketFlagPersistenceImpl
 
 				qPos.add(ticketEntryId);
 
-				qPos.add(flag);
+				qPos.add(value);
 
 				count = (Long)q.uniqueResult();
 
 				finderCache.putResult(
-					_finderPathWithPaginationCountByTEI_T_F, finderArgs, count);
+					_finderPathWithPaginationCountByTEI_T_V, finderArgs, count);
 			}
 			catch (Exception e) {
 				finderCache.removeResult(
-					_finderPathWithPaginationCountByTEI_T_F, finderArgs);
+					_finderPathWithPaginationCountByTEI_T_V, finderArgs);
 
 				throw processException(e);
 			}
@@ -2292,17 +2292,17 @@ public class TicketFlagPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_TEI_T_F_TICKETENTRYID_2 =
+	private static final String _FINDER_COLUMN_TEI_T_V_TICKETENTRYID_2 =
 		"ticketFlag.ticketEntryId = ? AND ";
 
-	private static final String _FINDER_COLUMN_TEI_T_F_TYPE_2 =
+	private static final String _FINDER_COLUMN_TEI_T_V_TYPE_2 =
 		"ticketFlag.type = ? AND ";
 
-	private static final String _FINDER_COLUMN_TEI_T_F_TYPE_7 =
+	private static final String _FINDER_COLUMN_TEI_T_V_TYPE_7 =
 		"ticketFlag.type IN (";
 
-	private static final String _FINDER_COLUMN_TEI_T_F_FLAG_2 =
-		"ticketFlag.flag = ?";
+	private static final String _FINDER_COLUMN_TEI_T_V_VALUE_2 =
+		"ticketFlag.value = ?";
 
 	public TicketFlagPersistenceImpl() {
 		setModelClass(TicketFlag.class);
@@ -2623,12 +2623,12 @@ public class TicketFlagPersistenceImpl
 
 			args = new Object[] {
 				ticketFlagModelImpl.getTicketEntryId(),
-				ticketFlagModelImpl.getType(), ticketFlagModelImpl.getFlag()
+				ticketFlagModelImpl.getType(), ticketFlagModelImpl.getValue()
 			};
 
-			finderCache.removeResult(_finderPathCountByTEI_T_F, args);
+			finderCache.removeResult(_finderPathCountByTEI_T_V, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByTEI_T_F, args);
+				_finderPathWithoutPaginationFindByTEI_T_V, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -2678,27 +2678,28 @@ public class TicketFlagPersistenceImpl
 			}
 
 			if ((ticketFlagModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByTEI_T_F.
+				 _finderPathWithoutPaginationFindByTEI_T_V.
 					 getColumnBitmask()) != 0) {
 
 				Object[] args = new Object[] {
 					ticketFlagModelImpl.getOriginalTicketEntryId(),
 					ticketFlagModelImpl.getOriginalType(),
-					ticketFlagModelImpl.getOriginalFlag()
+					ticketFlagModelImpl.getOriginalValue()
 				};
 
-				finderCache.removeResult(_finderPathCountByTEI_T_F, args);
+				finderCache.removeResult(_finderPathCountByTEI_T_V, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTEI_T_F, args);
+					_finderPathWithoutPaginationFindByTEI_T_V, args);
 
 				args = new Object[] {
 					ticketFlagModelImpl.getTicketEntryId(),
-					ticketFlagModelImpl.getType(), ticketFlagModelImpl.getFlag()
+					ticketFlagModelImpl.getType(),
+					ticketFlagModelImpl.getValue()
 				};
 
-				finderCache.removeResult(_finderPathCountByTEI_T_F, args);
+				finderCache.removeResult(_finderPathCountByTEI_T_V, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTEI_T_F, args);
+					_finderPathWithoutPaginationFindByTEI_T_V, args);
 			}
 		}
 
@@ -3064,37 +3065,37 @@ public class TicketFlagPersistenceImpl
 				Integer.class.getName()
 			});
 
-		_finderPathWithPaginationFindByTEI_T_F = new FinderPath(
+		_finderPathWithPaginationFindByTEI_T_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TicketFlagImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTEI_T_F",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTEI_T_V",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByTEI_T_F = new FinderPath(
+		_finderPathWithoutPaginationFindByTEI_T_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TicketFlagImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTEI_T_F",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTEI_T_V",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName()
 			},
 			TicketFlagModelImpl.TICKETENTRYID_COLUMN_BITMASK |
 			TicketFlagModelImpl.TYPE_COLUMN_BITMASK |
-			TicketFlagModelImpl.FLAG_COLUMN_BITMASK);
+			TicketFlagModelImpl.VALUE_COLUMN_BITMASK);
 
-		_finderPathCountByTEI_T_F = new FinderPath(
+		_finderPathCountByTEI_T_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTEI_T_F",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTEI_T_V",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName()
 			});
 
-		_finderPathWithPaginationCountByTEI_T_F = new FinderPath(
+		_finderPathWithPaginationCountByTEI_T_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByTEI_T_F",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByTEI_T_V",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName()

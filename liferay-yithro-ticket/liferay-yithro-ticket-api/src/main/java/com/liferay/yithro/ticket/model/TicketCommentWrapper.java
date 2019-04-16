@@ -213,6 +213,18 @@ public class TicketCommentWrapper
 		return model.getSettings();
 	}
 
+	@Override
+	public com.liferay.portal.kernel.util.UnicodeProperties
+		getSettingsProperties() {
+
+		return model.getSettingsProperties();
+	}
+
+	@Override
+	public String getSettingsProperty(String key) {
+		return model.getSettingsProperty(key);
+	}
+
 	/**
 	 * Returns the status of this ticket comment.
 	 *
@@ -366,6 +378,18 @@ public class TicketCommentWrapper
 	@Override
 	public void setSettings(String settings) {
 		model.setSettings(settings);
+	}
+
+	@Override
+	public void setSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties settingsProperties) {
+
+		model.setSettingsProperties(settingsProperties);
+	}
+
+	@Override
+	public void setSettingsProperty(String key, String value) {
+		model.setSettingsProperty(key, value);
 	}
 
 	/**

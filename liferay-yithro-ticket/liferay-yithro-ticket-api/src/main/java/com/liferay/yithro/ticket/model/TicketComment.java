@@ -58,4 +58,14 @@ public interface TicketComment extends PersistedModel, TicketCommentModel {
 
 		};
 
+	public com.liferay.portal.kernel.util.UnicodeProperties
+		getSettingsProperties();
+
+	public String getSettingsProperty(String key);
+
+	public void setSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties settingsProperties);
+
+	public void setSettingsProperty(String key, String value);
+
 }

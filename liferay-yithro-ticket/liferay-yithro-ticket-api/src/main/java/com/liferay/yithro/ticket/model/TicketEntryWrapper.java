@@ -379,6 +379,11 @@ public class TicketEntryWrapper
 	}
 
 	@Override
+	public boolean isClosed() {
+		return model.isClosed();
+	}
+
+	@Override
 	public void persist() {
 		model.persist();
 	}

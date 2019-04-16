@@ -78,8 +78,8 @@ public class TicketFlagCacheModel
 		sb.append(ticketEntryId);
 		sb.append(", type=");
 		sb.append(type);
-		sb.append(", flag=");
-		sb.append(flag);
+		sb.append(", value=");
+		sb.append(value);
 		sb.append("}");
 
 		return sb.toString();
@@ -102,7 +102,7 @@ public class TicketFlagCacheModel
 
 		ticketFlagImpl.setTicketEntryId(ticketEntryId);
 		ticketFlagImpl.setType(type);
-		ticketFlagImpl.setFlag(flag);
+		ticketFlagImpl.setValue(value);
 
 		ticketFlagImpl.resetOriginalValues();
 
@@ -122,7 +122,7 @@ public class TicketFlagCacheModel
 
 		type = objectInput.readInt();
 
-		flag = objectInput.readInt();
+		value = objectInput.readInt();
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class TicketFlagCacheModel
 
 		objectOutput.writeInt(type);
 
-		objectOutput.writeInt(flag);
+		objectOutput.writeInt(value);
 	}
 
 	public long ticketFlagId;
@@ -147,6 +147,6 @@ public class TicketFlagCacheModel
 	public long modifiedDate;
 	public long ticketEntryId;
 	public int type;
-	public int flag;
+	public int value;
 
 }

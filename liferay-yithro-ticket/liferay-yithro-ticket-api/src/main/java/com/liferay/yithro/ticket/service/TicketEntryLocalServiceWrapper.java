@@ -281,6 +281,27 @@ public class TicketEntryLocalServiceWrapper
 		return _ticketEntryLocalService.reindexTicketEntry(ticketEntryId);
 	}
 
+	@Override
+	public void sendEmail(
+			long userId,
+			com.liferay.yithro.ticket.model.TicketEntry ticketEntry,
+			com.liferay.yithro.ticket.model.TicketComment ticketComment,
+			String action)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketEntryLocalService.sendEmail(
+			userId, ticketEntry, ticketComment, action);
+	}
+
+	@Override
+	public void updatePendingTypes(
+			long userId, long ticketEntryId, int[] pendingTypes)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketEntryLocalService.updatePendingTypes(
+			userId, ticketEntryId, pendingTypes);
+	}
+
 	/**
 	 * Updates the ticket entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

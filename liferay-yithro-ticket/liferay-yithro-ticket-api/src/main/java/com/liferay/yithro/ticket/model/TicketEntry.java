@@ -56,4 +56,6 @@ public interface TicketEntry extends PersistedModel, TicketEntryModel {
 
 		};
 
+	public boolean isClosed();
+
 }

@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -60,6 +61,11 @@ public interface TicketCommentLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommentLocalServiceUtil} to access the ticket comment local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TicketComment addTicketComment(
+			long userId, long ticketEntryId, String body, int type,
+			int visibility, int status, int[] pendingTypes,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the ticket comment to the database. Also notifies the appropriate model listeners.
@@ -95,6 +101,13 @@ public interface TicketCommentLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public TicketComment deleteTicketComment(long ticketCommentId)
+		throws PortalException;
+
+	public TicketComment deleteTicketComment(long userId, long ticketCommentId)
+		throws PortalException;
+
+	public TicketComment deleteTicketComment(
+			long userId, TicketComment ticketComment)
 		throws PortalException;
 
 	/**
@@ -173,6 +186,16 @@ public interface TicketCommentLocalService
 		DynamicQuery dynamicQuery, Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketComment fetchLastTicketComment(
+		long userId, long ticketEntryId, int visibility, int status, int type,
+		OrderByComparator obc);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketComment fetchLastTicketComment(
+		long userId, long ticketEntryId, int visibility, int status,
+		OrderByComparator obc);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketComment fetchTicketComment(long ticketCommentId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -180,6 +203,11 @@ public interface TicketCommentLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketComment getLastTicketComment(
+			long ticketEntryId, int visibility, OrderByComparator obc)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -218,6 +246,14 @@ public interface TicketCommentLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketComment> getTicketComments(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketComment> getTicketComments(
+		long ticketEntryId, int[] visibilities, int[] statuses);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketComment> getTicketComments(
+		long userId, long ticketEntryId, int[] visibilities, int[] statuses);
+
 	/**
 	 * Returns the number of ticket comments.
 	 *
@@ -225,6 +261,20 @@ public interface TicketCommentLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketCommentsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTicketCommentsCount(
+		long ticketEntryId, int[] visibilities, int[] statuses);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTicketCommentsCount(
+		long userId, long ticketEntryId, int[] visibilities, int[] statuses);
+
+	public TicketComment updateTicketComment(
+			long userId, long ticketCommentId, long ticketEntryId, String body,
+			int visibility, int status, int[] pendingTypes,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the ticket comment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

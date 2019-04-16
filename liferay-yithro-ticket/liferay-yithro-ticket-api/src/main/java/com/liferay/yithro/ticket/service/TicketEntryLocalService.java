@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.model.TicketEntry;
 
 import java.io.Serializable;
@@ -229,6 +230,15 @@ public interface TicketEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketEntry reindexTicketEntry(long ticketEntryId)
+		throws PortalException;
+
+	public void sendEmail(
+			long userId, TicketEntry ticketEntry, TicketComment ticketComment,
+			String action)
+		throws PortalException;
+
+	public void updatePendingTypes(
+			long userId, long ticketEntryId, int[] pendingTypes)
 		throws PortalException;
 
 	/**

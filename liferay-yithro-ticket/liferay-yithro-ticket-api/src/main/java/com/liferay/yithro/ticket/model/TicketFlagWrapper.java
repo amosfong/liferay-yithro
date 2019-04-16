@@ -51,7 +51,7 @@ public class TicketFlagWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
 		attributes.put("type", getType());
-		attributes.put("flag", getFlag());
+		attributes.put("value", getValue());
 
 		return attributes;
 	}
@@ -94,10 +94,10 @@ public class TicketFlagWrapper
 			setType(type);
 		}
 
-		Integer flag = (Integer)attributes.get("flag");
+		Integer value = (Integer)attributes.get("value");
 
-		if (flag != null) {
-			setFlag(flag);
+		if (value != null) {
+			setValue(value);
 		}
 	}
 
@@ -109,16 +109,6 @@ public class TicketFlagWrapper
 	@Override
 	public long getCompanyId() {
 		return model.getCompanyId();
-	}
-
-	/**
-	 * Returns the flag of this ticket flag.
-	 *
-	 * @return the flag of this ticket flag
-	 */
-	@Override
-	public int getFlag() {
-		return model.getFlag();
 	}
 
 	/**
@@ -171,6 +161,11 @@ public class TicketFlagWrapper
 		return model.getType();
 	}
 
+	@Override
+	public String getTypeLabel() {
+		return model.getTypeLabel();
+	}
+
 	/**
 	 * Returns the user ID of this ticket flag.
 	 *
@@ -191,6 +186,16 @@ public class TicketFlagWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * Returns the value of this ticket flag.
+	 *
+	 * @return the value of this ticket flag
+	 */
+	@Override
+	public int getValue() {
+		return model.getValue();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -204,16 +209,6 @@ public class TicketFlagWrapper
 	@Override
 	public void setCompanyId(long companyId) {
 		model.setCompanyId(companyId);
-	}
-
-	/**
-	 * Sets the flag of this ticket flag.
-	 *
-	 * @param flag the flag of this ticket flag
-	 */
-	@Override
-	public void setFlag(int flag) {
-		model.setFlag(flag);
 	}
 
 	/**
@@ -284,6 +279,16 @@ public class TicketFlagWrapper
 	@Override
 	public void setUserUuid(String userUuid) {
 		model.setUserUuid(userUuid);
+	}
+
+	/**
+	 * Sets the value of this ticket flag.
+	 *
+	 * @param value the value of this ticket flag
+	 */
+	@Override
+	public void setValue(int value) {
+		model.setValue(value);
 	}
 
 	@Override

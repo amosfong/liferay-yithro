@@ -156,17 +156,17 @@ public interface TicketFlagModel extends BaseModel<TicketFlag>, ShardedModel {
 	public void setType(int type);
 
 	/**
-	 * Returns the flag of this ticket flag.
+	 * Returns the value of this ticket flag.
 	 *
-	 * @return the flag of this ticket flag
+	 * @return the value of this ticket flag
 	 */
-	public int getFlag();
+	public int getValue();
 
 	/**
-	 * Sets the flag of this ticket flag.
+	 * Sets the value of this ticket flag.
 	 *
-	 * @param flag the flag of this ticket flag
+	 * @param value the value of this ticket flag
 	 */
-	public void setFlag(int flag);
+	public void setValue(int value);
 
 }

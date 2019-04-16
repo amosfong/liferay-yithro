@@ -67,7 +67,7 @@ create table Yithro_TicketFlag (
 	modifiedDate DATE null,
 	ticketEntryId LONG,
 	type_ INTEGER,
-	flag INTEGER
+	value INTEGER
 );
 
 create table Yithro_TicketInformation (

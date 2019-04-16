@@ -74,7 +74,7 @@ public class TicketFlagModelImpl
 		{"ticketFlagId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"modifiedDate", Types.TIMESTAMP},
 		{"ticketEntryId", Types.BIGINT}, {"type_", Types.INTEGER},
-		{"flag", Types.INTEGER}
+		{"value", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -87,11 +87,11 @@ public class TicketFlagModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("flag", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("value", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketFlag (ticketFlagId LONG not null primary key,companyId LONG,userId LONG,modifiedDate DATE null,ticketEntryId LONG,type_ INTEGER,flag INTEGER)";
+		"create table Yithro_TicketFlag (ticketFlagId LONG not null primary key,companyId LONG,userId LONG,modifiedDate DATE null,ticketEntryId LONG,type_ INTEGER,value INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketFlag";
 
@@ -107,13 +107,13 @@ public class TicketFlagModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final long FLAG_COLUMN_BITMASK = 1L;
+	public static final long TICKETENTRYID_COLUMN_BITMASK = 1L;
 
-	public static final long TICKETENTRYID_COLUMN_BITMASK = 2L;
+	public static final long TYPE_COLUMN_BITMASK = 2L;
 
-	public static final long TYPE_COLUMN_BITMASK = 4L;
+	public static final long USERID_COLUMN_BITMASK = 4L;
 
-	public static final long USERID_COLUMN_BITMASK = 8L;
+	public static final long VALUE_COLUMN_BITMASK = 8L;
 
 	public static final long TICKETFLAGID_COLUMN_BITMASK = 16L;
 
@@ -144,7 +144,7 @@ public class TicketFlagModelImpl
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
 		model.setType(soapModel.getType());
-		model.setFlag(soapModel.getFlag());
+		model.setValue(soapModel.getValue());
 
 		return model;
 	}
@@ -292,9 +292,9 @@ public class TicketFlagModelImpl
 		attributeGetterFunctions.put("type", TicketFlag::getType);
 		attributeSetterBiConsumers.put(
 			"type", (BiConsumer<TicketFlag, Integer>)TicketFlag::setType);
-		attributeGetterFunctions.put("flag", TicketFlag::getFlag);
+		attributeGetterFunctions.put("value", TicketFlag::getValue);
 		attributeSetterBiConsumers.put(
-			"flag", (BiConsumer<TicketFlag, Integer>)TicketFlag::setFlag);
+			"value", (BiConsumer<TicketFlag, Integer>)TicketFlag::setValue);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -422,25 +422,25 @@ public class TicketFlagModelImpl
 
 	@JSON
 	@Override
-	public int getFlag() {
-		return _flag;
+	public int getValue() {
+		return _value;
 	}
 
 	@Override
-	public void setFlag(int flag) {
-		_columnBitmask |= FLAG_COLUMN_BITMASK;
+	public void setValue(int value) {
+		_columnBitmask |= VALUE_COLUMN_BITMASK;
 
-		if (!_setOriginalFlag) {
-			_setOriginalFlag = true;
+		if (!_setOriginalValue) {
+			_setOriginalValue = true;
 
-			_originalFlag = _flag;
+			_originalValue = _value;
 		}
 
-		_flag = flag;
+		_value = value;
 	}
 
-	public int getOriginalFlag() {
-		return _originalFlag;
+	public int getOriginalValue() {
+		return _originalValue;
 	}
 
 	public long getColumnBitmask() {
@@ -481,7 +481,7 @@ public class TicketFlagModelImpl
 		ticketFlagImpl.setModifiedDate(getModifiedDate());
 		ticketFlagImpl.setTicketEntryId(getTicketEntryId());
 		ticketFlagImpl.setType(getType());
-		ticketFlagImpl.setFlag(getFlag());
+		ticketFlagImpl.setValue(getValue());
 
 		ticketFlagImpl.resetOriginalValues();
 
@@ -557,9 +557,9 @@ public class TicketFlagModelImpl
 
 		ticketFlagModelImpl._setOriginalType = false;
 
-		ticketFlagModelImpl._originalFlag = ticketFlagModelImpl._flag;
+		ticketFlagModelImpl._originalValue = ticketFlagModelImpl._value;
 
-		ticketFlagModelImpl._setOriginalFlag = false;
+		ticketFlagModelImpl._setOriginalValue = false;
 
 		ticketFlagModelImpl._columnBitmask = 0;
 	}
@@ -587,7 +587,7 @@ public class TicketFlagModelImpl
 
 		ticketFlagCacheModel.type = getType();
 
-		ticketFlagCacheModel.flag = getFlag();
+		ticketFlagCacheModel.value = getValue();
 
 		return ticketFlagCacheModel;
 	}
@@ -675,9 +675,9 @@ public class TicketFlagModelImpl
 	private int _type;
 	private int _originalType;
 	private boolean _setOriginalType;
-	private int _flag;
-	private int _originalFlag;
-	private boolean _setOriginalFlag;
+	private int _value;
+	private int _originalValue;
+	private boolean _setOriginalValue;
 	private long _columnBitmask;
 	private TicketFlag _escapedModel;
 

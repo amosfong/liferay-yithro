@@ -22,20 +22,20 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Brian Wing Shun Chan
  */
 @ProviderType
-public class TicketCommentTemplateNameException extends PortalException {
+public class TicketCommentBodyException extends PortalException {
 
-	public TicketCommentTemplateNameException() {
+	public TicketCommentBodyException() {
 	}
 
-	public TicketCommentTemplateNameException(String msg) {
+	public TicketCommentBodyException(String msg) {
 		super(msg);
 	}
 
-	public TicketCommentTemplateNameException(String msg, Throwable cause) {
+	public TicketCommentBodyException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public TicketCommentTemplateNameException(Throwable cause) {
+	public TicketCommentBodyException(Throwable cause) {
 		super(cause);
 	}
 

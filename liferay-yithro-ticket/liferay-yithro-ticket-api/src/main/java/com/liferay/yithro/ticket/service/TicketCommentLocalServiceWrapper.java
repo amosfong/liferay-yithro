@@ -36,6 +36,18 @@ public class TicketCommentLocalServiceWrapper
 		_ticketCommentLocalService = ticketCommentLocalService;
 	}
 
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment addTicketComment(
+			long userId, long ticketEntryId, String body, int type,
+			int visibility, int status, int[] pendingTypes,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentLocalService.addTicketComment(
+			userId, ticketEntryId, body, type, visibility, status, pendingTypes,
+			serviceContext);
+	}
+
 	/**
 	 * Adds the ticket comment to the database. Also notifies the appropriate model listeners.
 	 *
@@ -86,6 +98,25 @@ public class TicketCommentLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketCommentLocalService.deleteTicketComment(ticketCommentId);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment deleteTicketComment(
+			long userId, long ticketCommentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentLocalService.deleteTicketComment(
+			userId, ticketCommentId);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment deleteTicketComment(
+			long userId,
+			com.liferay.yithro.ticket.model.TicketComment ticketComment)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentLocalService.deleteTicketComment(
+			userId, ticketComment);
 	}
 
 	/**
@@ -193,6 +224,24 @@ public class TicketCommentLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.yithro.ticket.model.TicketComment fetchLastTicketComment(
+		long userId, long ticketEntryId, int visibility, int status, int type,
+		com.liferay.portal.kernel.util.OrderByComparator obc) {
+
+		return _ticketCommentLocalService.fetchLastTicketComment(
+			userId, ticketEntryId, visibility, status, type, obc);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment fetchLastTicketComment(
+		long userId, long ticketEntryId, int visibility, int status,
+		com.liferay.portal.kernel.util.OrderByComparator obc) {
+
+		return _ticketCommentLocalService.fetchLastTicketComment(
+			userId, ticketEntryId, visibility, status, obc);
+	}
+
+	@Override
 	public com.liferay.yithro.ticket.model.TicketComment fetchTicketComment(
 		long ticketCommentId) {
 
@@ -211,6 +260,16 @@ public class TicketCommentLocalServiceWrapper
 		getIndexableActionableDynamicQuery() {
 
 		return _ticketCommentLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment getLastTicketComment(
+			long ticketEntryId, int visibility,
+			com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentLocalService.getLastTicketComment(
+			ticketEntryId, visibility, obc);
 	}
 
 	/**
@@ -264,6 +323,25 @@ public class TicketCommentLocalServiceWrapper
 		return _ticketCommentLocalService.getTicketComments(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketComment>
+		getTicketComments(
+			long ticketEntryId, int[] visibilities, int[] statuses) {
+
+		return _ticketCommentLocalService.getTicketComments(
+			ticketEntryId, visibilities, statuses);
+	}
+
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketComment>
+		getTicketComments(
+			long userId, long ticketEntryId, int[] visibilities,
+			int[] statuses) {
+
+		return _ticketCommentLocalService.getTicketComments(
+			userId, ticketEntryId, visibilities, statuses);
+	}
+
 	/**
 	 * Returns the number of ticket comments.
 	 *
@@ -272,6 +350,34 @@ public class TicketCommentLocalServiceWrapper
 	@Override
 	public int getTicketCommentsCount() {
 		return _ticketCommentLocalService.getTicketCommentsCount();
+	}
+
+	@Override
+	public int getTicketCommentsCount(
+		long ticketEntryId, int[] visibilities, int[] statuses) {
+
+		return _ticketCommentLocalService.getTicketCommentsCount(
+			ticketEntryId, visibilities, statuses);
+	}
+
+	@Override
+	public int getTicketCommentsCount(
+		long userId, long ticketEntryId, int[] visibilities, int[] statuses) {
+
+		return _ticketCommentLocalService.getTicketCommentsCount(
+			userId, ticketEntryId, visibilities, statuses);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketComment updateTicketComment(
+			long userId, long ticketCommentId, long ticketEntryId, String body,
+			int visibility, int status, int[] pendingTypes,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketCommentLocalService.updateTicketComment(
+			userId, ticketCommentId, ticketEntryId, body, visibility, status,
+			pendingTypes, serviceContext);
 	}
 
 	/**

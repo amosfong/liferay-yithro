@@ -56,4 +56,6 @@ public interface TicketFlag extends PersistedModel, TicketFlagModel {
 
 		};
 
+	public String getTypeLabel();
+
 }

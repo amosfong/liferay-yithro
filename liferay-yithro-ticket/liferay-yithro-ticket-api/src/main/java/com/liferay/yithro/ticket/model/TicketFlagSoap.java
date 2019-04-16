@@ -40,7 +40,7 @@ public class TicketFlagSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
 		soapModel.setType(model.getType());
-		soapModel.setFlag(model.getFlag());
+		soapModel.setValue(model.getValue());
 
 		return soapModel;
 	}
@@ -142,12 +142,12 @@ public class TicketFlagSoap implements Serializable {
 		_type = type;
 	}
 
-	public int getFlag() {
-		return _flag;
+	public int getValue() {
+		return _value;
 	}
 
-	public void setFlag(int flag) {
-		_flag = flag;
+	public void setValue(int value) {
+		_value = value;
 	}
 
 	private long _ticketFlagId;
@@ -156,6 +156,6 @@ public class TicketFlagSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _ticketEntryId;
 	private int _type;
-	private int _flag;
+	private int _value;
 
 }

@@ -78,7 +78,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
 		<field name="type" type="int" />
-		<field name="flag" type="int" />
+		<field name="value" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketInformation">
 		<field name="ticketInformationId" type="long" />

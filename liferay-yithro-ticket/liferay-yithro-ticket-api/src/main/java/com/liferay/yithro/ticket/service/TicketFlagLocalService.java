@@ -106,7 +106,7 @@ public interface TicketFlagLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public TicketFlag deleteTicketFlag(TicketFlag ticketFlag);
 
-	public void deleteTicketFlags(long ticketEntryId, int type, int flag);
+	public void deleteTicketFlags(long ticketEntryId, int type, int value);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -221,11 +221,11 @@ public interface TicketFlagLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketFlag> getTicketFlags(
-		long ticketEntryId, int type, int flag);
+		long ticketEntryId, int type, int value);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketFlag> getTicketFlags(
-		long ticketEntryId, int[] types, int flag);
+		long ticketEntryId, int[] types, int value);
 
 	/**
 	 * Returns the number of ticket flags.
@@ -236,16 +236,16 @@ public interface TicketFlagLocalService
 	public int getTicketFlagsCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getTicketFlagsCount(long ticketEntryId, int type, int flag);
+	public int getTicketFlagsCount(long ticketEntryId, int type, int value);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int[] getTicketFlagTypes(long ticketEntryId, int[] types, int flag);
+	public int[] getTicketFlagTypes(long ticketEntryId, int[] types, int value);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean hasTicketFlag(long ticketEntryId, int type, int flag);
+	public boolean hasTicketFlag(long ticketEntryId, int type, int value);
 
 	public TicketFlag updateTicketFlag(
-			long userId, long ticketEntryId, int type, int flag)
+			long userId, long ticketEntryId, int type, int value)
 		throws PortalException;
 
 	/**
