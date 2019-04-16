@@ -24,9 +24,7 @@ import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.zip.ZipWriter;
 import com.liferay.portal.kernel.zip.ZipWriterFactoryUtil;
@@ -46,7 +44,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,70 +61,52 @@ import org.osgi.service.component.annotations.Reference;
 public class TicketAttachmentLocalServiceImpl
 	extends TicketAttachmentLocalServiceBaseImpl {
 
-	public List<TicketAttachment> addTicketAttachments(
+	public TicketAttachment addTicketAttachment(
 			long userId, long ticketEntryId, long ticketSolutionId,
-			List<ObjectValuePair<String, File>> files, int visibility,
-			int status, ServiceContext serviceContext)
+			String fileName, File file, int visibility, int status,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 		Date now = serviceContext.getCreateDate(new Date());
 
-		List<TicketAttachment> ticketAttachments = new ArrayList<>();
+		validate(ticketEntryId, fileName, file.length(), visibility);
 
-		for (ObjectValuePair<String, File> ovp : files) {
+		long ticketAttachmentId = counterLocalService.increment();
 
-			// Ticket attachment
+		TicketAttachment ticketAttachment = ticketAttachmentPersistence.create(
+			ticketAttachmentId);
 
-			String fileName = ovp.getKey();
-			File file = ovp.getValue();
+		ticketAttachment.setUserId(user.getUserId());
+		ticketAttachment.setUserName(user.getFullName());
+		ticketAttachment.setCompanyId(user.getCompanyId());
+		ticketAttachment.setCreateDate(now);
+		ticketAttachment.setTicketEntryId(ticketEntryId);
+		ticketAttachment.setTicketSolutionId(ticketSolutionId);
+		ticketAttachment.setFileName(fileName);
+		ticketAttachment.setFileSize(file.length());
+		ticketAttachment.setVisibility(visibility);
 
-			if (Validator.isNull(fileName)) {
-				continue;
-			}
+		ticketAttachmentPersistence.update(ticketAttachment);
 
-			validate(ticketEntryId, fileName, file.length(), visibility);
+		// File
 
-			long ticketAttachmentId = counterLocalService.increment();
-
-			TicketAttachment ticketAttachment =
-				ticketAttachmentPersistence.create(ticketAttachmentId);
-
-			ticketAttachment.setUserId(user.getUserId());
-			ticketAttachment.setUserName(user.getFullName());
-			ticketAttachment.setCompanyId(user.getCompanyId());
-			ticketAttachment.setCreateDate(now);
-			ticketAttachment.setTicketEntryId(ticketEntryId);
-			ticketAttachment.setTicketSolutionId(ticketSolutionId);
-			ticketAttachment.setFileName(fileName);
-			ticketAttachment.setFileSize(file.length());
-			ticketAttachment.setVisibility(visibility);
-
-			ticketAttachmentPersistence.update(ticketAttachment);
-
-			ticketAttachments.add(ticketAttachment);
-
-			// File
-
-			String dirName = ticketAttachment.getFileDir();
-
-			try {
-				DLStoreUtil.addDirectory(
-					ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
-					dirName);
-			}
-			catch (DuplicateDirectoryException dde) {
-			}
-
-			DLStoreUtil.addFile(
+		try {
+			DLStoreUtil.addDirectory(
 				ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
-				dirName + "/" + fileName, file);
+				ticketAttachment.getFileDir());
+		}
+		catch (DuplicateDirectoryException dde) {
 		}
 
-		updateStatus(
-			user, ticketAttachments, ticketEntryId, status, serviceContext);
+		DLStoreUtil.addFile(
+			ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
+			ticketAttachment.getFilePath(), file);
 
-		return ticketAttachments;
+		updateStatus(
+			userId, ticketAttachment, ticketEntryId, status, serviceContext);
+
+		return ticketAttachment;
 	}
 
 	public void deleteOrphanTicketAttachments() throws PortalException {
@@ -267,27 +246,25 @@ public class TicketAttachmentLocalServiceImpl
 	}
 
 	public void updateStatus(
-			User user, List<TicketAttachment> ticketAttachments,
-			long ticketEntryId, int status, ServiceContext serviceContext)
+			long userId, TicketAttachment ticketAttachment, long ticketEntryId,
+			int status, ServiceContext serviceContext)
 		throws PortalException {
 
 		// Ticket attachment
 
 		Date now = serviceContext.getCreateDate(new Date());
 
-		for (TicketAttachment ticketAttachment : ticketAttachments) {
-			if (status == WorkflowConstants.STATUS_APPROVED) {
-				if (ticketAttachment.getStatus() ==
-						WorkflowConstants.STATUS_DRAFT) {
+		if (status == WorkflowConstants.STATUS_APPROVED) {
+			if (ticketAttachment.getStatus() ==
+					WorkflowConstants.STATUS_DRAFT) {
 
-					ticketAttachment.setCreateDate(now);
-				}
+				ticketAttachment.setCreateDate(now);
 			}
-
-			ticketAttachment.setStatus(status);
-
-			ticketAttachmentPersistence.update(ticketAttachment);
 		}
+
+		ticketAttachment.setStatus(status);
+
+		ticketAttachmentPersistence.update(ticketAttachment);
 
 		if ((status != WorkflowConstants.STATUS_APPROVED) ||
 			(ticketEntryId ==
@@ -313,19 +290,51 @@ public class TicketAttachmentLocalServiceImpl
 			auditAction = Actions.ADD;
 		}
 
-		for (TicketAttachment ticketAttachment : ticketAttachments) {
-			auditEntryLocalService.addAuditEntry(
-				user.getUserId(), now, TicketEntry.class, ticketEntryId,
-				auditSetId, TicketAttachment.class,
-				ticketAttachment.getTicketAttachmentId(), auditAction,
-				Fields.FILE, ticketAttachment.getVisibility(), StringPool.BLANK,
-				StringPool.BLANK, StringPool.BLANK,
-				ticketAttachment.getFileName(), StringPool.BLANK, false);
-		}
+		auditEntryLocalService.addAuditEntry(
+			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
+			TicketAttachment.class, ticketAttachment.getTicketAttachmentId(),
+			auditAction, Fields.FILE, ticketAttachment.getVisibility(),
+			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
+			ticketAttachment.getFileName(), StringPool.BLANK, false);
 
 		// Indexer
 
 		ticketEntryLocalService.reindexTicketEntry(ticketEntryId);
+	}
+
+	public TicketAttachment updateTicketAttachment(
+			long ticketAttachmentId, long ticketEntryId)
+		throws PortalException {
+
+		TicketAttachment ticketAttachment =
+			ticketAttachmentPersistence.findByPrimaryKey(ticketAttachmentId);
+
+		if (ticketAttachment.getTicketEntryId() == ticketEntryId) {
+			return ticketAttachment;
+		}
+
+		String oldFilePath = ticketAttachment.getFilePath();
+
+		ticketAttachment.setTicketEntryId(ticketEntryId);
+		ticketAttachment.setStatus(WorkflowConstants.STATUS_APPROVED);
+
+		ticketAttachmentPersistence.update(ticketAttachment);
+
+		// File
+
+		try {
+			DLStoreUtil.addDirectory(
+				ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
+				ticketAttachment.getFileDir());
+		}
+		catch (DuplicateDirectoryException dde) {
+		}
+
+		DLStoreUtil.updateFile(
+			ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
+			oldFilePath, ticketAttachment.getFilePath());
+
+		return ticketAttachment;
 	}
 
 	protected void validate(

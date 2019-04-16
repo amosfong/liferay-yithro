@@ -33,6 +33,9 @@
 
 		<!-- Finder methods -->
 
+		<finder name="TicketEntryId" return-type="Collection">
+			<finder-column name="ticketEntryId" />
+		</finder>
 		<finder name="CD_TEI" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
 			<finder-column name="ticketEntryId" />
@@ -412,6 +415,8 @@
 		<exception>TicketCommentTemplateName</exception>
 		<exception>TicketCommentVisibility</exception>
 		<exception>TicketEntryClosed</exception>
+		<exception>TicketEntryDescription</exception>
+		<exception>TicketEntrySubject</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>

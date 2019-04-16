@@ -12,15 +12,24 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.constants;
 
 /**
  * @author Amos Fong
  */
-public class TicketAttachmentConstants {
+public class WorkflowConstants
+	extends com.liferay.portal.kernel.workflow.WorkflowConstants {
 
-	public static final int TICKET_ENTRY_DEFAULT_ID = 0;
+	public static final int STATUS_CLOSED = 100;
 
-	public static final int TICKET_SOLUTION_DEFAULT_ID = 0;
+	public static String getStatusLabel(int status) {
+		if (status == STATUS_CLOSED) {
+			return "closed";
+		}
+		else {
+			return com.liferay.portal.kernel.workflow.WorkflowConstants.
+				getStatusLabel(status);
+		}
+	}
 
 }

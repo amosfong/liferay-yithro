@@ -23,14 +23,26 @@ public class Fields {
 
 	public static final String DATA = "data";
 
+	public static final String DESCRIPTION = "description";
+
+	public static final String DUE_DATE = "due-date";
+
 	public static final String FILE = "file";
 
 	public static final String PRIMARY = "primary";
 
+	public static final String REPORTED_BY = "reported-by";
+
 	public static final String ROLE = "role";
+
+	public static final String STATUS = "status";
+
+	public static final String SUBJECT = "subject";
 
 	public static final String URL = "url";
 
 	public static final String USER = "user";
+
+	public static final String WEIGHT = "weight";
 
 }

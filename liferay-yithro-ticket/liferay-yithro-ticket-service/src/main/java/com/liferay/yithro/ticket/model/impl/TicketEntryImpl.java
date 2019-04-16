@@ -16,6 +16,8 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.yithro.constants.WorkflowConstants;
+
 /**
  * @author Amos Fong
  */
@@ -25,8 +27,17 @@ public class TicketEntryImpl extends TicketEntryBaseImpl {
 	public TicketEntryImpl() {
 	}
 
+	public String getStatusLabel() {
+		return WorkflowConstants.getStatusLabel(getStatus());
+	}
+
 	public boolean isClosed() {
-		return false;
+		if (getStatus() == WorkflowConstants.STATUS_CLOSED) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }

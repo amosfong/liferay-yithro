@@ -16,8 +16,11 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.document.library.kernel.store.Store;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+
+import java.io.File;
 
 /**
  * @author Amos Fong
@@ -26,6 +29,10 @@ import com.liferay.portal.kernel.util.StringPool;
 public class TicketAttachmentImpl extends TicketAttachmentBaseImpl {
 
 	public TicketAttachmentImpl() {
+	}
+
+	public File getFile() {
+		return _file;
 	}
 
 	public String getFileDir() {
@@ -44,9 +51,15 @@ public class TicketAttachmentImpl extends TicketAttachmentBaseImpl {
 
 		sb.append(getFileDir());
 		sb.append(StringPool.SLASH);
-		sb.append(getFileName());
+		sb.append(Store.VERSION_DEFAULT);
 
 		return sb.toString();
 	}
+
+	public void setFile(File file) {
+		_file = file;
+	}
+
+	private File _file;
 
 }

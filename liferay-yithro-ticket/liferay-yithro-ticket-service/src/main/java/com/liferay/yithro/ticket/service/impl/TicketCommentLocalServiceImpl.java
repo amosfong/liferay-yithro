@@ -297,10 +297,10 @@ public class TicketCommentLocalServiceImpl
 					ticketComment.getVisibility(),
 					WorkflowConstants.STATUS_DRAFT);
 
-			if (!ticketAttachments.isEmpty()) {
+			for (TicketAttachment ticketAttachment : ticketAttachments) {
 				ticketAttachmentLocalService.updateStatus(
-					user, ticketAttachments, ticketComment.getTicketEntryId(),
-					status, serviceContext);
+					user.getUserId(), ticketAttachment,
+					ticketComment.getTicketEntryId(), status, serviceContext);
 			}
 		}
 
