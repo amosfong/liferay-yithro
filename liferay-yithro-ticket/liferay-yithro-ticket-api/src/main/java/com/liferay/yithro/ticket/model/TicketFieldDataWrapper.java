@@ -25,32 +25,32 @@ import java.util.Map;
 
 /**
  * <p>
- * This class is a wrapper for {@link TicketInformation}.
+ * This class is a wrapper for {@link TicketFieldData}.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformation
+ * @see TicketFieldData
  * @generated
  */
 @ProviderType
-public class TicketInformationWrapper
-	extends BaseModelWrapper<TicketInformation>
-	implements TicketInformation, ModelWrapper<TicketInformation> {
+public class TicketFieldDataWrapper
+	extends BaseModelWrapper<TicketFieldData>
+	implements TicketFieldData, ModelWrapper<TicketFieldData> {
 
-	public TicketInformationWrapper(TicketInformation ticketInformation) {
-		super(ticketInformation);
+	public TicketFieldDataWrapper(TicketFieldData ticketFieldData) {
+		super(ticketFieldData);
 	}
 
 	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("ticketInformationId", getTicketInformationId());
+		attributes.put("ticketFieldDataId", getTicketFieldDataId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
-		attributes.put("fieldId", getFieldId());
+		attributes.put("ticketFieldId", getTicketFieldId());
 		attributes.put("data", getData());
 
 		return attributes;
@@ -58,10 +58,10 @@ public class TicketInformationWrapper
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long ticketInformationId = (Long)attributes.get("ticketInformationId");
+		Long ticketFieldDataId = (Long)attributes.get("ticketFieldDataId");
 
-		if (ticketInformationId != null) {
-			setTicketInformationId(ticketInformationId);
+		if (ticketFieldDataId != null) {
+			setTicketFieldDataId(ticketFieldDataId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -88,10 +88,10 @@ public class TicketInformationWrapper
 			setTicketEntryId(ticketEntryId);
 		}
 
-		Long fieldId = (Long)attributes.get("fieldId");
+		Long ticketFieldId = (Long)attributes.get("ticketFieldId");
 
-		if (fieldId != null) {
-			setFieldId(fieldId);
+		if (ticketFieldId != null) {
+			setTicketFieldId(ticketFieldId);
 		}
 
 		String data = (String)attributes.get("data");
@@ -102,9 +102,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the company ID of this ticket information.
+	 * Returns the company ID of this ticket field data.
 	 *
-	 * @return the company ID of this ticket information
+	 * @return the company ID of this ticket field data
 	 */
 	@Override
 	public long getCompanyId() {
@@ -112,9 +112,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the create date of this ticket information.
+	 * Returns the create date of this ticket field data.
 	 *
-	 * @return the create date of this ticket information
+	 * @return the create date of this ticket field data
 	 */
 	@Override
 	public Date getCreateDate() {
@@ -122,9 +122,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the data of this ticket information.
+	 * Returns the data of this ticket field data.
 	 *
-	 * @return the data of this ticket information
+	 * @return the data of this ticket field data
 	 */
 	@Override
 	public String getData() {
@@ -132,19 +132,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the field ID of this ticket information.
+	 * Returns the modified date of this ticket field data.
 	 *
-	 * @return the field ID of this ticket information
-	 */
-	@Override
-	public long getFieldId() {
-		return model.getFieldId();
-	}
-
-	/**
-	 * Returns the modified date of this ticket information.
-	 *
-	 * @return the modified date of this ticket information
+	 * @return the modified date of this ticket field data
 	 */
 	@Override
 	public Date getModifiedDate() {
@@ -152,9 +142,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the primary key of this ticket information.
+	 * Returns the primary key of this ticket field data.
 	 *
-	 * @return the primary key of this ticket information
+	 * @return the primary key of this ticket field data
 	 */
 	@Override
 	public long getPrimaryKey() {
@@ -162,9 +152,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the ticket entry ID of this ticket information.
+	 * Returns the ticket entry ID of this ticket field data.
 	 *
-	 * @return the ticket entry ID of this ticket information
+	 * @return the ticket entry ID of this ticket field data
 	 */
 	@Override
 	public long getTicketEntryId() {
@@ -172,13 +162,23 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Returns the ticket information ID of this ticket information.
+	 * Returns the ticket field data ID of this ticket field data.
 	 *
-	 * @return the ticket information ID of this ticket information
+	 * @return the ticket field data ID of this ticket field data
 	 */
 	@Override
-	public long getTicketInformationId() {
-		return model.getTicketInformationId();
+	public long getTicketFieldDataId() {
+		return model.getTicketFieldDataId();
+	}
+
+	/**
+	 * Returns the ticket field ID of this ticket field data.
+	 *
+	 * @return the ticket field ID of this ticket field data
+	 */
+	@Override
+	public long getTicketFieldId() {
+		return model.getTicketFieldId();
 	}
 
 	@Override
@@ -187,9 +187,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the company ID of this ticket information.
+	 * Sets the company ID of this ticket field data.
 	 *
-	 * @param companyId the company ID of this ticket information
+	 * @param companyId the company ID of this ticket field data
 	 */
 	@Override
 	public void setCompanyId(long companyId) {
@@ -197,9 +197,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the create date of this ticket information.
+	 * Sets the create date of this ticket field data.
 	 *
-	 * @param createDate the create date of this ticket information
+	 * @param createDate the create date of this ticket field data
 	 */
 	@Override
 	public void setCreateDate(Date createDate) {
@@ -207,9 +207,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the data of this ticket information.
+	 * Sets the data of this ticket field data.
 	 *
-	 * @param data the data of this ticket information
+	 * @param data the data of this ticket field data
 	 */
 	@Override
 	public void setData(String data) {
@@ -217,19 +217,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the field ID of this ticket information.
+	 * Sets the modified date of this ticket field data.
 	 *
-	 * @param fieldId the field ID of this ticket information
-	 */
-	@Override
-	public void setFieldId(long fieldId) {
-		model.setFieldId(fieldId);
-	}
-
-	/**
-	 * Sets the modified date of this ticket information.
-	 *
-	 * @param modifiedDate the modified date of this ticket information
+	 * @param modifiedDate the modified date of this ticket field data
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
@@ -237,9 +227,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the primary key of this ticket information.
+	 * Sets the primary key of this ticket field data.
 	 *
-	 * @param primaryKey the primary key of this ticket information
+	 * @param primaryKey the primary key of this ticket field data
 	 */
 	@Override
 	public void setPrimaryKey(long primaryKey) {
@@ -247,9 +237,9 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the ticket entry ID of this ticket information.
+	 * Sets the ticket entry ID of this ticket field data.
 	 *
-	 * @param ticketEntryId the ticket entry ID of this ticket information
+	 * @param ticketEntryId the ticket entry ID of this ticket field data
 	 */
 	@Override
 	public void setTicketEntryId(long ticketEntryId) {
@@ -257,20 +247,28 @@ public class TicketInformationWrapper
 	}
 
 	/**
-	 * Sets the ticket information ID of this ticket information.
+	 * Sets the ticket field data ID of this ticket field data.
 	 *
-	 * @param ticketInformationId the ticket information ID of this ticket information
+	 * @param ticketFieldDataId the ticket field data ID of this ticket field data
 	 */
 	@Override
-	public void setTicketInformationId(long ticketInformationId) {
-		model.setTicketInformationId(ticketInformationId);
+	public void setTicketFieldDataId(long ticketFieldDataId) {
+		model.setTicketFieldDataId(ticketFieldDataId);
+	}
+
+	/**
+	 * Sets the ticket field ID of this ticket field data.
+	 *
+	 * @param ticketFieldId the ticket field ID of this ticket field data
+	 */
+	@Override
+	public void setTicketFieldId(long ticketFieldId) {
+		model.setTicketFieldId(ticketFieldId);
 	}
 
 	@Override
-	protected TicketInformationWrapper wrap(
-		TicketInformation ticketInformation) {
-
-		return new TicketInformationWrapper(ticketInformation);
+	protected TicketFieldDataWrapper wrap(TicketFieldData ticketFieldData) {
+		return new TicketFieldDataWrapper(ticketFieldData);
 	}
 
 }

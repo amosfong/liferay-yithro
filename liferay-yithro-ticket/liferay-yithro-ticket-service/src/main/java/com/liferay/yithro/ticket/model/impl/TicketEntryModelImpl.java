@@ -77,10 +77,9 @@ public class TicketEntryModelImpl
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"languageId", Types.VARCHAR}, {"ticketNumber", Types.BIGINT},
 		{"subject", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"severity", Types.INTEGER}, {"status", Types.INTEGER},
-		{"weight", Types.INTEGER}, {"escalationLevel", Types.INTEGER},
-		{"resolution", Types.INTEGER}, {"holdDate", Types.TIMESTAMP},
-		{"closedDate", Types.TIMESTAMP}, {"dueDate", Types.TIMESTAMP}
+		{"status", Types.INTEGER}, {"weight", Types.INTEGER},
+		{"holdDate", Types.TIMESTAMP}, {"closedDate", Types.TIMESTAMP},
+		{"dueDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,18 +96,15 @@ public class TicketEntryModelImpl
 		TABLE_COLUMNS_MAP.put("ticketNumber", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("severity", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("weight", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("escalationLevel", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("resolution", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("holdDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("closedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("dueDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,severity INTEGER,status INTEGER,weight INTEGER,escalationLevel INTEGER,resolution INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
+		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,status INTEGER,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketEntry";
 
@@ -157,11 +153,8 @@ public class TicketEntryModelImpl
 		model.setTicketNumber(soapModel.getTicketNumber());
 		model.setSubject(soapModel.getSubject());
 		model.setDescription(soapModel.getDescription());
-		model.setSeverity(soapModel.getSeverity());
 		model.setStatus(soapModel.getStatus());
 		model.setWeight(soapModel.getWeight());
-		model.setEscalationLevel(soapModel.getEscalationLevel());
-		model.setResolution(soapModel.getResolution());
 		model.setHoldDate(soapModel.getHoldDate());
 		model.setClosedDate(soapModel.getClosedDate());
 		model.setDueDate(soapModel.getDueDate());
@@ -332,25 +325,12 @@ public class TicketEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<TicketEntry, String>)TicketEntry::setDescription);
-		attributeGetterFunctions.put("severity", TicketEntry::getSeverity);
-		attributeSetterBiConsumers.put(
-			"severity",
-			(BiConsumer<TicketEntry, Integer>)TicketEntry::setSeverity);
 		attributeGetterFunctions.put("status", TicketEntry::getStatus);
 		attributeSetterBiConsumers.put(
 			"status", (BiConsumer<TicketEntry, Integer>)TicketEntry::setStatus);
 		attributeGetterFunctions.put("weight", TicketEntry::getWeight);
 		attributeSetterBiConsumers.put(
 			"weight", (BiConsumer<TicketEntry, Integer>)TicketEntry::setWeight);
-		attributeGetterFunctions.put(
-			"escalationLevel", TicketEntry::getEscalationLevel);
-		attributeSetterBiConsumers.put(
-			"escalationLevel",
-			(BiConsumer<TicketEntry, Integer>)TicketEntry::setEscalationLevel);
-		attributeGetterFunctions.put("resolution", TicketEntry::getResolution);
-		attributeSetterBiConsumers.put(
-			"resolution",
-			(BiConsumer<TicketEntry, Integer>)TicketEntry::setResolution);
 		attributeGetterFunctions.put("holdDate", TicketEntry::getHoldDate);
 		attributeSetterBiConsumers.put(
 			"holdDate",
@@ -533,17 +513,6 @@ public class TicketEntryModelImpl
 
 	@JSON
 	@Override
-	public int getSeverity() {
-		return _severity;
-	}
-
-	@Override
-	public void setSeverity(int severity) {
-		_severity = severity;
-	}
-
-	@JSON
-	@Override
 	public int getStatus() {
 		return _status;
 	}
@@ -562,28 +531,6 @@ public class TicketEntryModelImpl
 	@Override
 	public void setWeight(int weight) {
 		_weight = weight;
-	}
-
-	@JSON
-	@Override
-	public int getEscalationLevel() {
-		return _escalationLevel;
-	}
-
-	@Override
-	public void setEscalationLevel(int escalationLevel) {
-		_escalationLevel = escalationLevel;
-	}
-
-	@JSON
-	@Override
-	public int getResolution() {
-		return _resolution;
-	}
-
-	@Override
-	public void setResolution(int resolution) {
-		_resolution = resolution;
 	}
 
 	@JSON
@@ -661,11 +608,8 @@ public class TicketEntryModelImpl
 		ticketEntryImpl.setTicketNumber(getTicketNumber());
 		ticketEntryImpl.setSubject(getSubject());
 		ticketEntryImpl.setDescription(getDescription());
-		ticketEntryImpl.setSeverity(getSeverity());
 		ticketEntryImpl.setStatus(getStatus());
 		ticketEntryImpl.setWeight(getWeight());
-		ticketEntryImpl.setEscalationLevel(getEscalationLevel());
-		ticketEntryImpl.setResolution(getResolution());
 		ticketEntryImpl.setHoldDate(getHoldDate());
 		ticketEntryImpl.setClosedDate(getClosedDate());
 		ticketEntryImpl.setDueDate(getDueDate());
@@ -803,15 +747,9 @@ public class TicketEntryModelImpl
 			ticketEntryCacheModel.description = null;
 		}
 
-		ticketEntryCacheModel.severity = getSeverity();
-
 		ticketEntryCacheModel.status = getStatus();
 
 		ticketEntryCacheModel.weight = getWeight();
-
-		ticketEntryCacheModel.escalationLevel = getEscalationLevel();
-
-		ticketEntryCacheModel.resolution = getResolution();
 
 		Date holdDate = getHoldDate();
 
@@ -926,11 +864,8 @@ public class TicketEntryModelImpl
 	private long _ticketNumber;
 	private String _subject;
 	private String _description;
-	private int _severity;
 	private int _status;
 	private int _weight;
-	private int _escalationLevel;
-	private int _resolution;
 	private Date _holdDate;
 	private Date _closedDate;
 	private Date _dueDate;

@@ -65,7 +65,7 @@ public class TicketEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{ticketEntryId=");
 		sb.append(ticketEntryId);
@@ -87,16 +87,10 @@ public class TicketEntryCacheModel
 		sb.append(subject);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", severity=");
-		sb.append(severity);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", weight=");
 		sb.append(weight);
-		sb.append(", escalationLevel=");
-		sb.append(escalationLevel);
-		sb.append(", resolution=");
-		sb.append(resolution);
 		sb.append(", holdDate=");
 		sb.append(holdDate);
 		sb.append(", closedDate=");
@@ -160,11 +154,8 @@ public class TicketEntryCacheModel
 			ticketEntryImpl.setDescription(description);
 		}
 
-		ticketEntryImpl.setSeverity(severity);
 		ticketEntryImpl.setStatus(status);
 		ticketEntryImpl.setWeight(weight);
-		ticketEntryImpl.setEscalationLevel(escalationLevel);
-		ticketEntryImpl.setResolution(resolution);
 
 		if (holdDate == Long.MIN_VALUE) {
 			ticketEntryImpl.setHoldDate(null);
@@ -208,15 +199,9 @@ public class TicketEntryCacheModel
 		subject = objectInput.readUTF();
 		description = objectInput.readUTF();
 
-		severity = objectInput.readInt();
-
 		status = objectInput.readInt();
 
 		weight = objectInput.readInt();
-
-		escalationLevel = objectInput.readInt();
-
-		resolution = objectInput.readInt();
 		holdDate = objectInput.readLong();
 		closedDate = objectInput.readLong();
 		dueDate = objectInput.readLong();
@@ -263,15 +248,9 @@ public class TicketEntryCacheModel
 			objectOutput.writeUTF(description);
 		}
 
-		objectOutput.writeInt(severity);
-
 		objectOutput.writeInt(status);
 
 		objectOutput.writeInt(weight);
-
-		objectOutput.writeInt(escalationLevel);
-
-		objectOutput.writeInt(resolution);
 		objectOutput.writeLong(holdDate);
 		objectOutput.writeLong(closedDate);
 		objectOutput.writeLong(dueDate);
@@ -287,11 +266,8 @@ public class TicketEntryCacheModel
 	public long ticketNumber;
 	public String subject;
 	public String description;
-	public int severity;
 	public int status;
 	public int weight;
-	public int escalationLevel;
-	public int resolution;
 	public long holdDate;
 	public long closedDate;
 	public long dueDate;

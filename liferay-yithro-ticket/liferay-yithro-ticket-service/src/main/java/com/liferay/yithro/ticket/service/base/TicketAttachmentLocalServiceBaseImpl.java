@@ -44,8 +44,9 @@ import com.liferay.yithro.ticket.service.persistence.TicketAttachmentPersistence
 import com.liferay.yithro.ticket.service.persistence.TicketCommentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentTemplatePersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketEntryPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFlagPersistence;
-import com.liferay.yithro.ticket.service.persistence.TicketInformationPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketLinkPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketSolutionPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketWorkerPersistence;
@@ -417,10 +418,13 @@ public abstract class TicketAttachmentLocalServiceBaseImpl
 	protected TicketEntryPersistence ticketEntryPersistence;
 
 	@Reference
-	protected TicketFlagPersistence ticketFlagPersistence;
+	protected TicketFieldPersistence ticketFieldPersistence;
 
 	@Reference
-	protected TicketInformationPersistence ticketInformationPersistence;
+	protected TicketFieldDataPersistence ticketFieldDataPersistence;
+
+	@Reference
+	protected TicketFlagPersistence ticketFlagPersistence;
 
 	@Reference
 	protected TicketLinkPersistence ticketLinkPersistence;

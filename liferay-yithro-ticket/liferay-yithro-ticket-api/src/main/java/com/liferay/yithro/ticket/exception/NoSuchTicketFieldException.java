@@ -22,20 +22,20 @@ import com.liferay.portal.kernel.exception.NoSuchModelException;
  * @author Brian Wing Shun Chan
  */
 @ProviderType
-public class NoSuchTicketInformationException extends NoSuchModelException {
+public class NoSuchTicketFieldException extends NoSuchModelException {
 
-	public NoSuchTicketInformationException() {
+	public NoSuchTicketFieldException() {
 	}
 
-	public NoSuchTicketInformationException(String msg) {
+	public NoSuchTicketFieldException(String msg) {
 		super(msg);
 	}
 
-	public NoSuchTicketInformationException(String msg, Throwable cause) {
+	public NoSuchTicketFieldException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public NoSuchTicketInformationException(Throwable cause) {
+	public NoSuchTicketFieldException(Throwable cause) {
 		super(cause);
 	}
 

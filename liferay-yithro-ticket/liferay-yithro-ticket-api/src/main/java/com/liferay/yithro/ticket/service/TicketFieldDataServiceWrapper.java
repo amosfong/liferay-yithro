@@ -19,21 +19,20 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
- * Provides a wrapper for {@link TicketInformationService}.
+ * Provides a wrapper for {@link TicketFieldDataService}.
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformationService
+ * @see TicketFieldDataService
  * @generated
  */
 @ProviderType
-public class TicketInformationServiceWrapper
-	implements TicketInformationService,
-			   ServiceWrapper<TicketInformationService> {
+public class TicketFieldDataServiceWrapper
+	implements TicketFieldDataService, ServiceWrapper<TicketFieldDataService> {
 
-	public TicketInformationServiceWrapper(
-		TicketInformationService ticketInformationService) {
+	public TicketFieldDataServiceWrapper(
+		TicketFieldDataService ticketFieldDataService) {
 
-		_ticketInformationService = ticketInformationService;
+		_ticketFieldDataService = ticketFieldDataService;
 	}
 
 	/**
@@ -43,21 +42,21 @@ public class TicketInformationServiceWrapper
 	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
-		return _ticketInformationService.getOSGiServiceIdentifier();
+		return _ticketFieldDataService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public TicketInformationService getWrappedService() {
-		return _ticketInformationService;
+	public TicketFieldDataService getWrappedService() {
+		return _ticketFieldDataService;
 	}
 
 	@Override
 	public void setWrappedService(
-		TicketInformationService ticketInformationService) {
+		TicketFieldDataService ticketFieldDataService) {
 
-		_ticketInformationService = ticketInformationService;
+		_ticketFieldDataService = ticketFieldDataService;
 	}
 
-	private TicketInformationService _ticketInformationService;
+	private TicketFieldDataService _ticketFieldDataService;
 
 }

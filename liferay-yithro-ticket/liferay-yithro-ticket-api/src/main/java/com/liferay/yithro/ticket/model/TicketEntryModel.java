@@ -229,20 +229,6 @@ public interface TicketEntryModel
 	public void setDescription(String description);
 
 	/**
-	 * Returns the severity of this ticket entry.
-	 *
-	 * @return the severity of this ticket entry
-	 */
-	public int getSeverity();
-
-	/**
-	 * Sets the severity of this ticket entry.
-	 *
-	 * @param severity the severity of this ticket entry
-	 */
-	public void setSeverity(int severity);
-
-	/**
 	 * Returns the status of this ticket entry.
 	 *
 	 * @return the status of this ticket entry
@@ -269,34 +255,6 @@ public interface TicketEntryModel
 	 * @param weight the weight of this ticket entry
 	 */
 	public void setWeight(int weight);
-
-	/**
-	 * Returns the escalation level of this ticket entry.
-	 *
-	 * @return the escalation level of this ticket entry
-	 */
-	public int getEscalationLevel();
-
-	/**
-	 * Sets the escalation level of this ticket entry.
-	 *
-	 * @param escalationLevel the escalation level of this ticket entry
-	 */
-	public void setEscalationLevel(int escalationLevel);
-
-	/**
-	 * Returns the resolution of this ticket entry.
-	 *
-	 * @return the resolution of this ticket entry
-	 */
-	public int getResolution();
-
-	/**
-	 * Sets the resolution of this ticket entry.
-	 *
-	 * @param resolution the resolution of this ticket entry
-	 */
-	public void setResolution(int resolution);
 
 	/**
 	 * Returns the hold date of this ticket entry.

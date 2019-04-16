@@ -25,12 +25,12 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 /**
- * Provides the remote service interface for TicketInformation. Methods of this
+ * Provides the remote service interface for TicketField. Methods of this
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformationServiceUtil
+ * @see TicketFieldServiceUtil
  * @generated
  */
 @AccessControlled
@@ -40,12 +40,12 @@ import com.liferay.portal.kernel.transaction.Transactional;
 	isolation = Isolation.PORTAL,
 	rollbackFor = {PortalException.class, SystemException.class}
 )
-public interface TicketInformationService extends BaseService {
+public interface TicketFieldService extends BaseService {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link TicketInformationServiceUtil} to access the ticket information remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketInformationServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link TicketFieldServiceUtil} to access the ticket field remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**

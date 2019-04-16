@@ -21,24 +21,24 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * Provides the remote service utility for TicketInformation. This utility wraps
- * <code>com.liferay.yithro.ticket.service.impl.TicketInformationServiceImpl</code> and is an
+ * Provides the remote service utility for TicketFieldData. This utility wraps
+ * <code>com.liferay.yithro.ticket.service.impl.TicketFieldDataServiceImpl</code> and is an
  * access point for service operations in application layer code running on a
  * remote server. Methods of this service are expected to have security checks
  * based on the propagated JAAS credentials because this service can be
  * accessed remotely.
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformationService
+ * @see TicketFieldDataService
  * @generated
  */
 @ProviderType
-public class TicketInformationServiceUtil {
+public class TicketFieldDataServiceUtil {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketInformationServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldDataServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 
 	/**
@@ -50,22 +50,22 @@ public class TicketInformationServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static TicketInformationService getService() {
+	public static TicketFieldDataService getService() {
 		return _serviceTracker.getService();
 	}
 
 	private static ServiceTracker
-		<TicketInformationService, TicketInformationService> _serviceTracker;
+		<TicketFieldDataService, TicketFieldDataService> _serviceTracker;
 
 	static {
-		Bundle bundle = FrameworkUtil.getBundle(TicketInformationService.class);
+		Bundle bundle = FrameworkUtil.getBundle(TicketFieldDataService.class);
 
-		ServiceTracker<TicketInformationService, TicketInformationService>
+		ServiceTracker<TicketFieldDataService, TicketFieldDataService>
 			serviceTracker =
 				new ServiceTracker
-					<TicketInformationService, TicketInformationService>(
-						bundle.getBundleContext(),
-						TicketInformationService.class, null);
+					<TicketFieldDataService, TicketFieldDataService>(
+						bundle.getBundleContext(), TicketFieldDataService.class,
+						null);
 
 		serviceTracker.open();
 

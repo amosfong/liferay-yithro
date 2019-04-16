@@ -18,7 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * Provides the HTTP utility for the
- * <code>com.liferay.yithro.ticket.service.TicketInformationServiceUtil</code> service
+ * <code>com.liferay.yithro.ticket.service.TicketFieldDataServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
@@ -40,9 +40,9 @@ import aQute.bnd.annotation.ProviderType;
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformationServiceSoap
+ * @see TicketFieldDataServiceSoap
  * @generated
  */
 @ProviderType
-public class TicketInformationServiceHttp {
+public class TicketFieldDataServiceHttp {
 }

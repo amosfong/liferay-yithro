@@ -23,33 +23,31 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services, specifically {@link com.liferay.yithro.ticket.service.http.TicketInformationServiceSoap}.
+ * This class is used by SOAP remote services, specifically {@link com.liferay.yithro.ticket.service.http.TicketFieldDataServiceSoap}.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
 @ProviderType
-public class TicketInformationSoap implements Serializable {
+public class TicketFieldDataSoap implements Serializable {
 
-	public static TicketInformationSoap toSoapModel(TicketInformation model) {
-		TicketInformationSoap soapModel = new TicketInformationSoap();
+	public static TicketFieldDataSoap toSoapModel(TicketFieldData model) {
+		TicketFieldDataSoap soapModel = new TicketFieldDataSoap();
 
-		soapModel.setTicketInformationId(model.getTicketInformationId());
+		soapModel.setTicketFieldDataId(model.getTicketFieldDataId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
-		soapModel.setFieldId(model.getFieldId());
+		soapModel.setTicketFieldId(model.getTicketFieldId());
 		soapModel.setData(model.getData());
 
 		return soapModel;
 	}
 
-	public static TicketInformationSoap[] toSoapModels(
-		TicketInformation[] models) {
-
-		TicketInformationSoap[] soapModels =
-			new TicketInformationSoap[models.length];
+	public static TicketFieldDataSoap[] toSoapModels(TicketFieldData[] models) {
+		TicketFieldDataSoap[] soapModels =
+			new TicketFieldDataSoap[models.length];
 
 		for (int i = 0; i < models.length; i++) {
 			soapModels[i] = toSoapModel(models[i]);
@@ -58,17 +56,17 @@ public class TicketInformationSoap implements Serializable {
 		return soapModels;
 	}
 
-	public static TicketInformationSoap[][] toSoapModels(
-		TicketInformation[][] models) {
+	public static TicketFieldDataSoap[][] toSoapModels(
+		TicketFieldData[][] models) {
 
-		TicketInformationSoap[][] soapModels = null;
+		TicketFieldDataSoap[][] soapModels = null;
 
 		if (models.length > 0) {
 			soapModels =
-				new TicketInformationSoap[models.length][models[0].length];
+				new TicketFieldDataSoap[models.length][models[0].length];
 		}
 		else {
-			soapModels = new TicketInformationSoap[0][0];
+			soapModels = new TicketFieldDataSoap[0][0];
 		}
 
 		for (int i = 0; i < models.length; i++) {
@@ -78,36 +76,36 @@ public class TicketInformationSoap implements Serializable {
 		return soapModels;
 	}
 
-	public static TicketInformationSoap[] toSoapModels(
-		List<TicketInformation> models) {
+	public static TicketFieldDataSoap[] toSoapModels(
+		List<TicketFieldData> models) {
 
-		List<TicketInformationSoap> soapModels =
-			new ArrayList<TicketInformationSoap>(models.size());
+		List<TicketFieldDataSoap> soapModels =
+			new ArrayList<TicketFieldDataSoap>(models.size());
 
-		for (TicketInformation model : models) {
+		for (TicketFieldData model : models) {
 			soapModels.add(toSoapModel(model));
 		}
 
-		return soapModels.toArray(new TicketInformationSoap[soapModels.size()]);
+		return soapModels.toArray(new TicketFieldDataSoap[soapModels.size()]);
 	}
 
-	public TicketInformationSoap() {
+	public TicketFieldDataSoap() {
 	}
 
 	public long getPrimaryKey() {
-		return _ticketInformationId;
+		return _ticketFieldDataId;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setTicketInformationId(pk);
+		setTicketFieldDataId(pk);
 	}
 
-	public long getTicketInformationId() {
-		return _ticketInformationId;
+	public long getTicketFieldDataId() {
+		return _ticketFieldDataId;
 	}
 
-	public void setTicketInformationId(long ticketInformationId) {
-		_ticketInformationId = ticketInformationId;
+	public void setTicketFieldDataId(long ticketFieldDataId) {
+		_ticketFieldDataId = ticketFieldDataId;
 	}
 
 	public long getCompanyId() {
@@ -142,12 +140,12 @@ public class TicketInformationSoap implements Serializable {
 		_ticketEntryId = ticketEntryId;
 	}
 
-	public long getFieldId() {
-		return _fieldId;
+	public long getTicketFieldId() {
+		return _ticketFieldId;
 	}
 
-	public void setFieldId(long fieldId) {
-		_fieldId = fieldId;
+	public void setTicketFieldId(long ticketFieldId) {
+		_ticketFieldId = ticketFieldId;
 	}
 
 	public String getData() {
@@ -158,12 +156,12 @@ public class TicketInformationSoap implements Serializable {
 		_data = data;
 	}
 
-	private long _ticketInformationId;
+	private long _ticketFieldDataId;
 	private long _companyId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _ticketEntryId;
-	private long _fieldId;
+	private long _ticketFieldId;
 	private String _data;
 
 }

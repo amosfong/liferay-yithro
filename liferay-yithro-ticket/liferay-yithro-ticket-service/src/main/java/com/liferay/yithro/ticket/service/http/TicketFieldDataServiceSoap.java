@@ -18,7 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.yithro.ticket.service.TicketInformationServiceUtil</code> service
+ * <code>com.liferay.yithro.ticket.service.TicketFieldDataServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -27,10 +27,10 @@ import aQute.bnd.annotation.ProviderType;
  * ServiceBuilder follows certain rules in translating the methods. For example,
  * if the method in the service utility returns a <code>java.util.List</code>,
  * that is translated to an array of
- * <code>com.liferay.yithro.ticket.model.TicketInformationSoap</code>. If the method in the
+ * <code>com.liferay.yithro.ticket.model.TicketFieldDataSoap</code>. If the method in the
  * service utility returns a
- * <code>com.liferay.yithro.ticket.model.TicketInformation</code>, that is translated to a
- * <code>com.liferay.yithro.ticket.model.TicketInformationSoap</code>. Methods that SOAP
+ * <code>com.liferay.yithro.ticket.model.TicketFieldData</code>, that is translated to a
+ * <code>com.liferay.yithro.ticket.model.TicketFieldDataSoap</code>. Methods that SOAP
  * cannot safely wire are skipped.
  * </p>
  *
@@ -52,9 +52,9 @@ import aQute.bnd.annotation.ProviderType;
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see TicketInformationServiceHttp
+ * @see TicketFieldDataServiceHttp
  * @generated
  */
 @ProviderType
-public class TicketInformationServiceSoap {
+public class TicketFieldDataServiceSoap {
 }

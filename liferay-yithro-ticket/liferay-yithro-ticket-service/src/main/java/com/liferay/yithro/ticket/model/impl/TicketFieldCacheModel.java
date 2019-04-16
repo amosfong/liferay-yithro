@@ -19,7 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
-import com.liferay.yithro.ticket.model.TicketInformation;
+import com.liferay.yithro.ticket.model.TicketField;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -29,14 +29,14 @@ import java.io.ObjectOutput;
 import java.util.Date;
 
 /**
- * The cache model class for representing TicketInformation in entity cache.
+ * The cache model class for representing TicketField in entity cache.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
 @ProviderType
-public class TicketInformationCacheModel
-	implements CacheModel<TicketInformation>, Externalizable {
+public class TicketFieldCacheModel
+	implements CacheModel<TicketField>, Externalizable {
 
 	@Override
 	public boolean equals(Object obj) {
@@ -44,16 +44,14 @@ public class TicketInformationCacheModel
 			return true;
 		}
 
-		if (!(obj instanceof TicketInformationCacheModel)) {
+		if (!(obj instanceof TicketFieldCacheModel)) {
 			return false;
 		}
 
-		TicketInformationCacheModel ticketInformationCacheModel =
-			(TicketInformationCacheModel)obj;
+		TicketFieldCacheModel ticketFieldCacheModel =
+			(TicketFieldCacheModel)obj;
 
-		if (ticketInformationId ==
-				ticketInformationCacheModel.ticketInformationId) {
-
+		if (ticketFieldId == ticketFieldCacheModel.ticketFieldId) {
 			return true;
 		}
 
@@ -62,109 +60,116 @@ public class TicketInformationCacheModel
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, ticketInformationId);
+		return HashUtil.hash(0, ticketFieldId);
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(17);
 
-		sb.append("{ticketInformationId=");
-		sb.append(ticketInformationId);
+		sb.append("{ticketFieldId=");
+		sb.append(ticketFieldId);
 		sb.append(", companyId=");
 		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", ticketEntryId=");
-		sb.append(ticketEntryId);
-		sb.append(", fieldId=");
-		sb.append(fieldId);
-		sb.append(", data=");
-		sb.append(data);
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", type=");
+		sb.append(type);
+		sb.append(", visibility=");
+		sb.append(visibility);
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	@Override
-	public TicketInformation toEntityModel() {
-		TicketInformationImpl ticketInformationImpl =
-			new TicketInformationImpl();
+	public TicketField toEntityModel() {
+		TicketFieldImpl ticketFieldImpl = new TicketFieldImpl();
 
-		ticketInformationImpl.setTicketInformationId(ticketInformationId);
-		ticketInformationImpl.setCompanyId(companyId);
+		ticketFieldImpl.setTicketFieldId(ticketFieldId);
+		ticketFieldImpl.setCompanyId(companyId);
+		ticketFieldImpl.setUserId(userId);
 
 		if (createDate == Long.MIN_VALUE) {
-			ticketInformationImpl.setCreateDate(null);
+			ticketFieldImpl.setCreateDate(null);
 		}
 		else {
-			ticketInformationImpl.setCreateDate(new Date(createDate));
+			ticketFieldImpl.setCreateDate(new Date(createDate));
 		}
 
 		if (modifiedDate == Long.MIN_VALUE) {
-			ticketInformationImpl.setModifiedDate(null);
+			ticketFieldImpl.setModifiedDate(null);
 		}
 		else {
-			ticketInformationImpl.setModifiedDate(new Date(modifiedDate));
+			ticketFieldImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		ticketInformationImpl.setTicketEntryId(ticketEntryId);
-		ticketInformationImpl.setFieldId(fieldId);
-
-		if (data == null) {
-			ticketInformationImpl.setData("");
+		if (name == null) {
+			ticketFieldImpl.setName("");
 		}
 		else {
-			ticketInformationImpl.setData(data);
+			ticketFieldImpl.setName(name);
 		}
 
-		ticketInformationImpl.resetOriginalValues();
+		ticketFieldImpl.setType(type);
+		ticketFieldImpl.setVisibility(visibility);
 
-		return ticketInformationImpl;
+		ticketFieldImpl.resetOriginalValues();
+
+		return ticketFieldImpl;
 	}
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
-		ticketInformationId = objectInput.readLong();
+		ticketFieldId = objectInput.readLong();
 
 		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		name = objectInput.readUTF();
 
-		ticketEntryId = objectInput.readLong();
+		type = objectInput.readInt();
 
-		fieldId = objectInput.readLong();
-		data = objectInput.readUTF();
+		visibility = objectInput.readInt();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
-		objectOutput.writeLong(ticketInformationId);
+		objectOutput.writeLong(ticketFieldId);
 
 		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		objectOutput.writeLong(ticketEntryId);
-
-		objectOutput.writeLong(fieldId);
-
-		if (data == null) {
+		if (name == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(data);
+			objectOutput.writeUTF(name);
 		}
+
+		objectOutput.writeInt(type);
+
+		objectOutput.writeInt(visibility);
 	}
 
-	public long ticketInformationId;
+	public long ticketFieldId;
 	public long companyId;
+	public long userId;
 	public long createDate;
 	public long modifiedDate;
-	public long ticketEntryId;
-	public long fieldId;
-	public String data;
+	public String name;
+	public int type;
+	public int visibility;
 
 }

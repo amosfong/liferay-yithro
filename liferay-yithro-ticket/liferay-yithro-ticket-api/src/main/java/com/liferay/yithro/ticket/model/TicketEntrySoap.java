@@ -44,11 +44,8 @@ public class TicketEntrySoap implements Serializable {
 		soapModel.setTicketNumber(model.getTicketNumber());
 		soapModel.setSubject(model.getSubject());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setSeverity(model.getSeverity());
 		soapModel.setStatus(model.getStatus());
 		soapModel.setWeight(model.getWeight());
-		soapModel.setEscalationLevel(model.getEscalationLevel());
-		soapModel.setResolution(model.getResolution());
 		soapModel.setHoldDate(model.getHoldDate());
 		soapModel.setClosedDate(model.getClosedDate());
 		soapModel.setDueDate(model.getDueDate());
@@ -185,14 +182,6 @@ public class TicketEntrySoap implements Serializable {
 		_description = description;
 	}
 
-	public int getSeverity() {
-		return _severity;
-	}
-
-	public void setSeverity(int severity) {
-		_severity = severity;
-	}
-
 	public int getStatus() {
 		return _status;
 	}
@@ -207,22 +196,6 @@ public class TicketEntrySoap implements Serializable {
 
 	public void setWeight(int weight) {
 		_weight = weight;
-	}
-
-	public int getEscalationLevel() {
-		return _escalationLevel;
-	}
-
-	public void setEscalationLevel(int escalationLevel) {
-		_escalationLevel = escalationLevel;
-	}
-
-	public int getResolution() {
-		return _resolution;
-	}
-
-	public void setResolution(int resolution) {
-		_resolution = resolution;
 	}
 
 	public Date getHoldDate() {
@@ -259,11 +232,8 @@ public class TicketEntrySoap implements Serializable {
 	private long _ticketNumber;
 	private String _subject;
 	private String _description;
-	private int _severity;
 	private int _status;
 	private int _weight;
-	private int _escalationLevel;
-	private int _resolution;
 	private Date _holdDate;
 	private Date _closedDate;
 	private Date _dueDate;

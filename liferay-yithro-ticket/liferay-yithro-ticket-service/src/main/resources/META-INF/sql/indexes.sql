@@ -11,10 +11,10 @@ create index IX_B83B990D on Yithro_TicketComment (userId, ticketEntryId, visibil
 
 create index IX_D62A2FD9 on Yithro_TicketEntry (modifiedDate);
 
+create index IX_D0BF7A48 on Yithro_TicketFieldData (ticketEntryId, ticketFieldId);
+
 create index IX_7826A201 on Yithro_TicketFlag (ticketEntryId, type_, value);
 create index IX_9C71469A on Yithro_TicketFlag (userId, ticketEntryId, type_);
-
-create index IX_E145A39C on Yithro_TicketInformation (ticketEntryId, fieldId);
 
 create index IX_509E5D5B on Yithro_TicketLink (ticketEntryId, ticketSolutionId);
 create index IX_2EFFC20D on Yithro_TicketLink (ticketEntryId, visibility);

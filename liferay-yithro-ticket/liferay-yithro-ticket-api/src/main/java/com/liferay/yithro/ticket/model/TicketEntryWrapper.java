@@ -55,11 +55,8 @@ public class TicketEntryWrapper
 		attributes.put("ticketNumber", getTicketNumber());
 		attributes.put("subject", getSubject());
 		attributes.put("description", getDescription());
-		attributes.put("severity", getSeverity());
 		attributes.put("status", getStatus());
 		attributes.put("weight", getWeight());
-		attributes.put("escalationLevel", getEscalationLevel());
-		attributes.put("resolution", getResolution());
 		attributes.put("holdDate", getHoldDate());
 		attributes.put("closedDate", getClosedDate());
 		attributes.put("dueDate", getDueDate());
@@ -129,12 +126,6 @@ public class TicketEntryWrapper
 			setDescription(description);
 		}
 
-		Integer severity = (Integer)attributes.get("severity");
-
-		if (severity != null) {
-			setSeverity(severity);
-		}
-
 		Integer status = (Integer)attributes.get("status");
 
 		if (status != null) {
@@ -145,18 +136,6 @@ public class TicketEntryWrapper
 
 		if (weight != null) {
 			setWeight(weight);
-		}
-
-		Integer escalationLevel = (Integer)attributes.get("escalationLevel");
-
-		if (escalationLevel != null) {
-			setEscalationLevel(escalationLevel);
-		}
-
-		Integer resolution = (Integer)attributes.get("resolution");
-
-		if (resolution != null) {
-			setResolution(resolution);
 		}
 
 		Date holdDate = (Date)attributes.get("holdDate");
@@ -229,16 +208,6 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Returns the escalation level of this ticket entry.
-	 *
-	 * @return the escalation level of this ticket entry
-	 */
-	@Override
-	public int getEscalationLevel() {
-		return model.getEscalationLevel();
-	}
-
-	/**
 	 * Returns the hold date of this ticket entry.
 	 *
 	 * @return the hold date of this ticket entry
@@ -276,26 +245,6 @@ public class TicketEntryWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
-	}
-
-	/**
-	 * Returns the resolution of this ticket entry.
-	 *
-	 * @return the resolution of this ticket entry
-	 */
-	@Override
-	public int getResolution() {
-		return model.getResolution();
-	}
-
-	/**
-	 * Returns the severity of this ticket entry.
-	 *
-	 * @return the severity of this ticket entry
-	 */
-	@Override
-	public int getSeverity() {
-		return model.getSeverity();
 	}
 
 	/**
@@ -439,16 +388,6 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Sets the escalation level of this ticket entry.
-	 *
-	 * @param escalationLevel the escalation level of this ticket entry
-	 */
-	@Override
-	public void setEscalationLevel(int escalationLevel) {
-		model.setEscalationLevel(escalationLevel);
-	}
-
-	/**
 	 * Sets the hold date of this ticket entry.
 	 *
 	 * @param holdDate the hold date of this ticket entry
@@ -486,26 +425,6 @@ public class TicketEntryWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
-	}
-
-	/**
-	 * Sets the resolution of this ticket entry.
-	 *
-	 * @param resolution the resolution of this ticket entry
-	 */
-	@Override
-	public void setResolution(int resolution) {
-		model.setResolution(resolution);
-	}
-
-	/**
-	 * Sets the severity of this ticket entry.
-	 *
-	 * @param severity the severity of this ticket entry
-	 */
-	@Override
-	public void setSeverity(int severity) {
-		model.setSeverity(severity);
 	}
 
 	/**

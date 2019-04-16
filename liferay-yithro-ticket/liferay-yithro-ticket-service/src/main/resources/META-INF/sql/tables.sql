@@ -50,14 +50,32 @@ create table Yithro_TicketEntry (
 	ticketNumber LONG,
 	subject VARCHAR(255) null,
 	description STRING null,
-	severity INTEGER,
 	status INTEGER,
 	weight INTEGER,
-	escalationLevel INTEGER,
-	resolution INTEGER,
 	holdDate DATE null,
 	closedDate DATE null,
 	dueDate DATE null
+);
+
+create table Yithro_TicketField (
+	ticketFieldId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	name STRING null,
+	type_ INTEGER,
+	visibility INTEGER
+);
+
+create table Yithro_TicketFieldData (
+	ticketFieldDataId LONG not null primary key,
+	companyId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	ticketEntryId LONG,
+	ticketFieldId LONG,
+	data_ VARCHAR(75) null
 );
 
 create table Yithro_TicketFlag (
@@ -68,16 +86,6 @@ create table Yithro_TicketFlag (
 	ticketEntryId LONG,
 	type_ INTEGER,
 	value INTEGER
-);
-
-create table Yithro_TicketInformation (
-	ticketInformationId LONG not null primary key,
-	companyId LONG,
-	createDate DATE null,
-	modifiedDate DATE null,
-	ticketEntryId LONG,
-	fieldId LONG,
-	data_ STRING null
 );
 
 create table Yithro_TicketLink (
