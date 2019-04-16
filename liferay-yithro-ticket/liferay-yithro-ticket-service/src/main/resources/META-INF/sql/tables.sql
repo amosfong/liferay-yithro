@@ -75,7 +75,7 @@ create table Yithro_TicketFieldData (
 	modifiedDate DATE null,
 	ticketEntryId LONG,
 	ticketFieldId LONG,
-	data_ VARCHAR(75) null
+	data_ STRING null
 );
 
 create table Yithro_TicketFlag (

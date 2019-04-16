@@ -40,6 +40,17 @@ public class TicketAttachmentLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.yithro.ticket.model.TicketAttachment
+			addTicketAttachment(
+				long userId, long ticketEntryId, long ticketSolutionId,
+				String fileName, java.io.File file, int visibility, int status,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTicketAttachment(
+			userId, ticketEntryId, ticketSolutionId, fileName, file, visibility,
+			status, serviceContext);
+	}
 
 	/**
 	 * Adds the ticket attachment to the database. Also notifies the appropriate model listeners.
@@ -52,21 +63,6 @@ public class TicketAttachmentLocalServiceUtil {
 			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment) {
 
 		return getService().addTicketAttachment(ticketAttachment);
-	}
-
-	public static java.util.List
-		<com.liferay.yithro.ticket.model.TicketAttachment> addTicketAttachments(
-				long userId, long ticketEntryId, long ticketSolutionId,
-				java.util.List
-					<com.liferay.portal.kernel.util.ObjectValuePair
-						<String, java.io.File>> files,
-				int visibility, int status,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().addTicketAttachments(
-			userId, ticketEntryId, ticketSolutionId, files, visibility, status,
-			serviceContext);
 	}
 
 	/**
@@ -358,15 +354,22 @@ public class TicketAttachmentLocalServiceUtil {
 	}
 
 	public static void updateStatus(
-			com.liferay.portal.kernel.model.User user,
-			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
-				ticketAttachments,
+			long userId,
+			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment,
 			long ticketEntryId, int status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().updateStatus(
-			user, ticketAttachments, ticketEntryId, status, serviceContext);
+			userId, ticketAttachment, ticketEntryId, status, serviceContext);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketAttachment
+			updateTicketAttachment(long ticketAttachmentId, long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketAttachment(
+			ticketAttachmentId, ticketEntryId);
 	}
 
 	/**

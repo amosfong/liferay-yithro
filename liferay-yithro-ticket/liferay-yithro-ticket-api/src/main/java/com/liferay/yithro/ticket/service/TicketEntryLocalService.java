@@ -27,16 +27,20 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.model.TicketEntry;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service interface for TicketEntry. Methods of this
@@ -61,6 +65,12 @@ public interface TicketEntryLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketEntryLocalServiceUtil} to access the ticket entry local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public TicketEntry addTicketEntry(
+			long userId, String languageId, String subject, String description,
+			int status, int weight, Map<Long, String> ticketFieldsMap,
+			List<TicketAttachment> ticketAttachments)
+		throws PortalException;
 
 	/**
 	 * Adds the ticket entry to the database. Also notifies the appropriate model listeners.
@@ -103,9 +113,11 @@ public interface TicketEntryLocalService
 	 *
 	 * @param ticketEntry the ticket entry
 	 * @return the ticket entry that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public TicketEntry deleteTicketEntry(TicketEntry ticketEntry);
+	public TicketEntry deleteTicketEntry(TicketEntry ticketEntry)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -194,6 +206,10 @@ public interface TicketEntryLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketEntry> getTicketEntries(
+		Date modifiedDate, int start, int end);
+
 	/**
 	 * Returns a range of all the ticket entries.
 	 *
@@ -215,6 +231,9 @@ public interface TicketEntryLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketEntriesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTicketEntriesCount(Date modifiedDate);
 
 	/**
 	 * Returns the ticket entry with the primary key.
@@ -239,6 +258,13 @@ public interface TicketEntryLocalService
 
 	public void updatePendingTypes(
 			long userId, long ticketEntryId, int[] pendingTypes)
+		throws PortalException;
+
+	public TicketEntry updateTicketEntry(
+			long userId, long ticketEntryId, long reportedByUserId,
+			String languageId, String subject, String description, int status,
+			int weight, Date dueDate, Map<Long, String> ticketFieldsMap,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**

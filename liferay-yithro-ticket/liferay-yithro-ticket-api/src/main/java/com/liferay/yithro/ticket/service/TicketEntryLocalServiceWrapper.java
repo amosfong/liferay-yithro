@@ -36,6 +36,19 @@ public class TicketEntryLocalServiceWrapper
 		_ticketEntryLocalService = ticketEntryLocalService;
 	}
 
+	@Override
+	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
+			long userId, String languageId, String subject, String description,
+			int status, int weight, java.util.Map<Long, String> ticketFieldsMap,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketEntryLocalService.addTicketEntry(
+			userId, languageId, subject, description, status, weight,
+			ticketFieldsMap, ticketAttachments);
+	}
+
 	/**
 	 * Adds the ticket entry to the database. Also notifies the appropriate model listeners.
 	 *
@@ -93,10 +106,12 @@ public class TicketEntryLocalServiceWrapper
 	 *
 	 * @param ticketEntry the ticket entry
 	 * @return the ticket entry that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry deleteTicketEntry(
-		com.liferay.yithro.ticket.model.TicketEntry ticketEntry) {
+			com.liferay.yithro.ticket.model.TicketEntry ticketEntry)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryLocalService.deleteTicketEntry(ticketEntry);
 	}
@@ -230,6 +245,14 @@ public class TicketEntryLocalServiceWrapper
 		return _ticketEntryLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketEntry>
+		getTicketEntries(java.util.Date modifiedDate, int start, int end) {
+
+		return _ticketEntryLocalService.getTicketEntries(
+			modifiedDate, start, end);
+	}
+
 	/**
 	 * Returns a range of all the ticket entries.
 	 *
@@ -256,6 +279,11 @@ public class TicketEntryLocalServiceWrapper
 	@Override
 	public int getTicketEntriesCount() {
 		return _ticketEntryLocalService.getTicketEntriesCount();
+	}
+
+	@Override
+	public int getTicketEntriesCount(java.util.Date modifiedDate) {
+		return _ticketEntryLocalService.getTicketEntriesCount(modifiedDate);
 	}
 
 	/**
@@ -300,6 +328,21 @@ public class TicketEntryLocalServiceWrapper
 
 		_ticketEntryLocalService.updatePendingTypes(
 			userId, ticketEntryId, pendingTypes);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
+			long userId, long ticketEntryId, long reportedByUserId,
+			String languageId, String subject, String description, int status,
+			int weight, java.util.Date dueDate,
+			java.util.Map<Long, String> ticketFieldsMap,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketEntryLocalService.updateTicketEntry(
+			userId, ticketEntryId, reportedByUserId, languageId, subject,
+			description, status, weight, dueDate, ticketFieldsMap,
+			serviceContext);
 	}
 
 	/**

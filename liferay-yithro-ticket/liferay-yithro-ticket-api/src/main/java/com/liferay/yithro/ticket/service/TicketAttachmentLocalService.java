@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
@@ -32,7 +31,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 
@@ -65,6 +63,11 @@ public interface TicketAttachmentLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketAttachmentLocalServiceUtil} to access the ticket attachment local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TicketAttachment addTicketAttachment(
+			long userId, long ticketEntryId, long ticketSolutionId,
+			String fileName, File file, int visibility, int status,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the ticket attachment to the database. Also notifies the appropriate model listeners.
@@ -75,12 +78,6 @@ public interface TicketAttachmentLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketAttachment addTicketAttachment(
 		TicketAttachment ticketAttachment);
-
-	public List<TicketAttachment> addTicketAttachments(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			List<ObjectValuePair<String, File>> files, int visibility,
-			int status, ServiceContext serviceContext)
-		throws PortalException;
 
 	/**
 	 * Creates a new ticket attachment with the primary key. Does not add the ticket attachment to the database.
@@ -279,8 +276,12 @@ public interface TicketAttachmentLocalService
 		throws PortalException;
 
 	public void updateStatus(
-			User user, List<TicketAttachment> ticketAttachments,
-			long ticketEntryId, int status, ServiceContext serviceContext)
+			long userId, TicketAttachment ticketAttachment, long ticketEntryId,
+			int status, ServiceContext serviceContext)
+		throws PortalException;
+
+	public TicketAttachment updateTicketAttachment(
+			long ticketAttachmentId, long ticketEntryId)
 		throws PortalException;
 
 	/**

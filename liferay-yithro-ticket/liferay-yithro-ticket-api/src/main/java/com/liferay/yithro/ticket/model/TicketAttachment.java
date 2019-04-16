@@ -59,8 +59,12 @@ public interface TicketAttachment
 
 		};
 
+	public java.io.File getFile();
+
 	public String getFileDir();
 
 	public String getFilePath();
+
+	public void setFile(java.io.File file);
 
 }

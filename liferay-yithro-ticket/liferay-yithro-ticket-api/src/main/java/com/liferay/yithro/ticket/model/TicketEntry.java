@@ -56,6 +56,8 @@ public interface TicketEntry extends PersistedModel, TicketEntryModel {
 
 		};
 
+	public String getStatusLabel();
+
 	public boolean isClosed();
 
 }

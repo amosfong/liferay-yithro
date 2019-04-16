@@ -127,10 +127,13 @@ public abstract class TicketEntryLocalServiceBaseImpl
 	 *
 	 * @param ticketEntry the ticket entry
 	 * @return the ticket entry that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public TicketEntry deleteTicketEntry(TicketEntry ticketEntry) {
+	public TicketEntry deleteTicketEntry(TicketEntry ticketEntry)
+		throws PortalException {
+
 		return ticketEntryPersistence.remove(ticketEntry);
 	}
 

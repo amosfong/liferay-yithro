@@ -88,7 +88,7 @@ public class TicketFieldDataModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketFieldData (ticketFieldDataId LONG not null primary key,companyId LONG,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,ticketFieldId LONG,data_ VARCHAR(75) null)";
+		"create table Yithro_TicketFieldData (ticketFieldDataId LONG not null primary key,companyId LONG,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,ticketFieldId LONG,data_ STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketFieldData";

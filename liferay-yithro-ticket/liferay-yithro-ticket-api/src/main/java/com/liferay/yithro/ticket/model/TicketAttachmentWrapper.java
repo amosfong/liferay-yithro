@@ -150,6 +150,11 @@ public class TicketAttachmentWrapper
 	}
 
 	@Override
+	public java.io.File getFile() {
+		return model.getFile();
+	}
+
+	@Override
 	public String getFileDir() {
 		return model.getFileDir();
 	}
@@ -292,6 +297,11 @@ public class TicketAttachmentWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	@Override
+	public void setFile(java.io.File file) {
+		model.setFile(file);
 	}
 
 	/**

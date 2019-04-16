@@ -257,6 +257,11 @@ public class TicketEntryWrapper
 		return model.getStatus();
 	}
 
+	@Override
+	public String getStatusLabel() {
+		return model.getStatusLabel();
+	}
+
 	/**
 	 * Returns the subject of this ticket entry.
 	 *
