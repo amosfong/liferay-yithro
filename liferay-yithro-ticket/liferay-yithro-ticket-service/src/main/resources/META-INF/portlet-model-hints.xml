@@ -62,14 +62,32 @@
 			<hint name="display-width">850</hint>
 			<hint-collection name="TEXTAREA" />
 		</field>
-		<field name="severity" type="int" />
 		<field name="status" type="int" />
 		<field name="weight" type="int" />
-		<field name="escalationLevel" type="int" />
-		<field name="resolution" type="int" />
 		<field name="holdDate" type="Date" />
 		<field name="closedDate" type="Date" />
 		<field name="dueDate" type="Date" />
+	</model>
+	<model name="com.liferay.yithro.ticket.model.TicketField">
+		<field name="ticketFieldId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field localized="true" name="name" type="String" />
+		<field name="type" type="int" />
+		<field name="visibility" type="int" />
+	</model>
+	<model name="com.liferay.yithro.ticket.model.TicketFieldData">
+		<field name="ticketFieldDataId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="ticketEntryId" type="long" />
+		<field name="ticketFieldId" type="long" />
+		<field name="data" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketFlag">
 		<field name="ticketFlagId" type="long" />
@@ -79,17 +97,6 @@
 		<field name="ticketEntryId" type="long" />
 		<field name="type" type="int" />
 		<field name="value" type="int" />
-	</model>
-	<model name="com.liferay.yithro.ticket.model.TicketInformation">
-		<field name="ticketInformationId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
-		<field name="ticketEntryId" type="long" />
-		<field name="fieldId" type="long" />
-		<field name="data" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketLink">
 		<field name="ticketLinkId" type="long" />

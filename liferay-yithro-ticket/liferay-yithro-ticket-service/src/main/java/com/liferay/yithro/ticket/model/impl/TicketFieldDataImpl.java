@@ -12,21 +12,17 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.service.impl;
+package com.liferay.yithro.ticket.model.impl;
 
-import com.liferay.portal.aop.AopService;
-import com.liferay.yithro.ticket.service.base.TicketInformationLocalServiceBaseImpl;
-
-import org.osgi.service.component.annotations.Component;
+import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Brian Wing Shun Chan
- * @see TicketInformationLocalServiceBaseImpl
  */
-@Component(
-	property = "model.class.name=com.liferay.yithro.ticket.model.TicketInformation",
-	service = AopService.class
-)
-public class TicketInformationLocalServiceImpl
-	extends TicketInformationLocalServiceBaseImpl {
+@ProviderType
+public class TicketFieldDataImpl extends TicketFieldDataBaseImpl {
+
+	public TicketFieldDataImpl() {
+	}
+
 }

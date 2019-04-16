@@ -15,7 +15,7 @@
 package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.yithro.ticket.service.base.TicketInformationServiceBaseImpl;
+import com.liferay.yithro.ticket.service.base.TicketFieldServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -25,10 +25,9 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	property = {
 		"json.web.service.context.name=yithro",
-		"json.web.service.context.path=TicketInformation"
+		"json.web.service.context.path=TicketField"
 	},
 	service = AopService.class
 )
-public class TicketInformationServiceImpl
-	extends TicketInformationServiceBaseImpl {
+public class TicketFieldServiceImpl extends TicketFieldServiceBaseImpl {
 }

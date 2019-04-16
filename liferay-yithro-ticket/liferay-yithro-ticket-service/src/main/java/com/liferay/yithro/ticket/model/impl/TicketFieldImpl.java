@@ -20,9 +20,9 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  */
 @ProviderType
-public class TicketInformationImpl extends TicketInformationBaseImpl {
+public class TicketFieldImpl extends TicketFieldBaseImpl {
 
-	public TicketInformationImpl() {
+	public TicketFieldImpl() {
 	}
 
 }

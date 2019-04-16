@@ -171,11 +171,8 @@
 		<column name="ticketNumber" type="long" />
 		<column name="subject" type="String" />
 		<column name="description" type="String" />
-		<column name="severity" type="int" />
 		<column name="status" type="int" />
 		<column name="weight" type="int" />
-		<column name="escalationLevel" type="int" />
-		<column name="resolution" type="int" />
 		<column name="holdDate" type="Date" />
 		<column name="closedDate" type="Date" />
 		<column name="dueDate" type="Date" />
@@ -196,10 +193,56 @@
 
 		<reference entity="Mail" package-path="com.liferay.mail" />
 		<reference entity="Company" package-path="com.liferay.portal" />
-		<reference entity="ListType" package-path="com.liferay.portal" />
 		<reference entity="Organization" package-path="com.liferay.portal" />
 		<reference entity="PortletPreferences" package-path="com.liferay.portal" />
 		<reference entity="Subscription" package-path="com.liferay.portal" />
+	</entity>
+	<entity local-service="true" name="TicketField" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="ticketFieldId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column localized="true" name="name" type="String" />
+		<column name="type" type="int" />
+		<column name="visibility" type="int" />
+	</entity>
+	<entity local-service="true" name="TicketFieldData" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="ticketFieldDataId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="ticketEntryId" type="long" />
+		<column name="ticketFieldId" type="long" />
+		<column name="data" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="TicketEntryId" return-type="Collection">
+			<finder-column name="ticketEntryId" />
+		</finder>
+		<finder name="TEI_TFI" return-type="TicketFieldData">
+			<finder-column name="ticketEntryId" />
+			<finder-column name="ticketFieldId" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="TicketFlag" remote-service="true">
 
@@ -237,34 +280,6 @@
 			<finder-column name="ticketEntryId" />
 			<finder-column arrayable-operator="OR" name="type" />
 			<finder-column name="value" />
-		</finder>
-	</entity>
-	<entity local-service="true" name="TicketInformation" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="ticketInformationId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="createDate" type="Date" />
-		<column name="modifiedDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="ticketEntryId" type="long" />
-		<column name="fieldId" type="long" />
-		<column name="data" type="String" />
-
-		<!-- Finder methods -->
-
-		<finder name="TicketEntryId" return-type="Collection">
-			<finder-column name="ticketEntryId" />
-		</finder>
-		<finder name="TEI_FI" return-type="TicketInformation">
-			<finder-column name="ticketEntryId" />
-			<finder-column name="fieldId" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="TicketLink" remote-service="true">

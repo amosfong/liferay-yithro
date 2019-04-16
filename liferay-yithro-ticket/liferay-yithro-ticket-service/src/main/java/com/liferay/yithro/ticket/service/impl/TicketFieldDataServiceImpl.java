@@ -12,25 +12,22 @@
  * details.
  */
 
-package com.liferay.yithro.audit.constants;
+package com.liferay.yithro.ticket.service.impl;
+
+import com.liferay.portal.aop.AopService;
+import com.liferay.yithro.ticket.service.base.TicketFieldDataServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class Fields {
-
-	public static final String BODY = "body";
-
-	public static final String DATA = "data";
-
-	public static final String FILE = "file";
-
-	public static final String PRIMARY = "primary";
-
-	public static final String ROLE = "role";
-
-	public static final String URL = "url";
-
-	public static final String USER = "user";
-
+@Component(
+	property = {
+		"json.web.service.context.name=yithro",
+		"json.web.service.context.path=TicketFieldData"
+	},
+	service = AopService.class
+)
+public class TicketFieldDataServiceImpl extends TicketFieldDataServiceBaseImpl {
 }
