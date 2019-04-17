@@ -19,7 +19,6 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
-		<column name="ticketSolutionId" type="long" />
 		<column name="fileName" type="String" />
 		<column name="fileSize" type="long" />
 		<column name="visibility" type="int" />
@@ -39,10 +38,6 @@
 		<finder name="CD_TEI" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
 			<finder-column name="ticketEntryId" />
-		</finder>
-		<finder name="TEI_TSI" return-type="Collection">
-			<finder-column name="ticketEntryId" />
-			<finder-column name="ticketSolutionId" />
 		</finder>
 		<finder name="TEI_S" return-type="Collection">
 			<finder-column name="ticketEntryId" />
@@ -301,7 +296,6 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
-		<column name="ticketSolutionId" type="long" />
 		<column name="url" type="String" />
 		<column name="type" type="int" />
 		<column name="visibility" type="int" />
@@ -311,54 +305,9 @@
 		<finder name="TicketEntryId" return-type="Collection">
 			<finder-column name="ticketEntryId" />
 		</finder>
-		<finder name="TEI_TSI" return-type="Collection">
-			<finder-column name="ticketEntryId" />
-			<finder-column name="ticketSolutionId" />
-		</finder>
 		<finder name="TEI_V" return-type="Collection">
 			<finder-column name="ticketEntryId" />
 			<finder-column arrayable-operator="OR" name="visibility" />
-		</finder>
-
-		<!-- References -->
-
-		<reference entity="Organization" package-path="com.liferay.portal" />
-	</entity>
-	<entity local-service="true" name="TicketSolution" remote-service="true">
-
-		<!-- PK fields -->
-
-		<column name="ticketSolutionId" primary="true" type="long" />
-
-		<!-- Audit fields -->
-
-		<column name="companyId" type="long" />
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
-		<column name="createDate" type="Date" />
-
-		<!-- Other fields -->
-
-		<column name="ticketEntryId" type="long" />
-		<column name="solution" type="String" />
-		<column name="type" type="int" />
-		<column name="status" type="int" />
-		<column name="statusByUserId" type="long" />
-		<column name="statusByUserName" type="String" />
-		<column name="statusDate" type="Date" />
-		<column name="statusMessage" type="String" />
-		<column name="statusReason" type="int" />
-
-		<!-- Order -->
-
-		<order by="asc">
-			<order-column name="createDate" />
-		</order>
-
-		<!-- Finder methods -->
-
-		<finder name="TicketEntryId" return-type="Collection">
-			<finder-column name="ticketEntryId" />
 		</finder>
 
 		<!-- References -->

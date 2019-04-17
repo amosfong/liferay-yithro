@@ -62,9 +62,8 @@ public class TicketAttachmentLocalServiceImpl
 	extends TicketAttachmentLocalServiceBaseImpl {
 
 	public TicketAttachment addTicketAttachment(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			String fileName, File file, int visibility, int status,
-			ServiceContext serviceContext)
+			long userId, long ticketEntryId, String fileName, File file,
+			int visibility, int status, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -82,7 +81,6 @@ public class TicketAttachmentLocalServiceImpl
 		ticketAttachment.setCompanyId(user.getCompanyId());
 		ticketAttachment.setCreateDate(now);
 		ticketAttachment.setTicketEntryId(ticketEntryId);
-		ticketAttachment.setTicketSolutionId(ticketSolutionId);
 		ticketAttachment.setFileName(fileName);
 		ticketAttachment.setFileSize(file.length());
 		ticketAttachment.setVisibility(visibility);
@@ -206,13 +204,6 @@ public class TicketAttachmentLocalServiceImpl
 
 		return ticketAttachmentPersistence.findByTEI_V_S(
 			ticketEntryId, visibilities, status);
-	}
-
-	public List<TicketAttachment> getTicketAttachments(
-		long ticketEntryId, long ticketSolutionId) {
-
-		return ticketAttachmentPersistence.findByTEI_TSI(
-			ticketEntryId, ticketSolutionId);
 	}
 
 	public List<TicketAttachment> getTicketAttachments(

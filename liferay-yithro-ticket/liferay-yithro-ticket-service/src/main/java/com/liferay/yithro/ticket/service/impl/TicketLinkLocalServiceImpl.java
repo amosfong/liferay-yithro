@@ -48,9 +48,8 @@ import org.osgi.service.component.annotations.Reference;
 public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 	public void addTicketLink(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			String[] urls, Integer[] types, int visibility,
-			ServiceContext serviceContext)
+			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			int visibility, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -83,7 +82,6 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 			ticketLink.setUserName(user.getFullName());
 			ticketLink.setCreateDate(now);
 			ticketLink.setTicketEntryId(ticketEntryId);
-			ticketLink.setTicketSolutionId(ticketSolutionId);
 			ticketLink.setUrl(urls[i]);
 			ticketLink.setType(types[i]);
 			ticketLink.setVisibility(visibility);
@@ -128,13 +126,6 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 		long ticketEntryId, int[] visibilities) {
 
 		return ticketLinkPersistence.findByTEI_V(ticketEntryId, visibilities);
-	}
-
-	public List<TicketLink> getTicketLinks(
-		long ticketEntryId, long ticketSolutionId) {
-
-		return ticketLinkPersistence.findByTEI_TSI(
-			ticketEntryId, ticketSolutionId);
 	}
 
 	public int getTicketLinksCount(long ticketEntryId, int visibility) {

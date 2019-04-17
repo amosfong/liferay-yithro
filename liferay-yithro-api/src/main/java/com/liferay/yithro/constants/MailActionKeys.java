@@ -37,8 +37,4 @@ public class MailActionKeys {
 
 	public static final String REOPENED = "Reopened";
 
-	public static final String SOLUTION_PROPOSED = "Solution Proposed";
-
-	public static final String SOLUTION_REJECTED = "Solution Rejected";
-
 }

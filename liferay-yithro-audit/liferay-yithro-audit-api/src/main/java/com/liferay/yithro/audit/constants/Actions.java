@@ -33,10 +33,6 @@ public class Actions {
 
 	public static final int RENEW = 7;
 
-	public static final int SOLUTION_PROPOSED = 8;
-
-	public static final int SOLUTION_REJECTED = 9;
-
 	public static final int UNASSIGN = 10;
 
 	public static final int UPDATE = 11;

@@ -28,7 +28,6 @@ import com.liferay.yithro.audit.constants.Actions;
 import com.liferay.yithro.audit.constants.Fields;
 import com.liferay.yithro.audit.service.AuditEntryLocalService;
 import com.liferay.yithro.constants.Visibilities;
-import com.liferay.yithro.ticket.constants.TicketAttachmentConstants;
 import com.liferay.yithro.ticket.constants.TicketFlagType;
 import com.liferay.yithro.ticket.constants.TicketFlagValue;
 import com.liferay.yithro.ticket.exception.TicketEntryDescriptionException;
@@ -98,16 +97,14 @@ public class TicketEntryLocalServiceImpl
 				ticketAttachmentLocalService.updateTicketAttachment(
 					ticketAttachment.getTicketAttachmentId(),
 					ticketEntry.getTicketEntryId());
-
-				continue;
 			}
-
-			ticketAttachmentLocalService.addTicketAttachment(
-				userId, ticketEntry.getTicketEntryId(),
-				TicketAttachmentConstants.TICKET_SOLUTION_DEFAULT_ID,
-				ticketAttachment.getFileName(), ticketAttachment.getFile(),
-				Visibilities.PUBLIC, WorkflowConstants.STATUS_APPROVED,
-				new ServiceContext());
+			else {
+				ticketAttachmentLocalService.addTicketAttachment(
+					userId, ticketEntry.getTicketEntryId(),
+					ticketAttachment.getFileName(), ticketAttachment.getFile(),
+					Visibilities.PUBLIC, WorkflowConstants.STATUS_APPROVED,
+					new ServiceContext());
+			}
 		}
 
 		return ticketEntry;

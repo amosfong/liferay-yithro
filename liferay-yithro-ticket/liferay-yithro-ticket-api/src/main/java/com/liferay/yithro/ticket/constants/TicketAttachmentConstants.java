@@ -21,6 +21,4 @@ public class TicketAttachmentConstants {
 
 	public static final int TICKET_ENTRY_DEFAULT_ID = 0;
 
-	public static final int TICKET_SOLUTION_DEFAULT_ID = 0;
-
 }
