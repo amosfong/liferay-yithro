@@ -15,12 +15,18 @@
 package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.yithro.ticket.model.TicketAttachment;
+import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.service.base.TicketEntryServiceBaseImpl;
+
+import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @Component(
 	property = {
@@ -30,4 +36,16 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
+
+	public TicketEntry addTicketEntry(
+			String languageId, String subject, String description, int status,
+			int weight, Map<Long, String> ticketFieldsMap,
+			List<TicketAttachment> ticketAttachments)
+		throws PortalException {
+
+		return ticketEntryLocalService.addTicketEntry(
+			getUserId(), languageId, subject, description, status, weight,
+			ticketFieldsMap, ticketAttachments);
+	}
+
 }

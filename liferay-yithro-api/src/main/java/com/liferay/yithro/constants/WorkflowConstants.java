@@ -22,9 +22,14 @@ public class WorkflowConstants
 
 	public static final int STATUS_CLOSED = 100;
 
+	public static final int STATUS_OPEN = 101;
+
 	public static String getStatusLabel(int status) {
 		if (status == STATUS_CLOSED) {
 			return "closed";
+		}
+		else if (status == STATUS_OPEN) {
+			return "open";
 		}
 		else {
 			return com.liferay.portal.kernel.workflow.WorkflowConstants.
