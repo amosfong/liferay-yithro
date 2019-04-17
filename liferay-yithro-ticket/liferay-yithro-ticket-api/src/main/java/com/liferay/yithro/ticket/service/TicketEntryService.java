@@ -23,6 +23,11 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.yithro.ticket.model.TicketAttachment;
+import com.liferay.yithro.ticket.model.TicketEntry;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the remote service interface for TicketEntry. Methods of this
@@ -47,6 +52,11 @@ public interface TicketEntryService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketEntryServiceUtil} to access the ticket entry remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TicketEntry addTicketEntry(
+			String languageId, String subject, String description, int status,
+			int weight, Map<Long, String> ticketFieldsMap,
+			List<TicketAttachment> ticketAttachments)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

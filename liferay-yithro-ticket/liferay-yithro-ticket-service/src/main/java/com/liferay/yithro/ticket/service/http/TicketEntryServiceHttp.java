@@ -16,13 +16,21 @@ package com.liferay.yithro.ticket.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
+import com.liferay.portal.kernel.util.MethodHandler;
+import com.liferay.portal.kernel.util.MethodKey;
+import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
+
 /**
  * Provides the HTTP utility for the
- * <code>com.liferay.yithro.ticket.service.TicketEntryServiceUtil</code> service
+ * <code>TicketEntryServiceUtil</code> service
  * utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
- * <code>com.liferay.portal.kernel.security.auth.HttpPrincipal</code> parameter.
+ * <code>HttpPrincipal</code> parameter.
  *
  * <p>
  * The benefits of using the HTTP utility is that it is fast and allows for
@@ -45,4 +53,57 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class TicketEntryServiceHttp {
+
+	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
+			HttpPrincipal httpPrincipal, String languageId, String subject,
+			String description, int status, int weight,
+			java.util.Map<Long, String> ticketFieldsMap,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TicketEntryServiceUtil.class, "addTicketEntry",
+				_addTicketEntryParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, languageId, subject, description, status, weight,
+				ticketFieldsMap, ticketAttachments);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		TicketEntryServiceHttp.class);
+
+	private static final Class<?>[] _addTicketEntryParameterTypes0 =
+		new Class[] {
+			String.class, String.class, String.class, int.class, int.class,
+			java.util.Map.class, java.util.List.class
+		};
+
 }

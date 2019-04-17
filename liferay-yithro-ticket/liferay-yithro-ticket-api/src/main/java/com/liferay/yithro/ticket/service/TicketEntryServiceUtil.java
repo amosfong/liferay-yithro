@@ -40,6 +40,17 @@ public class TicketEntryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
+			String languageId, String subject, String description, int status,
+			int weight, java.util.Map<Long, String> ticketFieldsMap,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTicketEntry(
+			languageId, subject, description, status, weight, ticketFieldsMap,
+			ticketAttachments);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.

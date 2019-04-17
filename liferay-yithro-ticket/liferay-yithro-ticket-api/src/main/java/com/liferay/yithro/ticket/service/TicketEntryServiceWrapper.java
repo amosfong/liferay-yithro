@@ -33,6 +33,19 @@ public class TicketEntryServiceWrapper
 		_ticketEntryService = ticketEntryService;
 	}
 
+	@Override
+	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
+			String languageId, String subject, String description, int status,
+			int weight, java.util.Map<Long, String> ticketFieldsMap,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketEntryService.addTicketEntry(
+			languageId, subject, description, status, weight, ticketFieldsMap,
+			ticketAttachments);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
