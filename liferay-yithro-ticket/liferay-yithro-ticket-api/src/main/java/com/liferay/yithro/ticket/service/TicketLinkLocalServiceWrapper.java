@@ -37,14 +37,13 @@ public class TicketLinkLocalServiceWrapper
 
 	@Override
 	public void addTicketLink(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			String[] urls, Integer[] types, int visibility,
+			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			int visibility,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_ticketLinkLocalService.addTicketLink(
-			userId, ticketEntryId, ticketSolutionId, urls, types, visibility,
-			serviceContext);
+			userId, ticketEntryId, urls, types, visibility, serviceContext);
 	}
 
 	/**
@@ -303,14 +302,6 @@ public class TicketLinkLocalServiceWrapper
 
 		return _ticketLinkLocalService.getTicketLinks(
 			ticketEntryId, visibilities);
-	}
-
-	@Override
-	public java.util.List<com.liferay.yithro.ticket.model.TicketLink>
-		getTicketLinks(long ticketEntryId, long ticketSolutionId) {
-
-		return _ticketLinkLocalService.getTicketLinks(
-			ticketEntryId, ticketSolutionId);
 	}
 
 	/**

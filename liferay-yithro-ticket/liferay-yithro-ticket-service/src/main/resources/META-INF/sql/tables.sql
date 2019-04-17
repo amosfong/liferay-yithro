@@ -5,7 +5,6 @@ create table Yithro_TicketAttachment (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	ticketEntryId LONG,
-	ticketSolutionId LONG,
 	fileName VARCHAR(255) null,
 	fileSize LONG,
 	visibility INTEGER,
@@ -95,7 +94,6 @@ create table Yithro_TicketLink (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	ticketEntryId LONG,
-	ticketSolutionId LONG,
 	url STRING null,
 	type_ INTEGER,
 	visibility INTEGER

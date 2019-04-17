@@ -74,8 +74,8 @@ public class TicketLinkModelImpl
 		{"ticketLinkId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"ticketSolutionId", Types.BIGINT}, {"url", Types.VARCHAR},
-		{"type_", Types.INTEGER}, {"visibility", Types.INTEGER}
+		{"url", Types.VARCHAR}, {"type_", Types.INTEGER},
+		{"visibility", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -88,14 +88,13 @@ public class TicketLinkModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("ticketSolutionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("url", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketSolutionId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
+		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketLink";
 
@@ -113,11 +112,9 @@ public class TicketLinkModelImpl
 
 	public static final long TICKETENTRYID_COLUMN_BITMASK = 1L;
 
-	public static final long TICKETSOLUTIONID_COLUMN_BITMASK = 2L;
+	public static final long VISIBILITY_COLUMN_BITMASK = 2L;
 
-	public static final long VISIBILITY_COLUMN_BITMASK = 4L;
-
-	public static final long TICKETLINKID_COLUMN_BITMASK = 8L;
+	public static final long TICKETLINKID_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -146,7 +143,6 @@ public class TicketLinkModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
-		model.setTicketSolutionId(soapModel.getTicketSolutionId());
 		model.setUrl(soapModel.getUrl());
 		model.setType(soapModel.getType());
 		model.setVisibility(soapModel.getVisibility());
@@ -297,11 +293,6 @@ public class TicketLinkModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketEntryId",
 			(BiConsumer<TicketLink, Long>)TicketLink::setTicketEntryId);
-		attributeGetterFunctions.put(
-			"ticketSolutionId", TicketLink::getTicketSolutionId);
-		attributeSetterBiConsumers.put(
-			"ticketSolutionId",
-			(BiConsumer<TicketLink, Long>)TicketLink::setTicketSolutionId);
 		attributeGetterFunctions.put("url", TicketLink::getUrl);
 		attributeSetterBiConsumers.put(
 			"url", (BiConsumer<TicketLink, String>)TicketLink::setUrl);
@@ -420,29 +411,6 @@ public class TicketLinkModelImpl
 
 	@JSON
 	@Override
-	public long getTicketSolutionId() {
-		return _ticketSolutionId;
-	}
-
-	@Override
-	public void setTicketSolutionId(long ticketSolutionId) {
-		_columnBitmask |= TICKETSOLUTIONID_COLUMN_BITMASK;
-
-		if (!_setOriginalTicketSolutionId) {
-			_setOriginalTicketSolutionId = true;
-
-			_originalTicketSolutionId = _ticketSolutionId;
-		}
-
-		_ticketSolutionId = ticketSolutionId;
-	}
-
-	public long getOriginalTicketSolutionId() {
-		return _originalTicketSolutionId;
-	}
-
-	@JSON
-	@Override
 	public String getUrl() {
 		if (_url == null) {
 			return "";
@@ -529,7 +497,6 @@ public class TicketLinkModelImpl
 		ticketLinkImpl.setUserName(getUserName());
 		ticketLinkImpl.setCreateDate(getCreateDate());
 		ticketLinkImpl.setTicketEntryId(getTicketEntryId());
-		ticketLinkImpl.setTicketSolutionId(getTicketSolutionId());
 		ticketLinkImpl.setUrl(getUrl());
 		ticketLinkImpl.setType(getType());
 		ticketLinkImpl.setVisibility(getVisibility());
@@ -600,11 +567,6 @@ public class TicketLinkModelImpl
 
 		ticketLinkModelImpl._setOriginalTicketEntryId = false;
 
-		ticketLinkModelImpl._originalTicketSolutionId =
-			ticketLinkModelImpl._ticketSolutionId;
-
-		ticketLinkModelImpl._setOriginalTicketSolutionId = false;
-
 		ticketLinkModelImpl._originalVisibility =
 			ticketLinkModelImpl._visibility;
 
@@ -641,8 +603,6 @@ public class TicketLinkModelImpl
 		}
 
 		ticketLinkCacheModel.ticketEntryId = getTicketEntryId();
-
-		ticketLinkCacheModel.ticketSolutionId = getTicketSolutionId();
 
 		ticketLinkCacheModel.url = getUrl();
 
@@ -738,9 +698,6 @@ public class TicketLinkModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
-	private long _ticketSolutionId;
-	private long _originalTicketSolutionId;
-	private boolean _setOriginalTicketSolutionId;
 	private String _url;
 	private int _type;
 	private int _visibility;

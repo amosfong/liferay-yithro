@@ -51,7 +51,6 @@ public class TicketLinkWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
-		attributes.put("ticketSolutionId", getTicketSolutionId());
 		attributes.put("url", getUrl());
 		attributes.put("type", getType());
 		attributes.put("visibility", getVisibility());
@@ -95,12 +94,6 @@ public class TicketLinkWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
-		}
-
-		Long ticketSolutionId = (Long)attributes.get("ticketSolutionId");
-
-		if (ticketSolutionId != null) {
-			setTicketSolutionId(ticketSolutionId);
 		}
 
 		String url = (String)attributes.get("url");
@@ -170,16 +163,6 @@ public class TicketLinkWrapper
 	@Override
 	public long getTicketLinkId() {
 		return model.getTicketLinkId();
-	}
-
-	/**
-	 * Returns the ticket solution ID of this ticket link.
-	 *
-	 * @return the ticket solution ID of this ticket link
-	 */
-	@Override
-	public long getTicketSolutionId() {
-		return model.getTicketSolutionId();
 	}
 
 	/**
@@ -295,16 +278,6 @@ public class TicketLinkWrapper
 	@Override
 	public void setTicketLinkId(long ticketLinkId) {
 		model.setTicketLinkId(ticketLinkId);
-	}
-
-	/**
-	 * Sets the ticket solution ID of this ticket link.
-	 *
-	 * @param ticketSolutionId the ticket solution ID of this ticket link
-	 */
-	@Override
-	public void setTicketSolutionId(long ticketSolutionId) {
-		model.setTicketSolutionId(ticketSolutionId);
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class TicketAttachmentCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{ticketAttachmentId=");
 		sb.append(ticketAttachmentId);
@@ -81,8 +81,6 @@ public class TicketAttachmentCacheModel
 		sb.append(createDate);
 		sb.append(", ticketEntryId=");
 		sb.append(ticketEntryId);
-		sb.append(", ticketSolutionId=");
-		sb.append(ticketSolutionId);
 		sb.append(", fileName=");
 		sb.append(fileName);
 		sb.append(", fileSize=");
@@ -119,7 +117,6 @@ public class TicketAttachmentCacheModel
 		}
 
 		ticketAttachmentImpl.setTicketEntryId(ticketEntryId);
-		ticketAttachmentImpl.setTicketSolutionId(ticketSolutionId);
 
 		if (fileName == null) {
 			ticketAttachmentImpl.setFileName("");
@@ -148,8 +145,6 @@ public class TicketAttachmentCacheModel
 		createDate = objectInput.readLong();
 
 		ticketEntryId = objectInput.readLong();
-
-		ticketSolutionId = objectInput.readLong();
 		fileName = objectInput.readUTF();
 
 		fileSize = objectInput.readLong();
@@ -178,8 +173,6 @@ public class TicketAttachmentCacheModel
 
 		objectOutput.writeLong(ticketEntryId);
 
-		objectOutput.writeLong(ticketSolutionId);
-
 		if (fileName == null) {
 			objectOutput.writeUTF("");
 		}
@@ -200,7 +193,6 @@ public class TicketAttachmentCacheModel
 	public String userName;
 	public long createDate;
 	public long ticketEntryId;
-	public long ticketSolutionId;
 	public String fileName;
 	public long fileSize;
 	public int visibility;

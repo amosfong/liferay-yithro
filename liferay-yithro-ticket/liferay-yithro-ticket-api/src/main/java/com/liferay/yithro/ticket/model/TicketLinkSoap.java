@@ -40,7 +40,6 @@ public class TicketLinkSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
-		soapModel.setTicketSolutionId(model.getTicketSolutionId());
 		soapModel.setUrl(model.getUrl());
 		soapModel.setType(model.getType());
 		soapModel.setVisibility(model.getVisibility());
@@ -145,14 +144,6 @@ public class TicketLinkSoap implements Serializable {
 		_ticketEntryId = ticketEntryId;
 	}
 
-	public long getTicketSolutionId() {
-		return _ticketSolutionId;
-	}
-
-	public void setTicketSolutionId(long ticketSolutionId) {
-		_ticketSolutionId = ticketSolutionId;
-	}
-
 	public String getUrl() {
 		return _url;
 	}
@@ -183,7 +174,6 @@ public class TicketLinkSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private long _ticketEntryId;
-	private long _ticketSolutionId;
 	private String _url;
 	private int _type;
 	private int _visibility;

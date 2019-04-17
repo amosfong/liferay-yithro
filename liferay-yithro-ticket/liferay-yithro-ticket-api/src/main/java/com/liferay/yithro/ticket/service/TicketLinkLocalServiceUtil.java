@@ -41,14 +41,13 @@ public class TicketLinkLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketLinkLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static void addTicketLink(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			String[] urls, Integer[] types, int visibility,
+			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			int visibility,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().addTicketLink(
-			userId, ticketEntryId, ticketSolutionId, urls, types, visibility,
-			serviceContext);
+			userId, ticketEntryId, urls, types, visibility, serviceContext);
 	}
 
 	/**
@@ -286,12 +285,6 @@ public class TicketLinkLocalServiceUtil {
 		getTicketLinks(long ticketEntryId, int[] visibilities) {
 
 		return getService().getTicketLinks(ticketEntryId, visibilities);
-	}
-
-	public static java.util.List<com.liferay.yithro.ticket.model.TicketLink>
-		getTicketLinks(long ticketEntryId, long ticketSolutionId) {
-
-		return getService().getTicketLinks(ticketEntryId, ticketSolutionId);
 	}
 
 	/**

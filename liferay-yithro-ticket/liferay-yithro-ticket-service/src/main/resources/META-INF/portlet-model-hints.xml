@@ -8,7 +8,6 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
-		<field name="ticketSolutionId" type="long" />
 		<field name="fileName" type="String">
 			<hint name="max-length">255</hint>
 		</field>
@@ -105,33 +104,11 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
-		<field name="ticketSolutionId" type="long" />
 		<field name="url" type="String">
 			<hint-collection name="URL" />
 		</field>
 		<field name="type" type="int" />
 		<field name="visibility" type="int" />
-	</model>
-	<model name="com.liferay.yithro.ticket.model.TicketSolution">
-		<field name="ticketSolutionId" type="long" />
-		<field name="companyId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
-		<field name="createDate" type="Date" />
-		<field name="ticketEntryId" type="long" />
-		<field name="solution" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="type" type="int" />
-		<field name="status" type="int" />
-		<field name="statusByUserId" type="long" />
-		<field name="statusByUserName" type="String" />
-		<field name="statusDate" type="Date" />
-		<field name="statusMessage" type="String">
-			<hint-collection name="TEXTAREA" />
-			<hint name="max-length">200000</hint>
-		</field>
-		<field name="statusReason" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketWorker">
 		<field name="ticketWorkerId" type="long" />

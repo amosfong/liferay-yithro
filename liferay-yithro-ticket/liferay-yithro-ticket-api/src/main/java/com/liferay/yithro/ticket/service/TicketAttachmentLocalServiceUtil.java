@@ -42,14 +42,14 @@ public class TicketAttachmentLocalServiceUtil {
 	 */
 	public static com.liferay.yithro.ticket.model.TicketAttachment
 			addTicketAttachment(
-				long userId, long ticketEntryId, long ticketSolutionId,
-				String fileName, java.io.File file, int visibility, int status,
+				long userId, long ticketEntryId, String fileName,
+				java.io.File file, int visibility, int status,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketAttachment(
-			userId, ticketEntryId, ticketSolutionId, fileName, file, visibility,
-			status, serviceContext);
+			userId, ticketEntryId, fileName, file, visibility, status,
+			serviceContext);
 	}
 
 	/**
@@ -318,14 +318,6 @@ public class TicketAttachmentLocalServiceUtil {
 
 		return getService().getTicketAttachments(
 			ticketEntryId, visibilities, status);
-	}
-
-	public static java.util.List
-		<com.liferay.yithro.ticket.model.TicketAttachment> getTicketAttachments(
-			long ticketEntryId, long ticketSolutionId) {
-
-		return getService().getTicketAttachments(
-			ticketEntryId, ticketSolutionId);
 	}
 
 	public static java.util.List

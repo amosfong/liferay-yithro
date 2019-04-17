@@ -51,7 +51,6 @@ public class TicketAttachmentWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
-		attributes.put("ticketSolutionId", getTicketSolutionId());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
 		attributes.put("visibility", getVisibility());
@@ -96,12 +95,6 @@ public class TicketAttachmentWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
-		}
-
-		Long ticketSolutionId = (Long)attributes.get("ticketSolutionId");
-
-		if (ticketSolutionId != null) {
-			setTicketSolutionId(ticketSolutionId);
 		}
 
 		String fileName = (String)attributes.get("fileName");
@@ -222,16 +215,6 @@ public class TicketAttachmentWrapper
 	@Override
 	public long getTicketEntryId() {
 		return model.getTicketEntryId();
-	}
-
-	/**
-	 * Returns the ticket solution ID of this ticket attachment.
-	 *
-	 * @return the ticket solution ID of this ticket attachment
-	 */
-	@Override
-	public long getTicketSolutionId() {
-		return model.getTicketSolutionId();
 	}
 
 	/**
@@ -362,16 +345,6 @@ public class TicketAttachmentWrapper
 	@Override
 	public void setTicketEntryId(long ticketEntryId) {
 		model.setTicketEntryId(ticketEntryId);
-	}
-
-	/**
-	 * Sets the ticket solution ID of this ticket attachment.
-	 *
-	 * @param ticketSolutionId the ticket solution ID of this ticket attachment
-	 */
-	@Override
-	public void setTicketSolutionId(long ticketSolutionId) {
-		model.setTicketSolutionId(ticketSolutionId);
 	}
 
 	/**

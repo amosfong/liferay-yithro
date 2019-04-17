@@ -64,9 +64,8 @@ public interface TicketAttachmentLocalService
 	 * Never modify or reference this interface directly. Always use {@link TicketAttachmentLocalServiceUtil} to access the ticket attachment local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketAttachment addTicketAttachment(
-			long userId, long ticketEntryId, long ticketSolutionId,
-			String fileName, File file, int visibility, int status,
-			ServiceContext serviceContext)
+			long userId, long ticketEntryId, String fileName, File file,
+			int visibility, int status, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -253,10 +252,6 @@ public interface TicketAttachmentLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketAttachment> getTicketAttachments(
 		long ticketEntryId, int[] visibilities, int status);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<TicketAttachment> getTicketAttachments(
-		long ticketEntryId, long ticketSolutionId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketAttachment> getTicketAttachments(

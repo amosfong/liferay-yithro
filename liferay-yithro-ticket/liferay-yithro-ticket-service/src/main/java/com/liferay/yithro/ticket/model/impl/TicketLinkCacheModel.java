@@ -64,7 +64,7 @@ public class TicketLinkCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{ticketLinkId=");
 		sb.append(ticketLinkId);
@@ -78,8 +78,6 @@ public class TicketLinkCacheModel
 		sb.append(createDate);
 		sb.append(", ticketEntryId=");
 		sb.append(ticketEntryId);
-		sb.append(", ticketSolutionId=");
-		sb.append(ticketSolutionId);
 		sb.append(", url=");
 		sb.append(url);
 		sb.append(", type=");
@@ -114,7 +112,6 @@ public class TicketLinkCacheModel
 		}
 
 		ticketLinkImpl.setTicketEntryId(ticketEntryId);
-		ticketLinkImpl.setTicketSolutionId(ticketSolutionId);
 
 		if (url == null) {
 			ticketLinkImpl.setUrl("");
@@ -142,8 +139,6 @@ public class TicketLinkCacheModel
 		createDate = objectInput.readLong();
 
 		ticketEntryId = objectInput.readLong();
-
-		ticketSolutionId = objectInput.readLong();
 		url = objectInput.readUTF();
 
 		type = objectInput.readInt();
@@ -170,8 +165,6 @@ public class TicketLinkCacheModel
 
 		objectOutput.writeLong(ticketEntryId);
 
-		objectOutput.writeLong(ticketSolutionId);
-
 		if (url == null) {
 			objectOutput.writeUTF("");
 		}
@@ -190,7 +183,6 @@ public class TicketLinkCacheModel
 	public String userName;
 	public long createDate;
 	public long ticketEntryId;
-	public long ticketSolutionId;
 	public String url;
 	public int type;
 	public int visibility;

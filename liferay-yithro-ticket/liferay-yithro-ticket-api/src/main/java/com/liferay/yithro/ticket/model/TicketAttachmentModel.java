@@ -159,20 +159,6 @@ public interface TicketAttachmentModel
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
-	 * Returns the ticket solution ID of this ticket attachment.
-	 *
-	 * @return the ticket solution ID of this ticket attachment
-	 */
-	public long getTicketSolutionId();
-
-	/**
-	 * Sets the ticket solution ID of this ticket attachment.
-	 *
-	 * @param ticketSolutionId the ticket solution ID of this ticket attachment
-	 */
-	public void setTicketSolutionId(long ticketSolutionId);
-
-	/**
 	 * Returns the file name of this ticket attachment.
 	 *
 	 * @return the file name of this ticket attachment
