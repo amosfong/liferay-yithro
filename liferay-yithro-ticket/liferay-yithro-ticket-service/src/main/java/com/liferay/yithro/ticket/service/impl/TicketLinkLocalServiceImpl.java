@@ -92,7 +92,7 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 				userId, now, TicketEntry.class, ticketEntryId, auditSetId,
 				TicketLink.class, ticketLinkId, auditAction, Fields.URL,
 				visibility, StringPool.BLANK, StringPool.BLANK,
-				StringPool.BLANK, urls[i], StringPool.BLANK, false);
+				StringPool.BLANK, urls[i], StringPool.BLANK);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 			ticketLink.getTicketEntryId(), 0, TicketLink.class,
 			ticketLink.getTicketLinkId(), Actions.DELETE, Fields.URL,
 			ticketLink.getVisibility(), StringPool.BLANK, ticketLink.getUrl(),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, false);
+			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
 	}
 
 	public List<TicketLink> getTicketLinks(long ticketEntryId, int visibility) {

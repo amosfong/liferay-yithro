@@ -169,7 +169,7 @@ public class TicketFieldDataLocalServiceImpl
 				userId, createDate, TicketEntry.class, ticketEntryId,
 				auditSetId, TicketField.class, ticketFieldId, Actions.UPDATE,
 				Fields.DATA, ticketField.getVisibility(), StringPool.BLANK,
-				oldData, StringPool.BLANK, newData, StringPool.BLANK, false);
+				oldData, StringPool.BLANK, newData, StringPool.BLANK);
 		}
 	}
 

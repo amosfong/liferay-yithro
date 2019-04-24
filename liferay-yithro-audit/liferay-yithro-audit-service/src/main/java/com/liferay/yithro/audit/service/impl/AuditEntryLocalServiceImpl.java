@@ -45,7 +45,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 			long userId, Date createDate, Class<?> clazz, long classPK,
 			long auditSetId, Class<?> fieldClass, long fieldClassPK, int action,
 			String field, int visibility, String oldLabel, Object oldValue,
-			String newLabel, Object newValue, String description, boolean i18n)
+			String newLabel, Object newValue, String description)
 		throws PortalException {
 
 		long classNameId = classNameLocalService.getClassNameId(clazz);
@@ -55,7 +55,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		return addAuditEntry(
 			userId, createDate, classNameId, classPK, auditSetId,
 			fieldClassNameId, fieldClassPK, action, field, visibility, oldLabel,
-			oldValue, newLabel, newValue, description, i18n);
+			oldValue, newLabel, newValue, description);
 	}
 
 	public AuditEntry addAuditEntry(
@@ -63,7 +63,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 			long auditSetId, long fieldClassNameId, long fieldClassPK,
 			int action, String field, int visibility, String oldLabel,
 			Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -93,7 +93,6 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		auditEntry.setOldValue(String.valueOf(oldValue));
 		auditEntry.setNewLabel(newLabel);
 		auditEntry.setNewValue(String.valueOf(newValue));
-		auditEntry.setI18n(i18n);
 
 		return auditEntryPersistence.update(auditEntry);
 	}

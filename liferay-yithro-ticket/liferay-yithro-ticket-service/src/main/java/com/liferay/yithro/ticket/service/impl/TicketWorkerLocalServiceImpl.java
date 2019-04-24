@@ -85,14 +85,14 @@ public class TicketWorkerLocalServiceImpl
 			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
 			TicketWorker.class, ticketWorkerId, Actions.ASSIGN, Fields.USER,
 			Visibilities.PUBLIC, StringPool.BLANK, StringPool.BLANK,
-			workerUser.getFullName(), workerUserId, StringPool.BLANK, false);
+			workerUser.getFullName(), workerUserId, StringPool.BLANK);
 
 		auditEntryLocalService.addAuditEntry(
 			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
 			TicketWorker.class, ticketWorkerId, Actions.ASSIGN, Fields.ROLE,
 			Visibilities.WORKER, StringPool.BLANK, StringPool.BLANK,
 			ticketWorker.getRoleLabel(), ticketWorker.getRole(),
-			StringPool.BLANK, true);
+			StringPool.BLANK);
 
 		if (primary) {
 			setPrimaryTicketWorker(userId, now, ticketWorker, auditSetId);
@@ -129,14 +129,14 @@ public class TicketWorkerLocalServiceImpl
 			auditSetId, TicketWorker.class, ticketWorker.getTicketWorkerId(),
 			Actions.UNASSIGN, Fields.USER, Visibilities.PUBLIC,
 			ticketWorkerUser.getFullName(), ticketWorkerUser.getUserId(),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, false);
+			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
 
 		auditEntryLocalService.addAuditEntry(
 			userId, now, TicketEntry.class, ticketWorker.getTicketEntryId(),
 			auditSetId, TicketWorker.class, ticketWorker.getTicketWorkerId(),
 			Actions.UNASSIGN, Fields.ROLE, Visibilities.WORKER,
 			ticketWorker.getRoleLabel(), String.valueOf(ticketWorker.getRole()),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, true);
+			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
 
 		// Ticket entry
 
@@ -233,7 +233,7 @@ public class TicketWorkerLocalServiceImpl
 				ticketWorker.getTicketWorkerId(), Actions.UPDATE, Fields.ROLE,
 				Visibilities.WORKER, TicketWorkerRoles.getLabel(oldRole),
 				oldRole, ticketWorker.getRoleLabel(), ticketWorker.getRole(),
-				StringPool.BLANK, true);
+				StringPool.BLANK);
 		}
 
 		if (primary) {
@@ -275,7 +275,7 @@ public class TicketWorkerLocalServiceImpl
 			Actions.ASSIGN, Fields.PRIMARY, Visibilities.WORKER,
 			oldTicketWorker.getUserName(), oldTicketWorker.getUserId(),
 			ticketWorker.getUserName(), ticketWorker.getUserId(),
-			StringPool.BLANK, false);
+			StringPool.BLANK);
 	}
 
 	@Reference

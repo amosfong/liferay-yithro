@@ -168,7 +168,7 @@ public class TicketAttachmentLocalServiceImpl
 			ticketAttachment.getTicketAttachmentId(), Actions.DELETE,
 			Fields.FILE, Visibilities.PUBLIC, StringPool.BLANK,
 			ticketAttachment.getFileName(), StringPool.BLANK, StringPool.BLANK,
-			StringPool.BLANK, false);
+			StringPool.BLANK);
 
 		// Indexer
 
@@ -286,7 +286,7 @@ public class TicketAttachmentLocalServiceImpl
 			TicketAttachment.class, ticketAttachment.getTicketAttachmentId(),
 			auditAction, Fields.FILE, ticketAttachment.getVisibility(),
 			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-			ticketAttachment.getFileName(), StringPool.BLANK, false);
+			ticketAttachment.getFileName(), StringPool.BLANK);
 
 		// Indexer
 

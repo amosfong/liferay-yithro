@@ -141,7 +141,7 @@ public class TicketCommentLocalServiceImpl
 				ticketComment.getTicketCommentId(), Actions.DELETE, Fields.BODY,
 				ticketComment.getVisibility(), StringPool.BLANK,
 				ticketComment.getBody(), StringPool.BLANK, StringPool.BLANK,
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 		else {
 			List<TicketAttachment> ticketAttachments =
@@ -329,7 +329,7 @@ public class TicketCommentLocalServiceImpl
 				TicketComment.class, ticketComment.getTicketCommentId(),
 				auditAction, Fields.BODY, ticketComment.getVisibility(),
 				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-				ticketComment.getBody(), StringPool.BLANK, false);
+				ticketComment.getBody(), StringPool.BLANK);
 		}
 
 		// Email

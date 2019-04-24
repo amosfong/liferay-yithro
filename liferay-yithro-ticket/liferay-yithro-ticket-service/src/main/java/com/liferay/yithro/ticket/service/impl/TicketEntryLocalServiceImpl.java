@@ -268,7 +268,7 @@ public class TicketEntryLocalServiceImpl
 				Fields.REPORTED_BY, Visibilities.PUBLIC,
 				oldTicketEntry.getUserName(), oldTicketEntry.getUserId(),
 				ticketEntry.getUserName(), ticketEntry.getUserId(),
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 
 		String oldSubject = oldTicketEntry.getSubject();
@@ -279,7 +279,7 @@ public class TicketEntryLocalServiceImpl
 				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
 				Fields.SUBJECT, Visibilities.PUBLIC, StringPool.BLANK,
 				oldSubject, StringPool.BLANK, ticketEntry.getSubject(),
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 
 		String oldDescription = oldTicketEntry.getDescription();
@@ -290,7 +290,7 @@ public class TicketEntryLocalServiceImpl
 				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
 				Fields.DESCRIPTION, Visibilities.PUBLIC, StringPool.BLANK,
 				oldDescription, StringPool.BLANK, ticketEntry.getDescription(),
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 
 		if (oldTicketEntry.getStatus() != ticketEntry.getStatus()) {
@@ -300,7 +300,7 @@ public class TicketEntryLocalServiceImpl
 				Fields.STATUS, Visibilities.PUBLIC,
 				oldTicketEntry.getStatusLabel(), oldTicketEntry.getStatus(),
 				ticketEntry.getStatusLabel(), ticketEntry.getStatus(),
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 
 		if (oldTicketEntry.getWeight() != ticketEntry.getWeight()) {
@@ -309,7 +309,7 @@ public class TicketEntryLocalServiceImpl
 				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
 				Fields.WEIGHT, Visibilities.ADMIN, StringPool.BLANK,
 				oldTicketEntry.getWeight(), StringPool.BLANK,
-				ticketEntry.getWeight(), StringPool.BLANK, false);
+				ticketEntry.getWeight(), StringPool.BLANK);
 		}
 
 		Date oldDueDate = oldTicketEntry.getDueDate();
@@ -321,7 +321,7 @@ public class TicketEntryLocalServiceImpl
 				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
 				Fields.DUE_DATE, Visibilities.WORKER, oldDueDate.toString(),
 				oldDueDate.getTime(), dueDate.toString(), dueDate.getTime(),
-				StringPool.BLANK, false);
+				StringPool.BLANK);
 		}
 	}
 
@@ -357,7 +357,7 @@ public class TicketEntryLocalServiceImpl
 					Actions.DELETE, ticketFlag.getTypeLabel(),
 					Visibilities.PUBLIC, ticketFlag.getTypeLabel(),
 					ticketFlag.getType(), StringPool.BLANK, StringPool.BLANK,
-					StringPool.BLANK, true);
+					StringPool.BLANK);
 			}
 		}
 
@@ -374,7 +374,7 @@ public class TicketEntryLocalServiceImpl
 					ticketFlag.getTypeLabel(), Visibilities.PUBLIC,
 					StringPool.BLANK, StringPool.BLANK,
 					ticketFlag.getTypeLabel(), ticketFlag.getType(),
-					StringPool.BLANK, false);
+					StringPool.BLANK);
 			}
 		}
 
