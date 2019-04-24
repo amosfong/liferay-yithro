@@ -54,13 +54,13 @@ public class AuditEntryLocalServiceWrapper
 			long classPK, long auditSetId, Class<?> fieldClass,
 			long fieldClassPK, int action, String field, int visibility,
 			String oldLabel, Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _auditEntryLocalService.addAuditEntry(
 			userId, createDate, clazz, classPK, auditSetId, fieldClass,
 			fieldClassPK, action, field, visibility, oldLabel, oldValue,
-			newLabel, newValue, description, i18n);
+			newLabel, newValue, description);
 	}
 
 	@Override
@@ -69,13 +69,13 @@ public class AuditEntryLocalServiceWrapper
 			long classPK, long auditSetId, long fieldClassNameId,
 			long fieldClassPK, int action, String field, int visibility,
 			String oldLabel, Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _auditEntryLocalService.addAuditEntry(
 			userId, createDate, classNameId, classPK, auditSetId,
 			fieldClassNameId, fieldClassPK, action, field, visibility, oldLabel,
-			oldValue, newLabel, newValue, description, i18n);
+			oldValue, newLabel, newValue, description);
 	}
 
 	/**

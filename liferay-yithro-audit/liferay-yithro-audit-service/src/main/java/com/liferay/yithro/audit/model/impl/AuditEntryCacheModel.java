@@ -64,7 +64,7 @@ public class AuditEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("{auditEntryId=");
 		sb.append(auditEntryId);
@@ -102,8 +102,6 @@ public class AuditEntryCacheModel
 		sb.append(newValue);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", i18n=");
-		sb.append(i18n);
 		sb.append("}");
 
 		return sb.toString();
@@ -182,8 +180,6 @@ public class AuditEntryCacheModel
 			auditEntryImpl.setDescription(description);
 		}
 
-		auditEntryImpl.setI18n(i18n);
-
 		auditEntryImpl.resetOriginalValues();
 
 		return auditEntryImpl;
@@ -218,8 +214,6 @@ public class AuditEntryCacheModel
 		newLabel = objectInput.readUTF();
 		newValue = objectInput.readUTF();
 		description = objectInput.readUTF();
-
-		i18n = objectInput.readBoolean();
 	}
 
 	@Override
@@ -294,8 +288,6 @@ public class AuditEntryCacheModel
 		else {
 			objectOutput.writeUTF(description);
 		}
-
-		objectOutput.writeBoolean(i18n);
 	}
 
 	public long auditEntryId;
@@ -316,6 +308,5 @@ public class AuditEntryCacheModel
 	public String newLabel;
 	public String newValue;
 	public String description;
-	public boolean i18n;
 
 }

@@ -347,25 +347,4 @@ public interface AuditEntryModel
 	 */
 	public void setDescription(String description);
 
-	/**
-	 * Returns the i18n of this audit entry.
-	 *
-	 * @return the i18n of this audit entry
-	 */
-	public boolean getI18n();
-
-	/**
-	 * Returns <code>true</code> if this audit entry is i18n.
-	 *
-	 * @return <code>true</code> if this audit entry is i18n; <code>false</code> otherwise
-	 */
-	public boolean isI18n();
-
-	/**
-	 * Sets whether this audit entry is i18n.
-	 *
-	 * @param i18n the i18n of this audit entry
-	 */
-	public void setI18n(boolean i18n);
-
 }

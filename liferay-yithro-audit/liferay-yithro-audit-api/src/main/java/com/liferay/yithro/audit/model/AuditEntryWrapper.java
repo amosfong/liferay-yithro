@@ -63,7 +63,6 @@ public class AuditEntryWrapper
 		attributes.put("newLabel", getNewLabel());
 		attributes.put("newValue", getNewValue());
 		attributes.put("description", getDescription());
-		attributes.put("i18n", isI18n());
 
 		return attributes;
 	}
@@ -176,12 +175,6 @@ public class AuditEntryWrapper
 
 		if (description != null) {
 			setDescription(description);
-		}
-
-		Boolean i18n = (Boolean)attributes.get("i18n");
-
-		if (i18n != null) {
-			setI18n(i18n);
 		}
 	}
 
@@ -306,16 +299,6 @@ public class AuditEntryWrapper
 	}
 
 	/**
-	 * Returns the i18n of this audit entry.
-	 *
-	 * @return the i18n of this audit entry
-	 */
-	@Override
-	public boolean getI18n() {
-		return model.getI18n();
-	}
-
-	/**
 	 * Returns the new label of this audit entry.
 	 *
 	 * @return the new label of this audit entry
@@ -403,16 +386,6 @@ public class AuditEntryWrapper
 	@Override
 	public int getVisibility() {
 		return model.getVisibility();
-	}
-
-	/**
-	 * Returns <code>true</code> if this audit entry is i18n.
-	 *
-	 * @return <code>true</code> if this audit entry is i18n; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isI18n() {
-		return model.isI18n();
 	}
 
 	@Override
@@ -533,16 +506,6 @@ public class AuditEntryWrapper
 	@Override
 	public void setFieldClassPK(long fieldClassPK) {
 		model.setFieldClassPK(fieldClassPK);
-	}
-
-	/**
-	 * Sets whether this audit entry is i18n.
-	 *
-	 * @param i18n the i18n of this audit entry
-	 */
-	@Override
-	public void setI18n(boolean i18n) {
-		model.setI18n(i18n);
 	}
 
 	/**

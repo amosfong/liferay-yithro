@@ -30,6 +30,5 @@
 		<field name="description" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
-		<field name="i18n" type="boolean" />
 	</model>
 </model-hints>

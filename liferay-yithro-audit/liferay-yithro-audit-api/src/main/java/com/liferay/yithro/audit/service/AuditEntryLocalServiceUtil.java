@@ -58,13 +58,13 @@ public class AuditEntryLocalServiceUtil {
 			long classPK, long auditSetId, Class<?> fieldClass,
 			long fieldClassPK, int action, String field, int visibility,
 			String oldLabel, Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAuditEntry(
 			userId, createDate, clazz, classPK, auditSetId, fieldClass,
 			fieldClassPK, action, field, visibility, oldLabel, oldValue,
-			newLabel, newValue, description, i18n);
+			newLabel, newValue, description);
 	}
 
 	public static com.liferay.yithro.audit.model.AuditEntry addAuditEntry(
@@ -72,13 +72,13 @@ public class AuditEntryLocalServiceUtil {
 			long classPK, long auditSetId, long fieldClassNameId,
 			long fieldClassPK, int action, String field, int visibility,
 			String oldLabel, Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAuditEntry(
 			userId, createDate, classNameId, classPK, auditSetId,
 			fieldClassNameId, fieldClassPK, action, field, visibility, oldLabel,
-			oldValue, newLabel, newValue, description, i18n);
+			oldValue, newLabel, newValue, description);
 	}
 
 	/**

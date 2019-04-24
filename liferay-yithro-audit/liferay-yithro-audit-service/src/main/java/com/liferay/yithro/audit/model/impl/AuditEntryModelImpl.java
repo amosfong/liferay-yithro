@@ -83,8 +83,7 @@ public class AuditEntryModelImpl
 		{"action", Types.INTEGER}, {"field", Types.VARCHAR},
 		{"visibility", Types.INTEGER}, {"oldLabel", Types.VARCHAR},
 		{"oldValue", Types.VARCHAR}, {"newLabel", Types.VARCHAR},
-		{"newValue", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"i18n", Types.BOOLEAN}
+		{"newValue", Types.VARCHAR}, {"description", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -109,11 +108,10 @@ public class AuditEntryModelImpl
 		TABLE_COLUMNS_MAP.put("newLabel", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("newValue", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("i18n", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_AuditEntry (auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action INTEGER,field VARCHAR(75) null,visibility INTEGER,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null,i18n BOOLEAN)";
+		"create table Yithro_AuditEntry (auditEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action INTEGER,field VARCHAR(75) null,visibility INTEGER,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_AuditEntry";
 
@@ -184,7 +182,6 @@ public class AuditEntryModelImpl
 		model.setNewLabel(soapModel.getNewLabel());
 		model.setNewValue(soapModel.getNewValue());
 		model.setDescription(soapModel.getDescription());
-		model.setI18n(soapModel.isI18n());
 
 		return model;
 	}
@@ -378,9 +375,6 @@ public class AuditEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<AuditEntry, String>)AuditEntry::setDescription);
-		attributeGetterFunctions.put("i18n", AuditEntry::getI18n);
-		attributeSetterBiConsumers.put(
-			"i18n", (BiConsumer<AuditEntry, Boolean>)AuditEntry::setI18n);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -749,23 +743,6 @@ public class AuditEntryModelImpl
 		_description = description;
 	}
 
-	@JSON
-	@Override
-	public boolean getI18n() {
-		return _i18n;
-	}
-
-	@JSON
-	@Override
-	public boolean isI18n() {
-		return _i18n;
-	}
-
-	@Override
-	public void setI18n(boolean i18n) {
-		_i18n = i18n;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -816,7 +793,6 @@ public class AuditEntryModelImpl
 		auditEntryImpl.setNewLabel(getNewLabel());
 		auditEntryImpl.setNewValue(getNewValue());
 		auditEntryImpl.setDescription(getDescription());
-		auditEntryImpl.setI18n(isI18n());
 
 		auditEntryImpl.resetOriginalValues();
 
@@ -1002,8 +978,6 @@ public class AuditEntryModelImpl
 			auditEntryCacheModel.description = null;
 		}
 
-		auditEntryCacheModel.i18n = isI18n();
-
 		return auditEntryCacheModel;
 	}
 
@@ -1110,7 +1084,6 @@ public class AuditEntryModelImpl
 	private String _newLabel;
 	private String _newValue;
 	private String _description;
-	private boolean _i18n;
 	private long _columnBitmask;
 	private AuditEntry _escapedModel;
 

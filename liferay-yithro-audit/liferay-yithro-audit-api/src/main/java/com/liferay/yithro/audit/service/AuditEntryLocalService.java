@@ -75,7 +75,7 @@ public interface AuditEntryLocalService
 			long userId, Date createDate, Class<?> clazz, long classPK,
 			long auditSetId, Class<?> fieldClass, long fieldClassPK, int action,
 			String field, int visibility, String oldLabel, Object oldValue,
-			String newLabel, Object newValue, String description, boolean i18n)
+			String newLabel, Object newValue, String description)
 		throws PortalException;
 
 	public AuditEntry addAuditEntry(
@@ -83,7 +83,7 @@ public interface AuditEntryLocalService
 			long auditSetId, long fieldClassNameId, long fieldClassPK,
 			int action, String field, int visibility, String oldLabel,
 			Object oldValue, String newLabel, Object newValue,
-			String description, boolean i18n)
+			String description)
 		throws PortalException;
 
 	/**
