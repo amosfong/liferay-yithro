@@ -186,8 +186,7 @@ public interface TicketWorkerLocalService
 	public TicketWorker fetchLatestTicketWorker(long ticketEntryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId)
-		throws PortalException;
+	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketWorker fetchTicketWorker(long ticketWorkerId);

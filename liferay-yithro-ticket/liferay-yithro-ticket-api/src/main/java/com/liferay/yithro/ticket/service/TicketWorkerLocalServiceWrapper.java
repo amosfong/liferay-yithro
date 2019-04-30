@@ -226,8 +226,7 @@ public class TicketWorkerLocalServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketWorker
-			fetchPrimaryTicketWorker(long ticketEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		fetchPrimaryTicketWorker(long ticketEntryId) {
 
 		return _ticketWorkerLocalService.fetchPrimaryTicketWorker(
 			ticketEntryId);
