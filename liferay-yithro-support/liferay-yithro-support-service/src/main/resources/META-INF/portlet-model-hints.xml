@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.yithro.support.model.SupportLabor">
+		<field name="supportLaborId" type="long" />
+		<field name="name" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="timeZoneId" type="String" />
+		<field name="sunOpen" type="int" />
+		<field name="sunClose" type="int" />
+		<field name="monOpen" type="int" />
+		<field name="monClose" type="int" />
+		<field name="tueOpen" type="int" />
+		<field name="tueClose" type="int" />
+		<field name="wedOpen" type="int" />
+		<field name="wedClose" type="int" />
+		<field name="thuOpen" type="int" />
+		<field name="thuClose" type="int" />
+		<field name="friOpen" type="int" />
+		<field name="friClose" type="int" />
+		<field name="satOpen" type="int" />
+		<field name="satClose" type="int" />
+	</model>
+	<model name="com.liferay.yithro.support.model.SupportTeam">
+		<field name="supportTeamId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="parentSupportTeamId" type="long" />
+		<field name="supportLaborId" type="long" />
+		<field name="name" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="assignedWork" type="double" />
+		<field name="maxWork" type="double" />
+	</model>
+	<model name="com.liferay.yithro.support.model.SupportWorker">
+		<field name="supportWorkerId" type="long" />
+		<field name="userId" type="long" />
+		<field name="supportTeamId" type="long" />
+		<field name="supportLaborId" type="long" />
+		<field name="assignedWork" type="double" />
+		<field name="maxWork" type="double" />
+		<field name="role" type="int" />
+	</model>
+</model-hints>
