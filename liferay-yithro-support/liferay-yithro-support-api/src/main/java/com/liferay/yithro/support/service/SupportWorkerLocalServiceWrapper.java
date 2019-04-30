@@ -49,6 +49,15 @@ public class SupportWorkerLocalServiceWrapper
 		return _supportWorkerLocalService.addSupportWorker(supportWorker);
 	}
 
+	@Override
+	public void addSupportWorkers(
+			long[] userIds, long supportTeamId, double[] maxWork, int[] roles)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.addSupportWorkers(
+			userIds, supportTeamId, maxWork, roles);
+	}
+
 	/**
 	 * Creates a new support worker with the primary key. Does not add the support worker to the database.
 	 *
@@ -60,6 +69,21 @@ public class SupportWorkerLocalServiceWrapper
 		long supportWorkerId) {
 
 		return _supportWorkerLocalService.createSupportWorker(supportWorkerId);
+	}
+
+	@Override
+	public void decreaseAssignedWork(long userId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.decreaseAssignedWork(userId, work);
+	}
+
+	@Override
+	public void decreaseTicketEntryAssignedWork(long ticketEntryId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.decreaseTicketEntryAssignedWork(
+			ticketEntryId, work);
 	}
 
 	/**
@@ -99,6 +123,20 @@ public class SupportWorkerLocalServiceWrapper
 		com.liferay.yithro.support.model.SupportWorker supportWorker) {
 
 		return _supportWorkerLocalService.deleteSupportWorker(supportWorker);
+	}
+
+	@Override
+	public void deleteSupportWorkers(long userId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.deleteSupportWorkers(userId);
+	}
+
+	@Override
+	public void deleteSupportWorkers(long[] userIds, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.deleteSupportWorkers(userIds, supportTeamId);
 	}
 
 	@Override
@@ -207,10 +245,59 @@ public class SupportWorkerLocalServiceWrapper
 	}
 
 	@Override
+	public double getAssignedWork(long userId) {
+		return _supportWorkerLocalService.getAssignedWork(userId);
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker
+			getAvailableSupportWorker(long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getAvailableSupportWorker(
+			ticketEntryId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
 		return _supportWorkerLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker
+			getLongestOpenSupportWorker(
+				java.util.List<com.liferay.yithro.support.model.SupportWorker>
+					supportWorkers,
+				long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getLongestOpenSupportWorker(
+			supportWorkers, ticketEntryId);
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker
+			getMostAvailableSupportWorker(
+				long ticketEntryId,
+				java.util.LinkedHashMap<String, Object> params)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getMostAvailableSupportWorker(
+			ticketEntryId, params);
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker
+			getNextOpenSupportWorker(
+				java.util.List<com.liferay.yithro.support.model.SupportWorker>
+					supportWorkers,
+				long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getNextOpenSupportWorker(
+			supportWorkers, ticketEntryId);
 	}
 
 	/**
@@ -231,6 +318,14 @@ public class SupportWorkerLocalServiceWrapper
 		return _supportWorkerLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.support.model.SupportWorker>
+		getSupportTeamSupportWorkers(long supportTeamId) {
+
+		return _supportWorkerLocalService.getSupportTeamSupportWorkers(
+			supportTeamId);
+	}
+
 	/**
 	 * Returns the support worker with the primary key.
 	 *
@@ -244,6 +339,15 @@ public class SupportWorkerLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _supportWorkerLocalService.getSupportWorker(supportWorkerId);
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker getSupportWorker(
+			long userId, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getSupportWorker(
+			userId, supportTeamId);
 	}
 
 	/**
@@ -264,6 +368,15 @@ public class SupportWorkerLocalServiceWrapper
 		return _supportWorkerLocalService.getSupportWorkers(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.support.model.SupportWorker>
+			getSupportWorkersBySupportLaborId(long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.getSupportWorkersBySupportLaborId(
+			supportLaborId);
+	}
+
 	/**
 	 * Returns the number of support workers.
 	 *
@@ -272,6 +385,50 @@ public class SupportWorkerLocalServiceWrapper
 	@Override
 	public int getSupportWorkersCount() {
 		return _supportWorkerLocalService.getSupportWorkersCount();
+	}
+
+	@Override
+	public int getSupportWorkersCountBySupportLaborId(long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.
+			getSupportWorkersCountBySupportLaborId(supportLaborId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.yithro.support.model.SupportWorker>
+		getUserSupportWorkers(long userId) {
+
+		return _supportWorkerLocalService.getUserSupportWorkers(userId);
+	}
+
+	@Override
+	public void increaseAssignedWork(long userId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.increaseAssignedWork(userId, work);
+	}
+
+	@Override
+	public void increaseTicketEntryAssignedWork(long ticketEntryId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportWorkerLocalService.increaseTicketEntryAssignedWork(
+			ticketEntryId, work);
+	}
+
+	@Override
+	public void recalculateUtilization() {
+		_supportWorkerLocalService.recalculateUtilization();
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportWorker updateSupportWorker(
+			long supportWorkerId, long supportTeamId, double maxWork)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.updateSupportWorker(
+			supportWorkerId, supportTeamId, maxWork);
 	}
 
 	/**

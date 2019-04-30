@@ -17,6 +17,7 @@ package com.liferay.yithro.support.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 /**
  * The base model interface for the SupportWorker service. Represents a row in the &quot;Yithro_SupportWorker&quot; database table, with each column mapped to a property of this class.
@@ -30,7 +31,8 @@ import com.liferay.portal.kernel.model.BaseModel;
  * @generated
  */
 @ProviderType
-public interface SupportWorkerModel extends BaseModel<SupportWorker> {
+public interface SupportWorkerModel
+	extends BaseModel<SupportWorker>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -65,6 +67,22 @@ public interface SupportWorkerModel extends BaseModel<SupportWorker> {
 	 * @param supportWorkerId the support worker ID of this support worker
 	 */
 	public void setSupportWorkerId(long supportWorkerId);
+
+	/**
+	 * Returns the company ID of this support worker.
+	 *
+	 * @return the company ID of this support worker
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this support worker.
+	 *
+	 * @param companyId the company ID of this support worker
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the user ID of this support worker.

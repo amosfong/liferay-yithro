@@ -3,6 +3,9 @@
 <model-hints>
 	<model name="com.liferay.yithro.support.model.SupportLabor">
 		<field name="supportLaborId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
 		<field name="name" type="String" />
 		<field name="description" type="String">
 			<hint-collection name="TEXTAREA" />
@@ -25,6 +28,7 @@
 	</model>
 	<model name="com.liferay.yithro.support.model.SupportTeam">
 		<field name="supportTeamId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
@@ -40,6 +44,7 @@
 	</model>
 	<model name="com.liferay.yithro.support.model.SupportWorker">
 		<field name="supportWorkerId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="supportTeamId" type="long" />
 		<field name="supportLaborId" type="long" />

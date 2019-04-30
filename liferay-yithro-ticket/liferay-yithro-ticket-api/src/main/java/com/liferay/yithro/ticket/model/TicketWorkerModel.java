@@ -20,6 +20,8 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
+import java.util.Date;
+
 /**
  * The base model interface for the TicketWorker service. Represents a row in the &quot;Yithro_TicketWorker&quot; database table, with each column mapped to a property of this class.
  *
@@ -127,6 +129,20 @@ public interface TicketWorkerModel
 	 * @param userName the user name of this ticket worker
 	 */
 	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this ticket worker.
+	 *
+	 * @return the create date of this ticket worker
+	 */
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this ticket worker.
+	 *
+	 * @param createDate the create date of this ticket worker
+	 */
+	public void setCreateDate(Date createDate);
 
 	/**
 	 * Returns the ticket entry ID of this ticket worker.

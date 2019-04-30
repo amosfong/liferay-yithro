@@ -45,6 +45,7 @@ public class SupportWorkerWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("supportWorkerId", getSupportWorkerId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("supportTeamId", getSupportTeamId());
 		attributes.put("supportLaborId", getSupportLaborId());
@@ -61,6 +62,12 @@ public class SupportWorkerWrapper
 
 		if (supportWorkerId != null) {
 			setSupportWorkerId(supportWorkerId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -111,6 +118,16 @@ public class SupportWorkerWrapper
 	}
 
 	/**
+	 * Returns the company ID of this support worker.
+	 *
+	 * @return the company ID of this support worker
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
+	}
+
+	/**
 	 * Returns the max work of this support worker.
 	 *
 	 * @return the max work of this support worker
@@ -140,6 +157,13 @@ public class SupportWorkerWrapper
 		return model.getRole();
 	}
 
+	@Override
+	public SupportLabor getSupportLabor()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getSupportLabor();
+	}
+
 	/**
 	 * Returns the support labor ID of this support worker.
 	 *
@@ -148,6 +172,13 @@ public class SupportWorkerWrapper
 	@Override
 	public long getSupportLaborId() {
 		return model.getSupportLaborId();
+	}
+
+	@Override
+	public SupportTeam getSupportTeam()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getSupportTeam();
 	}
 
 	/**
@@ -168,6 +199,20 @@ public class SupportWorkerWrapper
 	@Override
 	public long getSupportWorkerId() {
 		return model.getSupportWorkerId();
+	}
+
+	@Override
+	public Long getTimeUntilClose()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTimeUntilClose();
+	}
+
+	@Override
+	public Long getTimeUntilOpen()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTimeUntilOpen();
 	}
 
 	/**
@@ -191,6 +236,18 @@ public class SupportWorkerWrapper
 	}
 
 	@Override
+	public boolean isActive() {
+		return model.isActive();
+	}
+
+	@Override
+	public boolean isAvailable()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.isAvailable();
+	}
+
+	@Override
 	public void persist() {
 		model.persist();
 	}
@@ -203,6 +260,16 @@ public class SupportWorkerWrapper
 	@Override
 	public void setAssignedWork(double assignedWork) {
 		model.setAssignedWork(assignedWork);
+	}
+
+	/**
+	 * Sets the company ID of this support worker.
+	 *
+	 * @param companyId the company ID of this support worker
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

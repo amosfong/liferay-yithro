@@ -70,10 +70,10 @@ public class SupportWorkerModelImpl
 	public static final String TABLE_NAME = "Yithro_SupportWorker";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"supportWorkerId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"supportTeamId", Types.BIGINT}, {"supportLaborId", Types.BIGINT},
-		{"assignedWork", Types.DOUBLE}, {"maxWork", Types.DOUBLE},
-		{"role_", Types.INTEGER}
+		{"supportWorkerId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"supportTeamId", Types.BIGINT},
+		{"supportLaborId", Types.BIGINT}, {"assignedWork", Types.DOUBLE},
+		{"maxWork", Types.DOUBLE}, {"role_", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -81,6 +81,7 @@ public class SupportWorkerModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("supportWorkerId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("supportTeamId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("supportLaborId", Types.BIGINT);
@@ -90,7 +91,7 @@ public class SupportWorkerModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_SupportWorker (supportWorkerId LONG not null primary key,userId LONG,supportTeamId LONG,supportLaborId LONG,assignedWork DOUBLE,maxWork DOUBLE,role_ INTEGER)";
+		"create table Yithro_SupportWorker (supportWorkerId LONG not null primary key,companyId LONG,userId LONG,supportTeamId LONG,supportLaborId LONG,assignedWork DOUBLE,maxWork DOUBLE,role_ INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_SupportWorker";
@@ -141,6 +142,7 @@ public class SupportWorkerModelImpl
 		SupportWorker model = new SupportWorkerImpl();
 
 		model.setSupportWorkerId(soapModel.getSupportWorkerId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setSupportTeamId(soapModel.getSupportTeamId());
 		model.setSupportLaborId(soapModel.getSupportLaborId());
@@ -276,6 +278,10 @@ public class SupportWorkerModelImpl
 		attributeSetterBiConsumers.put(
 			"supportWorkerId",
 			(BiConsumer<SupportWorker, Long>)SupportWorker::setSupportWorkerId);
+		attributeGetterFunctions.put("companyId", SupportWorker::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<SupportWorker, Long>)SupportWorker::setCompanyId);
 		attributeGetterFunctions.put("userId", SupportWorker::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId",
@@ -318,6 +324,17 @@ public class SupportWorkerModelImpl
 	@Override
 	public void setSupportWorkerId(long supportWorkerId) {
 		_supportWorkerId = supportWorkerId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -469,7 +486,7 @@ public class SupportWorkerModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, SupportWorker.class.getName(), getPrimaryKey());
+			getCompanyId(), SupportWorker.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -495,6 +512,7 @@ public class SupportWorkerModelImpl
 		SupportWorkerImpl supportWorkerImpl = new SupportWorkerImpl();
 
 		supportWorkerImpl.setSupportWorkerId(getSupportWorkerId());
+		supportWorkerImpl.setCompanyId(getCompanyId());
 		supportWorkerImpl.setUserId(getUserId());
 		supportWorkerImpl.setSupportTeamId(getSupportTeamId());
 		supportWorkerImpl.setSupportLaborId(getSupportLaborId());
@@ -596,6 +614,8 @@ public class SupportWorkerModelImpl
 
 		supportWorkerCacheModel.supportWorkerId = getSupportWorkerId();
 
+		supportWorkerCacheModel.companyId = getCompanyId();
+
 		supportWorkerCacheModel.userId = getUserId();
 
 		supportWorkerCacheModel.supportTeamId = getSupportTeamId();
@@ -683,6 +703,7 @@ public class SupportWorkerModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _supportWorkerId;
+	private long _companyId;
 	private long _userId;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;

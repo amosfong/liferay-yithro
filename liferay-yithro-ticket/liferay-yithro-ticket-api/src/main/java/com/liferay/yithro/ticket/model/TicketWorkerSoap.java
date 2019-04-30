@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class TicketWorkerSoap implements Serializable {
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
+		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
 		soapModel.setSourceClassNameId(model.getSourceClassNameId());
 		soapModel.setSourceClassPK(model.getSourceClassPK());
@@ -127,6 +129,14 @@ public class TicketWorkerSoap implements Serializable {
 		_userName = userName;
 	}
 
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
 	public long getTicketEntryId() {
 		return _ticketEntryId;
 	}
@@ -175,6 +185,7 @@ public class TicketWorkerSoap implements Serializable {
 	private long _companyId;
 	private long _userId;
 	private String _userName;
+	private Date _createDate;
 	private long _ticketEntryId;
 	private long _sourceClassNameId;
 	private long _sourceClassPK;

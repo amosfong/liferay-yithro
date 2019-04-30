@@ -218,6 +218,13 @@ public class TicketWorkerLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.yithro.ticket.model.TicketWorker fetchLatestTicketWorker(
+		long ticketEntryId) {
+
+		return _ticketWorkerLocalService.fetchLatestTicketWorker(ticketEntryId);
+	}
+
+	@Override
 	public com.liferay.yithro.ticket.model.TicketWorker
 			fetchPrimaryTicketWorker(long ticketEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {

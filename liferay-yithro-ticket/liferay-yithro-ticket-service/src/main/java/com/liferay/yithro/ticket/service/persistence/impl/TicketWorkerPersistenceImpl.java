@@ -2861,7 +2861,8 @@ public class TicketWorkerPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, TicketWorkerImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
 			new String[] {Long.class.getName()},
-			TicketWorkerModelImpl.USERID_COLUMN_BITMASK);
+			TicketWorkerModelImpl.USERID_COLUMN_BITMASK |
+			TicketWorkerModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUserId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -2880,7 +2881,8 @@ public class TicketWorkerPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, TicketWorkerImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTicketEntryId",
 			new String[] {Long.class.getName()},
-			TicketWorkerModelImpl.TICKETENTRYID_COLUMN_BITMASK);
+			TicketWorkerModelImpl.TICKETENTRYID_COLUMN_BITMASK |
+			TicketWorkerModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByTicketEntryId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -2925,7 +2927,8 @@ public class TicketWorkerPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBySCNI_SCPK",
 			new String[] {Long.class.getName(), Long.class.getName()},
 			TicketWorkerModelImpl.SOURCECLASSNAMEID_COLUMN_BITMASK |
-			TicketWorkerModelImpl.SOURCECLASSPK_COLUMN_BITMASK);
+			TicketWorkerModelImpl.SOURCECLASSPK_COLUMN_BITMASK |
+			TicketWorkerModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountBySCNI_SCPK = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,

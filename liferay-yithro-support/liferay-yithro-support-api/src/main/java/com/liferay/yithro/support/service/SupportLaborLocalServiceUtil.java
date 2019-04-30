@@ -41,16 +41,16 @@ public class SupportLaborLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.yithro.support.model.SupportLabor addSupportLabor(
-			String name, String description, String timeZoneId, int sunOpen,
-			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
-			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
-			int friClose, int satOpen, int satClose)
+			long userId, String name, String description, String timeZoneId,
+			int sunOpen, int sunClose, int monOpen, int monClose, int tueOpen,
+			int tueClose, int wedOpen, int wedClose, int thuOpen, int thuClose,
+			int friOpen, int friClose, int satOpen, int satClose)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addSupportLabor(
-			name, description, timeZoneId, sunOpen, sunClose, monOpen, monClose,
-			tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen,
-			friClose, satOpen, satClose);
+			userId, name, description, timeZoneId, sunOpen, sunClose, monOpen,
+			monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose,
+			friOpen, friClose, satOpen, satClose);
 	}
 
 	/**

@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,7 @@ public class TicketWorkerWrapper
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
 		attributes.put("sourceClassNameId", getSourceClassNameId());
 		attributes.put("sourceClassPK", getSourceClassPK());
@@ -81,6 +83,12 @@ public class TicketWorkerWrapper
 
 		if (userName != null) {
 			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
 		}
 
 		Long ticketEntryId = (Long)attributes.get("ticketEntryId");
@@ -122,6 +130,16 @@ public class TicketWorkerWrapper
 	@Override
 	public long getCompanyId() {
 		return model.getCompanyId();
+	}
+
+	/**
+	 * Returns the create date of this ticket worker.
+	 *
+	 * @return the create date of this ticket worker
+	 */
+	@Override
+	public Date getCreateDate() {
+		return model.getCreateDate();
 	}
 
 	/**
@@ -259,6 +277,16 @@ public class TicketWorkerWrapper
 	@Override
 	public void setCompanyId(long companyId) {
 		model.setCompanyId(companyId);
+	}
+
+	/**
+	 * Sets the create date of this ticket worker.
+	 *
+	 * @param createDate the create date of this ticket worker
+	 */
+	@Override
+	public void setCreateDate(Date createDate) {
+		model.setCreateDate(createDate);
 	}
 
 	/**

@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.yithro.ticket.model.TicketWorker;
 import com.liferay.yithro.ticket.model.TicketWorkerModel;
@@ -39,6 +40,7 @@ import java.sql.Types;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,9 +74,9 @@ public class TicketWorkerModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"ticketWorkerId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
-		{"ticketEntryId", Types.BIGINT}, {"sourceClassNameId", Types.BIGINT},
-		{"sourceClassPK", Types.BIGINT}, {"role_", Types.INTEGER},
-		{"primary_", Types.BOOLEAN}
+		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
+		{"sourceClassNameId", Types.BIGINT}, {"sourceClassPK", Types.BIGINT},
+		{"role_", Types.INTEGER}, {"primary_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -85,6 +87,7 @@ public class TicketWorkerModelImpl
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("sourceClassNameId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("sourceClassPK", Types.BIGINT);
@@ -93,16 +96,16 @@ public class TicketWorkerModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketWorker (ticketWorkerId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,ticketEntryId LONG,sourceClassNameId LONG,sourceClassPK LONG,role_ INTEGER,primary_ BOOLEAN)";
+		"create table Yithro_TicketWorker (ticketWorkerId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,sourceClassNameId LONG,sourceClassPK LONG,role_ INTEGER,primary_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketWorker";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY ticketWorker.ticketWorkerId ASC";
+		" ORDER BY ticketWorker.createDate DESC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY Yithro_TicketWorker.ticketWorkerId ASC";
+		" ORDER BY Yithro_TicketWorker.createDate DESC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -120,7 +123,7 @@ public class TicketWorkerModelImpl
 
 	public static final long USERID_COLUMN_BITMASK = 16L;
 
-	public static final long TICKETWORKERID_COLUMN_BITMASK = 32L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 32L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -147,6 +150,7 @@ public class TicketWorkerModelImpl
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
+		model.setCreateDate(soapModel.getCreateDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
 		model.setSourceClassNameId(soapModel.getSourceClassNameId());
 		model.setSourceClassPK(soapModel.getSourceClassPK());
@@ -292,6 +296,10 @@ public class TicketWorkerModelImpl
 		attributeSetterBiConsumers.put(
 			"userName",
 			(BiConsumer<TicketWorker, String>)TicketWorker::setUserName);
+		attributeGetterFunctions.put("createDate", TicketWorker::getCreateDate);
+		attributeSetterBiConsumers.put(
+			"createDate",
+			(BiConsumer<TicketWorker, Date>)TicketWorker::setCreateDate);
 		attributeGetterFunctions.put(
 			"ticketEntryId", TicketWorker::getTicketEntryId);
 		attributeSetterBiConsumers.put(
@@ -396,6 +404,19 @@ public class TicketWorkerModelImpl
 	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
+	}
+
+	@JSON
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		_columnBitmask = -1L;
+
+		_createDate = createDate;
 	}
 
 	@JSON
@@ -543,6 +564,7 @@ public class TicketWorkerModelImpl
 		ticketWorkerImpl.setCompanyId(getCompanyId());
 		ticketWorkerImpl.setUserId(getUserId());
 		ticketWorkerImpl.setUserName(getUserName());
+		ticketWorkerImpl.setCreateDate(getCreateDate());
 		ticketWorkerImpl.setTicketEntryId(getTicketEntryId());
 		ticketWorkerImpl.setSourceClassNameId(getSourceClassNameId());
 		ticketWorkerImpl.setSourceClassPK(getSourceClassPK());
@@ -556,17 +578,18 @@ public class TicketWorkerModelImpl
 
 	@Override
 	public int compareTo(TicketWorker ticketWorker) {
-		long primaryKey = ticketWorker.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(
+			getCreateDate(), ticketWorker.getCreateDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -653,6 +676,15 @@ public class TicketWorkerModelImpl
 
 		if ((userName != null) && (userName.length() == 0)) {
 			ticketWorkerCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			ticketWorkerCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			ticketWorkerCacheModel.createDate = Long.MIN_VALUE;
 		}
 
 		ticketWorkerCacheModel.ticketEntryId = getTicketEntryId();
@@ -745,6 +777,7 @@ public class TicketWorkerModelImpl
 	private long _originalUserId;
 	private boolean _setOriginalUserId;
 	private String _userName;
+	private Date _createDate;
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;

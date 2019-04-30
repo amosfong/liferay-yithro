@@ -58,4 +58,8 @@ public interface SupportLabor extends PersistedModel, SupportLaborModel {
 
 		};
 
+	public int getCloseTime(int day);
+
+	public int getOpenTime(int day);
+
 }

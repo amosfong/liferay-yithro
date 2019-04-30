@@ -46,6 +46,7 @@ public class SupportTeamWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("supportTeamId", getSupportTeamId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
@@ -66,6 +67,12 @@ public class SupportTeamWrapper
 
 		if (supportTeamId != null) {
 			setSupportTeamId(supportTeamId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
@@ -137,6 +144,16 @@ public class SupportTeamWrapper
 	@Override
 	public double getAssignedWork() {
 		return model.getAssignedWork();
+	}
+
+	/**
+	 * Returns the company ID of this support team.
+	 *
+	 * @return the company ID of this support team
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -272,6 +289,16 @@ public class SupportTeamWrapper
 	@Override
 	public void setAssignedWork(double assignedWork) {
 		model.setAssignedWork(assignedWork);
+	}
+
+	/**
+	 * Sets the company ID of this support team.
+	 *
+	 * @param companyId the company ID of this support team
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 /**
  * The base model interface for the SupportLabor service. Represents a row in the &quot;Yithro_SupportLabor&quot; database table, with each column mapped to a property of this class.
@@ -31,7 +32,8 @@ import com.liferay.portal.kernel.model.BaseModel;
  * @generated
  */
 @ProviderType
-public interface SupportLaborModel extends BaseModel<SupportLabor> {
+public interface SupportLaborModel
+	extends BaseModel<SupportLabor>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -66,6 +68,65 @@ public interface SupportLaborModel extends BaseModel<SupportLabor> {
 	 * @param supportLaborId the support labor ID of this support labor
 	 */
 	public void setSupportLaborId(long supportLaborId);
+
+	/**
+	 * Returns the company ID of this support labor.
+	 *
+	 * @return the company ID of this support labor
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this support labor.
+	 *
+	 * @param companyId the company ID of this support labor
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this support labor.
+	 *
+	 * @return the user ID of this support labor
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this support labor.
+	 *
+	 * @param userId the user ID of this support labor
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this support labor.
+	 *
+	 * @return the user uuid of this support labor
+	 */
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this support labor.
+	 *
+	 * @param userUuid the user uuid of this support labor
+	 */
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this support labor.
+	 *
+	 * @return the user name of this support labor
+	 */
+	@AutoEscape
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this support labor.
+	 *
+	 * @param userName the user name of this support labor
+	 */
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the name of this support labor.

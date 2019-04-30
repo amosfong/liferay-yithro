@@ -34,6 +34,9 @@ public class SupportLaborSoap implements Serializable {
 		SupportLaborSoap soapModel = new SupportLaborSoap();
 
 		soapModel.setSupportLaborId(model.getSupportLaborId());
+		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setTimeZoneId(model.getTimeZoneId());
@@ -110,6 +113,30 @@ public class SupportLaborSoap implements Serializable {
 
 	public void setSupportLaborId(long supportLaborId) {
 		_supportLaborId = supportLaborId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
 	}
 
 	public String getName() {
@@ -249,6 +276,9 @@ public class SupportLaborSoap implements Serializable {
 	}
 
 	private long _supportLaborId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
 	private String _name;
 	private String _description;
 	private String _timeZoneId;

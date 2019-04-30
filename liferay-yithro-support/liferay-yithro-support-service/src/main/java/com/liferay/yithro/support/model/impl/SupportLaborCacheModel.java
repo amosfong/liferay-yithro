@@ -63,10 +63,16 @@ public class SupportLaborCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{supportLaborId=");
 		sb.append(supportLaborId);
+		sb.append(", companyId=");
+		sb.append(companyId);
+		sb.append(", userId=");
+		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", description=");
@@ -111,6 +117,15 @@ public class SupportLaborCacheModel
 		SupportLaborImpl supportLaborImpl = new SupportLaborImpl();
 
 		supportLaborImpl.setSupportLaborId(supportLaborId);
+		supportLaborImpl.setCompanyId(companyId);
+		supportLaborImpl.setUserId(userId);
+
+		if (userName == null) {
+			supportLaborImpl.setUserName("");
+		}
+		else {
+			supportLaborImpl.setUserName(userName);
+		}
 
 		if (name == null) {
 			supportLaborImpl.setName("");
@@ -156,6 +171,11 @@ public class SupportLaborCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		supportLaborId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
+
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
 		timeZoneId = objectInput.readUTF();
@@ -192,6 +212,17 @@ public class SupportLaborCacheModel
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(supportLaborId);
+
+		objectOutput.writeLong(companyId);
+
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -244,6 +275,9 @@ public class SupportLaborCacheModel
 	}
 
 	public long supportLaborId;
+	public long companyId;
+	public long userId;
+	public String userName;
 	public String name;
 	public String description;
 	public String timeZoneId;

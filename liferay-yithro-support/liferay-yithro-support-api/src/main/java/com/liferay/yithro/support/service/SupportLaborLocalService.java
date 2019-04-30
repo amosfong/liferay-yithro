@@ -61,10 +61,10 @@ public interface SupportLaborLocalService
 	 * Never modify or reference this interface directly. Always use {@link SupportLaborLocalServiceUtil} to access the support labor local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public SupportLabor addSupportLabor(
-			String name, String description, String timeZoneId, int sunOpen,
-			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
-			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
-			int friClose, int satOpen, int satClose)
+			long userId, String name, String description, String timeZoneId,
+			int sunOpen, int sunClose, int monOpen, int monClose, int tueOpen,
+			int tueClose, int wedOpen, int wedClose, int thuOpen, int thuClose,
+			int friOpen, int friClose, int satOpen, int satClose)
 		throws PortalException;
 
 	/**

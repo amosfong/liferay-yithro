@@ -72,9 +72,9 @@ public class SupportTeamModelImpl
 	public static final String TABLE_NAME = "Yithro_SupportTeam";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"supportTeamId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP},
+		{"supportTeamId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"parentSupportTeamId", Types.BIGINT}, {"supportLaborId", Types.BIGINT},
 		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
 		{"assignedWork", Types.DOUBLE}, {"maxWork", Types.DOUBLE}
@@ -85,6 +85,7 @@ public class SupportTeamModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("supportTeamId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
@@ -98,7 +99,7 @@ public class SupportTeamModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_SupportTeam (supportTeamId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,parentSupportTeamId LONG,supportLaborId LONG,name VARCHAR(75) null,description STRING null,assignedWork DOUBLE,maxWork DOUBLE)";
+		"create table Yithro_SupportTeam (supportTeamId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,parentSupportTeamId LONG,supportLaborId LONG,name VARCHAR(75) null,description STRING null,assignedWork DOUBLE,maxWork DOUBLE)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_SupportTeam";
 
@@ -141,6 +142,7 @@ public class SupportTeamModelImpl
 		SupportTeam model = new SupportTeamImpl();
 
 		model.setSupportTeamId(soapModel.getSupportTeamId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
@@ -280,6 +282,10 @@ public class SupportTeamModelImpl
 		attributeSetterBiConsumers.put(
 			"supportTeamId",
 			(BiConsumer<SupportTeam, Long>)SupportTeam::setSupportTeamId);
+		attributeGetterFunctions.put("companyId", SupportTeam::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<SupportTeam, Long>)SupportTeam::setCompanyId);
 		attributeGetterFunctions.put("userId", SupportTeam::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<SupportTeam, Long>)SupportTeam::setUserId);
@@ -339,6 +345,17 @@ public class SupportTeamModelImpl
 	@Override
 	public void setSupportTeamId(long supportTeamId) {
 		_supportTeamId = supportTeamId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	@JSON
@@ -529,7 +546,7 @@ public class SupportTeamModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, SupportTeam.class.getName(), getPrimaryKey());
+			getCompanyId(), SupportTeam.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -555,6 +572,7 @@ public class SupportTeamModelImpl
 		SupportTeamImpl supportTeamImpl = new SupportTeamImpl();
 
 		supportTeamImpl.setSupportTeamId(getSupportTeamId());
+		supportTeamImpl.setCompanyId(getCompanyId());
 		supportTeamImpl.setUserId(getUserId());
 		supportTeamImpl.setUserName(getUserName());
 		supportTeamImpl.setCreateDate(getCreateDate());
@@ -648,6 +666,8 @@ public class SupportTeamModelImpl
 			new SupportTeamCacheModel();
 
 		supportTeamCacheModel.supportTeamId = getSupportTeamId();
+
+		supportTeamCacheModel.companyId = getCompanyId();
 
 		supportTeamCacheModel.userId = getUserId();
 
@@ -776,6 +796,7 @@ public class SupportTeamModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _supportTeamId;
+	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

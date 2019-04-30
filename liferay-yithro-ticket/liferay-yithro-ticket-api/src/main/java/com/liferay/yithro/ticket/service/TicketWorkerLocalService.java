@@ -183,6 +183,9 @@ public interface TicketWorkerLocalService
 		DynamicQuery dynamicQuery, Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketWorker fetchLatestTicketWorker(long ticketEntryId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId)
 		throws PortalException;
 

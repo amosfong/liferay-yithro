@@ -54,6 +54,13 @@ public class SupportWorkerLocalServiceUtil {
 		return getService().addSupportWorker(supportWorker);
 	}
 
+	public static void addSupportWorkers(
+			long[] userIds, long supportTeamId, double[] maxWork, int[] roles)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().addSupportWorkers(userIds, supportTeamId, maxWork, roles);
+	}
+
 	/**
 	 * Creates a new support worker with the primary key. Does not add the support worker to the database.
 	 *
@@ -64,6 +71,19 @@ public class SupportWorkerLocalServiceUtil {
 		createSupportWorker(long supportWorkerId) {
 
 		return getService().createSupportWorker(supportWorkerId);
+	}
+
+	public static void decreaseAssignedWork(long userId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().decreaseAssignedWork(userId, work);
+	}
+
+	public static void decreaseTicketEntryAssignedWork(
+			long ticketEntryId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().decreaseTicketEntryAssignedWork(ticketEntryId, work);
 	}
 
 	/**
@@ -102,6 +122,18 @@ public class SupportWorkerLocalServiceUtil {
 			com.liferay.yithro.support.model.SupportWorker supportWorker) {
 
 		return getService().deleteSupportWorker(supportWorker);
+	}
+
+	public static void deleteSupportWorkers(long userId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteSupportWorkers(userId);
+	}
+
+	public static void deleteSupportWorkers(long[] userIds, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteSupportWorkers(userIds, supportTeamId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
@@ -201,11 +233,54 @@ public class SupportWorkerLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static double getAssignedWork(long userId) {
+		return getService().getAssignedWork(userId);
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			getAvailableSupportWorker(long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getAvailableSupportWorker(ticketEntryId);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			getLongestOpenSupportWorker(
+				java.util.List<com.liferay.yithro.support.model.SupportWorker>
+					supportWorkers,
+				long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getLongestOpenSupportWorker(
+			supportWorkers, ticketEntryId);
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			getMostAvailableSupportWorker(
+				long ticketEntryId,
+				java.util.LinkedHashMap<String, Object> params)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getMostAvailableSupportWorker(
+			ticketEntryId, params);
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			getNextOpenSupportWorker(
+				java.util.List<com.liferay.yithro.support.model.SupportWorker>
+					supportWorkers,
+				long ticketEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getNextOpenSupportWorker(
+			supportWorkers, ticketEntryId);
 	}
 
 	/**
@@ -224,6 +299,12 @@ public class SupportWorkerLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+	public static java.util.List<com.liferay.yithro.support.model.SupportWorker>
+		getSupportTeamSupportWorkers(long supportTeamId) {
+
+		return getService().getSupportTeamSupportWorkers(supportTeamId);
+	}
+
 	/**
 	 * Returns the support worker with the primary key.
 	 *
@@ -236,6 +317,13 @@ public class SupportWorkerLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getSupportWorker(supportWorkerId);
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			getSupportWorker(long userId, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getSupportWorker(userId, supportTeamId);
 	}
 
 	/**
@@ -255,6 +343,13 @@ public class SupportWorkerLocalServiceUtil {
 		return getService().getSupportWorkers(start, end);
 	}
 
+	public static java.util.List<com.liferay.yithro.support.model.SupportWorker>
+			getSupportWorkersBySupportLaborId(long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getSupportWorkersBySupportLaborId(supportLaborId);
+	}
+
 	/**
 	 * Returns the number of support workers.
 	 *
@@ -262,6 +357,46 @@ public class SupportWorkerLocalServiceUtil {
 	 */
 	public static int getSupportWorkersCount() {
 		return getService().getSupportWorkersCount();
+	}
+
+	public static int getSupportWorkersCountBySupportLaborId(
+			long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getSupportWorkersCountBySupportLaborId(
+			supportLaborId);
+	}
+
+	public static java.util.List<com.liferay.yithro.support.model.SupportWorker>
+		getUserSupportWorkers(long userId) {
+
+		return getService().getUserSupportWorkers(userId);
+	}
+
+	public static void increaseAssignedWork(long userId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().increaseAssignedWork(userId, work);
+	}
+
+	public static void increaseTicketEntryAssignedWork(
+			long ticketEntryId, double work)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().increaseTicketEntryAssignedWork(ticketEntryId, work);
+	}
+
+	public static void recalculateUtilization() {
+		getService().recalculateUtilization();
+	}
+
+	public static com.liferay.yithro.support.model.SupportWorker
+			updateSupportWorker(
+				long supportWorkerId, long supportTeamId, double maxWork)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateSupportWorker(
+			supportWorkerId, supportTeamId, maxWork);
 	}
 
 	/**

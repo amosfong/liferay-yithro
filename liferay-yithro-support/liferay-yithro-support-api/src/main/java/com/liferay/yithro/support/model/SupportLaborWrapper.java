@@ -45,6 +45,9 @@ public class SupportLaborWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("supportLaborId", getSupportLaborId());
+		attributes.put("companyId", getCompanyId());
+		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("timeZoneId", getTimeZoneId());
@@ -72,6 +75,24 @@ public class SupportLaborWrapper
 
 		if (supportLaborId != null) {
 			setSupportLaborId(supportLaborId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
 		}
 
 		String name = (String)attributes.get("name");
@@ -177,6 +198,21 @@ public class SupportLaborWrapper
 		}
 	}
 
+	@Override
+	public int getCloseTime(int day) {
+		return model.getCloseTime(day);
+	}
+
+	/**
+	 * Returns the company ID of this support labor.
+	 *
+	 * @return the company ID of this support labor
+	 */
+	@Override
+	public long getCompanyId() {
+		return model.getCompanyId();
+	}
+
 	/**
 	 * Returns the description of this support labor.
 	 *
@@ -235,6 +271,11 @@ public class SupportLaborWrapper
 	@Override
 	public String getName() {
 		return model.getName();
+	}
+
+	@Override
+	public int getOpenTime(int day) {
+		return model.getOpenTime(day);
 	}
 
 	/**
@@ -348,6 +389,36 @@ public class SupportLaborWrapper
 	}
 
 	/**
+	 * Returns the user ID of this support labor.
+	 *
+	 * @return the user ID of this support labor
+	 */
+	@Override
+	public long getUserId() {
+		return model.getUserId();
+	}
+
+	/**
+	 * Returns the user name of this support labor.
+	 *
+	 * @return the user name of this support labor
+	 */
+	@Override
+	public String getUserName() {
+		return model.getUserName();
+	}
+
+	/**
+	 * Returns the user uuid of this support labor.
+	 *
+	 * @return the user uuid of this support labor
+	 */
+	@Override
+	public String getUserUuid() {
+		return model.getUserUuid();
+	}
+
+	/**
 	 * Returns the wed close of this support labor.
 	 *
 	 * @return the wed close of this support labor
@@ -370,6 +441,16 @@ public class SupportLaborWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the company ID of this support labor.
+	 *
+	 * @param companyId the company ID of this support labor
+	 */
+	@Override
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**
@@ -540,6 +621,36 @@ public class SupportLaborWrapper
 	@Override
 	public void setTueOpen(int tueOpen) {
 		model.setTueOpen(tueOpen);
+	}
+
+	/**
+	 * Sets the user ID of this support labor.
+	 *
+	 * @param userId the user ID of this support labor
+	 */
+	@Override
+	public void setUserId(long userId) {
+		model.setUserId(userId);
+	}
+
+	/**
+	 * Sets the user name of this support labor.
+	 *
+	 * @param userName the user name of this support labor
+	 */
+	@Override
+	public void setUserName(String userName) {
+		model.setUserName(userName);
+	}
+
+	/**
+	 * Sets the user uuid of this support labor.
+	 *
+	 * @param userUuid the user uuid of this support labor
+	 */
+	@Override
+	public void setUserUuid(String userUuid) {
+		model.setUserUuid(userUuid);
 	}
 
 	/**

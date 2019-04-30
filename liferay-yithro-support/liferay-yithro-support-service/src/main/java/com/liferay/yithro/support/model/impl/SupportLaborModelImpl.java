@@ -20,11 +20,14 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.yithro.support.model.SupportLabor;
 import com.liferay.yithro.support.model.SupportLaborModel;
@@ -67,15 +70,17 @@ public class SupportLaborModelImpl
 	public static final String TABLE_NAME = "Yithro_SupportLabor";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"supportLaborId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"timeZoneId", Types.VARCHAR},
-		{"sunOpen", Types.INTEGER}, {"sunClose", Types.INTEGER},
-		{"monOpen", Types.INTEGER}, {"monClose", Types.INTEGER},
-		{"tueOpen", Types.INTEGER}, {"tueClose", Types.INTEGER},
-		{"wedOpen", Types.INTEGER}, {"wedClose", Types.INTEGER},
-		{"thuOpen", Types.INTEGER}, {"thuClose", Types.INTEGER},
-		{"friOpen", Types.INTEGER}, {"friClose", Types.INTEGER},
-		{"satOpen", Types.INTEGER}, {"satClose", Types.INTEGER}
+		{"supportLaborId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"timeZoneId", Types.VARCHAR}, {"sunOpen", Types.INTEGER},
+		{"sunClose", Types.INTEGER}, {"monOpen", Types.INTEGER},
+		{"monClose", Types.INTEGER}, {"tueOpen", Types.INTEGER},
+		{"tueClose", Types.INTEGER}, {"wedOpen", Types.INTEGER},
+		{"wedClose", Types.INTEGER}, {"thuOpen", Types.INTEGER},
+		{"thuClose", Types.INTEGER}, {"friOpen", Types.INTEGER},
+		{"friClose", Types.INTEGER}, {"satOpen", Types.INTEGER},
+		{"satClose", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -83,6 +88,9 @@ public class SupportLaborModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("supportLaborId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("timeZoneId", Types.VARCHAR);
@@ -103,7 +111,7 @@ public class SupportLaborModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_SupportLabor (supportLaborId LONG not null primary key,name VARCHAR(75) null,description STRING null,timeZoneId VARCHAR(75) null,sunOpen INTEGER,sunClose INTEGER,monOpen INTEGER,monClose INTEGER,tueOpen INTEGER,tueClose INTEGER,wedOpen INTEGER,wedClose INTEGER,thuOpen INTEGER,thuClose INTEGER,friOpen INTEGER,friClose INTEGER,satOpen INTEGER,satClose INTEGER)";
+		"create table Yithro_SupportLabor (supportLaborId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,name VARCHAR(75) null,description STRING null,timeZoneId VARCHAR(75) null,sunOpen INTEGER,sunClose INTEGER,monOpen INTEGER,monClose INTEGER,tueOpen INTEGER,tueClose INTEGER,wedOpen INTEGER,wedClose INTEGER,thuOpen INTEGER,thuClose INTEGER,friOpen INTEGER,friClose INTEGER,satOpen INTEGER,satClose INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_SupportLabor";
@@ -142,6 +150,9 @@ public class SupportLaborModelImpl
 		SupportLabor model = new SupportLaborImpl();
 
 		model.setSupportLaborId(soapModel.getSupportLaborId());
+		model.setCompanyId(soapModel.getCompanyId());
+		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
 		model.setTimeZoneId(soapModel.getTimeZoneId());
@@ -288,6 +299,17 @@ public class SupportLaborModelImpl
 		attributeSetterBiConsumers.put(
 			"supportLaborId",
 			(BiConsumer<SupportLabor, Long>)SupportLabor::setSupportLaborId);
+		attributeGetterFunctions.put("companyId", SupportLabor::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId",
+			(BiConsumer<SupportLabor, Long>)SupportLabor::setCompanyId);
+		attributeGetterFunctions.put("userId", SupportLabor::getUserId);
+		attributeSetterBiConsumers.put(
+			"userId", (BiConsumer<SupportLabor, Long>)SupportLabor::setUserId);
+		attributeGetterFunctions.put("userName", SupportLabor::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName",
+			(BiConsumer<SupportLabor, String>)SupportLabor::setUserName);
 		attributeGetterFunctions.put("name", SupportLabor::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<SupportLabor, String>)SupportLabor::setName);
@@ -372,6 +394,60 @@ public class SupportLaborModelImpl
 	@Override
 	public void setSupportLaborId(long supportLaborId) {
 		_supportLaborId = supportLaborId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	@JSON
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException pe) {
+			return "";
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	@JSON
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
 	}
 
 	@JSON
@@ -579,7 +655,7 @@ public class SupportLaborModelImpl
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(
-			0, SupportLabor.class.getName(), getPrimaryKey());
+			getCompanyId(), SupportLabor.class.getName(), getPrimaryKey());
 	}
 
 	@Override
@@ -605,6 +681,9 @@ public class SupportLaborModelImpl
 		SupportLaborImpl supportLaborImpl = new SupportLaborImpl();
 
 		supportLaborImpl.setSupportLaborId(getSupportLaborId());
+		supportLaborImpl.setCompanyId(getCompanyId());
+		supportLaborImpl.setUserId(getUserId());
+		supportLaborImpl.setUserName(getUserName());
 		supportLaborImpl.setName(getName());
 		supportLaborImpl.setDescription(getDescription());
 		supportLaborImpl.setTimeZoneId(getTimeZoneId());
@@ -688,6 +767,18 @@ public class SupportLaborModelImpl
 			new SupportLaborCacheModel();
 
 		supportLaborCacheModel.supportLaborId = getSupportLaborId();
+
+		supportLaborCacheModel.companyId = getCompanyId();
+
+		supportLaborCacheModel.userId = getUserId();
+
+		supportLaborCacheModel.userName = getUserName();
+
+		String userName = supportLaborCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			supportLaborCacheModel.userName = null;
+		}
 
 		supportLaborCacheModel.name = getName();
 
@@ -816,6 +907,9 @@ public class SupportLaborModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _supportLaborId;
+	private long _companyId;
+	private long _userId;
+	private String _userName;
 	private String _name;
 	private String _description;
 	private String _timeZoneId;

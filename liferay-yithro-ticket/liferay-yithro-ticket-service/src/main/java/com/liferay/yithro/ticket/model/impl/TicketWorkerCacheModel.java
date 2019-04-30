@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing TicketWorker in entity cache.
  *
@@ -63,7 +65,7 @@ public class TicketWorkerCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{ticketWorkerId=");
 		sb.append(ticketWorkerId);
@@ -73,6 +75,8 @@ public class TicketWorkerCacheModel
 		sb.append(userId);
 		sb.append(", userName=");
 		sb.append(userName);
+		sb.append(", createDate=");
+		sb.append(createDate);
 		sb.append(", ticketEntryId=");
 		sb.append(ticketEntryId);
 		sb.append(", sourceClassNameId=");
@@ -103,6 +107,13 @@ public class TicketWorkerCacheModel
 			ticketWorkerImpl.setUserName(userName);
 		}
 
+		if (createDate == Long.MIN_VALUE) {
+			ticketWorkerImpl.setCreateDate(null);
+		}
+		else {
+			ticketWorkerImpl.setCreateDate(new Date(createDate));
+		}
+
 		ticketWorkerImpl.setTicketEntryId(ticketEntryId);
 		ticketWorkerImpl.setSourceClassNameId(sourceClassNameId);
 		ticketWorkerImpl.setSourceClassPK(sourceClassPK);
@@ -122,6 +133,7 @@ public class TicketWorkerCacheModel
 
 		userId = objectInput.readLong();
 		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
 
 		ticketEntryId = objectInput.readLong();
 
@@ -149,6 +161,8 @@ public class TicketWorkerCacheModel
 			objectOutput.writeUTF(userName);
 		}
 
+		objectOutput.writeLong(createDate);
+
 		objectOutput.writeLong(ticketEntryId);
 
 		objectOutput.writeLong(sourceClassNameId);
@@ -164,6 +178,7 @@ public class TicketWorkerCacheModel
 	public long companyId;
 	public long userId;
 	public String userName;
+	public long createDate;
 	public long ticketEntryId;
 	public long sourceClassNameId;
 	public long sourceClassPK;

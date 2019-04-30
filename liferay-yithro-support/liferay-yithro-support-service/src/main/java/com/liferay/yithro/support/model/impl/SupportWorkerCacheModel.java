@@ -63,10 +63,12 @@ public class SupportWorkerCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{supportWorkerId=");
 		sb.append(supportWorkerId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
 		sb.append(", supportTeamId=");
@@ -89,6 +91,7 @@ public class SupportWorkerCacheModel
 		SupportWorkerImpl supportWorkerImpl = new SupportWorkerImpl();
 
 		supportWorkerImpl.setSupportWorkerId(supportWorkerId);
+		supportWorkerImpl.setCompanyId(companyId);
 		supportWorkerImpl.setUserId(userId);
 		supportWorkerImpl.setSupportTeamId(supportTeamId);
 		supportWorkerImpl.setSupportLaborId(supportLaborId);
@@ -104,6 +107,8 @@ public class SupportWorkerCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		supportWorkerId = objectInput.readLong();
+
+		companyId = objectInput.readLong();
 
 		userId = objectInput.readLong();
 
@@ -122,6 +127,8 @@ public class SupportWorkerCacheModel
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(supportWorkerId);
 
+		objectOutput.writeLong(companyId);
+
 		objectOutput.writeLong(userId);
 
 		objectOutput.writeLong(supportTeamId);
@@ -136,6 +143,7 @@ public class SupportWorkerCacheModel
 	}
 
 	public long supportWorkerId;
+	public long companyId;
 	public long userId;
 	public long supportTeamId;
 	public long supportLaborId;

@@ -58,4 +58,21 @@ public interface SupportWorker extends PersistedModel, SupportWorkerModel {
 
 		};
 
+	public SupportLabor getSupportLabor()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public SupportTeam getSupportTeam()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public Long getTimeUntilClose()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public Long getTimeUntilOpen()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public boolean isActive();
+
+	public boolean isAvailable()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

@@ -1,5 +1,8 @@
 create table Yithro_SupportLabor (
 	supportLaborId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
 	name VARCHAR(75) null,
 	description STRING null,
 	timeZoneId VARCHAR(75) null,
@@ -21,6 +24,7 @@ create table Yithro_SupportLabor (
 
 create table Yithro_SupportTeam (
 	supportTeamId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
@@ -35,6 +39,7 @@ create table Yithro_SupportTeam (
 
 create table Yithro_SupportWorker (
 	supportWorkerId LONG not null primary key,
+	companyId LONG,
 	userId LONG,
 	supportTeamId LONG,
 	supportLaborId LONG,

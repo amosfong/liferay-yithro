@@ -121,6 +121,7 @@ create table Yithro_TicketWorker (
 	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
+	createDate DATE null,
 	ticketEntryId LONG,
 	sourceClassNameId LONG,
 	sourceClassPK LONG,

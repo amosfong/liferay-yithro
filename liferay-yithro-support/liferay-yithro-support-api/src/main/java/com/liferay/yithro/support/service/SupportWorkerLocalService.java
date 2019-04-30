@@ -35,6 +35,7 @@ import com.liferay.yithro.support.model.SupportWorker;
 
 import java.io.Serializable;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -70,6 +71,10 @@ public interface SupportWorkerLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public SupportWorker addSupportWorker(SupportWorker supportWorker);
 
+	public void addSupportWorkers(
+			long[] userIds, long supportTeamId, double[] maxWork, int[] roles)
+		throws PortalException;
+
 	/**
 	 * Creates a new support worker with the primary key. Does not add the support worker to the database.
 	 *
@@ -78,6 +83,12 @@ public interface SupportWorkerLocalService
 	 */
 	@Transactional(enabled = false)
 	public SupportWorker createSupportWorker(long supportWorkerId);
+
+	public void decreaseAssignedWork(long userId, double work)
+		throws PortalException;
+
+	public void decreaseTicketEntryAssignedWork(long ticketEntryId, double work)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException
@@ -105,6 +116,11 @@ public interface SupportWorkerLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public SupportWorker deleteSupportWorker(SupportWorker supportWorker);
+
+	public void deleteSupportWorkers(long userId) throws PortalException;
+
+	public void deleteSupportWorkers(long[] userIds, long supportTeamId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -179,7 +195,29 @@ public interface SupportWorkerLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public double getAssignedWork(long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SupportWorker getAvailableSupportWorker(long ticketEntryId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SupportWorker getLongestOpenSupportWorker(
+			List<SupportWorker> supportWorkers, long ticketEntryId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SupportWorker getMostAvailableSupportWorker(
+			long ticketEntryId, LinkedHashMap<String, Object> params)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SupportWorker getNextOpenSupportWorker(
+			List<SupportWorker> supportWorkers, long ticketEntryId)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -193,6 +231,9 @@ public interface SupportWorkerLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SupportWorker> getSupportTeamSupportWorkers(long supportTeamId);
+
 	/**
 	 * Returns the support worker with the primary key.
 	 *
@@ -202,6 +243,10 @@ public interface SupportWorkerLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public SupportWorker getSupportWorker(long supportWorkerId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public SupportWorker getSupportWorker(long userId, long supportTeamId)
 		throws PortalException;
 
 	/**
@@ -218,6 +263,11 @@ public interface SupportWorkerLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SupportWorker> getSupportWorkers(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SupportWorker> getSupportWorkersBySupportLaborId(
+			long supportLaborId)
+		throws PortalException;
+
 	/**
 	 * Returns the number of support workers.
 	 *
@@ -225,6 +275,25 @@ public interface SupportWorkerLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSupportWorkersCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getSupportWorkersCountBySupportLaborId(long supportLaborId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SupportWorker> getUserSupportWorkers(long userId);
+
+	public void increaseAssignedWork(long userId, double work)
+		throws PortalException;
+
+	public void increaseTicketEntryAssignedWork(long ticketEntryId, double work)
+		throws PortalException;
+
+	public void recalculateUtilization();
+
+	public SupportWorker updateSupportWorker(
+			long supportWorkerId, long supportTeamId, double maxWork)
+		throws PortalException;
 
 	/**
 	 * Updates the support worker in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

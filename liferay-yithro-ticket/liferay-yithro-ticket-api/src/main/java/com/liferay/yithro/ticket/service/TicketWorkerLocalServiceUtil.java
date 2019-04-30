@@ -211,6 +211,12 @@ public class TicketWorkerLocalServiceUtil {
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketWorker
+		fetchLatestTicketWorker(long ticketEntryId) {
+
+		return getService().fetchLatestTicketWorker(ticketEntryId);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketWorker
 			fetchPrimaryTicketWorker(long ticketEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
