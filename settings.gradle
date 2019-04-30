@@ -13,3 +13,17 @@ buildscript {
 }
 
 apply plugin: "com.liferay.settings.plugin"
+
+def portalDir = "c:/work/git/7.2.x/portal/modules"
+
+include ":core:petra:petra-lang"
+project(":core:petra:petra-lang").projectDir = file(portalDir + "/core/petra/petra-lang")
+
+include ":core:petra:petra-string"
+project(":core:petra:petra-string").projectDir = file(portalDir + "/core/petra/petra-string")
+
+include ":apps:portal:portal-aop-api"
+project(":apps:portal:portal-aop-api").projectDir = file(portalDir + "/apps/portal/portal-aop-api")
+
+include ":apps:portal:portal-spring-extender-api"
+project(":apps:portal:portal-spring-extender-api").projectDir = file(portalDir + "/apps/portal/portal-spring-extender-api")
