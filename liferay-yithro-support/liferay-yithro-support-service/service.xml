@@ -114,4 +114,8 @@
 			<finder-column arrayable-operator="OR" name="role" />
 		</finder>
 	</entity>
+	<exceptions>
+		<exception>SupportLaborHour</exception>
+		<exception>SupportLaborName</exception>
+	</exceptions>
 </service-builder>
