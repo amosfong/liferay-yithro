@@ -60,6 +60,12 @@ public interface SupportLaborLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportLaborLocalServiceUtil} to access the support labor local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public SupportLabor addSupportLabor(
+			String name, String description, String timeZoneId, int sunOpen,
+			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
+			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
+			int friClose, int satOpen, int satClose)
+		throws PortalException;
 
 	/**
 	 * Adds the support labor to the database. Also notifies the appropriate model listeners.
@@ -69,6 +75,9 @@ public interface SupportLaborLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public SupportLabor addSupportLabor(SupportLabor supportLabor);
+
+	public void addSupportWorkers(long[] supportWorkerIds, long supportLaborId)
+		throws PortalException;
 
 	/**
 	 * Creates a new support labor with the primary key. Does not add the support labor to the database.
@@ -225,6 +234,21 @@ public interface SupportLaborLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSupportLaborsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasSupportWorker(long supportWorkerId, long supportLaborId)
+		throws PortalException;
+
+	public void removeSupportWorkers(long[] supportWorkerIds)
+		throws PortalException;
+
+	public SupportLabor updateSupportLabor(
+			long supportLaborId, String name, String description,
+			String timeZoneId, int sunOpen, int sunClose, int monOpen,
+			int monClose, int tueOpen, int tueClose, int wedOpen, int wedClose,
+			int thuOpen, int thuClose, int friOpen, int friClose, int satOpen,
+			int satClose)
+		throws PortalException;
 
 	/**
 	 * Updates the support labor in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

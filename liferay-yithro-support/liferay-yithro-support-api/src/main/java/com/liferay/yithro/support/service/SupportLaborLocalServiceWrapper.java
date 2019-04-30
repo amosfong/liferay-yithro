@@ -36,6 +36,20 @@ public class SupportLaborLocalServiceWrapper
 		_supportLaborLocalService = supportLaborLocalService;
 	}
 
+	@Override
+	public com.liferay.yithro.support.model.SupportLabor addSupportLabor(
+			String name, String description, String timeZoneId, int sunOpen,
+			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
+			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
+			int friClose, int satOpen, int satClose)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportLaborLocalService.addSupportLabor(
+			name, description, timeZoneId, sunOpen, sunClose, monOpen, monClose,
+			tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen,
+			friClose, satOpen, satClose);
+	}
+
 	/**
 	 * Adds the support labor to the database. Also notifies the appropriate model listeners.
 	 *
@@ -47,6 +61,14 @@ public class SupportLaborLocalServiceWrapper
 		com.liferay.yithro.support.model.SupportLabor supportLabor) {
 
 		return _supportLaborLocalService.addSupportLabor(supportLabor);
+	}
+
+	@Override
+	public void addSupportWorkers(long[] supportWorkerIds, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportLaborLocalService.addSupportWorkers(
+			supportWorkerIds, supportLaborId);
 	}
 
 	/**
@@ -271,6 +293,36 @@ public class SupportLaborLocalServiceWrapper
 	@Override
 	public int getSupportLaborsCount() {
 		return _supportLaborLocalService.getSupportLaborsCount();
+	}
+
+	@Override
+	public boolean hasSupportWorker(long supportWorkerId, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportLaborLocalService.hasSupportWorker(
+			supportWorkerId, supportLaborId);
+	}
+
+	@Override
+	public void removeSupportWorkers(long[] supportWorkerIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportLaborLocalService.removeSupportWorkers(supportWorkerIds);
+	}
+
+	@Override
+	public com.liferay.yithro.support.model.SupportLabor updateSupportLabor(
+			long supportLaborId, String name, String description,
+			String timeZoneId, int sunOpen, int sunClose, int monOpen,
+			int monClose, int tueOpen, int tueClose, int wedOpen, int wedClose,
+			int thuOpen, int thuClose, int friOpen, int friClose, int satOpen,
+			int satClose)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportLaborLocalService.updateSupportLabor(
+			supportLaborId, name, description, timeZoneId, sunOpen, sunClose,
+			monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen,
+			thuClose, friOpen, friClose, satOpen, satClose);
 	}
 
 	/**

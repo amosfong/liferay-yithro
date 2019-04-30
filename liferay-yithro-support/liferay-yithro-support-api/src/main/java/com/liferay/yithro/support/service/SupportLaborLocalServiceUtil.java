@@ -40,6 +40,18 @@ public class SupportLaborLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.yithro.support.model.SupportLabor addSupportLabor(
+			String name, String description, String timeZoneId, int sunOpen,
+			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
+			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
+			int friClose, int satOpen, int satClose)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addSupportLabor(
+			name, description, timeZoneId, sunOpen, sunClose, monOpen, monClose,
+			tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen,
+			friClose, satOpen, satClose);
+	}
 
 	/**
 	 * Adds the support labor to the database. Also notifies the appropriate model listeners.
@@ -51,6 +63,13 @@ public class SupportLaborLocalServiceUtil {
 		com.liferay.yithro.support.model.SupportLabor supportLabor) {
 
 		return getService().addSupportLabor(supportLabor);
+	}
+
+	public static void addSupportWorkers(
+			long[] supportWorkerIds, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().addSupportWorkers(supportWorkerIds, supportLaborId);
 	}
 
 	/**
@@ -261,6 +280,34 @@ public class SupportLaborLocalServiceUtil {
 	 */
 	public static int getSupportLaborsCount() {
 		return getService().getSupportLaborsCount();
+	}
+
+	public static boolean hasSupportWorker(
+			long supportWorkerId, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().hasSupportWorker(supportWorkerId, supportLaborId);
+	}
+
+	public static void removeSupportWorkers(long[] supportWorkerIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().removeSupportWorkers(supportWorkerIds);
+	}
+
+	public static com.liferay.yithro.support.model.SupportLabor
+			updateSupportLabor(
+				long supportLaborId, String name, String description,
+				String timeZoneId, int sunOpen, int sunClose, int monOpen,
+				int monClose, int tueOpen, int tueClose, int wedOpen,
+				int wedClose, int thuOpen, int thuClose, int friOpen,
+				int friClose, int satOpen, int satClose)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateSupportLabor(
+			supportLaborId, name, description, timeZoneId, sunOpen, sunClose,
+			monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen,
+			thuClose, friOpen, friClose, satOpen, satClose);
 	}
 
 	/**
