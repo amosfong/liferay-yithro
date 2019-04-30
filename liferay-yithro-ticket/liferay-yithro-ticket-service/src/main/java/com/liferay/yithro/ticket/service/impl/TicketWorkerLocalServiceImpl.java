@@ -161,9 +161,7 @@ public class TicketWorkerLocalServiceImpl
 			ticketEntryId, null);
 	}
 
-	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId)
-		throws PortalException {
-
+	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId) {
 		return ticketWorkerPersistence.fetchByTEI_P(ticketEntryId, true);
 	}
 

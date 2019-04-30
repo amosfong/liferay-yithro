@@ -12,33 +12,26 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.internal.search.spi.model.result.contributor;
 
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.search.spi.model.result.contributor.ModelVisibilityContributor;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Amos Fong
  */
-public class TicketFlagType {
+@Component(
+	immediate = true,
+	property = "indexer.class.name=com.liferay.yithro.ticket.model.TicketEntry",
+	service = ModelVisibilityContributor.class
+)
+public class TicketEntryModelVisibilityContributor
+	implements ModelVisibilityContributor {
 
-	public static final int PENDING_CUSTOMER = 1;
-
-	public static final int[] PENDING_VALUES = {
-		TicketFlagType.PENDING_CUSTOMER, TicketFlagType.PENDING_WORKER
-	};
-
-	public static final int PENDING_WORKER = 2;
-
-	public static String getLabel(int type) {
-		if (type == PENDING_CUSTOMER) {
-			return "customer";
-		}
-		else if (type == PENDING_WORKER) {
-			return "worker";
-		}
-		else {
-			return StringPool.BLANK;
-		}
+	@Override
+	public boolean isVisible(long classPK, int status) {
+		return true;
 	}
 
 }

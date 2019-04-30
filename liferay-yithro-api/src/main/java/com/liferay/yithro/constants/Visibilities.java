@@ -15,6 +15,7 @@
 package com.liferay.yithro.constants;
 
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 /**
  * @author Amos Fong
@@ -23,16 +24,14 @@ public class Visibilities {
 
 	public static final int ADMIN = 3;
 
-	public static final int[] ALL = {
-		ADMIN, Visibilities.PUBLIC, Visibilities.WORKER
-	};
-
 	public static final int PUBLIC = 1;
+
+	public static final int[] VALUES = {ADMIN, PUBLIC, Visibilities.WORKER};
 
 	public static final int WORKER = 2;
 
 	public static boolean hasVisibility(int visibility) {
-		if (ArrayUtil.contains(ALL, visibility)) {
+		if (ArrayUtil.contains(VALUES, visibility)) {
 			return true;
 		}
 		else {
@@ -40,4 +39,19 @@ public class Visibilities {
 		}
 	}
 
+	public static String getLabel(int visibility) {
+		if (visibility == ADMIN) {
+			return "admin";
+		}
+		else if (visibility == PUBLIC) {
+			return "public";
+		}
+		else if (visibility == WORKER) {
+			return "worker";
+		}
+		else {
+			return StringPool.BLANK;
+		}
+
+	}
 }

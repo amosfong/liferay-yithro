@@ -341,7 +341,7 @@ public class TicketEntryLocalServiceImpl
 		Set<Integer> previousPendingTypes = new HashSet<>();
 
 		List<TicketFlag> ticketFlags = ticketFlagPersistence.findByTEI_T_V(
-			ticketEntry.getTicketEntryId(), TicketFlagType.PENDING_ALL,
+			ticketEntry.getTicketEntryId(), TicketFlagType.PENDING_VALUES,
 			TicketFlagValue.PENDING_TRUE);
 
 		for (TicketFlag ticketFlag : ticketFlags) {
