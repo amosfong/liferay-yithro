@@ -22,4 +22,10 @@ public class YithroTicketPortletKeys {
 	public static final String ADD_TICKET_FORM =
 		"com_liferay_yithro_ticket_constants_AddTicketFormPortlet";
 
+	public static final String MY_REQUESTED_TICKETS =
+		"com_liferay_yithro_ticket_constants_MyRequestedTickets";
+
+	public static final String MY_ASSIGNED_TICKETS =
+		"com_liferay_yithro_ticket_constants_MyAssignedTickets";
+
 }

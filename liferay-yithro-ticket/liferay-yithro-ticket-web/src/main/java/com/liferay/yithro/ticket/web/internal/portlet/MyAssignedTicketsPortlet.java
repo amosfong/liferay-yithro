@@ -26,18 +26,18 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"com.liferay.portlet.css-class-wrapper=yithro-add-ticket-form-portlet",
+		"com.liferay.portlet.css-class-wrapper=yithro-my-assigned-tickets-portlet",
 		"com.liferay.portlet.display-category=category.yithro",
 		"com.liferay.portlet.footer-portlet-javascript=/dist/main.js",
 		"com.liferay.portlet.header-portlet-css=/dist/main.css",
-		"javax.portlet.display-name=Add Ticket Form",
+		"javax.portlet.display-name=My Assigned Tickets",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.mvc-command-names-default-views=/view",
-		"javax.portlet.name=" + YithroTicketPortletKeys.ADD_TICKET_FORM,
+		"javax.portlet.name=" + YithroTicketPortletKeys.MY_ASSIGNED_TICKETS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},
 	service = Portlet.class
 )
-public class AddTicketFormPortlet extends MVCPortlet {
+public class MyAssignedTicketsPortlet extends MVCPortlet {
 }

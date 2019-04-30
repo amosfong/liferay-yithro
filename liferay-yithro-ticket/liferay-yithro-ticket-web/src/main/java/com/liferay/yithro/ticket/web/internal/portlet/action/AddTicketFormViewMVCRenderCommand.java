@@ -12,12 +12,14 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.web.internal.portlet;
+package com.liferay.yithro.ticket.web.internal.portlet.action;
 
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.yithro.ticket.constants.YithroTicketPortletKeys;
 
-import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -26,18 +28,19 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"com.liferay.portlet.css-class-wrapper=yithro-add-ticket-form-portlet",
-		"com.liferay.portlet.display-category=category.yithro",
-		"com.liferay.portlet.footer-portlet-javascript=/dist/main.js",
-		"com.liferay.portlet.header-portlet-css=/dist/main.css",
-		"javax.portlet.display-name=Add Ticket Form",
-		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.mvc-command-names-default-views=/view",
 		"javax.portlet.name=" + YithroTicketPortletKeys.ADD_TICKET_FORM,
-		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
+		"mvc.command.name=/view"
 	},
-	service = Portlet.class
+	service = MVCRenderCommand.class
 )
-public class AddTicketFormPortlet extends MVCPortlet {
+public class AddTicketFormViewMVCRenderCommand implements MVCRenderCommand {
+
+	@Override
+	public String render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws PortletException {
+
+		return "/add_ticket_form/view.jsp";
+	}
+
 }
