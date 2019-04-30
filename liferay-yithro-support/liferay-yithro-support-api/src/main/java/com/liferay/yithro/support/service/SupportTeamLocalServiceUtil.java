@@ -40,6 +40,14 @@ public class SupportTeamLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportTeamLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.yithro.support.model.SupportTeam addSupportTeam(
+			long userId, long parentSupportTeamId, long supportLaborId,
+			String name, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addSupportTeam(
+			userId, parentSupportTeamId, supportLaborId, name, description);
+	}
 
 	/**
 	 * Adds the support team to the database. Also notifies the appropriate model listeners.
@@ -200,6 +208,12 @@ public class SupportTeamLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List<com.liferay.yithro.support.model.SupportTeam>
+		getChildSupportTeams(long supportTeamId, boolean recursive) {
+
+		return getService().getChildSupportTeams(supportTeamId, recursive);
+	}
+
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -221,6 +235,12 @@ public class SupportTeamLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static java.util.List<com.liferay.yithro.support.model.SupportTeam>
+		getSupportLaborSupportTeams(long supportLaborId) {
+
+		return getService().getSupportLaborSupportTeams(supportLaborId);
 	}
 
 	/**
@@ -263,6 +283,17 @@ public class SupportTeamLocalServiceUtil {
 		return getService().getSupportTeamsCount();
 	}
 
+	public static com.liferay.yithro.support.model.SupportTeam
+			updateSupportTeam(
+				long supportTeamId, long parentSupportTeamId,
+				long supportLaborId, String name, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateSupportTeam(
+			supportTeamId, parentSupportTeamId, supportLaborId, name,
+			description);
+	}
+
 	/**
 	 * Updates the support team in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -274,6 +305,21 @@ public class SupportTeamLocalServiceUtil {
 			com.liferay.yithro.support.model.SupportTeam supportTeam) {
 
 		return getService().updateSupportTeam(supportTeam);
+	}
+
+	public static void updateSupportTeamChildren(
+			long parentSupportTeamId, long[] childSupportTeamIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().updateSupportTeamChildren(
+			parentSupportTeamId, childSupportTeamIds);
+	}
+
+	public static void updateSupportTeamLabor(
+			long[] supportTeamIds, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().updateSupportTeamLabor(supportTeamIds, supportLaborId);
 	}
 
 	public static SupportTeamLocalService getService() {

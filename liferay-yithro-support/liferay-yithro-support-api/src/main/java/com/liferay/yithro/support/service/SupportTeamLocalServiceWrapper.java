@@ -36,6 +36,16 @@ public class SupportTeamLocalServiceWrapper
 		_supportTeamLocalService = supportTeamLocalService;
 	}
 
+	@Override
+	public com.liferay.yithro.support.model.SupportTeam addSupportTeam(
+			long userId, long parentSupportTeamId, long supportLaborId,
+			String name, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportTeamLocalService.addSupportTeam(
+			userId, parentSupportTeamId, supportLaborId, name, description);
+	}
+
 	/**
 	 * Adds the support team to the database. Also notifies the appropriate model listeners.
 	 *
@@ -206,6 +216,14 @@ public class SupportTeamLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.yithro.support.model.SupportTeam>
+		getChildSupportTeams(long supportTeamId, boolean recursive) {
+
+		return _supportTeamLocalService.getChildSupportTeams(
+			supportTeamId, recursive);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -228,6 +246,14 @@ public class SupportTeamLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _supportTeamLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.yithro.support.model.SupportTeam>
+		getSupportLaborSupportTeams(long supportLaborId) {
+
+		return _supportTeamLocalService.getSupportLaborSupportTeams(
+			supportLaborId);
 	}
 
 	/**
@@ -273,6 +299,17 @@ public class SupportTeamLocalServiceWrapper
 		return _supportTeamLocalService.getSupportTeamsCount();
 	}
 
+	@Override
+	public com.liferay.yithro.support.model.SupportTeam updateSupportTeam(
+			long supportTeamId, long parentSupportTeamId, long supportLaborId,
+			String name, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportTeamLocalService.updateSupportTeam(
+			supportTeamId, parentSupportTeamId, supportLaborId, name,
+			description);
+	}
+
 	/**
 	 * Updates the support team in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -284,6 +321,24 @@ public class SupportTeamLocalServiceWrapper
 		com.liferay.yithro.support.model.SupportTeam supportTeam) {
 
 		return _supportTeamLocalService.updateSupportTeam(supportTeam);
+	}
+
+	@Override
+	public void updateSupportTeamChildren(
+			long parentSupportTeamId, long[] childSupportTeamIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportTeamLocalService.updateSupportTeamChildren(
+			parentSupportTeamId, childSupportTeamIds);
+	}
+
+	@Override
+	public void updateSupportTeamLabor(
+			long[] supportTeamIds, long supportLaborId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_supportTeamLocalService.updateSupportTeamLabor(
+			supportTeamIds, supportLaborId);
 	}
 
 	@Override

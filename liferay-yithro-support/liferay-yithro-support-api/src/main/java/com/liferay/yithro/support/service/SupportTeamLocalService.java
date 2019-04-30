@@ -60,6 +60,10 @@ public interface SupportTeamLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportTeamLocalServiceUtil} to access the support team local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportTeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public SupportTeam addSupportTeam(
+			long userId, long parentSupportTeamId, long supportLaborId,
+			String name, String description)
+		throws PortalException;
 
 	/**
 	 * Adds the support team to the database. Also notifies the appropriate model listeners.
@@ -179,6 +183,10 @@ public interface SupportTeamLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SupportTeam> getChildSupportTeams(
+		long supportTeamId, boolean recursive);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -192,6 +200,9 @@ public interface SupportTeamLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SupportTeam> getSupportLaborSupportTeams(long supportLaborId);
 
 	/**
 	 * Returns the support team with the primary key.
@@ -226,6 +237,11 @@ public interface SupportTeamLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSupportTeamsCount();
 
+	public SupportTeam updateSupportTeam(
+			long supportTeamId, long parentSupportTeamId, long supportLaborId,
+			String name, String description)
+		throws PortalException;
+
 	/**
 	 * Updates the support team in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -234,5 +250,13 @@ public interface SupportTeamLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public SupportTeam updateSupportTeam(SupportTeam supportTeam);
+
+	public void updateSupportTeamChildren(
+			long parentSupportTeamId, long[] childSupportTeamIds)
+		throws PortalException;
+
+	public void updateSupportTeamLabor(
+			long[] supportTeamIds, long supportLaborId)
+		throws PortalException;
 
 }
