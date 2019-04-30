@@ -115,7 +115,11 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>DuplicateSupportTeam</exception>
+		<exception>RequiredSupportTeam</exception>
 		<exception>SupportLaborHour</exception>
 		<exception>SupportLaborName</exception>
+		<exception>SupportTeamName</exception>
+		<exception>SupportTeamSupportLabor</exception>
 	</exceptions>
 </service-builder>
