@@ -156,6 +156,11 @@ public class TicketWorkerLocalServiceImpl
 		}
 	}
 
+	public TicketWorker fetchLatestTicketWorker(long ticketEntryId) {
+		return ticketWorkerPersistence.fetchByTicketEntryId_First(
+			ticketEntryId, null);
+	}
+
 	public TicketWorker fetchPrimaryTicketWorker(long ticketEntryId)
 		throws PortalException {
 

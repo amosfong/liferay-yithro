@@ -325,6 +325,7 @@
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
 
 		<!-- Other fields -->
 
@@ -333,6 +334,12 @@
 		<column name="sourceClassPK" type="long" />
 		<column name="role" type="int" />
 		<column name="primary" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
 
 		<!-- Finder methods -->
 

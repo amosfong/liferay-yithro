@@ -58,6 +58,7 @@ public class SupportTeamLocalServiceImpl
 
 		SupportTeam supportTeam = supportTeamPersistence.create(supportTeamId);
 
+		supportTeam.setCompanyId(user.getCompanyId());
 		supportTeam.setUserId(user.getUserId());
 		supportTeam.setUserName(user.getFullName());
 		supportTeam.setCreateDate(now);

@@ -9,6 +9,12 @@
 
 		<column name="supportLaborId" primary="true" type="long" />
 
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
@@ -43,6 +49,7 @@
 
 		<!-- Audit fields -->
 
+		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
@@ -83,6 +90,7 @@
 
 		<!-- Audit fields -->
 
+		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 
 		<!-- Other fields -->
@@ -121,5 +129,6 @@
 		<exception>SupportLaborName</exception>
 		<exception>SupportTeamName</exception>
 		<exception>SupportTeamSupportLabor</exception>
+		<exception>SupportWorkerMaxWork</exception>
 	</exceptions>
 </service-builder>

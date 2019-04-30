@@ -16,6 +16,7 @@ package com.liferay.yithro.support.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.yithro.support.exception.SupportLaborHourException;
 import com.liferay.yithro.support.exception.SupportLaborNameException;
@@ -38,11 +39,13 @@ public class SupportLaborLocalServiceImpl
 	extends SupportLaborLocalServiceBaseImpl {
 
 	public SupportLabor addSupportLabor(
-			String name, String description, String timeZoneId, int sunOpen,
-			int sunClose, int monOpen, int monClose, int tueOpen, int tueClose,
-			int wedOpen, int wedClose, int thuOpen, int thuClose, int friOpen,
-			int friClose, int satOpen, int satClose)
+			long userId, String name, String description, String timeZoneId,
+			int sunOpen, int sunClose, int monOpen, int monClose, int tueOpen,
+			int tueClose, int wedOpen, int wedClose, int thuOpen, int thuClose,
+			int friOpen, int friClose, int satOpen, int satClose)
 		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
 
 		validate(
 			name, sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose,
@@ -54,6 +57,9 @@ public class SupportLaborLocalServiceImpl
 		SupportLabor supportLabor = supportLaborPersistence.create(
 			supportLaborId);
 
+		supportLabor.setCompanyId(user.getCompanyId());
+		supportLabor.setUserId(user.getUserId());
+		supportLabor.setUserName(user.getFullName());
 		supportLabor.setName(name);
 		supportLabor.setDescription(description);
 		supportLabor.setTimeZoneId(timeZoneId);
