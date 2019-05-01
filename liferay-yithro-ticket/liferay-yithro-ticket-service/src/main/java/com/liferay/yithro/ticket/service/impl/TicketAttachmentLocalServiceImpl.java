@@ -37,7 +37,6 @@ import com.liferay.yithro.ticket.exception.DuplicateTicketAttachmentException;
 import com.liferay.yithro.ticket.exception.TicketAttachmentVisibilityException;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketEntry;
-import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 import com.liferay.yithro.ticket.service.base.TicketAttachmentLocalServiceBaseImpl;
 
 import java.io.File;
@@ -170,11 +169,6 @@ public class TicketAttachmentLocalServiceImpl
 			ticketAttachment.getFileName(), StringPool.BLANK, StringPool.BLANK,
 			StringPool.BLANK);
 
-		// Indexer
-
-		ticketEntryLocalService.reindexTicketEntry(
-			ticketAttachment.getTicketEntryId());
-
 		return ticketAttachment;
 	}
 
@@ -287,10 +281,6 @@ public class TicketAttachmentLocalServiceImpl
 			auditAction, Fields.FILE, ticketAttachment.getVisibility(),
 			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
 			ticketAttachment.getFileName(), StringPool.BLANK);
-
-		// Indexer
-
-		ticketEntryLocalService.reindexTicketEntry(ticketEntryId);
 	}
 
 	public TicketAttachment updateTicketAttachment(
@@ -349,8 +339,5 @@ public class TicketAttachmentLocalServiceImpl
 
 	@Reference
 	protected AuditEntryLocalService auditEntryLocalService;
-
-	@Reference
-	protected TicketEntryLocalService ticketEntryLocalService;
 
 }

@@ -27,9 +27,10 @@ import org.osgi.service.component.annotations.Component;
  * @author Amos Fong
  */
 @Component(
+	immediate = true,
 	property = {
 		"javax.portlet.name=" + YithroTicketPortletKeys.ADD_TICKET_FORM,
-		"mvc.command.name=/view"
+		"mvc.command.name=/", "mvc.command.name=/view"
 	},
 	service = MVCRenderCommand.class
 )
