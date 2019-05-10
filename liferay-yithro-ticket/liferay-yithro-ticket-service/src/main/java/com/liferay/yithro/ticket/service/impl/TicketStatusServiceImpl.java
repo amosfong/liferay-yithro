@@ -15,37 +15,19 @@
 package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.yithro.ticket.model.TicketAttachment;
-import com.liferay.yithro.ticket.model.TicketEntry;
-import com.liferay.yithro.ticket.service.base.TicketEntryServiceBaseImpl;
-
-import java.util.List;
-import java.util.Map;
+import com.liferay.yithro.ticket.service.base.TicketStatusServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
 @Component(
 	property = {
 		"json.web.service.context.name=yithro",
-		"json.web.service.context.path=TicketEntry"
+		"json.web.service.context.path=TicketStatus"
 	},
 	service = AopService.class
 )
-public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
-
-	public TicketEntry addTicketEntry(
-			long ticketStatusId, String languageId, String subject,
-			String description, int weight, Map<Long, String> ticketFieldsMap,
-			List<TicketAttachment> ticketAttachments)
-		throws PortalException {
-
-		return ticketEntryLocalService.addTicketEntry(
-			getUserId(), ticketStatusId, languageId, subject, description,
-			weight, ticketFieldsMap, ticketAttachments);
-	}
-
+public class TicketStatusServiceImpl extends TicketStatusServiceBaseImpl {
 }

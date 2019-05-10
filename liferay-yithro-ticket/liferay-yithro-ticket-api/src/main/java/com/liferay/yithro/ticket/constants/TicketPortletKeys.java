@@ -12,33 +12,23 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.model.impl;
-
-import aQute.bnd.annotation.ProviderType;
-
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.yithro.ticket.model.TicketStatus;
-import com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil;
+package com.liferay.yithro.ticket.constants;
 
 /**
  * @author Amos Fong
  */
-@ProviderType
-public class TicketEntryImpl extends TicketEntryBaseImpl {
+public class TicketPortletKeys {
 
-	public TicketEntryImpl() {
-	}
+	public static final String ADD_TICKET_FORM =
+		"com_liferay_yithro_ticket_web_AddTicketFormPortlet";
 
-	public boolean isClosed() throws PortalException {
-		TicketStatus ticketStatus =
-			TicketStatusLocalServiceUtil.getTicketStatus(getTicketStatusId());
+	public static final String MY_ASSIGNED_TICKETS =
+		"com_liferay_yithro_ticket_web_MyAssignedTickets";
 
-		if (ticketStatus.isTerminal()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+	public static final String MY_REQUESTED_TICKETS =
+		"com_liferay_yithro_ticket_web_MyRequestedTickets";
+
+	public static final String TICKET_CONFIGURATION =
+		"com_liferay_yithro_ticket_web_TicketConfigurationPortlet";
 
 }

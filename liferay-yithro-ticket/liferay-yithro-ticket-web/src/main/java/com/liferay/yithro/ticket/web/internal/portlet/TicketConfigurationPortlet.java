@@ -25,16 +25,20 @@ import org.osgi.service.component.annotations.Component;
  * @author Amos Fong
  */
 @Component(
+	immediate = true,
 	property = {
-		"com.liferay.portlet.css-class-wrapper=yithro-add-ticket-form-portlet",
-		"com.liferay.portlet.display-category=category.yithro",
-		"javax.portlet.display-name=Add Ticket Form",
+		"com.liferay.portlet.css-class-wrapper=yithro-configuration-portlet",
+		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.render-weight=0",
+		"javax.portlet.display-name=Ticket Configuration",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.name=" + TicketPortletKeys.ADD_TICKET_FORM,
+		"javax.portlet.init-param.mvc-command-names-default-views=/view",
+		"javax.portlet.init-param.template-path=/META-INF/resources/",
+		"javax.portlet.name=" + TicketPortletKeys.TICKET_CONFIGURATION,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},
 	service = Portlet.class
 )
-public class AddTicketFormPortlet extends MVCPortlet {
+public class TicketConfigurationPortlet extends MVCPortlet {
 }

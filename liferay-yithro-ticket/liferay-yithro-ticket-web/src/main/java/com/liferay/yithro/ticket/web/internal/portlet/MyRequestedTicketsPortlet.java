@@ -15,7 +15,7 @@
 package com.liferay.yithro.ticket.web.internal.portlet;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.yithro.ticket.constants.YithroTicketPortletKeys;
+import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 
 import javax.portlet.Portlet;
 
@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.display-name=My Requested Tickets",
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.mvc-command-names-default-views=/view",
-		"javax.portlet.name=" + YithroTicketPortletKeys.MY_REQUESTED_TICKETS,
+		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},

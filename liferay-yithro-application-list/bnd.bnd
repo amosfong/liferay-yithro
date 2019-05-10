@@ -1,0 +1,4 @@
+Bundle-Name: Liferay Yithro Application List
+Bundle-SymbolicName: com.liferay.yithro.application.list
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.yithro.application.list.constants

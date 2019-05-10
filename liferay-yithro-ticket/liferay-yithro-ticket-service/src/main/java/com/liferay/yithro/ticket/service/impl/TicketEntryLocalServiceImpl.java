@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -38,6 +39,7 @@ import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.model.TicketFlag;
+import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
 import com.liferay.yithro.ticket.service.TicketFieldDataLocalService;
 import com.liferay.yithro.ticket.service.TicketFlagLocalService;
@@ -46,6 +48,7 @@ import com.liferay.yithro.ticket.service.base.TicketEntryLocalServiceBaseImpl;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -64,8 +67,8 @@ public class TicketEntryLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, String languageId, String subject, String description,
-			int status, int weight, Map<Long, String> ticketFieldsMap,
+			long userId, long tikcetStatusId, String languageId, String subject,
+			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
 
@@ -84,10 +87,10 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setUserName(user.getFullName());
 		ticketEntry.setCreateDate(now);
 		ticketEntry.setModifiedDate(now);
+		ticketEntry.setTicketStatusId(tikcetStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setSubject(subject);
 		ticketEntry.setDescription(description);
-		ticketEntry.setStatus(status);
 		ticketEntry.setWeight(weight);
 
 		ticketEntryPersistence.update(ticketEntry);
@@ -200,9 +203,9 @@ public class TicketEntryLocalServiceImpl
 
 	public TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			String languageId, String subject, String description, int status,
-			int weight, Date dueDate, Map<Long, String> ticketFieldsMap,
-			ServiceContext serviceContext)
+			long tikcetStatusId, String languageId, String subject,
+			String description, int weight, Date dueDate,
+			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
 		throws PortalException {
 
 		// Ticket entry
@@ -225,10 +228,10 @@ public class TicketEntryLocalServiceImpl
 		}
 
 		ticketEntry.setModifiedDate(now);
+		ticketEntry.setTicketStatusId(tikcetStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setSubject(subject);
 		ticketEntry.setDescription(description);
-		ticketEntry.setStatus(status);
 		ticketEntry.setWeight(weight);
 
 		if (ticketEntry.isClosed() && (ticketEntry.getClosedDate() == null)) {
@@ -300,14 +303,26 @@ public class TicketEntryLocalServiceImpl
 				StringPool.BLANK);
 		}
 
-		if (oldTicketEntry.getStatus() != ticketEntry.getStatus()) {
+		if (oldTicketEntry.getTicketStatusId() !=
+				ticketEntry.getTicketStatusId()) {
+
+			TicketStatus ticketStatus =
+				ticketStatusPersistence.findByPrimaryKey(
+					ticketEntry.getTicketStatusId());
+			TicketStatus oldticketStatus =
+				ticketStatusPersistence.findByPrimaryKey(
+					oldTicketEntry.getTicketStatusId());
+
+			Locale defaultLocale = LocaleUtil.getDefault();
+
 			auditEntryLocalService.addAuditEntry(
 				userId, createDate, TicketEntry.class, ticketEntryId,
-				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
-				Fields.STATUS, Visibilities.PUBLIC,
-				oldTicketEntry.getStatusLabel(), oldTicketEntry.getStatus(),
-				ticketEntry.getStatusLabel(), ticketEntry.getStatus(),
-				StringPool.BLANK);
+				auditSetId, TicketStatus.class, ticketEntry.getTicketStatusId(),
+				Actions.UPDATE, Fields.STATUS, Visibilities.PUBLIC,
+				oldticketStatus.getName(defaultLocale),
+				oldTicketEntry.getTicketStatusId(),
+				ticketStatus.getName(defaultLocale),
+				ticketEntry.getTicketStatusId(), StringPool.BLANK);
 		}
 
 		if (oldTicketEntry.getWeight() != ticketEntry.getWeight()) {

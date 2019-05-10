@@ -12,29 +12,13 @@
  * details.
  */
 
-package com.liferay.yithro.constants;
+package com.liferay.yithro.application.list.constants;
 
 /**
  * @author Amos Fong
  */
-public class WorkflowConstants
-	extends com.liferay.portal.kernel.workflow.WorkflowConstants {
+public class YithroPanelCategoryKeys {
 
-	public static final int STATUS_CLOSED = 100;
-
-	public static final int STATUS_OPEN = 101;
-
-	public static String getStatusLabel(int status) {
-		if (status == STATUS_CLOSED) {
-			return "closed";
-		}
-		else if (status == STATUS_OPEN) {
-			return "open";
-		}
-		else {
-			return com.liferay.portal.kernel.workflow.WorkflowConstants.
-				getStatusLabel(status);
-		}
-	}
+	public static final String CONTROL_PANEL_YITHRO = "control_panel.yithro";
 
 }

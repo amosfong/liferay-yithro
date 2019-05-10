@@ -165,11 +165,11 @@
 
 		<!-- Other fields -->
 
+		<column name="ticketStatusId" type="long" />
 		<column name="languageId" type="String" />
 		<column name="ticketNumber" type="long" />
 		<column name="subject" type="String" />
 		<column name="description" type="String" />
-		<column name="status" type="int" />
 		<column name="weight" type="int" />
 		<column name="holdDate" type="Date" />
 		<column name="closedDate" type="Date" />
@@ -185,6 +185,10 @@
 
 		<finder name="GtModifiedDate" return-type="Collection">
 			<finder-column name="modifiedDate" comparator=">=" />
+		</finder>
+		<finder name="U_TSI" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column arrayable-operator="OR" name="ticketStatusId" />
 		</finder>
 
 		<!-- References -->
@@ -314,6 +318,44 @@
 
 		<reference entity="Organization" package-path="com.liferay.portal" />
 	</entity>
+	<entity local-service="true" name="TicketStatus" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="ticketStatusId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column localized="true" name="name" type="String" />
+		<column localized="true" name="description" type="String" />
+		<column name="order" type="int" />
+		<column name="terminal" type="boolean" />
+		<column name="status" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="status" />
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="S" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
+		<finder name="T_S" return-type="Collection">
+			<finder-column name="terminal" />
+			<finder-column name="status" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="TicketWorker" remote-service="true">
 
 		<!-- PK fields -->
@@ -376,5 +418,6 @@
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>
+		<exception>TicketStatusName</exception>
 	</exceptions>
 </service-builder>

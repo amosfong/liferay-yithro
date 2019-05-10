@@ -80,7 +80,6 @@ public class TicketEntryModelDocumentContributor
 				"primaryTicketWorker", primaryTicketWorker.getUserId());
 		}
 
-		document.addKeyword("status", ticketEntry.getStatus());
 		document.addText("subject", ticketEntry.getSubject());
 
 		List<Subscription> subscriptions =
@@ -99,6 +98,7 @@ public class TicketEntryModelDocumentContributor
 		document.addKeyword("subscriptions", subscriptionUserIds);
 
 		document.addNumber("ticketNumber", ticketEntry.getTicketNumber());
+		document.addKeyword("ticketStatusId", ticketEntry.getTicketStatusId());
 		document.addKeyword("userId", ticketEntry.getUserId());
 
 		String assignee = StringPool.BLANK;

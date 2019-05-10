@@ -15,33 +15,59 @@
 package com.liferay.yithro.ticket.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
+import com.liferay.yithro.ticket.constants.TicketWebKeys;
+import com.liferay.yithro.ticket.model.TicketStatus;
+import com.liferay.yithro.ticket.service.TicketStatusLocalService;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
  */
 @Component(
 	property = {
-		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
-		"mvc.command.name=/view"
+		"javax.portlet.name=" + TicketPortletKeys.TICKET_CONFIGURATION,
+		"mvc.command.name=/ticket_configuration/edit_ticket_status"
 	},
 	service = MVCRenderCommand.class
 )
-public class MyRequestedTicketsViewMVCRenderCommand
-	implements MVCRenderCommand {
+public class EditTicketStatusMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException {
 
-		return "/my_requested_tickets/view.jsp";
+		try {
+			long ticketStatusId = ParamUtil.getLong(
+				renderRequest, "ticketStatusId");
+
+			if (ticketStatusId > 0) {
+				TicketStatus ticketStatus =
+					_ticketStatusLocalService.getTicketStatus(ticketStatusId);
+
+				renderRequest.setAttribute(
+					TicketWebKeys.TICKET_STATUS, ticketStatus);
+			}
+
+			return "/ticket_configuration/edit_ticket_status.jsp";
+		}
+		catch (Exception e) {
+			SessionErrors.add(renderRequest, e.getClass());
+
+			return "/ticket_configuration/error.jsp";
+		}
 	}
+
+	@Reference
+	private TicketStatusLocalService _ticketStatusLocalService;
 
 }

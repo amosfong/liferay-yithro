@@ -15,7 +15,7 @@
 package com.liferay.yithro.ticket.web.internal.portlet.action;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.yithro.ticket.constants.YithroTicketPortletKeys;
+import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	property = {
-		"javax.portlet.name=" + YithroTicketPortletKeys.MY_ASSIGNED_TICKETS,
+		"javax.portlet.name=" + TicketPortletKeys.MY_ASSIGNED_TICKETS,
 		"mvc.command.name=/view"
 	},
 	service = MVCRenderCommand.class

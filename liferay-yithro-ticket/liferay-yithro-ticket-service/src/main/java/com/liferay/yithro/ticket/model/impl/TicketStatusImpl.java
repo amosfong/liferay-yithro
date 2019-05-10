@@ -12,20 +12,17 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.model.impl;
+
+import aQute.bnd.annotation.ProviderType;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class YithroTicketPortletKeys {
+@ProviderType
+public class TicketStatusImpl extends TicketStatusBaseImpl {
 
-	public static final String ADD_TICKET_FORM =
-		"com_liferay_yithro_ticket_constants_AddTicketFormPortlet";
-
-	public static final String MY_ASSIGNED_TICKETS =
-		"com_liferay_yithro_ticket_constants_MyAssignedTickets";
-
-	public static final String MY_REQUESTED_TICKETS =
-		"com_liferay_yithro_ticket_constants_MyRequestedTickets";
+	public TicketStatusImpl() {
+	}
 
 }

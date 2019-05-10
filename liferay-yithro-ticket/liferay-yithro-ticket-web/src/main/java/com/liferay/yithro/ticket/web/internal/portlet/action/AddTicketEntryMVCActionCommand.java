@@ -19,9 +19,10 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.yithro.constants.WorkflowConstants;
-import com.liferay.yithro.ticket.constants.YithroTicketPortletKeys;
+import com.liferay.yithro.ticket.constants.TicketPortletKeys;
+import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketEntryService;
+import com.liferay.yithro.ticket.service.TicketStatusLocalService;
 
 import java.util.Collections;
 
@@ -37,7 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"javax.portlet.name=" + YithroTicketPortletKeys.ADD_TICKET_FORM,
+		"javax.portlet.name=" + TicketPortletKeys.ADD_TICKET_FORM,
 		"mvc.command.name=/add_ticket_entry"
 	},
 	service = MVCActionCommand.class
@@ -55,13 +56,19 @@ public class AddTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 		String subject = ParamUtil.getString(actionRequest, "subject");
 		String description = ParamUtil.getString(actionRequest, "description");
 
+		TicketStatus ticketStatus =
+			_ticketStatusLocalService.getInitialTicketStatus();
+
 		_ticketEntryService.addTicketEntry(
-			themeDisplay.getLanguageId(), subject, description,
-			WorkflowConstants.STATUS_OPEN, 0, Collections.emptyMap(),
+			ticketStatus.getTicketStatusId(), themeDisplay.getLanguageId(),
+			subject, description, 0, Collections.emptyMap(),
 			Collections.emptyList());
 	}
 
 	@Reference
 	private TicketEntryService _ticketEntryService;
+
+	@Reference
+	private TicketStatusLocalService _ticketStatusLocalService;
 
 }

@@ -30,15 +30,6 @@ public class Visibilities {
 
 	public static final int WORKER = 2;
 
-	public static boolean hasVisibility(int visibility) {
-		if (ArrayUtil.contains(VALUES, visibility)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
 	public static String getLabel(int visibility) {
 		if (visibility == ADMIN) {
 			return "admin";
@@ -52,6 +43,15 @@ public class Visibilities {
 		else {
 			return StringPool.BLANK;
 		}
-
 	}
+
+	public static boolean hasVisibility(int visibility) {
+		if (ArrayUtil.contains(VALUES, visibility)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }
