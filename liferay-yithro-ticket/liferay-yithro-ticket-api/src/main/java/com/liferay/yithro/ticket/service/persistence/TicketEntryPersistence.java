@@ -14,13 +14,13 @@
 
 package com.liferay.yithro.ticket.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.yithro.ticket.exception.NoSuchTicketEntryException;
 import com.liferay.yithro.ticket.model.TicketEntry;
 
 import java.util.Date;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence interface for the ticket entry service.
@@ -184,6 +184,240 @@ public interface TicketEntryPersistence extends BasePersistence<TicketEntry> {
 	 * @return the number of matching ticket entries
 	 */
 	public int countByGtModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @return the matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId);
+
+	/**
+	 * Returns a range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @return the range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	 * Returns the first ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket entry
+	 * @throws NoSuchTicketEntryException if a matching ticket entry could not be found
+	 */
+	public TicketEntry findByU_TSI_First(
+			long userId, long ticketStatusId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+				orderByComparator)
+		throws NoSuchTicketEntryException;
+
+	/**
+	 * Returns the first ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket entry, or <code>null</code> if a matching ticket entry could not be found
+	 */
+	public TicketEntry fetchByU_TSI_First(
+		long userId, long ticketStatusId,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the last ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket entry
+	 * @throws NoSuchTicketEntryException if a matching ticket entry could not be found
+	 */
+	public TicketEntry findByU_TSI_Last(
+			long userId, long ticketStatusId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+				orderByComparator)
+		throws NoSuchTicketEntryException;
+
+	/**
+	 * Returns the last ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket entry, or <code>null</code> if a matching ticket entry could not be found
+	 */
+	public TicketEntry fetchByU_TSI_Last(
+		long userId, long ticketStatusId,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator);
+
+	/**
+	 * Returns the ticket entries before and after the current ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param ticketEntryId the primary key of the current ticket entry
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket entry
+	 * @throws NoSuchTicketEntryException if a ticket entry with the primary key could not be found
+	 */
+	public TicketEntry[] findByU_TSI_PrevAndNext(
+			long ticketEntryId, long userId, long ticketStatusId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+				orderByComparator)
+		throws NoSuchTicketEntryException;
+
+	/**
+	 * Returns all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @return the matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds);
+
+	/**
+	 * Returns a range of all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @return the range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket entries
+	 */
+	public java.util.List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
+			orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	 * Removes all the ticket entries where userId = &#63; and ticketStatusId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 */
+	public void removeByU_TSI(long userId, long ticketStatusId);
+
+	/**
+	 * Returns the number of ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @return the number of matching ticket entries
+	 */
+	public int countByU_TSI(long userId, long ticketStatusId);
+
+	/**
+	 * Returns the number of ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @return the number of matching ticket entries
+	 */
+	public int countByU_TSI(long userId, long[] ticketStatusIds);
 
 	/**
 	 * Caches the ticket entry in the entity cache if it is enabled.

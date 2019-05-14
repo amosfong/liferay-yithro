@@ -14,11 +14,11 @@
 
 package com.liferay.yithro.support.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.yithro.support.exception.NoSuchSupportTeamException;
 import com.liferay.yithro.support.model.SupportTeam;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence interface for the support team service.

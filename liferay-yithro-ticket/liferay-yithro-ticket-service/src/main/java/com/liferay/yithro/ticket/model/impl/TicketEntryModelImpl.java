@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.petra.string.StringBundler;
@@ -48,6 +46,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * The base model implementation for the TicketEntry service. Represents a row in the &quot;Yithro_TicketEntry&quot; database table, with each column mapped to a property of this class.
  *
@@ -75,9 +75,9 @@ public class TicketEntryModelImpl
 		{"ticketEntryId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"languageId", Types.VARCHAR}, {"ticketNumber", Types.BIGINT},
-		{"subject", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"status", Types.INTEGER}, {"weight", Types.INTEGER},
+		{"ticketStatusId", Types.BIGINT}, {"languageId", Types.VARCHAR},
+		{"ticketNumber", Types.BIGINT}, {"subject", Types.VARCHAR},
+		{"description", Types.VARCHAR}, {"weight", Types.INTEGER},
 		{"holdDate", Types.TIMESTAMP}, {"closedDate", Types.TIMESTAMP},
 		{"dueDate", Types.TIMESTAMP}
 	};
@@ -92,11 +92,11 @@ public class TicketEntryModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("ticketStatusId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("languageId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ticketNumber", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("weight", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("holdDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("closedDate", Types.TIMESTAMP);
@@ -104,7 +104,7 @@ public class TicketEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,status INTEGER,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
+		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketStatusId LONG,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketEntry";
 
@@ -121,6 +121,10 @@ public class TicketEntryModelImpl
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
 	public static final long MODIFIEDDATE_COLUMN_BITMASK = 1L;
+
+	public static final long TICKETSTATUSID_COLUMN_BITMASK = 2L;
+
+	public static final long USERID_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -149,11 +153,11 @@ public class TicketEntryModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setTicketStatusId(soapModel.getTicketStatusId());
 		model.setLanguageId(soapModel.getLanguageId());
 		model.setTicketNumber(soapModel.getTicketNumber());
 		model.setSubject(soapModel.getSubject());
 		model.setDescription(soapModel.getDescription());
-		model.setStatus(soapModel.getStatus());
 		model.setWeight(soapModel.getWeight());
 		model.setHoldDate(soapModel.getHoldDate());
 		model.setClosedDate(soapModel.getClosedDate());
@@ -307,6 +311,11 @@ public class TicketEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<TicketEntry, Date>)TicketEntry::setModifiedDate);
+		attributeGetterFunctions.put(
+			"ticketStatusId", TicketEntry::getTicketStatusId);
+		attributeSetterBiConsumers.put(
+			"ticketStatusId",
+			(BiConsumer<TicketEntry, Long>)TicketEntry::setTicketStatusId);
 		attributeGetterFunctions.put("languageId", TicketEntry::getLanguageId);
 		attributeSetterBiConsumers.put(
 			"languageId",
@@ -325,9 +334,6 @@ public class TicketEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<TicketEntry, String>)TicketEntry::setDescription);
-		attributeGetterFunctions.put("status", TicketEntry::getStatus);
-		attributeSetterBiConsumers.put(
-			"status", (BiConsumer<TicketEntry, Integer>)TicketEntry::setStatus);
 		attributeGetterFunctions.put("weight", TicketEntry::getWeight);
 		attributeSetterBiConsumers.put(
 			"weight", (BiConsumer<TicketEntry, Integer>)TicketEntry::setWeight);
@@ -379,6 +385,14 @@ public class TicketEntryModelImpl
 
 	@Override
 	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
 		_userId = userId;
 	}
 
@@ -396,6 +410,10 @@ public class TicketEntryModelImpl
 
 	@Override
 	public void setUserUuid(String userUuid) {
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
 	}
 
 	@JSON
@@ -450,6 +468,29 @@ public class TicketEntryModelImpl
 
 	public Date getOriginalModifiedDate() {
 		return _originalModifiedDate;
+	}
+
+	@JSON
+	@Override
+	public long getTicketStatusId() {
+		return _ticketStatusId;
+	}
+
+	@Override
+	public void setTicketStatusId(long ticketStatusId) {
+		_columnBitmask |= TICKETSTATUSID_COLUMN_BITMASK;
+
+		if (!_setOriginalTicketStatusId) {
+			_setOriginalTicketStatusId = true;
+
+			_originalTicketStatusId = _ticketStatusId;
+		}
+
+		_ticketStatusId = ticketStatusId;
+	}
+
+	public long getOriginalTicketStatusId() {
+		return _originalTicketStatusId;
 	}
 
 	@JSON
@@ -509,17 +550,6 @@ public class TicketEntryModelImpl
 	@Override
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	@JSON
-	@Override
-	public int getStatus() {
-		return _status;
-	}
-
-	@Override
-	public void setStatus(int status) {
-		_status = status;
 	}
 
 	@JSON
@@ -604,11 +634,11 @@ public class TicketEntryModelImpl
 		ticketEntryImpl.setUserName(getUserName());
 		ticketEntryImpl.setCreateDate(getCreateDate());
 		ticketEntryImpl.setModifiedDate(getModifiedDate());
+		ticketEntryImpl.setTicketStatusId(getTicketStatusId());
 		ticketEntryImpl.setLanguageId(getLanguageId());
 		ticketEntryImpl.setTicketNumber(getTicketNumber());
 		ticketEntryImpl.setSubject(getSubject());
 		ticketEntryImpl.setDescription(getDescription());
-		ticketEntryImpl.setStatus(getStatus());
 		ticketEntryImpl.setWeight(getWeight());
 		ticketEntryImpl.setHoldDate(getHoldDate());
 		ticketEntryImpl.setClosedDate(getClosedDate());
@@ -676,10 +706,19 @@ public class TicketEntryModelImpl
 	public void resetOriginalValues() {
 		TicketEntryModelImpl ticketEntryModelImpl = this;
 
+		ticketEntryModelImpl._originalUserId = ticketEntryModelImpl._userId;
+
+		ticketEntryModelImpl._setOriginalUserId = false;
+
 		ticketEntryModelImpl._originalModifiedDate =
 			ticketEntryModelImpl._modifiedDate;
 
 		ticketEntryModelImpl._setModifiedDate = false;
+
+		ticketEntryModelImpl._originalTicketStatusId =
+			ticketEntryModelImpl._ticketStatusId;
+
+		ticketEntryModelImpl._setOriginalTicketStatusId = false;
 
 		ticketEntryModelImpl._columnBitmask = 0;
 	}
@@ -721,6 +760,8 @@ public class TicketEntryModelImpl
 			ticketEntryCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		ticketEntryCacheModel.ticketStatusId = getTicketStatusId();
+
 		ticketEntryCacheModel.languageId = getLanguageId();
 
 		String languageId = ticketEntryCacheModel.languageId;
@@ -746,8 +787,6 @@ public class TicketEntryModelImpl
 		if ((description != null) && (description.length() == 0)) {
 			ticketEntryCacheModel.description = null;
 		}
-
-		ticketEntryCacheModel.status = getStatus();
 
 		ticketEntryCacheModel.weight = getWeight();
 
@@ -855,16 +894,20 @@ public class TicketEntryModelImpl
 	private long _ticketEntryId;
 	private long _companyId;
 	private long _userId;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private Date _originalModifiedDate;
 	private boolean _setModifiedDate;
+	private long _ticketStatusId;
+	private long _originalTicketStatusId;
+	private boolean _setOriginalTicketStatusId;
 	private String _languageId;
 	private long _ticketNumber;
 	private String _subject;
 	private String _description;
-	private int _status;
 	private int _weight;
 	private Date _holdDate;
 	private Date _closedDate;

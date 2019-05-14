@@ -14,10 +14,10 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.yithro.ticket.model.TicketFlag;
 import com.liferay.yithro.ticket.service.TicketFlagLocalServiceUtil;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The extended model base implementation for the TicketFlag service. Represents a row in the &quot;Yithro_TicketFlag&quot; database table, with each column mapped to a property of this class.

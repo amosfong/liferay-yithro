@@ -14,9 +14,9 @@
 
 package com.liferay.yithro.ticket.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides a wrapper for {@link TicketEntryService}.
@@ -35,15 +35,16 @@ public class TicketEntryServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			String languageId, String subject, String description, int status,
-			int weight, java.util.Map<Long, String> ticketFieldsMap,
+			long ticketStatusId, String languageId, String subject,
+			String description, int weight,
+			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryService.addTicketEntry(
-			languageId, subject, description, status, weight, ticketFieldsMap,
-			ticketAttachments);
+			ticketStatusId, languageId, subject, description, weight,
+			ticketFieldsMap, ticketAttachments);
 	}
 
 	/**

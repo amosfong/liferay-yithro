@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.service.persistence.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
@@ -33,9 +31,11 @@ import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.yithro.ticket.exception.NoSuchTicketEntryException;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.model.impl.TicketEntryImpl;
@@ -49,6 +49,7 @@ import java.lang.reflect.InvocationHandler;
 
 import java.sql.Timestamp;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +57,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -630,6 +632,851 @@ public class TicketEntryPersistenceImpl
 	private static final String _FINDER_COLUMN_GTMODIFIEDDATE_MODIFIEDDATE_2 =
 		"ticketEntry.modifiedDate >= ?";
 
+	private FinderPath _finderPathWithPaginationFindByU_TSI;
+	private FinderPath _finderPathWithoutPaginationFindByU_TSI;
+	private FinderPath _finderPathCountByU_TSI;
+	private FinderPath _finderPathWithPaginationCountByU_TSI;
+
+	/**
+	 * Returns all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @return the matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(long userId, long ticketStatusId) {
+		return findByU_TSI(
+			userId, ticketStatusId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @return the range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end) {
+
+		return findByU_TSI(userId, ticketStatusId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end,
+		OrderByComparator<TicketEntry> orderByComparator) {
+
+		return findByU_TSI(
+			userId, ticketStatusId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long ticketStatusId, int start, int end,
+		OrderByComparator<TicketEntry> orderByComparator,
+		boolean retrieveFromCache) {
+
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+			finderPath = _finderPathWithoutPaginationFindByU_TSI;
+			finderArgs = new Object[] {userId, ticketStatusId};
+		}
+		else {
+			finderPath = _finderPathWithPaginationFindByU_TSI;
+			finderArgs = new Object[] {
+				userId, ticketStatusId, start, end, orderByComparator
+			};
+		}
+
+		List<TicketEntry> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<TicketEntry>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (TicketEntry ticketEntry : list) {
+					if ((userId != ticketEntry.getUserId()) ||
+						(ticketStatusId != ticketEntry.getTicketStatusId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					4 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(4);
+			}
+
+			query.append(_SQL_SELECT_TICKETENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TSI_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_TSI_TICKETSTATUSID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(TicketEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(ticketStatusId);
+
+				if (!pagination) {
+					list = (List<TicketEntry>)QueryUtil.list(
+						q, getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<TicketEntry>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket entry
+	 * @throws NoSuchTicketEntryException if a matching ticket entry could not be found
+	 */
+	@Override
+	public TicketEntry findByU_TSI_First(
+			long userId, long ticketStatusId,
+			OrderByComparator<TicketEntry> orderByComparator)
+		throws NoSuchTicketEntryException {
+
+		TicketEntry ticketEntry = fetchByU_TSI_First(
+			userId, ticketStatusId, orderByComparator);
+
+		if (ticketEntry != null) {
+			return ticketEntry;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(", ticketStatusId=");
+		msg.append(ticketStatusId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the first ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket entry, or <code>null</code> if a matching ticket entry could not be found
+	 */
+	@Override
+	public TicketEntry fetchByU_TSI_First(
+		long userId, long ticketStatusId,
+		OrderByComparator<TicketEntry> orderByComparator) {
+
+		List<TicketEntry> list = findByU_TSI(
+			userId, ticketStatusId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket entry
+	 * @throws NoSuchTicketEntryException if a matching ticket entry could not be found
+	 */
+	@Override
+	public TicketEntry findByU_TSI_Last(
+			long userId, long ticketStatusId,
+			OrderByComparator<TicketEntry> orderByComparator)
+		throws NoSuchTicketEntryException {
+
+		TicketEntry ticketEntry = fetchByU_TSI_Last(
+			userId, ticketStatusId, orderByComparator);
+
+		if (ticketEntry != null) {
+			return ticketEntry;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(", ticketStatusId=");
+		msg.append(ticketStatusId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketEntryException(msg.toString());
+	}
+
+	/**
+	 * Returns the last ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket entry, or <code>null</code> if a matching ticket entry could not be found
+	 */
+	@Override
+	public TicketEntry fetchByU_TSI_Last(
+		long userId, long ticketStatusId,
+		OrderByComparator<TicketEntry> orderByComparator) {
+
+		int count = countByU_TSI(userId, ticketStatusId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<TicketEntry> list = findByU_TSI(
+			userId, ticketStatusId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the ticket entries before and after the current ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param ticketEntryId the primary key of the current ticket entry
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket entry
+	 * @throws NoSuchTicketEntryException if a ticket entry with the primary key could not be found
+	 */
+	@Override
+	public TicketEntry[] findByU_TSI_PrevAndNext(
+			long ticketEntryId, long userId, long ticketStatusId,
+			OrderByComparator<TicketEntry> orderByComparator)
+		throws NoSuchTicketEntryException {
+
+		TicketEntry ticketEntry = findByPrimaryKey(ticketEntryId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			TicketEntry[] array = new TicketEntryImpl[3];
+
+			array[0] = getByU_TSI_PrevAndNext(
+				session, ticketEntry, userId, ticketStatusId, orderByComparator,
+				true);
+
+			array[1] = ticketEntry;
+
+			array[2] = getByU_TSI_PrevAndNext(
+				session, ticketEntry, userId, ticketStatusId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected TicketEntry getByU_TSI_PrevAndNext(
+		Session session, TicketEntry ticketEntry, long userId,
+		long ticketStatusId, OrderByComparator<TicketEntry> orderByComparator,
+		boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		query.append(_SQL_SELECT_TICKETENTRY_WHERE);
+
+		query.append(_FINDER_COLUMN_U_TSI_USERID_2);
+
+		query.append(_FINDER_COLUMN_U_TSI_TICKETSTATUSID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TicketEntryModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(userId);
+
+		qPos.add(ticketStatusId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(ticketEntry)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<TicketEntry> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @return the matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(long userId, long[] ticketStatusIds) {
+		return findByU_TSI(
+			userId, ticketStatusIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @return the range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end) {
+
+		return findByU_TSI(userId, ticketStatusIds, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end,
+		OrderByComparator<TicketEntry> orderByComparator) {
+
+		return findByU_TSI(
+			userId, ticketStatusIds, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket entries where userId = &#63; and ticketStatusId = &#63;, optionally using the finder cache.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketEntryModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @param start the lower bound of the range of ticket entries
+	 * @param end the upper bound of the range of ticket entries (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket entries
+	 */
+	@Override
+	public List<TicketEntry> findByU_TSI(
+		long userId, long[] ticketStatusIds, int start, int end,
+		OrderByComparator<TicketEntry> orderByComparator,
+		boolean retrieveFromCache) {
+
+		if (ticketStatusIds == null) {
+			ticketStatusIds = new long[0];
+		}
+		else if (ticketStatusIds.length > 1) {
+			ticketStatusIds = ArrayUtil.unique(ticketStatusIds);
+
+			Arrays.sort(ticketStatusIds);
+		}
+
+		if (ticketStatusIds.length == 1) {
+			return findByU_TSI(
+				userId, ticketStatusIds[0], start, end, orderByComparator);
+		}
+
+		boolean pagination = true;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+			finderArgs = new Object[] {
+				userId, StringUtil.merge(ticketStatusIds)
+			};
+		}
+		else {
+			finderArgs = new Object[] {
+				userId, StringUtil.merge(ticketStatusIds), start, end,
+				orderByComparator
+			};
+		}
+
+		List<TicketEntry> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<TicketEntry>)finderCache.getResult(
+				_finderPathWithPaginationFindByU_TSI, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (TicketEntry ticketEntry : list) {
+					if ((userId != ticketEntry.getUserId()) ||
+						!ArrayUtil.contains(
+							ticketStatusIds, ticketEntry.getTicketStatusId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = new StringBundler();
+
+			query.append(_SQL_SELECT_TICKETENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TSI_USERID_2);
+
+			if (ticketStatusIds.length > 0) {
+				query.append("(");
+
+				query.append(_FINDER_COLUMN_U_TSI_TICKETSTATUSID_7);
+
+				query.append(StringUtil.merge(ticketStatusIds));
+
+				query.append(")");
+
+				query.append(")");
+			}
+
+			query.setStringAt(
+				removeConjunction(query.stringAt(query.index() - 1)),
+				query.index() - 1);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(TicketEntryModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (!pagination) {
+					list = (List<TicketEntry>)QueryUtil.list(
+						q, getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<TicketEntry>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(
+					_finderPathWithPaginationFindByU_TSI, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(
+					_finderPathWithPaginationFindByU_TSI, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Removes all the ticket entries where userId = &#63; and ticketStatusId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 */
+	@Override
+	public void removeByU_TSI(long userId, long ticketStatusId) {
+		for (TicketEntry ticketEntry :
+				findByU_TSI(
+					userId, ticketStatusId, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
+
+			remove(ticketEntry);
+		}
+	}
+
+	/**
+	 * Returns the number of ticket entries where userId = &#63; and ticketStatusId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusId the ticket status ID
+	 * @return the number of matching ticket entries
+	 */
+	@Override
+	public int countByU_TSI(long userId, long ticketStatusId) {
+		FinderPath finderPath = _finderPathCountByU_TSI;
+
+		Object[] finderArgs = new Object[] {userId, ticketStatusId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TICKETENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TSI_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_TSI_TICKETSTATUSID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(ticketStatusId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of ticket entries where userId = &#63; and ticketStatusId = any &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param ticketStatusIds the ticket status IDs
+	 * @return the number of matching ticket entries
+	 */
+	@Override
+	public int countByU_TSI(long userId, long[] ticketStatusIds) {
+		if (ticketStatusIds == null) {
+			ticketStatusIds = new long[0];
+		}
+		else if (ticketStatusIds.length > 1) {
+			ticketStatusIds = ArrayUtil.unique(ticketStatusIds);
+
+			Arrays.sort(ticketStatusIds);
+		}
+
+		Object[] finderArgs = new Object[] {
+			userId, StringUtil.merge(ticketStatusIds)
+		};
+
+		Long count = (Long)finderCache.getResult(
+			_finderPathWithPaginationCountByU_TSI, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler();
+
+			query.append(_SQL_COUNT_TICKETENTRY_WHERE);
+
+			query.append(_FINDER_COLUMN_U_TSI_USERID_2);
+
+			if (ticketStatusIds.length > 0) {
+				query.append("(");
+
+				query.append(_FINDER_COLUMN_U_TSI_TICKETSTATUSID_7);
+
+				query.append(StringUtil.merge(ticketStatusIds));
+
+				query.append(")");
+
+				query.append(")");
+			}
+
+			query.setStringAt(
+				removeConjunction(query.stringAt(query.index() - 1)),
+				query.index() - 1);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(
+					_finderPathWithPaginationCountByU_TSI, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(
+					_finderPathWithPaginationCountByU_TSI, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_TSI_USERID_2 =
+		"ticketEntry.userId = ? AND ";
+
+	private static final String _FINDER_COLUMN_U_TSI_TICKETSTATUSID_2 =
+		"ticketEntry.ticketStatusId = ?";
+
+	private static final String _FINDER_COLUMN_U_TSI_TICKETSTATUSID_7 =
+		"ticketEntry.ticketStatusId IN (";
+
 	public TicketEntryPersistenceImpl() {
 		setModelClass(TicketEntry.class);
 
@@ -893,9 +1740,42 @@ public class TicketEntryPersistenceImpl
 			finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 		else if (isNew) {
+			Object[] args = new Object[] {
+				ticketEntryModelImpl.getUserId(),
+				ticketEntryModelImpl.getTicketStatusId()
+			};
+
+			finderCache.removeResult(_finderPathCountByU_TSI, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByU_TSI, args);
+
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
+		}
+		else {
+			if ((ticketEntryModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByU_TSI.getColumnBitmask()) !=
+					 0) {
+
+				Object[] args = new Object[] {
+					ticketEntryModelImpl.getOriginalUserId(),
+					ticketEntryModelImpl.getOriginalTicketStatusId()
+				};
+
+				finderCache.removeResult(_finderPathCountByU_TSI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByU_TSI, args);
+
+				args = new Object[] {
+					ticketEntryModelImpl.getUserId(),
+					ticketEntryModelImpl.getTicketStatusId()
+				};
+
+				finderCache.removeResult(_finderPathCountByU_TSI, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByU_TSI, args);
+			}
 		}
 
 		entityCache.putResult(
@@ -1205,6 +2085,33 @@ public class TicketEntryPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByGtModifiedDate",
 			new String[] {Date.class.getName()});
+
+		_finderPathWithPaginationFindByU_TSI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByU_TSI",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByU_TSI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketEntryImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByU_TSI",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			TicketEntryModelImpl.USERID_COLUMN_BITMASK |
+			TicketEntryModelImpl.TICKETSTATUSID_COLUMN_BITMASK |
+			TicketEntryModelImpl.MODIFIEDDATE_COLUMN_BITMASK);
+
+		_finderPathCountByU_TSI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_TSI",
+			new String[] {Long.class.getName(), Long.class.getName()});
+
+		_finderPathWithPaginationCountByU_TSI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByU_TSI",
+			new String[] {Long.class.getName(), Long.class.getName()});
 	}
 
 	@Deactivate

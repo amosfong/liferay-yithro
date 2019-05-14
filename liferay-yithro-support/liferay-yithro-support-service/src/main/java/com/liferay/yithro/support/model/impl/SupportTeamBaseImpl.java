@@ -14,10 +14,10 @@
 
 package com.liferay.yithro.support.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.yithro.support.model.SupportTeam;
 import com.liferay.yithro.support.service.SupportTeamLocalServiceUtil;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The extended model base implementation for the SupportTeam service. Represents a row in the &quot;Yithro_SupportTeam&quot; database table, with each column mapped to a property of this class.

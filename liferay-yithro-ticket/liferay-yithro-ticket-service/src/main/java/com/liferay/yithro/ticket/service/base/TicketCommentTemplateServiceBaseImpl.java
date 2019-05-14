@@ -33,6 +33,7 @@ import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFlagPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketLinkPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketStatusPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketWorkerPersistence;
 
 import javax.sql.DataSource;
@@ -145,6 +146,9 @@ public abstract class TicketCommentTemplateServiceBaseImpl
 
 	@Reference
 	protected TicketLinkPersistence ticketLinkPersistence;
+
+	@Reference
+	protected TicketStatusPersistence ticketStatusPersistence;
 
 	@Reference
 	protected TicketWorkerPersistence ticketWorkerPersistence;

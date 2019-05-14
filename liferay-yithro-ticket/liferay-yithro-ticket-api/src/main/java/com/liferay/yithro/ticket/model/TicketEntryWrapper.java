@@ -14,14 +14,14 @@
 
 package com.liferay.yithro.ticket.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * <p>
@@ -51,11 +51,11 @@ public class TicketEntryWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("ticketStatusId", getTicketStatusId());
 		attributes.put("languageId", getLanguageId());
 		attributes.put("ticketNumber", getTicketNumber());
 		attributes.put("subject", getSubject());
 		attributes.put("description", getDescription());
-		attributes.put("status", getStatus());
 		attributes.put("weight", getWeight());
 		attributes.put("holdDate", getHoldDate());
 		attributes.put("closedDate", getClosedDate());
@@ -102,6 +102,12 @@ public class TicketEntryWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+		Long ticketStatusId = (Long)attributes.get("ticketStatusId");
+
+		if (ticketStatusId != null) {
+			setTicketStatusId(ticketStatusId);
+		}
+
 		String languageId = (String)attributes.get("languageId");
 
 		if (languageId != null) {
@@ -124,12 +130,6 @@ public class TicketEntryWrapper
 
 		if (description != null) {
 			setDescription(description);
-		}
-
-		Integer status = (Integer)attributes.get("status");
-
-		if (status != null) {
-			setStatus(status);
 		}
 
 		Integer weight = (Integer)attributes.get("weight");
@@ -248,21 +248,6 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Returns the status of this ticket entry.
-	 *
-	 * @return the status of this ticket entry
-	 */
-	@Override
-	public int getStatus() {
-		return model.getStatus();
-	}
-
-	@Override
-	public String getStatusLabel() {
-		return model.getStatusLabel();
-	}
-
-	/**
 	 * Returns the subject of this ticket entry.
 	 *
 	 * @return the subject of this ticket entry
@@ -290,6 +275,16 @@ public class TicketEntryWrapper
 	@Override
 	public long getTicketNumber() {
 		return model.getTicketNumber();
+	}
+
+	/**
+	 * Returns the ticket status ID of this ticket entry.
+	 *
+	 * @return the ticket status ID of this ticket entry
+	 */
+	@Override
+	public long getTicketStatusId() {
+		return model.getTicketStatusId();
 	}
 
 	/**
@@ -333,7 +328,9 @@ public class TicketEntryWrapper
 	}
 
 	@Override
-	public boolean isClosed() {
+	public boolean isClosed()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return model.isClosed();
 	}
 
@@ -433,16 +430,6 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Sets the status of this ticket entry.
-	 *
-	 * @param status the status of this ticket entry
-	 */
-	@Override
-	public void setStatus(int status) {
-		model.setStatus(status);
-	}
-
-	/**
 	 * Sets the subject of this ticket entry.
 	 *
 	 * @param subject the subject of this ticket entry
@@ -470,6 +457,16 @@ public class TicketEntryWrapper
 	@Override
 	public void setTicketNumber(long ticketNumber) {
 		model.setTicketNumber(ticketNumber);
+	}
+
+	/**
+	 * Sets the ticket status ID of this ticket entry.
+	 *
+	 * @param ticketStatusId the ticket status ID of this ticket entry
+	 */
+	@Override
+	public void setTicketStatusId(long ticketStatusId) {
+		model.setTicketStatusId(ticketStatusId);
 	}
 
 	/**

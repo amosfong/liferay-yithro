@@ -14,11 +14,11 @@
 
 package com.liferay.yithro.ticket.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.yithro.ticket.exception.NoSuchTicketLinkException;
 import com.liferay.yithro.ticket.model.TicketLink;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence interface for the ticket link service.

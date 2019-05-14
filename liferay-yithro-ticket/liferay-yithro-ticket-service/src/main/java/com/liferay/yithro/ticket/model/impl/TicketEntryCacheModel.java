@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
@@ -27,6 +25,8 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import java.util.Date;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The cache model class for representing TicketEntry in entity cache.
@@ -79,6 +79,8 @@ public class TicketEntryCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", ticketStatusId=");
+		sb.append(ticketStatusId);
 		sb.append(", languageId=");
 		sb.append(languageId);
 		sb.append(", ticketNumber=");
@@ -87,8 +89,6 @@ public class TicketEntryCacheModel
 		sb.append(subject);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", status=");
-		sb.append(status);
 		sb.append(", weight=");
 		sb.append(weight);
 		sb.append(", holdDate=");
@@ -131,6 +131,8 @@ public class TicketEntryCacheModel
 			ticketEntryImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		ticketEntryImpl.setTicketStatusId(ticketStatusId);
+
 		if (languageId == null) {
 			ticketEntryImpl.setLanguageId("");
 		}
@@ -154,7 +156,6 @@ public class TicketEntryCacheModel
 			ticketEntryImpl.setDescription(description);
 		}
 
-		ticketEntryImpl.setStatus(status);
 		ticketEntryImpl.setWeight(weight);
 
 		if (holdDate == Long.MIN_VALUE) {
@@ -193,13 +194,13 @@ public class TicketEntryCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+
+		ticketStatusId = objectInput.readLong();
 		languageId = objectInput.readUTF();
 
 		ticketNumber = objectInput.readLong();
 		subject = objectInput.readUTF();
 		description = objectInput.readUTF();
-
-		status = objectInput.readInt();
 
 		weight = objectInput.readInt();
 		holdDate = objectInput.readLong();
@@ -225,6 +226,8 @@ public class TicketEntryCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(ticketStatusId);
+
 		if (languageId == null) {
 			objectOutput.writeUTF("");
 		}
@@ -248,8 +251,6 @@ public class TicketEntryCacheModel
 			objectOutput.writeUTF(description);
 		}
 
-		objectOutput.writeInt(status);
-
 		objectOutput.writeInt(weight);
 		objectOutput.writeLong(holdDate);
 		objectOutput.writeLong(closedDate);
@@ -262,11 +263,11 @@ public class TicketEntryCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long ticketStatusId;
 	public String languageId;
 	public long ticketNumber;
 	public String subject;
 	public String description;
-	public int status;
 	public int weight;
 	public long holdDate;
 	public long closedDate;

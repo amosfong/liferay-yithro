@@ -14,10 +14,10 @@
 
 package com.liferay.yithro.support.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.yithro.support.model.SupportLabor;
 import com.liferay.yithro.support.service.SupportLaborLocalServiceUtil;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The extended model base implementation for the SupportLabor service. Represents a row in the &quot;Yithro_SupportLabor&quot; database table, with each column mapped to a property of this class.

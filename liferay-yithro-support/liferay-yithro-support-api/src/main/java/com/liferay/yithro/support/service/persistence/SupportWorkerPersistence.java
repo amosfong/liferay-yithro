@@ -14,11 +14,11 @@
 
 package com.liferay.yithro.support.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.yithro.support.exception.NoSuchSupportWorkerException;
 import com.liferay.yithro.support.model.SupportWorker;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence interface for the support worker service.

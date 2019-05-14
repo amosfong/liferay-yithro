@@ -14,11 +14,11 @@
 
 package com.liferay.yithro.ticket.service.persistence;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.yithro.ticket.exception.NoSuchTicketFlagException;
 import com.liferay.yithro.ticket.model.TicketFlag;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The persistence interface for the ticket flag service.

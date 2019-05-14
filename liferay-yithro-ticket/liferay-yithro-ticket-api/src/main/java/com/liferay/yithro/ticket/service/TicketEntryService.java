@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
@@ -28,6 +26,8 @@ import com.liferay.yithro.ticket.model.TicketEntry;
 
 import java.util.List;
 import java.util.Map;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the remote service interface for TicketEntry. Methods of this
@@ -53,8 +53,8 @@ public interface TicketEntryService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link TicketEntryServiceUtil} to access the ticket entry remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketEntry addTicketEntry(
-			String languageId, String subject, String description, int status,
-			int weight, Map<Long, String> ticketFieldsMap,
+			long ticketStatusId, String languageId, String subject,
+			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException;
 

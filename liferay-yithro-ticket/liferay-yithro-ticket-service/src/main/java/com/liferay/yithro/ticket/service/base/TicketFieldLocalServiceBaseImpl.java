@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.service.base;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -48,6 +46,7 @@ import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFlagPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketLinkPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketStatusPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketWorkerPersistence;
 
 import java.io.Serializable;
@@ -56,6 +55,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -417,6 +417,9 @@ public abstract class TicketFieldLocalServiceBaseImpl
 
 	@Reference
 	protected TicketLinkPersistence ticketLinkPersistence;
+
+	@Reference
+	protected TicketStatusPersistence ticketStatusPersistence;
 
 	@Reference
 	protected TicketWorkerPersistence ticketWorkerPersistence;

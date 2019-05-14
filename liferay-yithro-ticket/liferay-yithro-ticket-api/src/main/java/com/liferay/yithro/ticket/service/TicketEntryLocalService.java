@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.service;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -42,6 +40,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * Provides the local service interface for TicketEntry. Methods of this
  * service will not have security checks based on the propagated JAAS
@@ -67,8 +67,8 @@ public interface TicketEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, String languageId, String subject, String description,
-			int status, int weight, Map<Long, String> ticketFieldsMap,
+			long userId, long tikcetStatusId, String languageId, String subject,
+			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException;
 
@@ -262,9 +262,9 @@ public interface TicketEntryLocalService
 
 	public TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			String languageId, String subject, String description, int status,
-			int weight, Date dueDate, Map<Long, String> ticketFieldsMap,
-			ServiceContext serviceContext)
+			long tikcetStatusId, String languageId, String subject,
+			String description, int weight, Date dueDate,
+			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**

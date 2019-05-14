@@ -14,10 +14,10 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.yithro.ticket.model.TicketWorker;
 import com.liferay.yithro.ticket.service.TicketWorkerLocalServiceUtil;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The extended model base implementation for the TicketWorker service. Represents a row in the &quot;Yithro_TicketWorker&quot; database table, with each column mapped to a property of this class.

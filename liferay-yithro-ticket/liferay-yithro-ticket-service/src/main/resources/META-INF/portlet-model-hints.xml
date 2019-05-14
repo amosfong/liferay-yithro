@@ -50,6 +50,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="ticketStatusId" type="long" />
 		<field name="languageId" type="String" />
 		<field name="ticketNumber" type="long" />
 		<field name="subject" type="String">
@@ -61,7 +62,6 @@
 			<hint name="display-width">850</hint>
 			<hint-collection name="TEXTAREA" />
 		</field>
-		<field name="status" type="int" />
 		<field name="weight" type="int" />
 		<field name="holdDate" type="Date" />
 		<field name="closedDate" type="Date" />
@@ -109,6 +109,18 @@
 		</field>
 		<field name="type" type="int" />
 		<field name="visibility" type="int" />
+	</model>
+	<model name="com.liferay.yithro.ticket.model.TicketStatus">
+		<field name="ticketStatusId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field localized="true" name="name" type="String" />
+		<field localized="true" name="description" type="String" />
+		<field name="order" type="int" />
+		<field name="terminal" type="boolean" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketWorker">
 		<field name="ticketWorkerId" type="long" />

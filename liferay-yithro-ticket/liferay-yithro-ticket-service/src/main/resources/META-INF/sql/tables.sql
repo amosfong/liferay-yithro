@@ -45,11 +45,11 @@ create table Yithro_TicketEntry (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	ticketStatusId LONG,
 	languageId VARCHAR(75) null,
 	ticketNumber LONG,
 	subject VARCHAR(255) null,
 	description STRING null,
-	status INTEGER,
 	weight INTEGER,
 	holdDate DATE null,
 	closedDate DATE null,
@@ -114,6 +114,19 @@ create table Yithro_TicketSolution (
 	statusDate DATE null,
 	statusMessage TEXT null,
 	statusReason INTEGER
+);
+
+create table Yithro_TicketStatus (
+	ticketStatusId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	name STRING null,
+	description STRING null,
+	order_ INTEGER,
+	terminal BOOLEAN,
+	status INTEGER
 );
 
 create table Yithro_TicketWorker (

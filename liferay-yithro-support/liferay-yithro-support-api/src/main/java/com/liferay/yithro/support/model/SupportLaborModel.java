@@ -14,11 +14,11 @@
 
 package com.liferay.yithro.support.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ShardedModel;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model interface for the SupportLabor service. Represents a row in the &quot;Yithro_SupportLabor&quot; database table, with each column mapped to a property of this class.

@@ -14,14 +14,14 @@
 
 package com.liferay.yithro.ticket.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model interface for the TicketEntry service. Represents a row in the &quot;Yithro_TicketEntry&quot; database table, with each column mapped to a property of this class.
@@ -170,6 +170,20 @@ public interface TicketEntryModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the ticket status ID of this ticket entry.
+	 *
+	 * @return the ticket status ID of this ticket entry
+	 */
+	public long getTicketStatusId();
+
+	/**
+	 * Sets the ticket status ID of this ticket entry.
+	 *
+	 * @param ticketStatusId the ticket status ID of this ticket entry
+	 */
+	public void setTicketStatusId(long ticketStatusId);
+
+	/**
 	 * Returns the language ID of this ticket entry.
 	 *
 	 * @return the language ID of this ticket entry
@@ -227,20 +241,6 @@ public interface TicketEntryModel
 	 * @param description the description of this ticket entry
 	 */
 	public void setDescription(String description);
-
-	/**
-	 * Returns the status of this ticket entry.
-	 *
-	 * @return the status of this ticket entry
-	 */
-	public int getStatus();
-
-	/**
-	 * Sets the status of this ticket entry.
-	 *
-	 * @param status the status of this ticket entry
-	 */
-	public void setStatus(int status);
 
 	/**
 	 * Returns the weight of this ticket entry.

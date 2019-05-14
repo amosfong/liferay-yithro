@@ -14,8 +14,7 @@
 
 package com.liferay.yithro.ticket.service;
 
-import aQute.bnd.annotation.ProviderType;
-
+import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -41,14 +40,15 @@ public class TicketEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			long userId, String languageId, String subject, String description,
-			int status, int weight, java.util.Map<Long, String> ticketFieldsMap,
+			long userId, long tikcetStatusId, String languageId, String subject,
+			String description, int weight,
+			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketEntry(
-			userId, languageId, subject, description, status, weight,
+			userId, tikcetStatusId, languageId, subject, description, weight,
 			ticketFieldsMap, ticketAttachments);
 	}
 
@@ -311,15 +311,15 @@ public class TicketEntryLocalServiceUtil {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			String languageId, String subject, String description, int status,
-			int weight, java.util.Date dueDate,
+			long tikcetStatusId, String languageId, String subject,
+			String description, int weight, java.util.Date dueDate,
 			java.util.Map<Long, String> ticketFieldsMap,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTicketEntry(
-			userId, ticketEntryId, reportedByUserId, languageId, subject,
-			description, status, weight, dueDate, ticketFieldsMap,
+			userId, ticketEntryId, reportedByUserId, tikcetStatusId, languageId,
+			subject, description, weight, dueDate, ticketFieldsMap,
 			serviceContext);
 	}
 

@@ -14,13 +14,13 @@
 
 package com.liferay.yithro.ticket.model;
 
-import aQute.bnd.annotation.ProviderType;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.yithro.ticket.service.http.TicketEntryServiceSoap}.
@@ -40,11 +40,11 @@ public class TicketEntrySoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setTicketStatusId(model.getTicketStatusId());
 		soapModel.setLanguageId(model.getLanguageId());
 		soapModel.setTicketNumber(model.getTicketNumber());
 		soapModel.setSubject(model.getSubject());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setStatus(model.getStatus());
 		soapModel.setWeight(model.getWeight());
 		soapModel.setHoldDate(model.getHoldDate());
 		soapModel.setClosedDate(model.getClosedDate());
@@ -150,6 +150,14 @@ public class TicketEntrySoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getTicketStatusId() {
+		return _ticketStatusId;
+	}
+
+	public void setTicketStatusId(long ticketStatusId) {
+		_ticketStatusId = ticketStatusId;
+	}
+
 	public String getLanguageId() {
 		return _languageId;
 	}
@@ -180,14 +188,6 @@ public class TicketEntrySoap implements Serializable {
 
 	public void setDescription(String description) {
 		_description = description;
-	}
-
-	public int getStatus() {
-		return _status;
-	}
-
-	public void setStatus(int status) {
-		_status = status;
 	}
 
 	public int getWeight() {
@@ -228,11 +228,11 @@ public class TicketEntrySoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _ticketStatusId;
 	private String _languageId;
 	private long _ticketNumber;
 	private String _subject;
 	private String _description;
-	private int _status;
 	private int _weight;
 	private Date _holdDate;
 	private Date _closedDate;

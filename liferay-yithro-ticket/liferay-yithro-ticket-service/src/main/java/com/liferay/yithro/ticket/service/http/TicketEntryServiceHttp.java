@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.ticket.service.http;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
@@ -23,6 +21,8 @@ import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the HTTP utility for the
@@ -55,8 +55,8 @@ import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
 public class TicketEntryServiceHttp {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			HttpPrincipal httpPrincipal, String languageId, String subject,
-			String description, int status, int weight,
+			HttpPrincipal httpPrincipal, long ticketStatusId, String languageId,
+			String subject, String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
@@ -68,8 +68,8 @@ public class TicketEntryServiceHttp {
 				_addTicketEntryParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, languageId, subject, description, status, weight,
-				ticketFieldsMap, ticketAttachments);
+				methodKey, ticketStatusId, languageId, subject, description,
+				weight, ticketFieldsMap, ticketAttachments);
 
 			Object returnObj = null;
 
@@ -102,7 +102,7 @@ public class TicketEntryServiceHttp {
 
 	private static final Class<?>[] _addTicketEntryParameterTypes0 =
 		new Class[] {
-			String.class, String.class, String.class, int.class, int.class,
+			long.class, String.class, String.class, String.class, int.class,
 			java.util.Map.class, java.util.List.class
 		};
 
