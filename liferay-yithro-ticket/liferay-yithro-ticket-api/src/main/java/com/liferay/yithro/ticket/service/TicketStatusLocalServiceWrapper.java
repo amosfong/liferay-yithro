@@ -230,6 +230,15 @@ public class TicketStatusLocalServiceWrapper
 		return _ticketStatusLocalService.getInitialTicketStatus();
 	}
 
+	@Override
+	public com.liferay.yithro.ticket.model.TicketStatus getNextTicketStatus(
+			long ticketStatusId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketStatusLocalService.getNextTicketStatus(
+			ticketStatusId, status);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

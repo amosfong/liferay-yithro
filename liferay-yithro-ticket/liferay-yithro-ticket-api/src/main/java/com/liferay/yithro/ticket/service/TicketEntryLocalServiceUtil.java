@@ -40,7 +40,7 @@ public class TicketEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			long userId, long tikcetStatusId, String languageId, String subject,
+			long userId, long ticketStatusId, String languageId, String subject,
 			String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
@@ -48,7 +48,7 @@ public class TicketEntryLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketEntry(
-			userId, tikcetStatusId, languageId, subject, description, weight,
+			userId, ticketStatusId, languageId, subject, description, weight,
 			ticketFieldsMap, ticketAttachments);
 	}
 
@@ -325,14 +325,14 @@ public class TicketEntryLocalServiceUtil {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			long tikcetStatusId, String languageId, String subject,
+			long ticketStatusId, String languageId, String subject,
 			String description, int weight, java.util.Date dueDate,
 			java.util.Map<Long, String> ticketFieldsMap,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTicketEntry(
-			userId, ticketEntryId, reportedByUserId, tikcetStatusId, languageId,
+			userId, ticketEntryId, reportedByUserId, ticketStatusId, languageId,
 			subject, description, weight, dueDate, ticketFieldsMap,
 			serviceContext);
 	}
@@ -347,6 +347,13 @@ public class TicketEntryLocalServiceUtil {
 		com.liferay.yithro.ticket.model.TicketEntry ticketEntry) {
 
 		return getService().updateTicketEntry(ticketEntry);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketEntry
+			updateTicketStatus(long ticketEntryId, long ticketStatusId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketStatus(ticketEntryId, ticketStatusId);
 	}
 
 	public static TicketEntryLocalService getService() {

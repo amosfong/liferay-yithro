@@ -61,6 +61,13 @@ public class TicketEntryServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketEntry
+			updateTicketStatus(long ticketEntryId, long ticketStatusId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketStatus(ticketEntryId, ticketStatusId);
+	}
+
 	public static TicketEntryService getService() {
 		return _serviceTracker.getService();
 	}

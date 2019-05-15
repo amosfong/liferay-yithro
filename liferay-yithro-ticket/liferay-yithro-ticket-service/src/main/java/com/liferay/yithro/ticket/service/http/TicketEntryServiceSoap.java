@@ -14,11 +14,17 @@
 
 package com.liferay.yithro.ticket.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
+
+import java.rmi.RemoteException;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the SOAP utility for the
- * <code>com.liferay.yithro.ticket.service.TicketEntryServiceUtil</code> service
+ * <code>TicketEntryServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -57,4 +63,27 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public class TicketEntryServiceSoap {
+
+	public static com.liferay.yithro.ticket.model.TicketEntrySoap
+			updateTicketStatus(long ticketEntryId, long ticketStatusId)
+		throws RemoteException {
+
+		try {
+			com.liferay.yithro.ticket.model.TicketEntry returnValue =
+				TicketEntryServiceUtil.updateTicketStatus(
+					ticketEntryId, ticketStatusId);
+
+			return com.liferay.yithro.ticket.model.TicketEntrySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		TicketEntryServiceSoap.class);
+
 }

@@ -222,6 +222,13 @@ public class TicketStatusLocalServiceUtil {
 		return getService().getInitialTicketStatus();
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketStatus
+			getNextTicketStatus(long ticketStatusId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getNextTicketStatus(ticketStatusId, status);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

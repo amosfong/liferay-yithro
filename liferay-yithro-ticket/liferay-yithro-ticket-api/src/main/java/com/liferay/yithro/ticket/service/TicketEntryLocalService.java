@@ -67,7 +67,7 @@ public interface TicketEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, long tikcetStatusId, String languageId, String subject,
+			long userId, long ticketStatusId, String languageId, String subject,
 			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException;
@@ -269,7 +269,7 @@ public interface TicketEntryLocalService
 
 	public TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			long tikcetStatusId, String languageId, String subject,
+			long ticketStatusId, String languageId, String subject,
 			String description, int weight, Date dueDate,
 			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
 		throws PortalException;
@@ -282,5 +282,9 @@ public interface TicketEntryLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry updateTicketEntry(TicketEntry ticketEntry);
+
+	public TicketEntry updateTicketStatus(
+			long ticketEntryId, long ticketStatusId)
+		throws PortalException;
 
 }

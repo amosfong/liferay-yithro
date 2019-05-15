@@ -97,6 +97,46 @@ public class TicketEntryServiceHttp {
 		}
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketEntry
+			updateTicketStatus(
+				HttpPrincipal httpPrincipal, long ticketEntryId,
+				long ticketStatusId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TicketEntryServiceUtil.class, "updateTicketStatus",
+				_updateTicketStatusParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, ticketEntryId, ticketStatusId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		TicketEntryServiceHttp.class);
 
@@ -105,5 +145,7 @@ public class TicketEntryServiceHttp {
 			long.class, String.class, String.class, String.class, int.class,
 			java.util.Map.class, java.util.List.class
 		};
+	private static final Class<?>[] _updateTicketStatusParameterTypes1 =
+		new Class[] {long.class, long.class};
 
 }

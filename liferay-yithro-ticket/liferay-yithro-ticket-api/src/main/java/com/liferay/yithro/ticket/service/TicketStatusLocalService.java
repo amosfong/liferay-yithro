@@ -190,6 +190,10 @@ public interface TicketStatusLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketStatus getInitialTicketStatus() throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketStatus getNextTicketStatus(long ticketStatusId, int status)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
