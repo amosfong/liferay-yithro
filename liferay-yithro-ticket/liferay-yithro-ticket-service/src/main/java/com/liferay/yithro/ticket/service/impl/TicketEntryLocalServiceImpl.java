@@ -67,7 +67,7 @@ public class TicketEntryLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, long tikcetStatusId, String languageId, String subject,
+			long userId, long ticketStatusId, String languageId, String subject,
 			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
@@ -87,7 +87,7 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setUserName(user.getFullName());
 		ticketEntry.setCreateDate(now);
 		ticketEntry.setModifiedDate(now);
-		ticketEntry.setTicketStatusId(tikcetStatusId);
+		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setTicketNumber(getTicketNumber(userId));
 		ticketEntry.setSubject(subject);
@@ -215,7 +215,7 @@ public class TicketEntryLocalServiceImpl
 
 	public TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			long tikcetStatusId, String languageId, String subject,
+			long ticketStatusId, String languageId, String subject,
 			String description, int weight, Date dueDate,
 			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
 		throws PortalException {
@@ -240,7 +240,7 @@ public class TicketEntryLocalServiceImpl
 		}
 
 		ticketEntry.setModifiedDate(now);
-		ticketEntry.setTicketStatusId(tikcetStatusId);
+		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setSubject(subject);
 		ticketEntry.setDescription(description);
@@ -274,6 +274,18 @@ public class TicketEntryLocalServiceImpl
 			user.getUserId(), now, auditSetId, oldTicketEntry, ticketEntry);
 
 		return ticketEntry;
+	}
+
+	public TicketEntry updateTicketStatus(
+			long ticketEntryId, long ticketStatusId)
+		throws PortalException {
+
+		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
+			ticketEntryId);
+
+		ticketEntry.setTicketStatusId(ticketStatusId);
+
+		return ticketEntryPersistence.update(ticketEntry);
 	}
 
 	protected long getTicketNumber(long userId) {

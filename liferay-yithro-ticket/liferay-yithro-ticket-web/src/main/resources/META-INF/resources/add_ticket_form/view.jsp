@@ -24,9 +24,9 @@ String description = ParamUtil.getString(request, "description");
 <liferay-ui:error exception="<%= TicketEntryDescriptionException.class %>" message="please-enter-a-description-of-the-issue" />
 <liferay-ui:error exception="<%= TicketEntrySubjectException.class %>" message="please-enter-a-summary-of-the-issue" />
 
-<portlet:actionURL name="/add_ticket_entry" var="addTicketEntryURL" />
+<portlet:actionURL name="/edit_ticket_entry" var="editTicketEntryURL" />
 
-<aui:form action="<%= addTicketEntryURL %>" method="post" name="fm">
+<aui:form action="<%= editTicketEntryURL %>" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input label="summary" name="subject" required="<%= true %>" value="<%= subject %>" />
 

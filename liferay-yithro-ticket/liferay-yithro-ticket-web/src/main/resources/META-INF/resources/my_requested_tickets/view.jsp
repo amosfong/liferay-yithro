@@ -80,12 +80,6 @@ portletURL.setParameter("tabs1", tabs1);
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="description"
-				value="<%= ticketEntry.getDescription() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				href="<%= rowURL %>"
 				name="status"
 			>
 

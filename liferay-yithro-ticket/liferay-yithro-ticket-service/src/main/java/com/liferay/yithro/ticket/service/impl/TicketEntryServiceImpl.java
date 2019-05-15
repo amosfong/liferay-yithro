@@ -48,4 +48,12 @@ public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 			weight, ticketFieldsMap, ticketAttachments);
 	}
 
+	public TicketEntry updateTicketStatus(
+			long ticketEntryId, long ticketStatusId)
+		throws PortalException {
+
+		return ticketEntryLocalService.updateTicketStatus(
+			ticketEntryId, ticketStatusId);
+	}
+
 }

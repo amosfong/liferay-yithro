@@ -342,7 +342,6 @@
 		<!-- Order -->
 
 		<order by="asc">
-			<order-column name="status" />
 			<order-column name="order" />
 		</order>
 

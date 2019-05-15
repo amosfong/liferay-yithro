@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.yithro.ticket.exception.TicketStatusNameException;
 import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.base.TicketStatusLocalServiceBaseImpl;
+import com.liferay.yithro.ticket.util.comparator.TicketStatusOrderComparator;
 
 import java.util.List;
 import java.util.Locale;
@@ -68,6 +69,16 @@ public class TicketStatusLocalServiceImpl
 	public TicketStatus getInitialTicketStatus() throws PortalException {
 		return ticketStatusPersistence.findByT_S_First(
 			false, WorkflowConstants.STATUS_APPROVED, null);
+	}
+
+	public TicketStatus getNextTicketStatus(long ticketStatusId, int status)
+		throws PortalException {
+
+		TicketStatus[] ticketStatuses =
+			ticketStatusPersistence.findByS_PrevAndNext(
+				ticketStatusId, status, new TicketStatusOrderComparator(true));
+
+		return ticketStatuses[2];
 	}
 
 	public List<TicketStatus> getTicketStatuses(
