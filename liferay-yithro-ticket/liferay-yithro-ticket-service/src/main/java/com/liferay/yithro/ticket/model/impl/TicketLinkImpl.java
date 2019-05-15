@@ -16,13 +16,19 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.yithro.constants.Visibilities;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketLinkImpl extends TicketLinkBaseImpl {
 
 	public TicketLinkImpl() {
+	}
+
+	public String getVisibilityLabel() {
+		return Visibilities.getLabel(getVisibility());
 	}
 
 }

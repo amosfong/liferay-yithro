@@ -19,8 +19,6 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-int[] userVisibilities = {Visibilities.PUBLIC, Visibilities.WORKER};
-
 TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET_ENTRY);
 
 TicketStatus ticketStatus = ticketEntry.getTicketStatus();
@@ -66,17 +64,23 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 		refresh="<%= false %>"
 	>
 		<liferay-ui:section>
-			<div>
-				<%= HtmlUtil.escape(ticketEntry.getDescription()) %>
+			<div class="sheet">
+				<div class="sheet-text">
+					<%= HtmlUtil.escape(ticketEntry.getDescription()) %>
+				</div>
 			</div>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
-			attachments
+			<div class="sheet">
+				<div class="sheet-text">
+					attachments
+				</div>
+			</div>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
-			links
+			<liferay-util:include page="/common/edit_ticket_entry_links.jsp" servletContext="<%= application %>" />
 		</liferay-ui:section>
 	</liferay-ui:tabs>
 

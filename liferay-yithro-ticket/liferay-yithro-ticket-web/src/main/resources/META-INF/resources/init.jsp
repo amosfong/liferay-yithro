@@ -41,6 +41,7 @@ page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
+page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
@@ -50,6 +51,8 @@ page import="com.liferay.yithro.ticket.constants.TicketWebKeys" %><%@
 page import="com.liferay.yithro.ticket.exception.NoSuchTicketStatusException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntryDescriptionException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntrySubjectException" %><%@
+page import="com.liferay.yithro.ticket.exception.TicketLinkURLException" %><%@
+page import="com.liferay.yithro.ticket.exception.TicketLinkVisibilityException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketStatusNameException" %><%@
 page import="com.liferay.yithro.ticket.model.TicketAttachment" %><%@
 page import="com.liferay.yithro.ticket.model.TicketComment" %><%@
@@ -78,4 +81,6 @@ page import="java.util.List" %>
 
 <%
 Format fullDateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(DateFormat.FULL, DateFormat.FULL, locale, timeZone);
+
+int[] userVisibilities = {Visibilities.PUBLIC, Visibilities.WORKER};
 %>
