@@ -30,26 +30,49 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
+page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
+page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
+page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
+page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
+page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
 page import="com.liferay.taglib.search.ResultRow" %><%@
+page import="com.liferay.yithro.constants.Visibilities" %><%@
 page import="com.liferay.yithro.ticket.constants.TicketWebKeys" %><%@
 page import="com.liferay.yithro.ticket.exception.NoSuchTicketStatusException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntryDescriptionException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntrySubjectException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketStatusNameException" %><%@
+page import="com.liferay.yithro.ticket.model.TicketAttachment" %><%@
+page import="com.liferay.yithro.ticket.model.TicketComment" %><%@
+page import="com.liferay.yithro.ticket.model.TicketEntry" %><%@
+page import="com.liferay.yithro.ticket.model.TicketLink" %><%@
 page import="com.liferay.yithro.ticket.model.TicketStatus" %><%@
+page import="com.liferay.yithro.ticket.service.TicketAttachmentLocalServiceUtil" %><%@
+page import="com.liferay.yithro.ticket.service.TicketCommentLocalServiceUtil" %><%@
+page import="com.liferay.yithro.ticket.service.TicketEntryLocalServiceUtil" %><%@
+page import="com.liferay.yithro.ticket.service.TicketLinkLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil" %>
+
+<%@ page import="java.text.DateFormat" %><%@
+page import="java.text.Format" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %>
+
+<%@ page import="javax.portlet.PortletURL" %>
 
 <liferay-frontend:defineObjects />
 
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<%
+Format fullDateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(DateFormat.FULL, DateFormat.FULL, locale, timeZone);
+%>

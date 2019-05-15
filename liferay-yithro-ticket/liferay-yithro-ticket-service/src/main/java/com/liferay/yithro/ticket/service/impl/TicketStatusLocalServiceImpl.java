@@ -24,6 +24,7 @@ import com.liferay.yithro.ticket.exception.TicketStatusNameException;
 import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.base.TicketStatusLocalServiceBaseImpl;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -67,6 +68,12 @@ public class TicketStatusLocalServiceImpl
 	public TicketStatus getInitialTicketStatus() throws PortalException {
 		return ticketStatusPersistence.findByT_S_First(
 			false, WorkflowConstants.STATUS_APPROVED, null);
+	}
+
+	public List<TicketStatus> getTicketStatuses(
+		boolean terminal, int status, int start, int end) {
+
+		return ticketStatusPersistence.findByT_S(terminal, status, start, end);
 	}
 
 	public TicketStatus updateStatus(long ticketStatusId, int status)

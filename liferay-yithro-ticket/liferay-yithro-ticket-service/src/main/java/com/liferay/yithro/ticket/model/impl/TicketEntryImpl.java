@@ -29,9 +29,13 @@ public class TicketEntryImpl extends TicketEntryBaseImpl {
 	public TicketEntryImpl() {
 	}
 
+	public TicketStatus getTicketStatus() throws PortalException {
+		return TicketStatusLocalServiceUtil.getTicketStatus(
+			getTicketStatusId());
+	}
+
 	public boolean isClosed() throws PortalException {
-		TicketStatus ticketStatus =
-			TicketStatusLocalServiceUtil.getTicketStatus(getTicketStatusId());
+		TicketStatus ticketStatus = getTicketStatus();
 
 		if (ticketStatus.isTerminal()) {
 			return true;

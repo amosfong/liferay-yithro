@@ -73,7 +73,7 @@ public class TicketCommentLocalServiceImpl
 
 		validate(
 			ticketEntry, userId, body, type, visibility,
-			WorkflowConstants.STATUS_ANY, status, pendingTypes);
+			WorkflowConstants.STATUS_ANY, status);
 
 		long ticketCommentId = counterLocalService.increment();
 
@@ -228,7 +228,7 @@ public class TicketCommentLocalServiceImpl
 
 		validate(
 			ticketEntry, userId, body, ticketComment.getType(), visibility,
-			ticketComment.getStatus(), status, pendingTypes);
+			ticketComment.getStatus(), status);
 
 		ticketComment.setModifiedDate(new Date());
 		ticketComment.setTicketEntryId(ticketEntryId);
@@ -346,14 +346,14 @@ public class TicketCommentLocalServiceImpl
 
 	protected void validate(
 			TicketEntry ticketEntry, long userId, String body, int type,
-			int visibility, int oldStatus, int status, int[] pendingTypes)
+			int visibility, int oldStatus, int status)
 		throws PortalException {
 
 		if (Validator.isNull(body)) {
 			throw new TicketCommentBodyException();
 		}
 
-		if (Visibilities.hasVisibility(visibility)) {
+		if (!Visibilities.hasVisibility(visibility)) {
 			throw new TicketCommentVisibilityException();
 		}
 

@@ -27,6 +27,7 @@ String description = ParamUtil.getString(request, "description");
 <portlet:actionURL name="/add_ticket_entry" var="addTicketEntryURL" />
 
 <aui:form action="<%= addTicketEntryURL %>" method="post" name="fm">
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input label="summary" name="subject" required="<%= true %>" value="<%= subject %>" />
 
 	<aui:input name="description" type="textarea" value="<%= description %>" wrapperCssClass="lfr-textarea-container" />

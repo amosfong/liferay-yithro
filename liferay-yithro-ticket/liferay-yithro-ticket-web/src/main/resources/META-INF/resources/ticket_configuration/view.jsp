@@ -69,7 +69,7 @@ navigationItems.add(entriesNavigationItem);
 			<portlet:renderURL var="rowURL">
 				<portlet:param name="mvcRenderCommandName" value="/ticket_configuration/edit_ticket_status" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountId" value="<%= String.valueOf(ticketStatus.getTicketStatusId()) %>" />
+				<portlet:param name="ticketStatusId" value="<%= String.valueOf(ticketStatus.getTicketStatusId()) %>" />
 			</portlet:renderURL>
 
 			<liferay-ui:search-container-column-text

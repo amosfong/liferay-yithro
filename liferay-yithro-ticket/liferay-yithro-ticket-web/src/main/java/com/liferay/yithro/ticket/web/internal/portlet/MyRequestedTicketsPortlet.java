@@ -28,11 +28,8 @@ import org.osgi.service.component.annotations.Component;
 	property = {
 		"com.liferay.portlet.css-class-wrapper=yithro-my-requested-tickets-portlet",
 		"com.liferay.portlet.display-category=category.yithro",
-		"com.liferay.portlet.footer-portlet-javascript=/dist/main.js",
-		"com.liferay.portlet.header-portlet-css=/dist/main.css",
 		"javax.portlet.display-name=My Requested Tickets",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.mvc-command-names-default-views=/view",
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"

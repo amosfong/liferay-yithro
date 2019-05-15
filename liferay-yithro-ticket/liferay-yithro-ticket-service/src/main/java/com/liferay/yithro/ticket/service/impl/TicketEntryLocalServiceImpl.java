@@ -89,6 +89,7 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setModifiedDate(now);
 		ticketEntry.setTicketStatusId(tikcetStatusId);
 		ticketEntry.setLanguageId(languageId);
+		ticketEntry.setTicketNumber(getTicketNumber(userId));
 		ticketEntry.setSubject(subject);
 		ticketEntry.setDescription(description);
 		ticketEntry.setWeight(weight);
@@ -170,8 +171,19 @@ public class TicketEntryLocalServiceImpl
 			modifiedDate, start, end);
 	}
 
+	public List<TicketEntry> getTicketEntries(
+		long userId, long[] ticketStatusIds, int start, int end) {
+
+		return ticketEntryPersistence.findByU_TSI(
+			userId, ticketStatusIds, start, end);
+	}
+
 	public int getTicketEntriesCount(Date modifiedDate) {
 		return ticketEntryPersistence.countByGtModifiedDate(modifiedDate);
+	}
+
+	public int getTicketEntriesCount(long userId, long[] ticketStatusIds) {
+		return ticketEntryPersistence.countByU_TSI(userId, ticketStatusIds);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -262,6 +274,11 @@ public class TicketEntryLocalServiceImpl
 			user.getUserId(), now, auditSetId, oldTicketEntry, ticketEntry);
 
 		return ticketEntry;
+	}
+
+	protected long getTicketNumber(long userId) {
+		return counterLocalService.increment(
+			TicketEntry.class.getName() + "#" + userId);
 	}
 
 	protected void updateAuditEntry(
