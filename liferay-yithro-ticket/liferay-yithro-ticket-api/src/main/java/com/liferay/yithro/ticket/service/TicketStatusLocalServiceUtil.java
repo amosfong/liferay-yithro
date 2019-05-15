@@ -252,6 +252,12 @@ public class TicketStatusLocalServiceUtil {
 		return getService().getTicketStatus(ticketStatusId);
 	}
 
+	public static java.util.List<com.liferay.yithro.ticket.model.TicketStatus>
+		getTicketStatuses(boolean terminal, int status, int start, int end) {
+
+		return getService().getTicketStatuses(terminal, status, start, end);
+	}
+
 	/**
 	 * Returns a range of all the ticket statuses.
 	 *

@@ -213,6 +213,10 @@ public interface TicketStatusLocalService
 	public TicketStatus getTicketStatus(long ticketStatusId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketStatus> getTicketStatuses(
+		boolean terminal, int status, int start, int end);
+
 	/**
 	 * Returns a range of all the ticket statuses.
 	 *

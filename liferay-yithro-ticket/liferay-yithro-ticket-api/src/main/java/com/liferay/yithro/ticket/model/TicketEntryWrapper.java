@@ -277,6 +277,13 @@ public class TicketEntryWrapper
 		return model.getTicketNumber();
 	}
 
+	@Override
+	public TicketStatus getTicketStatus()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTicketStatus();
+	}
+
 	/**
 	 * Returns the ticket status ID of this ticket entry.
 	 *

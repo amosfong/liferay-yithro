@@ -56,6 +56,9 @@ public interface TicketEntry extends PersistedModel, TicketEntryModel {
 
 		};
 
+	public TicketStatus getTicketStatus()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 	public boolean isClosed()
 		throws com.liferay.portal.kernel.exception.PortalException;
 

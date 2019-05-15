@@ -224,6 +224,10 @@ public interface TicketEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketEntry> getTicketEntries(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketEntry> getTicketEntries(
+		long userId, long[] ticketStatusIds, int start, int end);
+
 	/**
 	 * Returns the number of ticket entries.
 	 *
@@ -234,6 +238,9 @@ public interface TicketEntryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketEntriesCount(Date modifiedDate);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTicketEntriesCount(long userId, long[] ticketStatusIds);
 
 	/**
 	 * Returns the ticket entry with the primary key.

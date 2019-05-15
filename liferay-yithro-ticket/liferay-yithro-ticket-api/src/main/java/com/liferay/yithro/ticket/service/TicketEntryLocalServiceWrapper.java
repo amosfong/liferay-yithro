@@ -272,6 +272,15 @@ public class TicketEntryLocalServiceWrapper
 		return _ticketEntryLocalService.getTicketEntries(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketEntry>
+		getTicketEntries(
+			long userId, long[] ticketStatusIds, int start, int end) {
+
+		return _ticketEntryLocalService.getTicketEntries(
+			userId, ticketStatusIds, start, end);
+	}
+
 	/**
 	 * Returns the number of ticket entries.
 	 *
@@ -285,6 +294,12 @@ public class TicketEntryLocalServiceWrapper
 	@Override
 	public int getTicketEntriesCount(java.util.Date modifiedDate) {
 		return _ticketEntryLocalService.getTicketEntriesCount(modifiedDate);
+	}
+
+	@Override
+	public int getTicketEntriesCount(long userId, long[] ticketStatusIds) {
+		return _ticketEntryLocalService.getTicketEntriesCount(
+			userId, ticketStatusIds);
 	}
 
 	/**

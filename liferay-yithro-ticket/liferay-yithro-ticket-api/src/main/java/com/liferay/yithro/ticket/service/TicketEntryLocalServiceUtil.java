@@ -258,6 +258,14 @@ public class TicketEntryLocalServiceUtil {
 		return getService().getTicketEntries(start, end);
 	}
 
+	public static java.util.List<com.liferay.yithro.ticket.model.TicketEntry>
+		getTicketEntries(
+			long userId, long[] ticketStatusIds, int start, int end) {
+
+		return getService().getTicketEntries(
+			userId, ticketStatusIds, start, end);
+	}
+
 	/**
 	 * Returns the number of ticket entries.
 	 *
@@ -269,6 +277,12 @@ public class TicketEntryLocalServiceUtil {
 
 	public static int getTicketEntriesCount(java.util.Date modifiedDate) {
 		return getService().getTicketEntriesCount(modifiedDate);
+	}
+
+	public static int getTicketEntriesCount(
+		long userId, long[] ticketStatusIds) {
+
+		return getService().getTicketEntriesCount(userId, ticketStatusIds);
 	}
 
 	/**

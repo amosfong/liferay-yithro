@@ -263,6 +263,14 @@ public class TicketStatusLocalServiceWrapper
 		return _ticketStatusLocalService.getTicketStatus(ticketStatusId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketStatus>
+		getTicketStatuses(boolean terminal, int status, int start, int end) {
+
+		return _ticketStatusLocalService.getTicketStatuses(
+			terminal, status, start, end);
+	}
+
 	/**
 	 * Returns a range of all the ticket statuses.
 	 *
