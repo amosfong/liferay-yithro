@@ -56,4 +56,6 @@ public interface TicketLink extends PersistedModel, TicketLinkModel {
 
 		};
 
+	public String getVisibilityLabel();
+
 }

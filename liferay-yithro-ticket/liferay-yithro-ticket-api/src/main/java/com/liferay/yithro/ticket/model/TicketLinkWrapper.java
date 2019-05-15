@@ -226,6 +226,11 @@ public class TicketLinkWrapper
 	}
 
 	@Override
+	public String getVisibilityLabel() {
+		return model.getVisibilityLabel();
+	}
+
+	@Override
 	public void persist() {
 		model.persist();
 	}

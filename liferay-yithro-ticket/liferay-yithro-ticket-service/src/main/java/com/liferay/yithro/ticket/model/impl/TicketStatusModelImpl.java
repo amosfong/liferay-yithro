@@ -108,10 +108,10 @@ public class TicketStatusModelImpl
 		"drop table Yithro_TicketStatus";
 
 	public static final String ORDER_BY_JPQL =
-		" ORDER BY ticketStatus.status ASC, ticketStatus.order ASC";
+		" ORDER BY ticketStatus.order ASC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY Yithro_TicketStatus.status ASC, Yithro_TicketStatus.order_ ASC";
+		" ORDER BY Yithro_TicketStatus.order_ ASC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -665,7 +665,7 @@ public class TicketStatusModelImpl
 
 	@Override
 	public void setStatus(int status) {
-		_columnBitmask = -1L;
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
 
 		if (!_setOriginalStatus) {
 			_setOriginalStatus = true;
@@ -819,20 +819,6 @@ public class TicketStatusModelImpl
 	@Override
 	public int compareTo(TicketStatus ticketStatus) {
 		int value = 0;
-
-		if (getStatus() < ticketStatus.getStatus()) {
-			value = -1;
-		}
-		else if (getStatus() > ticketStatus.getStatus()) {
-			value = 1;
-		}
-		else {
-			value = 0;
-		}
-
-		if (value != 0) {
-			return value;
-		}
 
 		if (getOrder() < ticketStatus.getOrder()) {
 			value = -1;
