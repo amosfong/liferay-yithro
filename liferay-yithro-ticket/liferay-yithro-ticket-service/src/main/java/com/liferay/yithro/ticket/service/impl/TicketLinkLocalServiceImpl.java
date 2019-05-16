@@ -48,14 +48,14 @@ import org.osgi.service.component.annotations.Reference;
 public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 	public void addTicketLink(
-			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			long userId, long ticketEntryId, String url, int type,
 			int visibility, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 		Date now = serviceContext.getCreateDate(new Date());
 
-		validate(ticketEntryId, urls, types, visibility);
+		validate(ticketEntryId, url, type, visibility);
 
 		long auditSetId = GetterUtil.getInteger(
 			serviceContext.getAttribute("auditSetId"));
@@ -72,28 +72,26 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 			auditAction = Actions.ADD;
 		}
 
-		for (int i = 0; i < urls.length; i++) {
-			long ticketLinkId = counterLocalService.increment();
+		long ticketLinkId = counterLocalService.increment();
 
-			TicketLink ticketLink = ticketLinkPersistence.create(ticketLinkId);
+		TicketLink ticketLink = ticketLinkPersistence.create(ticketLinkId);
 
-			ticketLink.setCompanyId(user.getCompanyId());
-			ticketLink.setUserId(user.getUserId());
-			ticketLink.setUserName(user.getFullName());
-			ticketLink.setCreateDate(now);
-			ticketLink.setTicketEntryId(ticketEntryId);
-			ticketLink.setUrl(urls[i]);
-			ticketLink.setType(types[i]);
-			ticketLink.setVisibility(visibility);
+		ticketLink.setCompanyId(user.getCompanyId());
+		ticketLink.setUserId(user.getUserId());
+		ticketLink.setUserName(user.getFullName());
+		ticketLink.setCreateDate(now);
+		ticketLink.setTicketEntryId(ticketEntryId);
+		ticketLink.setUrl(url);
+		ticketLink.setType(type);
+		ticketLink.setVisibility(visibility);
 
-			ticketLinkPersistence.update(ticketLink);
+		ticketLinkPersistence.update(ticketLink);
 
-			auditEntryLocalService.addAuditEntry(
-				userId, now, TicketEntry.class, ticketEntryId, auditSetId,
-				TicketLink.class, ticketLinkId, auditAction, Fields.URL,
-				visibility, StringPool.BLANK, StringPool.BLANK,
-				StringPool.BLANK, urls[i], StringPool.BLANK);
-		}
+		auditEntryLocalService.addAuditEntry(
+			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
+			TicketLink.class, ticketLinkId, auditAction, Fields.URL, visibility,
+			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, url,
+			StringPool.BLANK);
 	}
 
 	public void deleteTicketLink(long userId, long ticketLinkId)
@@ -137,24 +135,22 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long ticketEntryId, String[] urls, Integer[] types, int visibility)
+			long ticketEntryId, String url, int type, int visibility)
 		throws PortalException {
 
-		for (int i = 0; i < urls.length; i++) {
-			if (!Validator.isUrl(urls[i])) {
-				throw new TicketLinkURLException();
-			}
+		ticketEntryPersistence.findByPrimaryKey(ticketEntryId);
 
-			if ((types[i] < 0) || (types[i] > 4)) {
-				throw new TicketLinkTypeException();
-			}
+		if (!Validator.isUrl(url)) {
+			throw new TicketLinkURLException();
+		}
+
+		if ((type < 0) || (type > 4)) {
+			throw new TicketLinkTypeException();
 		}
 
 		if (!Visibilities.hasVisibility(visibility)) {
 			throw new TicketLinkVisibilityException();
 		}
-
-		ticketEntryPersistence.findByPrimaryKey(ticketEntryId);
 	}
 
 	@Reference

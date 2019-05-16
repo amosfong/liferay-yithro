@@ -19,9 +19,7 @@
 <%
 TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET_ENTRY);
 
-String url1 = ParamUtil.getString(request, "url1");
-String url2 = ParamUtil.getString(request, "url2");
-String url3 = ParamUtil.getString(request, "url3");
+String url = ParamUtil.getString(request, "url");
 int visibility = ParamUtil.getInteger(request, "visibility");
 
 List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketEntry.getTicketEntryId(), userVisibilities);
@@ -87,13 +85,9 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 					<liferay-ui:message key="add-link" />
 				</div>
 
-				<aui:input inlineLabel="left" label="url-1" name="url1" type="url" value="<%= url1 %>" />
+				<aui:input name="url" type="url" value="<%= url %>" />
 
-				<aui:input inlineLabel="left" label="url-2" name="url2" type="url" value="<%= url2 %>" />
-
-				<aui:input inlineLabel="left" label="url-3" name="url3" type="url" value="<%= url3 %>" />
-
-				<aui:select inlineLabel="left" name="visibility">
+				<aui:select name="visibility">
 
 					<%
 					for (int curVisibility : userVisibilities) {

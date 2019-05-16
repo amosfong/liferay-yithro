@@ -21,10 +21,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.yithro.ticket.constants.TicketLinkTypes;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
@@ -56,23 +54,12 @@ public class EditTicketLinkMVCActionCommand extends BaseMVCActionCommand {
 
 		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
 
-		String[] urls = new String[0];
-		Integer[] types = new Integer[0];
-
-		for (int i = 1; i <= 3; i++) {
-			String url = ParamUtil.getString(actionRequest, "url" + i);
-
-			if (Validator.isNotNull(url)) {
-				urls = ArrayUtil.append(urls, url);
-				types = ArrayUtil.append(types, TicketLinkTypes.NORMAL);
-			}
-		}
-
+		String url = ParamUtil.getString(actionRequest, "url");
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
 		_ticketLinkLocalService.addTicketLink(
-			themeDisplay.getUserId(), ticketEntryId, urls, types, visibility,
-			new ServiceContext());
+			themeDisplay.getUserId(), ticketEntryId, url,
+			TicketLinkTypes.NORMAL, visibility, new ServiceContext());
 	}
 
 	protected void deleteTicketLink(ActionRequest actionRequest)
