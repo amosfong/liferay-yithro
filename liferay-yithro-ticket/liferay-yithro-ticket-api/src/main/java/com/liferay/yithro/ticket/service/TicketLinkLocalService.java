@@ -62,7 +62,7 @@ public interface TicketLinkLocalService
 	 * Never modify or reference this interface directly. Always use {@link TicketLinkLocalServiceUtil} to access the ticket link local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketLinkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public void addTicketLink(
-			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			long userId, long ticketEntryId, String url, int type,
 			int visibility, ServiceContext serviceContext)
 		throws PortalException;
 

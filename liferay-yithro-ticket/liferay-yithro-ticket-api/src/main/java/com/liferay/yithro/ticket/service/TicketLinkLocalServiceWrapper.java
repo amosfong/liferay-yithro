@@ -37,13 +37,13 @@ public class TicketLinkLocalServiceWrapper
 
 	@Override
 	public void addTicketLink(
-			long userId, long ticketEntryId, String[] urls, Integer[] types,
+			long userId, long ticketEntryId, String url, int type,
 			int visibility,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_ticketLinkLocalService.addTicketLink(
-			userId, ticketEntryId, urls, types, visibility, serviceContext);
+			userId, ticketEntryId, url, type, visibility, serviceContext);
 	}
 
 	/**
