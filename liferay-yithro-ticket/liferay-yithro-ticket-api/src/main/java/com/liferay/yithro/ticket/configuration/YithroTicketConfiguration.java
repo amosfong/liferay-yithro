@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.internal.configuration;
+package com.liferay.yithro.ticket.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
@@ -23,7 +23,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  */
 @ExtendedObjectClassDefinition(category = "yithro")
 @Meta.OCD(
-	id = "com.liferay.yithro.ticket.internal.configuration.YithroTicketConfiguration",
+	id = "com.liferay.yithro.ticket.configuration.YithroTicketConfiguration",
 	localization = "content/Language", name = "Yithro Ticket"
 )
 public interface YithroTicketConfiguration {
@@ -40,5 +40,11 @@ public interface YithroTicketConfiguration {
 		name = "ticket-attachment-indexing-extensions", required = false
 	)
 	public String[] ticketAttachmentIndexingExtensions();
+
+	@Meta.AD(
+		deflt = "flv|gif|jpg|log|pdf|png|swf|txt|wmv",
+		name = "ticket-attachment-preview-extensions", required = false
+	)
+	public String[] ticketAttachmentPreviewExtensions();
 
 }

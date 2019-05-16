@@ -19,6 +19,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.document.library.kernel.store.Store;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.yithro.constants.Visibilities;
 
 import java.io.File;
 
@@ -29,6 +30,15 @@ import java.io.File;
 public class TicketAttachmentImpl extends TicketAttachmentBaseImpl {
 
 	public TicketAttachmentImpl() {
+	}
+
+	public int getContentLength() {
+		if (getFileSize() > Integer.MAX_VALUE) {
+			return 0;
+		}
+		else {
+			return (int)getFileSize();
+		}
 	}
 
 	public File getFile() {
@@ -54,6 +64,10 @@ public class TicketAttachmentImpl extends TicketAttachmentBaseImpl {
 		sb.append(Store.VERSION_DEFAULT);
 
 		return sb.toString();
+	}
+
+	public String getVisibilityLabel() {
+		return Visibilities.getLabel(getVisibility());
 	}
 
 	public void setFile(File file) {

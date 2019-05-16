@@ -14,12 +14,23 @@
 
 package com.liferay.yithro.ticket.web.internal.portlet;
 
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.yithro.ticket.configuration.YithroTicketConfiguration;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 
-import javax.portlet.Portlet;
+import java.io.IOException;
 
+import java.util.Map;
+
+import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 
 /**
  * @author Amos Fong
@@ -37,4 +48,26 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class MyRequestedTicketsPortlet extends MVCPortlet {
+
+	@Override
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws IOException, PortletException {
+
+		renderRequest.setAttribute(
+			YithroTicketConfiguration.class.getName(),
+			_yithroTicketConfiguration);
+
+		super.render(renderRequest, renderResponse);
+	}
+
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		_yithroTicketConfiguration = ConfigurableUtil.createConfigurable(
+			YithroTicketConfiguration.class, properties);
+	}
+
+	private volatile YithroTicketConfiguration _yithroTicketConfiguration;
+
 }

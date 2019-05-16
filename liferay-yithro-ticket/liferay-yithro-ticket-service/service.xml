@@ -405,6 +405,7 @@
 	</entity>
 	<exceptions>
 		<exception>DuplicateTicketAttachment</exception>
+		<exception>TicketAttachmentSize</exception>
 		<exception>TicketAttachmentVisibility</exception>
 		<exception>TicketCommentBody</exception>
 		<exception>TicketCommentMaximumDraft</exception>

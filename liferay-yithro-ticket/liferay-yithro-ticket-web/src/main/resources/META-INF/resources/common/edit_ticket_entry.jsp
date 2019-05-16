@@ -74,13 +74,17 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 		<liferay-ui:section>
 			<div class="sheet">
 				<div class="sheet-text">
-					attachments
+					<liferay-util:include page="/common/edit_ticket_entry_attachments.jsp" servletContext="<%= application %>" />
 				</div>
 			</div>
 		</liferay-ui:section>
 
 		<liferay-ui:section>
-			<liferay-util:include page="/common/edit_ticket_entry_links.jsp" servletContext="<%= application %>" />
+			<div class="sheet">
+				<div class="sheet-text">
+					<liferay-util:include page="/common/edit_ticket_entry_links.jsp" servletContext="<%= application %>" />
+				</div>
+			</div>
 		</liferay-ui:section>
 	</liferay-ui:tabs>
 

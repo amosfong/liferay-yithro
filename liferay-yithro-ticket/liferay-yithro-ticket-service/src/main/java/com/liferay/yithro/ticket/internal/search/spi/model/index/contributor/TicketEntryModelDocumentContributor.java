@@ -27,9 +27,9 @@ import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContri
 import com.liferay.subscription.model.Subscription;
 import com.liferay.subscription.service.SubscriptionLocalService;
 import com.liferay.yithro.constants.Visibilities;
+import com.liferay.yithro.ticket.configuration.YithroTicketConfiguration;
 import com.liferay.yithro.ticket.constants.TicketFlagType;
 import com.liferay.yithro.ticket.constants.TicketFlagValue;
-import com.liferay.yithro.ticket.internal.configuration.YithroTicketConfiguration;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.model.TicketEntry;

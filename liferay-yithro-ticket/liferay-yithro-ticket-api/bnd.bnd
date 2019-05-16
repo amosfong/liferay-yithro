@@ -2,6 +2,7 @@ Bundle-Name: Liferay Yithro Ticket API
 Bundle-SymbolicName: com.liferay.yithro.ticket.api
 Bundle-Version: 1.0.0
 Export-Package:\
+	com.liferay.yithro.ticket.configuration,\
 	com.liferay.yithro.ticket.constants,\
 	com.liferay.yithro.ticket.exception,\
 	com.liferay.yithro.ticket.model,\

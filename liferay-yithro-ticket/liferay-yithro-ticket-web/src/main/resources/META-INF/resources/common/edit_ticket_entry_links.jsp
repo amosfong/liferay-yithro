@@ -28,81 +28,77 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 <liferay-ui:error exception="<%= TicketLinkURLException.class %>" message="please-enter-a-valid-url" />
 <liferay-ui:error exception="<%= TicketLinkVisibilityException.class %>" message="please-enter-a-valid-visibility" />
 
-<div class="sheet">
-	<div class="sheet-text">
-		<liferay-ui:search-container
-			emptyResultsMessage="there-are-no-links"
-			headerNames="url,visibility"
-			total="<%= ticketLinks.size() %>"
-		>
-			<liferay-ui:search-container-results
-				results="<%= ticketLinks %>"
+<liferay-ui:search-container
+	emptyResultsMessage="there-are-no-links"
+	headerNames="url,visibility"
+	total="<%= ticketLinks.size() %>"
+>
+	<liferay-ui:search-container-results
+		results="<%= ticketLinks %>"
+	/>
+
+	<liferay-ui:search-container-row
+		className="com.liferay.yithro.ticket.model.TicketLink"
+		escapedModel="<%= true %>"
+		keyProperty="ticketLinkId"
+		modelVar="ticketLink"
+	>
+		<liferay-ui:search-container-column-text
+			href="<%= ticketLink.getUrl() %>"
+			name="url"
+			target="_blank"
+			value="<%= StringUtil.shorten(ticketLink.getUrl(), 115) %>"
+		/>
+
+		<c:if test="<%= userVisibilities.length > 1 %>">
+			<liferay-ui:search-container-column-text
+				href="<%= ticketLink.getUrl() %>"
+				name="visibility"
+				target="_blank"
+				translate="<%= true %>"
+				value="<%= ticketLink.getVisibilityLabel() %>"
 			/>
+		</c:if>
 
-			<liferay-ui:search-container-row
-				className="com.liferay.yithro.ticket.model.TicketLink"
-				escapedModel="<%= true %>"
-				keyProperty="ticketLinkId"
-				modelVar="ticketLink"
-			>
-				<liferay-ui:search-container-column-text
-					href="<%= ticketLink.getUrl() %>"
-					name="url"
-					target="_blank"
-					value="<%= StringUtil.shorten(ticketLink.getUrl(), 115) %>"
-				/>
+		<liferay-ui:search-container-column-jsp
+			align="right"
+			path="/common/ticket_link_action.jsp"
+		/>
+	</liferay-ui:search-container-row>
 
-				<c:if test="<%= userVisibilities.length > 1 %>">
-					<liferay-ui:search-container-column-text
-						href="<%= ticketLink.getUrl() %>"
-						name="visibility"
-						target="_blank"
-						translate="<%= true %>"
-						value="<%= ticketLink.getVisibilityLabel() %>"
-					/>
-				</c:if>
+	<liferay-ui:search-iterator
+		markupView="lexicon"
+		paginate="<%= false %>"
+	/>
+</liferay-ui:search-container>
 
-				<liferay-ui:search-container-column-jsp
-					align="right"
-					path="/common/ticket_link_action.jsp"
-				/>
-			</liferay-ui:search-container-row>
+<portlet:actionURL name="/edit_ticket_link" var="addTicketLinkURL" />
 
-			<liferay-ui:search-iterator
-				markupView="lexicon"
-				paginate="<%= false %>"
-			/>
-		</liferay-ui:search-container>
+<aui:form action="<%= addTicketLinkURL %>" method="post" name="fm2">
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+	<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
 
-		<portlet:actionURL name="/edit_ticket_link" var="addTicketLinkURL" />
+	<aui:fieldset>
+		<div class="sheet-title">
+			<liferay-ui:message key="add-link" />
+		</div>
 
-		<aui:form action="<%= addTicketLinkURL %>" method="post" name="fm2">
-			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-			<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
+		<aui:input name="url" type="url" value="<%= url %>" />
 
-			<aui:fieldset>
-				<div class="sheet-title">
-					<liferay-ui:message key="add-link" />
-				</div>
+		<aui:select name="visibility">
 
-				<aui:input name="url" type="url" value="<%= url %>" />
+			<%
+			for (int curVisibility : userVisibilities) {
+			%>
 
-				<aui:select name="visibility">
+				<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
 
-					<%
-					for (int curVisibility : userVisibilities) {
-					%>
+			<%
+			}
+			%>
 
-						<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
+		</aui:select>
+	</aui:fieldset>
 
-					<%
-					}
-					%>
-
-				</aui:select>
-			</aui:fieldset>
-
-			<aui:button type="submit" value="save" />
-		</aui:form>
-	</div>
-</div>
+	<aui:button type="submit" value="save" />
+</aui:form>
