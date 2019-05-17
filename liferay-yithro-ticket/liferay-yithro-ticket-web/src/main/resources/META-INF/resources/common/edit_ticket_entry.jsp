@@ -133,6 +133,35 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 								</div>
 							</div>
 						</div>
+
+						<div class="autofit-col">
+							<liferay-ui:icon
+								cssClass="icon-monospaced"
+								image="../journal/link_to_page"
+								message="permalink"
+								url='<%= "javascript:;" %>'
+							/>
+						</div>
+
+						<div class="autofit-col">
+							<liferay-ui:icon-menu
+								direction="left-side"
+								icon="<%= StringPool.BLANK %>"
+								markupView="lexicon"
+								message="actions"
+								showWhenSingleIcon="<%= true %>"
+							>
+								<liferay-ui:icon
+									message="edit"
+									url='<%= "" %>'
+								/>
+
+								<liferay-ui:icon-delete
+									label="<%= true %>"
+									url='<%= "" %>'
+								/>
+							</liferay-ui:icon-menu>
+						</div>
 					</div>
 
 					<div class="widget-content">
