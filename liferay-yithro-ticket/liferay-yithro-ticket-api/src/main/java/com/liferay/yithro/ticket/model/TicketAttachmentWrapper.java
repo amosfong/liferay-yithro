@@ -132,6 +132,11 @@ public class TicketAttachmentWrapper
 		return model.getCompanyId();
 	}
 
+	@Override
+	public int getContentLength() {
+		return model.getContentLength();
+	}
+
 	/**
 	 * Returns the create date of this ticket attachment.
 	 *
@@ -255,6 +260,11 @@ public class TicketAttachmentWrapper
 	@Override
 	public int getVisibility() {
 		return model.getVisibility();
+	}
+
+	@Override
+	public String getVisibilityLabel() {
+		return model.getVisibilityLabel();
 	}
 
 	@Override
