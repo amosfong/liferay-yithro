@@ -17,6 +17,7 @@ package com.liferay.yithro.ticket.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -39,8 +40,10 @@ import com.liferay.yithro.ticket.exception.TicketCommentVisibilityException;
 import com.liferay.yithro.ticket.exception.TicketEntryClosedException;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketComment;
+import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
+import com.liferay.yithro.ticket.service.TicketCommunicationLocalService;
 import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 import com.liferay.yithro.ticket.service.base.TicketCommentLocalServiceBaseImpl;
 
@@ -67,9 +70,9 @@ public class TicketCommentLocalServiceImpl
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+
 		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
 			ticketEntryId);
-		Date now = serviceContext.getCreateDate(new Date());
 
 		validate(
 			ticketEntry, userId, body, type, visibility,
@@ -82,8 +85,6 @@ public class TicketCommentLocalServiceImpl
 
 		ticketComment.setUserId(user.getUserId());
 		ticketComment.setUserName(user.getFullName());
-		ticketComment.setCreateDate(now);
-		ticketComment.setModifiedDate(now);
 		ticketComment.setTicketEntryId(ticketEntryId);
 		ticketComment.setBody(body);
 		ticketComment.setType(type);
@@ -104,13 +105,6 @@ public class TicketCommentLocalServiceImpl
 		}
 
 		ticketCommentPersistence.update(ticketComment);
-
-		int auditAction = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditAction"));
-
-		if (auditAction <= 0) {
-			serviceContext.setAttribute("auditAction", Actions.ADD);
-		}
 
 		updateStatus(
 			user, ticketComment, ticketEntry, status, pendingTypes,
@@ -142,6 +136,11 @@ public class TicketCommentLocalServiceImpl
 				ticketComment.getVisibility(), StringPool.BLANK,
 				ticketComment.getBody(), StringPool.BLANK, StringPool.BLANK,
 				StringPool.BLANK);
+
+			// Ticket communication
+
+			ticketCommunicationLocalService.deleteTicketCommunication(
+				TicketComment.class, ticketComment.getTicketCommentId());
 		}
 		else {
 			List<TicketAttachment> ticketAttachments =
@@ -152,7 +151,7 @@ public class TicketCommentLocalServiceImpl
 
 			for (TicketAttachment ticketAttachment : ticketAttachments) {
 				ticketAttachmentLocalService.deleteTicketAttachment(
-					userId, ticketAttachment);
+					ticketAttachment);
 			}
 		}
 
@@ -233,7 +232,7 @@ public class TicketCommentLocalServiceImpl
 		ticketComment.setModifiedDate(new Date());
 		ticketComment.setTicketEntryId(ticketEntryId);
 		ticketComment.setBody(body);
-		ticketComment.setFormat(TicketCommentFormat.BBCODE);
+		ticketComment.setFormat(TicketCommentFormat.PLAIN);
 		ticketComment.setVisibility(visibility);
 
 		if (status == WorkflowConstants.STATUS_DRAFT) {
@@ -262,6 +261,12 @@ public class TicketCommentLocalServiceImpl
 			serviceContext);
 
 		return ticketComment;
+	}
+
+	protected String renderTicketComment(TicketComment ticketComment) {
+		String renderedContent = ticketComment.getBody();
+
+		return renderedContent.replace("\n", "<br />");
 	}
 
 	protected void updateStatus(
@@ -312,24 +317,24 @@ public class TicketCommentLocalServiceImpl
 				pendingTypes);
 		}
 
-		// Audit entry
+		// Ticket communication
 
-		boolean auditEnabled = GetterUtil.getBoolean(
-			serviceContext.getAttribute("auditEnabled"), true);
+		TicketCommunication ticketCommunication =
+			ticketCommunicationLocalService.fetchTicketCommunication(
+				TicketComment.class, ticketComment.getTicketCommentId());
 
-		if (auditEnabled) {
-			long auditSetId = GetterUtil.getLong(
-				serviceContext.getAttribute("auditSetId"));
-			int auditAction = GetterUtil.getInteger(
-				serviceContext.getAttribute("auditAction"));
-
-			auditEntryLocalService.addAuditEntry(
-				user.getUserId(), now, TicketEntry.class,
-				ticketComment.getTicketEntryId(), auditSetId,
+		if (ticketCommunication != null) {
+			ticketCommunicationLocalService.updateTicketCommunication(
+				ticketCommunication.getTicketCommunicationId(),
+				renderTicketComment(ticketComment),
+				jsonFactory.createJSONObject());
+		}
+		else {
+			ticketCommunicationLocalService.addTicketCommunication(
+				ticketComment.getUserId(), ticketComment.getTicketEntryId(),
 				TicketComment.class, ticketComment.getTicketCommentId(),
-				auditAction, Fields.BODY, ticketComment.getVisibility(),
-				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-				ticketComment.getBody(), StringPool.BLANK);
+				renderTicketComment(ticketComment),
+				jsonFactory.createJSONObject());
 		}
 
 		// Email
@@ -382,7 +387,13 @@ public class TicketCommentLocalServiceImpl
 	protected AuditEntryLocalService auditEntryLocalService;
 
 	@Reference
+	protected JSONFactory jsonFactory;
+
+	@Reference
 	protected TicketAttachmentLocalService ticketAttachmentLocalService;
+
+	@Reference
+	protected TicketCommunicationLocalService ticketCommunicationLocalService;
 
 	@Reference
 	protected TicketEntryLocalService ticketEntryLocalService;

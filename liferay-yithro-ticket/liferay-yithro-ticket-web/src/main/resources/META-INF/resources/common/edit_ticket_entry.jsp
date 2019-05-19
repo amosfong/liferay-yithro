@@ -89,7 +89,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 	</liferay-ui:tabs>
 
 	<liferay-ui:tabs
-		names="public"
+		names="conversation"
 		refresh="<%= false %>"
 	>
 		<liferay-ui:section>
@@ -106,17 +106,17 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 			</aui:form>
 
 			<%
-			List<TicketComment> ticketComments = TicketCommentLocalServiceUtil.getTicketComments(ticketEntry.getTicketEntryId(), new int[] {Visibilities.PUBLIC}, new int[] {WorkflowConstants.STATUS_APPROVED});
+			List<TicketCommunication> ticketCommunications = TicketCommunicationLocalServiceUtil.getTicketCommunications(ticketEntry.getTicketEntryId());
 
-			for (TicketComment ticketComment : ticketComments) {
-				User ticketCommentUser = UserLocalServiceUtil.getUser(ticketComment.getUserId());
+			for (TicketCommunication ticketCommunication : ticketCommunications) {
+				User ticketCommunicationUser = UserLocalServiceUtil.getUser(ticketCommunication.getUserId());
 			%>
 
 				<div class="widget-mode-simple-entry">
 					<div class="autofit-row widget-metadata">
 						<div class="autofit-col inline-item-before">
 							<liferay-ui:user-portrait
-								user="<%= ticketCommentUser %>"
+								user="<%= ticketCommunicationUser %>"
 							/>
 						</div>
 
@@ -124,11 +124,11 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 							<div class="autofit-row">
 								<div class="autofit-col autofit-col-expand">
 									<div class="text-truncate-inline">
-										<%= HtmlUtil.escape(ticketCommentUser.getFullName()) %>
+										<%= HtmlUtil.escape(ticketCommunicationUser.getFullName()) %>
 									</div>
 
 									<div class="text-secondary">
-										<%= fullDateFormatDateTime.format(ticketComment.getCreateDate()) %>
+										<%= fullDateFormatDateTime.format(ticketCommunication.getCreateDate()) %>
 									</div>
 								</div>
 							</div>
@@ -153,19 +153,75 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 							>
 								<liferay-ui:icon
 									message="edit"
-									url='<%= "" %>'
+									url='<%= "#" %>'
 								/>
 
 								<liferay-ui:icon-delete
 									label="<%= true %>"
-									url='<%= "" %>'
+									url='<%= "#" %>'
 								/>
 							</liferay-ui:icon-menu>
 						</div>
 					</div>
 
 					<div class="widget-content">
-						<%= ticketComment.getBody() %>
+						<c:choose>
+							<c:when test="<%= ticketCommunication.getClassNameId() == PortalUtil.getClassNameId(TicketAttachment.class) %>">
+
+								<%
+								JSONObject jsonObjectProperties = JSONFactoryUtil.createJSONObject(ticketCommunication.getProperties());
+
+								JSONArray jsonArray = jsonObjectProperties.getJSONArray("ticketAttachments");
+
+								for (int i = 0; i < jsonArray.length(); i++) {
+									JSONObject jsonObject = jsonArray.getJSONObject(i);
+								%>
+
+									<portlet:resourceURL id="/download_ticket_attachment" var="downloadAttachmentURL">
+										<portlet:param name="ticketAttachmentId" value='<%= jsonObject.getString("ticketAttachmentId") %>' />
+									</portlet:resourceURL>
+
+									<liferay-ui:icon
+										cssClass="icon-monospaced"
+										image="../common/clip"
+										message="attachment"
+									/>
+
+									<a href="<%= downloadAttachmentURL %>"><%= jsonObject.getString("fileName") %></a> (<%= TextFormatter.formatStorageSize(jsonObject.getDouble("fileSize"), locale) %>)
+
+								<%
+								}
+								%>
+
+							</c:when>
+							<c:when test="<%= ticketCommunication.getClassNameId() == PortalUtil.getClassNameId(TicketLink.class) %>">
+
+								<%
+								JSONObject jsonObjectProperties = JSONFactoryUtil.createJSONObject(ticketCommunication.getProperties());
+
+								JSONArray jsonArray = jsonObjectProperties.getJSONArray("ticketLinks");
+
+								for (int i = 0; i < jsonArray.length(); i++) {
+									JSONObject jsonObject = jsonArray.getJSONObject(i);
+								%>
+
+									<liferay-ui:icon
+										cssClass="icon-monospaced"
+										image="../journal/link_to_page"
+										message="link"
+									/>
+
+									<a href="<%= jsonObject.getString("url") %>"><%= jsonObject.getString("url") %></a>
+
+								<%
+								}
+								%>
+
+							</c:when>
+							<c:otherwise>
+								<%= ticketCommunication.getContent() %>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 

@@ -20,23 +20,22 @@ import com.liferay.document.library.kernel.store.DLStoreUtil;
 import com.liferay.document.library.kernel.util.DLValidatorUtil;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.zip.ZipWriter;
 import com.liferay.portal.kernel.zip.ZipWriterFactoryUtil;
-import com.liferay.yithro.audit.constants.Actions;
-import com.liferay.yithro.audit.constants.Fields;
 import com.liferay.yithro.audit.service.AuditEntryLocalService;
 import com.liferay.yithro.constants.Visibilities;
 import com.liferay.yithro.ticket.constants.TicketAttachmentConstants;
 import com.liferay.yithro.ticket.exception.DuplicateTicketAttachmentException;
 import com.liferay.yithro.ticket.exception.TicketAttachmentVisibilityException;
 import com.liferay.yithro.ticket.model.TicketAttachment;
-import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.yithro.ticket.service.TicketCommunicationLocalService;
 import com.liferay.yithro.ticket.service.base.TicketAttachmentLocalServiceBaseImpl;
 
 import java.io.File;
@@ -117,25 +116,21 @@ public class TicketAttachmentLocalServiceImpl
 				TicketAttachmentConstants.TICKET_ENTRY_DEFAULT_ID);
 
 		for (TicketAttachment ticketAttachment : ticketAttachments) {
-			User user = userLocalService.getDefaultUser(
-				ticketAttachment.getCompanyId());
-
-			deleteTicketAttachment(user.getUserId(), ticketAttachment);
+			deleteTicketAttachment(ticketAttachment);
 		}
 	}
 
-	public TicketAttachment deleteTicketAttachment(
-			long userId, long ticketAttachmentId)
+	public TicketAttachment deleteTicketAttachment(long ticketAttachmentId)
 		throws PortalException {
 
 		TicketAttachment ticketAttachment =
 			ticketAttachmentPersistence.fetchByPrimaryKey(ticketAttachmentId);
 
-		return deleteTicketAttachment(userId, ticketAttachment);
+		return deleteTicketAttachment(ticketAttachment);
 	}
 
 	public TicketAttachment deleteTicketAttachment(
-			long userId, TicketAttachment ticketAttachment)
+			TicketAttachment ticketAttachment)
 		throws PortalException {
 
 		// Ticket attachment
@@ -159,15 +154,10 @@ public class TicketAttachmentLocalServiceImpl
 			return ticketAttachment;
 		}
 
-		// Audit entry
+		// Ticket communication
 
-		auditEntryLocalService.addAuditEntry(
-			userId, new Date(), TicketEntry.class,
-			ticketAttachment.getTicketEntryId(), 0, TicketAttachment.class,
-			ticketAttachment.getTicketAttachmentId(), Actions.DELETE,
-			Fields.FILE, Visibilities.PUBLIC, StringPool.BLANK,
-			ticketAttachment.getFileName(), StringPool.BLANK, StringPool.BLANK,
-			StringPool.BLANK);
+		ticketCommunicationLocalService.deleteTicketCommunication(
+			TicketAttachment.class, ticketAttachment.getTicketAttachmentId());
 
 		return ticketAttachment;
 	}
@@ -258,29 +248,12 @@ public class TicketAttachmentLocalServiceImpl
 			return;
 		}
 
-		// Audit entry
+		// Ticket communication
 
-		long auditSetId = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditSetId"));
-
-		if (auditSetId <= 0) {
-			auditSetId = auditEntryLocalService.getNextAuditSetId(
-				TicketEntry.class.getName(), ticketEntryId);
-		}
-
-		int auditAction = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditAction"));
-
-		if (auditAction <= 0) {
-			auditAction = Actions.ADD;
-		}
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
+		ticketCommunicationLocalService.addTicketCommunication(
+			ticketAttachment.getUserId(), ticketAttachment.getTicketEntryId(),
 			TicketAttachment.class, ticketAttachment.getTicketAttachmentId(),
-			auditAction, Fields.FILE, ticketAttachment.getVisibility(),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
-			ticketAttachment.getFileName(), StringPool.BLANK);
+			null, getJSONObject(ticketAttachment));
 	}
 
 	public TicketAttachment updateTicketAttachment(
@@ -318,6 +291,25 @@ public class TicketAttachmentLocalServiceImpl
 		return ticketAttachment;
 	}
 
+	protected JSONObject getJSONObject(TicketAttachment ticketAttachment) {
+		JSONObject jsonObject = jsonFactory.createJSONObject();
+
+		JSONArray jsonArray = jsonFactory.createJSONArray();
+
+		JSONObject attachmentJSONObject = jsonFactory.createJSONObject();
+
+		attachmentJSONObject.put("fileName", ticketAttachment.getFileName());
+		attachmentJSONObject.put("fileSize", ticketAttachment.getFileSize());
+		attachmentJSONObject.put(
+			"ticketAttachmentId", ticketAttachment.getTicketAttachmentId());
+
+		jsonArray.put(attachmentJSONObject);
+
+		jsonObject.put("ticketAttachments", jsonArray);
+
+		return jsonObject;
+	}
+
 	protected void validate(
 			long ticketEntryId, String fileName, long fileSize, int visibility)
 		throws PortalException {
@@ -339,5 +331,11 @@ public class TicketAttachmentLocalServiceImpl
 
 	@Reference
 	protected AuditEntryLocalService auditEntryLocalService;
+
+	@Reference
+	protected JSONFactory jsonFactory;
+
+	@Reference
+	protected TicketCommunicationLocalService ticketCommunicationLocalService;
 
 }

@@ -16,6 +16,9 @@ package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -30,6 +33,7 @@ import com.liferay.yithro.ticket.exception.TicketLinkURLException;
 import com.liferay.yithro.ticket.exception.TicketLinkVisibilityException;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.model.TicketLink;
+import com.liferay.yithro.ticket.service.TicketCommunicationLocalService;
 import com.liferay.yithro.ticket.service.base.TicketLinkLocalServiceBaseImpl;
 
 import java.util.Date;
@@ -47,7 +51,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
-	public void addTicketLink(
+	public TicketLink addTicketLink(
 			long userId, long ticketEntryId, String url, int type,
 			int visibility, ServiceContext serviceContext)
 		throws PortalException {
@@ -87,33 +91,44 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 		ticketLinkPersistence.update(ticketLink);
 
+		// Ticket communication
+
+		ticketCommunicationLocalService.addTicketCommunication(
+			ticketLink.getUserId(), ticketLink.getTicketEntryId(),
+			TicketLink.class, ticketLink.getTicketLinkId(), null,
+			getJSONObject(ticketLink));
+
+		// Audit entry
+
 		auditEntryLocalService.addAuditEntry(
 			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
 			TicketLink.class, ticketLinkId, auditAction, Fields.URL, visibility,
 			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, url,
 			StringPool.BLANK);
+
+		return ticketLink;
 	}
 
-	public void deleteTicketLink(long userId, long ticketLinkId)
+	public TicketLink deleteTicketLink(long ticketLinkId)
 		throws PortalException {
 
 		TicketLink ticketLink = ticketLinkPersistence.findByPrimaryKey(
 			ticketLinkId);
 
-		deleteTicketLink(userId, ticketLink);
+		return deleteTicketLink(ticketLink);
 	}
 
-	public void deleteTicketLink(long userId, TicketLink ticketLink)
+	public TicketLink deleteTicketLink(TicketLink ticketLink)
 		throws PortalException {
 
 		ticketLinkPersistence.remove(ticketLink);
 
-		auditEntryLocalService.addAuditEntry(
-			userId, new Date(), TicketEntry.class,
-			ticketLink.getTicketEntryId(), 0, TicketLink.class,
-			ticketLink.getTicketLinkId(), Actions.DELETE, Fields.URL,
-			ticketLink.getVisibility(), StringPool.BLANK, ticketLink.getUrl(),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
+		// Ticket communication
+
+		ticketCommunicationLocalService.deleteTicketCommunication(
+			TicketLink.class, ticketLink.getTicketLinkId());
+
+		return ticketLink;
 	}
 
 	public List<TicketLink> getTicketLinks(long ticketEntryId, int visibility) {
@@ -132,6 +147,22 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 	public int getTicketLinksCount(long ticketEntryId, int[] visibilities) {
 		return ticketLinkPersistence.countByTEI_V(ticketEntryId, visibilities);
+	}
+
+	protected JSONObject getJSONObject(TicketLink ticketLink) {
+		JSONObject jsonObject = jsonFactory.createJSONObject();
+
+		JSONArray jsonArray = jsonFactory.createJSONArray();
+
+		JSONObject linkJSONObject = jsonFactory.createJSONObject();
+
+		linkJSONObject.put("url", ticketLink.getUrl());
+
+		jsonArray.put(linkJSONObject);
+
+		jsonObject.put("ticketLinks", jsonArray);
+
+		return jsonObject;
 	}
 
 	protected void validate(
@@ -155,5 +186,11 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 	@Reference
 	protected AuditEntryLocalService auditEntryLocalService;
+
+	@Reference
+	protected JSONFactory jsonFactory;
+
+	@Reference
+	protected TicketCommunicationLocalService ticketCommunicationLocalService;
 
 }
