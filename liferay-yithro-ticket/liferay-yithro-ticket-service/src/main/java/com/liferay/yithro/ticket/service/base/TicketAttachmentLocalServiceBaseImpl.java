@@ -41,6 +41,7 @@ import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
 import com.liferay.yithro.ticket.service.persistence.TicketAttachmentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentTemplatePersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketCommunicationPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketEntryPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
@@ -129,11 +130,13 @@ public abstract class TicketAttachmentLocalServiceBaseImpl
 	 *
 	 * @param ticketAttachment the ticket attachment
 	 * @return the ticket attachment that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public TicketAttachment deleteTicketAttachment(
-		TicketAttachment ticketAttachment) {
+			TicketAttachment ticketAttachment)
+		throws PortalException {
 
 		return ticketAttachmentPersistence.remove(ticketAttachment);
 	}
@@ -412,6 +415,9 @@ public abstract class TicketAttachmentLocalServiceBaseImpl
 
 	@Reference
 	protected TicketCommentTemplatePersistence ticketCommentTemplatePersistence;
+
+	@Reference
+	protected TicketCommunicationPersistence ticketCommunicationPersistence;
 
 	@Reference
 	protected TicketEntryPersistence ticketEntryPersistence;

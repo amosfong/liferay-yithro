@@ -8,6 +8,9 @@ create index IX_F578A0BF on Yithro_TicketComment (ticketEntryId, type_);
 create index IX_301F4742 on Yithro_TicketComment (ticketEntryId, visibility, status);
 create index IX_B83B990D on Yithro_TicketComment (userId, ticketEntryId, visibility, status, type_);
 
+create index IX_BAECBF47 on Yithro_TicketCommunication (classNameId, classPK);
+create index IX_96CE6954 on Yithro_TicketCommunication (ticketEntryId, classNameId, classPK);
+
 create index IX_D62A2FD9 on Yithro_TicketEntry (modifiedDate);
 create index IX_957CF755 on Yithro_TicketEntry (userId, ticketStatusId);
 

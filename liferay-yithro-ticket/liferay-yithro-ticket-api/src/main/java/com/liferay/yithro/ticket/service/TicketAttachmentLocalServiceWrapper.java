@@ -111,37 +111,19 @@ public class TicketAttachmentLocalServiceWrapper
 			ticketAttachmentId);
 	}
 
-	@Override
-	public com.liferay.yithro.ticket.model.TicketAttachment
-			deleteTicketAttachment(long userId, long ticketAttachmentId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketAttachmentLocalService.deleteTicketAttachment(
-			userId, ticketAttachmentId);
-	}
-
-	@Override
-	public com.liferay.yithro.ticket.model.TicketAttachment
-			deleteTicketAttachment(
-				long userId,
-				com.liferay.yithro.ticket.model.TicketAttachment
-					ticketAttachment)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketAttachmentLocalService.deleteTicketAttachment(
-			userId, ticketAttachment);
-	}
-
 	/**
 	 * Deletes the ticket attachment from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param ticketAttachment the ticket attachment
 	 * @return the ticket attachment that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketAttachment
-		deleteTicketAttachment(
-			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment) {
+			deleteTicketAttachment(
+				com.liferay.yithro.ticket.model.TicketAttachment
+					ticketAttachment)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketAttachmentLocalService.deleteTicketAttachment(
 			ticketAttachment);

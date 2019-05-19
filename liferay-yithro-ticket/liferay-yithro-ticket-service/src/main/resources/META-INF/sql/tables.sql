@@ -38,6 +38,19 @@ create table Yithro_TicketCommentTemplate (
 	content STRING null
 );
 
+create table Yithro_TicketCommunication (
+	ticketCommunicationId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	ticketEntryId LONG,
+	classNameId LONG,
+	classPK LONG,
+	content STRING null,
+	properties STRING null
+);
+
 create table Yithro_TicketEntry (
 	ticketEntryId LONG not null primary key,
 	companyId LONG,

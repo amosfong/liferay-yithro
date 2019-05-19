@@ -41,6 +41,7 @@ import com.liferay.yithro.ticket.service.TicketLinkLocalService;
 import com.liferay.yithro.ticket.service.persistence.TicketAttachmentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentTemplatePersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketCommunicationPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketEntryPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
@@ -126,10 +127,13 @@ public abstract class TicketLinkLocalServiceBaseImpl
 	 *
 	 * @param ticketLink the ticket link
 	 * @return the ticket link that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public TicketLink deleteTicketLink(TicketLink ticketLink) {
+	public TicketLink deleteTicketLink(TicketLink ticketLink)
+		throws PortalException {
+
 		return ticketLinkPersistence.remove(ticketLink);
 	}
 
@@ -398,6 +402,9 @@ public abstract class TicketLinkLocalServiceBaseImpl
 
 	@Reference
 	protected TicketCommentTemplatePersistence ticketCommentTemplatePersistence;
+
+	@Reference
+	protected TicketCommunicationPersistence ticketCommunicationPersistence;
 
 	@Reference
 	protected TicketEntryPersistence ticketEntryPersistence;

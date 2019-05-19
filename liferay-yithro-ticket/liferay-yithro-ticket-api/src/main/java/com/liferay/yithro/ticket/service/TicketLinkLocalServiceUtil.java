@@ -39,13 +39,13 @@ public class TicketLinkLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketLinkLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static void addTicketLink(
+	public static com.liferay.yithro.ticket.model.TicketLink addTicketLink(
 			long userId, long ticketEntryId, String url, int type,
 			int visibility,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		getService().addTicketLink(
+		return getService().addTicketLink(
 			userId, ticketEntryId, url, type, visibility, serviceContext);
 	}
 
@@ -98,27 +98,16 @@ public class TicketLinkLocalServiceUtil {
 		return getService().deleteTicketLink(ticketLinkId);
 	}
 
-	public static void deleteTicketLink(long userId, long ticketLinkId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		getService().deleteTicketLink(userId, ticketLinkId);
-	}
-
-	public static void deleteTicketLink(
-			long userId, com.liferay.yithro.ticket.model.TicketLink ticketLink)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		getService().deleteTicketLink(userId, ticketLink);
-	}
-
 	/**
 	 * Deletes the ticket link from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param ticketLink the ticket link
 	 * @return the ticket link that was removed
+	 * @throws PortalException
 	 */
 	public static com.liferay.yithro.ticket.model.TicketLink deleteTicketLink(
-		com.liferay.yithro.ticket.model.TicketLink ticketLink) {
+			com.liferay.yithro.ticket.model.TicketLink ticketLink)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteTicketLink(ticketLink);
 	}

@@ -36,13 +36,13 @@ public class TicketLinkLocalServiceWrapper
 	}
 
 	@Override
-	public void addTicketLink(
+	public com.liferay.yithro.ticket.model.TicketLink addTicketLink(
 			long userId, long ticketEntryId, String url, int type,
 			int visibility,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		_ticketLinkLocalService.addTicketLink(
+		return _ticketLinkLocalService.addTicketLink(
 			userId, ticketEntryId, url, type, visibility, serviceContext);
 	}
 
@@ -98,30 +98,17 @@ public class TicketLinkLocalServiceWrapper
 		return _ticketLinkLocalService.deleteTicketLink(ticketLinkId);
 	}
 
-	@Override
-	public void deleteTicketLink(long userId, long ticketLinkId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_ticketLinkLocalService.deleteTicketLink(userId, ticketLinkId);
-	}
-
-	@Override
-	public void deleteTicketLink(
-			long userId, com.liferay.yithro.ticket.model.TicketLink ticketLink)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_ticketLinkLocalService.deleteTicketLink(userId, ticketLink);
-	}
-
 	/**
 	 * Deletes the ticket link from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param ticketLink the ticket link
 	 * @return the ticket link that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketLink deleteTicketLink(
-		com.liferay.yithro.ticket.model.TicketLink ticketLink) {
+			com.liferay.yithro.ticket.model.TicketLink ticketLink)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketLinkLocalService.deleteTicketLink(ticketLink);
 	}

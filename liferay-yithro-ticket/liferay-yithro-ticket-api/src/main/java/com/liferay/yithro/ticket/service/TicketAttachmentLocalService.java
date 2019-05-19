@@ -107,23 +107,17 @@ public interface TicketAttachmentLocalService
 	public TicketAttachment deleteTicketAttachment(long ticketAttachmentId)
 		throws PortalException;
 
-	public TicketAttachment deleteTicketAttachment(
-			long userId, long ticketAttachmentId)
-		throws PortalException;
-
-	public TicketAttachment deleteTicketAttachment(
-			long userId, TicketAttachment ticketAttachment)
-		throws PortalException;
-
 	/**
 	 * Deletes the ticket attachment from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param ticketAttachment the ticket attachment
 	 * @return the ticket attachment that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public TicketAttachment deleteTicketAttachment(
-		TicketAttachment ticketAttachment);
+			TicketAttachment ticketAttachment)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();

@@ -28,6 +28,7 @@ import com.liferay.yithro.ticket.service.TicketEntryService;
 import com.liferay.yithro.ticket.service.persistence.TicketAttachmentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketCommentTemplatePersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketCommunicationPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketEntryPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
@@ -122,6 +123,9 @@ public abstract class TicketEntryServiceBaseImpl
 
 	@Reference
 	protected TicketCommentTemplatePersistence ticketCommentTemplatePersistence;
+
+	@Reference
+	protected TicketCommunicationPersistence ticketCommunicationPersistence;
 
 	@Reference
 	protected com.liferay.yithro.ticket.service.TicketEntryLocalService
