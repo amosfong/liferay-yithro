@@ -33,6 +33,9 @@ import com.liferay.yithro.ticket.model.TicketLinkSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -74,8 +77,8 @@ public class TicketLinkModelImpl
 		{"ticketLinkId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"url", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"visibility", Types.INTEGER}
+		{"ticketCommunicationId", Types.BIGINT}, {"url", Types.VARCHAR},
+		{"type_", Types.INTEGER}, {"visibility", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -88,13 +91,14 @@ public class TicketLinkModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ticketCommunicationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("url", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
+		"create table Yithro_TicketLink (ticketLinkId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketCommunicationId LONG,url STRING null,type_ INTEGER,visibility INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketLink";
 
@@ -110,11 +114,13 @@ public class TicketLinkModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final long TICKETENTRYID_COLUMN_BITMASK = 1L;
+	public static final long TICKETCOMMUNICATIONID_COLUMN_BITMASK = 1L;
 
-	public static final long VISIBILITY_COLUMN_BITMASK = 2L;
+	public static final long TICKETENTRYID_COLUMN_BITMASK = 2L;
 
-	public static final long TICKETLINKID_COLUMN_BITMASK = 4L;
+	public static final long VISIBILITY_COLUMN_BITMASK = 4L;
+
+	public static final long TICKETLINKID_COLUMN_BITMASK = 8L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -143,6 +149,7 @@ public class TicketLinkModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
+		model.setTicketCommunicationId(soapModel.getTicketCommunicationId());
 		model.setUrl(soapModel.getUrl());
 		model.setType(soapModel.getType());
 		model.setVisibility(soapModel.getVisibility());
@@ -257,6 +264,32 @@ public class TicketLinkModelImpl
 		return _attributeSetterBiConsumers;
 	}
 
+	private static Function<InvocationHandler, TicketLink>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketLink.class.getClassLoader(), TicketLink.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketLink> constructor =
+				(Constructor<TicketLink>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
+	}
+
 	private static final Map<String, Function<TicketLink, Object>>
 		_attributeGetterFunctions;
 	private static final Map<String, BiConsumer<TicketLink, Object>>
@@ -293,6 +326,11 @@ public class TicketLinkModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketEntryId",
 			(BiConsumer<TicketLink, Long>)TicketLink::setTicketEntryId);
+		attributeGetterFunctions.put(
+			"ticketCommunicationId", TicketLink::getTicketCommunicationId);
+		attributeSetterBiConsumers.put(
+			"ticketCommunicationId",
+			(BiConsumer<TicketLink, Long>)TicketLink::setTicketCommunicationId);
 		attributeGetterFunctions.put("url", TicketLink::getUrl);
 		attributeSetterBiConsumers.put(
 			"url", (BiConsumer<TicketLink, String>)TicketLink::setUrl);
@@ -411,6 +449,29 @@ public class TicketLinkModelImpl
 
 	@JSON
 	@Override
+	public long getTicketCommunicationId() {
+		return _ticketCommunicationId;
+	}
+
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		_columnBitmask |= TICKETCOMMUNICATIONID_COLUMN_BITMASK;
+
+		if (!_setOriginalTicketCommunicationId) {
+			_setOriginalTicketCommunicationId = true;
+
+			_originalTicketCommunicationId = _ticketCommunicationId;
+		}
+
+		_ticketCommunicationId = ticketCommunicationId;
+	}
+
+	public long getOriginalTicketCommunicationId() {
+		return _originalTicketCommunicationId;
+	}
+
+	@JSON
+	@Override
 	public String getUrl() {
 		if (_url == null) {
 			return "";
@@ -479,8 +540,7 @@ public class TicketLinkModelImpl
 	@Override
 	public TicketLink toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketLink)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -497,6 +557,7 @@ public class TicketLinkModelImpl
 		ticketLinkImpl.setUserName(getUserName());
 		ticketLinkImpl.setCreateDate(getCreateDate());
 		ticketLinkImpl.setTicketEntryId(getTicketEntryId());
+		ticketLinkImpl.setTicketCommunicationId(getTicketCommunicationId());
 		ticketLinkImpl.setUrl(getUrl());
 		ticketLinkImpl.setType(getType());
 		ticketLinkImpl.setVisibility(getVisibility());
@@ -567,6 +628,11 @@ public class TicketLinkModelImpl
 
 		ticketLinkModelImpl._setOriginalTicketEntryId = false;
 
+		ticketLinkModelImpl._originalTicketCommunicationId =
+			ticketLinkModelImpl._ticketCommunicationId;
+
+		ticketLinkModelImpl._setOriginalTicketCommunicationId = false;
+
 		ticketLinkModelImpl._originalVisibility =
 			ticketLinkModelImpl._visibility;
 
@@ -603,6 +669,8 @@ public class TicketLinkModelImpl
 		}
 
 		ticketLinkCacheModel.ticketEntryId = getTicketEntryId();
+
+		ticketLinkCacheModel.ticketCommunicationId = getTicketCommunicationId();
 
 		ticketLinkCacheModel.url = getUrl();
 
@@ -682,11 +750,8 @@ public class TicketLinkModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketLink.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketLink.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketLink>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
@@ -698,6 +763,9 @@ public class TicketLinkModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
+	private long _ticketCommunicationId;
+	private long _originalTicketCommunicationId;
+	private boolean _setOriginalTicketCommunicationId;
 	private String _url;
 	private int _type;
 	private int _visibility;

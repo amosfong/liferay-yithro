@@ -63,10 +63,6 @@ public interface TicketAttachmentLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketAttachmentLocalServiceUtil} to access the ticket attachment local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public TicketAttachment addTicketAttachment(
-			long userId, long ticketEntryId, String fileName, File file,
-			int visibility, int status, ServiceContext serviceContext)
-		throws PortalException;
 
 	/**
 	 * Adds the ticket attachment to the database. Also notifies the appropriate model listeners.
@@ -77,6 +73,11 @@ public interface TicketAttachmentLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketAttachment addTicketAttachment(
 		TicketAttachment ticketAttachment);
+
+	public void addTicketAttachments(
+			long userId, long ticketEntryId, String[] fileNames, File[] files,
+			int visibility, int status, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Creates a new ticket attachment with the primary key. Does not add the ticket attachment to the database.
@@ -117,6 +118,9 @@ public interface TicketAttachmentLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public TicketAttachment deleteTicketAttachment(
 			TicketAttachment ticketAttachment)
+		throws PortalException;
+
+	public void deleteTicketAttachments(long[] ticketAttachmentIds)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -265,8 +269,9 @@ public interface TicketAttachmentLocalService
 		throws PortalException;
 
 	public void updateStatus(
-			long userId, TicketAttachment ticketAttachment, long ticketEntryId,
-			int status, ServiceContext serviceContext)
+			long userId, List<TicketAttachment> ticketAttachments,
+			long ticketEntryId, int visibility, int status,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	public TicketAttachment updateTicketAttachment(

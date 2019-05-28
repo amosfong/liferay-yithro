@@ -51,6 +51,7 @@ public class TicketLinkWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
+		attributes.put("ticketCommunicationId", getTicketCommunicationId());
 		attributes.put("url", getUrl());
 		attributes.put("type", getType());
 		attributes.put("visibility", getVisibility());
@@ -94,6 +95,13 @@ public class TicketLinkWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
+		}
+
+		Long ticketCommunicationId = (Long)attributes.get(
+			"ticketCommunicationId");
+
+		if (ticketCommunicationId != null) {
+			setTicketCommunicationId(ticketCommunicationId);
 		}
 
 		String url = (String)attributes.get("url");
@@ -143,6 +151,16 @@ public class TicketLinkWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the ticket communication ID of this ticket link.
+	 *
+	 * @return the ticket communication ID of this ticket link
+	 */
+	@Override
+	public long getTicketCommunicationId() {
+		return model.getTicketCommunicationId();
 	}
 
 	/**
@@ -263,6 +281,16 @@ public class TicketLinkWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the ticket communication ID of this ticket link.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket link
+	 */
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		model.setTicketCommunicationId(ticketCommunicationId);
 	}
 
 	/**

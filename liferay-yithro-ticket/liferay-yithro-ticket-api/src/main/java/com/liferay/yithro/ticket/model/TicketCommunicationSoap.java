@@ -42,10 +42,9 @@ public class TicketCommunicationSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
-		soapModel.setClassNameId(model.getClassNameId());
-		soapModel.setClassPK(model.getClassPK());
-		soapModel.setContent(model.getContent());
-		soapModel.setProperties(model.getProperties());
+		soapModel.setChannel(model.getChannel());
+		soapModel.setData(model.getData());
+		soapModel.setVisibility(model.getVisibility());
 
 		return soapModel;
 	}
@@ -156,36 +155,28 @@ public class TicketCommunicationSoap implements Serializable {
 		_ticketEntryId = ticketEntryId;
 	}
 
-	public long getClassNameId() {
-		return _classNameId;
+	public String getChannel() {
+		return _channel;
 	}
 
-	public void setClassNameId(long classNameId) {
-		_classNameId = classNameId;
+	public void setChannel(String channel) {
+		_channel = channel;
 	}
 
-	public long getClassPK() {
-		return _classPK;
+	public String getData() {
+		return _data;
 	}
 
-	public void setClassPK(long classPK) {
-		_classPK = classPK;
+	public void setData(String data) {
+		_data = data;
 	}
 
-	public String getContent() {
-		return _content;
+	public int getVisibility() {
+		return _visibility;
 	}
 
-	public void setContent(String content) {
-		_content = content;
-	}
-
-	public String getProperties() {
-		return _properties;
-	}
-
-	public void setProperties(String properties) {
-		_properties = properties;
+	public void setVisibility(int visibility) {
+		_visibility = visibility;
 	}
 
 	private long _ticketCommunicationId;
@@ -194,9 +185,8 @@ public class TicketCommunicationSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _ticketEntryId;
-	private long _classNameId;
-	private long _classPK;
-	private String _content;
-	private String _properties;
+	private String _channel;
+	private String _data;
+	private int _visibility;
 
 }

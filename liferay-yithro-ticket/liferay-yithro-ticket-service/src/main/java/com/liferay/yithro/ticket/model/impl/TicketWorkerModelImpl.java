@@ -34,6 +34,9 @@ import com.liferay.yithro.ticket.model.TicketWorkerSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -267,6 +270,32 @@ public class TicketWorkerModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, TicketWorker>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketWorker.class.getClassLoader(), TicketWorker.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketWorker> constructor =
+				(Constructor<TicketWorker>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<TicketWorker, Object>>
@@ -548,8 +577,7 @@ public class TicketWorkerModelImpl
 	@Override
 	public TicketWorker toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketWorker)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -763,11 +791,8 @@ public class TicketWorkerModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketWorker.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketWorker.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketWorker>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

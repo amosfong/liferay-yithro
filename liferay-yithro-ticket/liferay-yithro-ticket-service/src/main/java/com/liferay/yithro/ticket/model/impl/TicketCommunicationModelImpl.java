@@ -27,14 +27,15 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.DateUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.model.TicketCommunicationModel;
 import com.liferay.yithro.ticket.model.TicketCommunicationSoap;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
 
 import java.sql.Types;
 
@@ -78,8 +79,8 @@ public class TicketCommunicationModelImpl
 		{"ticketCommunicationId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"classNameId", Types.BIGINT}, {"classPK", Types.BIGINT},
-		{"content", Types.VARCHAR}, {"properties", Types.VARCHAR}
+		{"channel", Types.VARCHAR}, {"data_", Types.VARCHAR},
+		{"visibility", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -92,14 +93,13 @@ public class TicketCommunicationModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("classNameId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("classPK", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("content", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("properties", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("channel", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("data_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketCommunication (ticketCommunicationId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,classNameId LONG,classPK LONG,content STRING null,properties STRING null)";
+		"create table Yithro_TicketCommunication (ticketCommunicationId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,channel VARCHAR(75) null,data_ VARCHAR(75) null,visibility INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketCommunication";
@@ -116,13 +116,11 @@ public class TicketCommunicationModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final long CLASSNAMEID_COLUMN_BITMASK = 1L;
+	public static final long TICKETENTRYID_COLUMN_BITMASK = 1L;
 
-	public static final long CLASSPK_COLUMN_BITMASK = 2L;
+	public static final long VISIBILITY_COLUMN_BITMASK = 2L;
 
-	public static final long TICKETENTRYID_COLUMN_BITMASK = 4L;
-
-	public static final long CREATEDATE_COLUMN_BITMASK = 8L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -153,10 +151,9 @@ public class TicketCommunicationModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
-		model.setClassNameId(soapModel.getClassNameId());
-		model.setClassPK(soapModel.getClassPK());
-		model.setContent(soapModel.getContent());
-		model.setProperties(soapModel.getProperties());
+		model.setChannel(soapModel.getChannel());
+		model.setData(soapModel.getData());
+		model.setVisibility(soapModel.getVisibility());
 
 		return model;
 	}
@@ -272,6 +269,32 @@ public class TicketCommunicationModelImpl
 		return _attributeSetterBiConsumers;
 	}
 
+	private static Function<InvocationHandler, TicketCommunication>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketCommunication.class.getClassLoader(),
+			TicketCommunication.class, ModelWrapper.class);
+
+		try {
+			Constructor<TicketCommunication> constructor =
+				(Constructor<TicketCommunication>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
+	}
+
 	private static final Map<String, Function<TicketCommunication, Object>>
 		_attributeGetterFunctions;
 	private static final Map<String, BiConsumer<TicketCommunication, Object>>
@@ -323,29 +346,22 @@ public class TicketCommunicationModelImpl
 			(BiConsumer<TicketCommunication, Long>)
 				TicketCommunication::setTicketEntryId);
 		attributeGetterFunctions.put(
-			"classNameId", TicketCommunication::getClassNameId);
+			"channel", TicketCommunication::getChannel);
 		attributeSetterBiConsumers.put(
-			"classNameId",
-			(BiConsumer<TicketCommunication, Long>)
-				TicketCommunication::setClassNameId);
-		attributeGetterFunctions.put(
-			"classPK", TicketCommunication::getClassPK);
-		attributeSetterBiConsumers.put(
-			"classPK",
-			(BiConsumer<TicketCommunication, Long>)
-				TicketCommunication::setClassPK);
-		attributeGetterFunctions.put(
-			"content", TicketCommunication::getContent);
-		attributeSetterBiConsumers.put(
-			"content",
+			"channel",
 			(BiConsumer<TicketCommunication, String>)
-				TicketCommunication::setContent);
-		attributeGetterFunctions.put(
-			"properties", TicketCommunication::getProperties);
+				TicketCommunication::setChannel);
+		attributeGetterFunctions.put("data", TicketCommunication::getData);
 		attributeSetterBiConsumers.put(
-			"properties",
+			"data",
 			(BiConsumer<TicketCommunication, String>)
-				TicketCommunication::setProperties);
+				TicketCommunication::setData);
+		attributeGetterFunctions.put(
+			"visibility", TicketCommunication::getVisibility);
+		attributeSetterBiConsumers.put(
+			"visibility",
+			(BiConsumer<TicketCommunication, Integer>)
+				TicketCommunication::setVisibility);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -455,102 +471,59 @@ public class TicketCommunicationModelImpl
 		return _originalTicketEntryId;
 	}
 
-	@Override
-	public String getClassName() {
-		if (getClassNameId() <= 0) {
-			return "";
-		}
-
-		return PortalUtil.getClassName(getClassNameId());
-	}
-
-	@Override
-	public void setClassName(String className) {
-		long classNameId = 0;
-
-		if (Validator.isNotNull(className)) {
-			classNameId = PortalUtil.getClassNameId(className);
-		}
-
-		setClassNameId(classNameId);
-	}
-
 	@JSON
 	@Override
-	public long getClassNameId() {
-		return _classNameId;
-	}
-
-	@Override
-	public void setClassNameId(long classNameId) {
-		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
-
-		if (!_setOriginalClassNameId) {
-			_setOriginalClassNameId = true;
-
-			_originalClassNameId = _classNameId;
-		}
-
-		_classNameId = classNameId;
-	}
-
-	public long getOriginalClassNameId() {
-		return _originalClassNameId;
-	}
-
-	@JSON
-	@Override
-	public long getClassPK() {
-		return _classPK;
-	}
-
-	@Override
-	public void setClassPK(long classPK) {
-		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
-
-		if (!_setOriginalClassPK) {
-			_setOriginalClassPK = true;
-
-			_originalClassPK = _classPK;
-		}
-
-		_classPK = classPK;
-	}
-
-	public long getOriginalClassPK() {
-		return _originalClassPK;
-	}
-
-	@JSON
-	@Override
-	public String getContent() {
-		if (_content == null) {
+	public String getChannel() {
+		if (_channel == null) {
 			return "";
 		}
 		else {
-			return _content;
+			return _channel;
 		}
 	}
 
 	@Override
-	public void setContent(String content) {
-		_content = content;
+	public void setChannel(String channel) {
+		_channel = channel;
 	}
 
 	@JSON
 	@Override
-	public String getProperties() {
-		if (_properties == null) {
+	public String getData() {
+		if (_data == null) {
 			return "";
 		}
 		else {
-			return _properties;
+			return _data;
 		}
 	}
 
 	@Override
-	public void setProperties(String properties) {
-		_properties = properties;
+	public void setData(String data) {
+		_data = data;
+	}
+
+	@JSON
+	@Override
+	public int getVisibility() {
+		return _visibility;
+	}
+
+	@Override
+	public void setVisibility(int visibility) {
+		_columnBitmask |= VISIBILITY_COLUMN_BITMASK;
+
+		if (!_setOriginalVisibility) {
+			_setOriginalVisibility = true;
+
+			_originalVisibility = _visibility;
+		}
+
+		_visibility = visibility;
+	}
+
+	public int getOriginalVisibility() {
+		return _originalVisibility;
 	}
 
 	public long getColumnBitmask() {
@@ -574,8 +547,7 @@ public class TicketCommunicationModelImpl
 	@Override
 	public TicketCommunication toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketCommunication)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -594,10 +566,9 @@ public class TicketCommunicationModelImpl
 		ticketCommunicationImpl.setCreateDate(getCreateDate());
 		ticketCommunicationImpl.setModifiedDate(getModifiedDate());
 		ticketCommunicationImpl.setTicketEntryId(getTicketEntryId());
-		ticketCommunicationImpl.setClassNameId(getClassNameId());
-		ticketCommunicationImpl.setClassPK(getClassPK());
-		ticketCommunicationImpl.setContent(getContent());
-		ticketCommunicationImpl.setProperties(getProperties());
+		ticketCommunicationImpl.setChannel(getChannel());
+		ticketCommunicationImpl.setData(getData());
+		ticketCommunicationImpl.setVisibility(getVisibility());
 
 		ticketCommunicationImpl.resetOriginalValues();
 
@@ -666,15 +637,10 @@ public class TicketCommunicationModelImpl
 
 		ticketCommunicationModelImpl._setOriginalTicketEntryId = false;
 
-		ticketCommunicationModelImpl._originalClassNameId =
-			ticketCommunicationModelImpl._classNameId;
+		ticketCommunicationModelImpl._originalVisibility =
+			ticketCommunicationModelImpl._visibility;
 
-		ticketCommunicationModelImpl._setOriginalClassNameId = false;
-
-		ticketCommunicationModelImpl._originalClassPK =
-			ticketCommunicationModelImpl._classPK;
-
-		ticketCommunicationModelImpl._setOriginalClassPK = false;
+		ticketCommunicationModelImpl._setOriginalVisibility = false;
 
 		ticketCommunicationModelImpl._columnBitmask = 0;
 	}
@@ -711,25 +677,23 @@ public class TicketCommunicationModelImpl
 
 		ticketCommunicationCacheModel.ticketEntryId = getTicketEntryId();
 
-		ticketCommunicationCacheModel.classNameId = getClassNameId();
+		ticketCommunicationCacheModel.channel = getChannel();
 
-		ticketCommunicationCacheModel.classPK = getClassPK();
+		String channel = ticketCommunicationCacheModel.channel;
 
-		ticketCommunicationCacheModel.content = getContent();
-
-		String content = ticketCommunicationCacheModel.content;
-
-		if ((content != null) && (content.length() == 0)) {
-			ticketCommunicationCacheModel.content = null;
+		if ((channel != null) && (channel.length() == 0)) {
+			ticketCommunicationCacheModel.channel = null;
 		}
 
-		ticketCommunicationCacheModel.properties = getProperties();
+		ticketCommunicationCacheModel.data = getData();
 
-		String properties = ticketCommunicationCacheModel.properties;
+		String data = ticketCommunicationCacheModel.data;
 
-		if ((properties != null) && (properties.length() == 0)) {
-			ticketCommunicationCacheModel.properties = null;
+		if ((data != null) && (data.length() == 0)) {
+			ticketCommunicationCacheModel.data = null;
 		}
+
+		ticketCommunicationCacheModel.visibility = getVisibility();
 
 		return ticketCommunicationCacheModel;
 	}
@@ -797,11 +761,8 @@ public class TicketCommunicationModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketCommunication.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketCommunication.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketCommunication>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
@@ -814,14 +775,11 @@ public class TicketCommunicationModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
-	private long _classNameId;
-	private long _originalClassNameId;
-	private boolean _setOriginalClassNameId;
-	private long _classPK;
-	private long _originalClassPK;
-	private boolean _setOriginalClassPK;
-	private String _content;
-	private String _properties;
+	private String _channel;
+	private String _data;
+	private int _visibility;
+	private int _originalVisibility;
+	private boolean _setOriginalVisibility;
 	private long _columnBitmask;
 	private TicketCommunication _escapedModel;
 

@@ -62,13 +62,8 @@ public interface TicketCommunicationLocalService
 	 * Never modify or reference this interface directly. Always use {@link TicketCommunicationLocalServiceUtil} to access the ticket communication local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommunicationLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketCommunication addTicketCommunication(
-			long userId, long ticketEntryId, Class<?> clazz, long classPK,
-			String content, JSONObject propertiesJSONObject)
-		throws PortalException;
-
-	public TicketCommunication addTicketCommunication(
-			long userId, long ticketEntryId, long classNameId, long classPK,
-			String content, JSONObject propertiesJSONObject)
+			long userId, long ticketEntryId, String channel,
+			JSONObject dataJSONObject, int visibility)
 		throws PortalException;
 
 	/**
@@ -98,10 +93,6 @@ public interface TicketCommunicationLocalService
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
-	public TicketCommunication deleteTicketCommunication(
-			Class<?> clazz, long classPK)
-		throws PortalException;
-
 	/**
 	 * Deletes the ticket communication with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -112,10 +103,6 @@ public interface TicketCommunicationLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public TicketCommunication deleteTicketCommunication(
 			long ticketCommunicationId)
-		throws PortalException;
-
-	public TicketCommunication deleteTicketCommunication(
-			long classNameId, long classPK)
 		throws PortalException;
 
 	/**
@@ -196,15 +183,7 @@ public interface TicketCommunicationLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketCommunication fetchTicketCommunication(
-		Class<?> clazz, long classPK);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public TicketCommunication fetchTicketCommunication(
 		long ticketCommunicationId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public TicketCommunication fetchTicketCommunication(
-		long classNameId, long classPK);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -252,7 +231,8 @@ public interface TicketCommunicationLocalService
 		int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<TicketCommunication> getTicketCommunications(long ticketEntryId)
+	public List<TicketCommunication> getTicketCommunications(
+			long ticketEntryId, int visibility, int start, int end)
 		throws PortalException;
 
 	/**
@@ -264,8 +244,7 @@ public interface TicketCommunicationLocalService
 	public int getTicketCommunicationsCount();
 
 	public TicketCommunication updateTicketCommunication(
-			long ticketCommunicationId, String content,
-			JSONObject propertiesJSONObject)
+			long ticketCommunicationId, JSONObject dataJSONObject)
 		throws PortalException;
 
 	/**

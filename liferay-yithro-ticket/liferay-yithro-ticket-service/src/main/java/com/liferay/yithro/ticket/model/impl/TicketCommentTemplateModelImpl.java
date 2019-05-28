@@ -37,6 +37,9 @@ import com.liferay.yithro.ticket.model.TicketCommentTemplateSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -263,6 +266,32 @@ public class TicketCommentTemplateModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, TicketCommentTemplate>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketCommentTemplate.class.getClassLoader(),
+			TicketCommentTemplate.class, ModelWrapper.class);
+
+		try {
+			Constructor<TicketCommentTemplate> constructor =
+				(Constructor<TicketCommentTemplate>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<TicketCommentTemplate, Object>>
@@ -742,8 +771,7 @@ public class TicketCommentTemplateModelImpl
 	@Override
 	public TicketCommentTemplate toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketCommentTemplate)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -951,11 +979,8 @@ public class TicketCommentTemplateModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketCommentTemplate.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketCommentTemplate.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketCommentTemplate>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

@@ -39,15 +39,6 @@ public class TicketLinkLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketLinkLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.yithro.ticket.model.TicketLink addTicketLink(
-			long userId, long ticketEntryId, String url, int type,
-			int visibility,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().addTicketLink(
-			userId, ticketEntryId, url, type, visibility, serviceContext);
-	}
 
 	/**
 	 * Adds the ticket link to the database. Also notifies the appropriate model listeners.
@@ -59,6 +50,15 @@ public class TicketLinkLocalServiceUtil {
 		com.liferay.yithro.ticket.model.TicketLink ticketLink) {
 
 		return getService().addTicketLink(ticketLink);
+	}
+
+	public static void addTicketLinks(
+			long userId, long ticketEntryId, String[] urls, int[] types,
+			int visibility)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().addTicketLinks(
+			userId, ticketEntryId, urls, types, visibility);
 	}
 
 	/**
@@ -110,6 +110,12 @@ public class TicketLinkLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteTicketLink(ticketLink);
+	}
+
+	public static void deleteTicketLinks(long[] ticketLinkIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteTicketLinks(ticketLinkIds);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery

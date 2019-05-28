@@ -52,6 +52,7 @@ public class TicketCommentWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
+		attributes.put("ticketCommunicationId", getTicketCommunicationId());
 		attributes.put("body", getBody());
 		attributes.put("type", getType());
 		attributes.put("format", getFormat());
@@ -104,6 +105,13 @@ public class TicketCommentWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
+		}
+
+		Long ticketCommunicationId = (Long)attributes.get(
+			"ticketCommunicationId");
+
+		if (ticketCommunicationId != null) {
+			setTicketCommunicationId(ticketCommunicationId);
 		}
 
 		String body = (String)attributes.get("body");
@@ -243,6 +251,16 @@ public class TicketCommentWrapper
 	@Override
 	public long getTicketCommentId() {
 		return model.getTicketCommentId();
+	}
+
+	/**
+	 * Returns the ticket communication ID of this ticket comment.
+	 *
+	 * @return the ticket communication ID of this ticket comment
+	 */
+	@Override
+	public long getTicketCommunicationId() {
+		return model.getTicketCommunicationId();
 	}
 
 	/**
@@ -410,6 +428,16 @@ public class TicketCommentWrapper
 	@Override
 	public void setTicketCommentId(long ticketCommentId) {
 		model.setTicketCommentId(ticketCommentId);
+	}
+
+	/**
+	 * Sets the ticket communication ID of this ticket comment.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket comment
+	 */
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		model.setTicketCommunicationId(ticketCommunicationId);
 	}
 
 	/**

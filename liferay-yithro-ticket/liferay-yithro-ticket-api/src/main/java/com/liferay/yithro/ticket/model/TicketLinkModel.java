@@ -158,6 +158,20 @@ public interface TicketLinkModel extends BaseModel<TicketLink>, ShardedModel {
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
+	 * Returns the ticket communication ID of this ticket link.
+	 *
+	 * @return the ticket communication ID of this ticket link
+	 */
+	public long getTicketCommunicationId();
+
+	/**
+	 * Sets the ticket communication ID of this ticket link.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket link
+	 */
+	public void setTicketCommunicationId(long ticketCommunicationId);
+
+	/**
 	 * Returns the url of this ticket link.
 	 *
 	 * @return the url of this ticket link

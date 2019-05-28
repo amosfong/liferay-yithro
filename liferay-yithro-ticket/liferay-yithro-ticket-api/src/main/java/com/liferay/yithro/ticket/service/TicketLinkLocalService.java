@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -61,10 +60,6 @@ public interface TicketLinkLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketLinkLocalServiceUtil} to access the ticket link local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketLinkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public TicketLink addTicketLink(
-			long userId, long ticketEntryId, String url, int type,
-			int visibility, ServiceContext serviceContext)
-		throws PortalException;
 
 	/**
 	 * Adds the ticket link to the database. Also notifies the appropriate model listeners.
@@ -74,6 +69,11 @@ public interface TicketLinkLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketLink addTicketLink(TicketLink ticketLink);
+
+	public void addTicketLinks(
+			long userId, long ticketEntryId, String[] urls, int[] types,
+			int visibility)
+		throws PortalException;
 
 	/**
 	 * Creates a new ticket link with the primary key. Does not add the ticket link to the database.
@@ -112,6 +112,8 @@ public interface TicketLinkLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public TicketLink deleteTicketLink(TicketLink ticketLink)
 		throws PortalException;
+
+	public void deleteTicketLinks(long[] ticketLinkIds) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();

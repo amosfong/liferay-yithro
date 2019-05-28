@@ -603,6 +603,532 @@ public class TicketLinkPersistenceImpl
 	private static final String _FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2 =
 		"ticketLink.ticketEntryId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByTicketCommunicationId;
+	private FinderPath _finderPathWithoutPaginationFindByTicketCommunicationId;
+	private FinderPath _finderPathCountByTicketCommunicationId;
+
+	/**
+	 * Returns all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the matching ticket links
+	 */
+	@Override
+	public List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @return the range of matching ticket links
+	 */
+	@Override
+	public List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket links
+	 */
+	@Override
+	public List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketLink> orderByComparator) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket links
+	 */
+	@Override
+	public List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketLink> orderByComparator,
+		boolean retrieveFromCache) {
+
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+			finderPath =
+				_finderPathWithoutPaginationFindByTicketCommunicationId;
+			finderArgs = new Object[] {ticketCommunicationId};
+		}
+		else {
+			finderPath = _finderPathWithPaginationFindByTicketCommunicationId;
+			finderArgs = new Object[] {
+				ticketCommunicationId, start, end, orderByComparator
+			};
+		}
+
+		List<TicketLink> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<TicketLink>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (TicketLink ticketLink : list) {
+					if ((ticketCommunicationId !=
+							ticketLink.getTicketCommunicationId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_TICKETLINK_WHERE);
+
+			query.append(
+				_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(TicketLinkModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketCommunicationId);
+
+				if (!pagination) {
+					list = (List<TicketLink>)QueryUtil.list(
+						q, getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<TicketLink>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket link
+	 * @throws NoSuchTicketLinkException if a matching ticket link could not be found
+	 */
+	@Override
+	public TicketLink findByTicketCommunicationId_First(
+			long ticketCommunicationId,
+			OrderByComparator<TicketLink> orderByComparator)
+		throws NoSuchTicketLinkException {
+
+		TicketLink ticketLink = fetchByTicketCommunicationId_First(
+			ticketCommunicationId, orderByComparator);
+
+		if (ticketLink != null) {
+			return ticketLink;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("ticketCommunicationId=");
+		msg.append(ticketCommunicationId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketLinkException(msg.toString());
+	}
+
+	/**
+	 * Returns the first ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket link, or <code>null</code> if a matching ticket link could not be found
+	 */
+	@Override
+	public TicketLink fetchByTicketCommunicationId_First(
+		long ticketCommunicationId,
+		OrderByComparator<TicketLink> orderByComparator) {
+
+		List<TicketLink> list = findByTicketCommunicationId(
+			ticketCommunicationId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket link
+	 * @throws NoSuchTicketLinkException if a matching ticket link could not be found
+	 */
+	@Override
+	public TicketLink findByTicketCommunicationId_Last(
+			long ticketCommunicationId,
+			OrderByComparator<TicketLink> orderByComparator)
+		throws NoSuchTicketLinkException {
+
+		TicketLink ticketLink = fetchByTicketCommunicationId_Last(
+			ticketCommunicationId, orderByComparator);
+
+		if (ticketLink != null) {
+			return ticketLink;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("ticketCommunicationId=");
+		msg.append(ticketCommunicationId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketLinkException(msg.toString());
+	}
+
+	/**
+	 * Returns the last ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket link, or <code>null</code> if a matching ticket link could not be found
+	 */
+	@Override
+	public TicketLink fetchByTicketCommunicationId_Last(
+		long ticketCommunicationId,
+		OrderByComparator<TicketLink> orderByComparator) {
+
+		int count = countByTicketCommunicationId(ticketCommunicationId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<TicketLink> list = findByTicketCommunicationId(
+			ticketCommunicationId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the ticket links before and after the current ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketLinkId the primary key of the current ticket link
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket link
+	 * @throws NoSuchTicketLinkException if a ticket link with the primary key could not be found
+	 */
+	@Override
+	public TicketLink[] findByTicketCommunicationId_PrevAndNext(
+			long ticketLinkId, long ticketCommunicationId,
+			OrderByComparator<TicketLink> orderByComparator)
+		throws NoSuchTicketLinkException {
+
+		TicketLink ticketLink = findByPrimaryKey(ticketLinkId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			TicketLink[] array = new TicketLinkImpl[3];
+
+			array[0] = getByTicketCommunicationId_PrevAndNext(
+				session, ticketLink, ticketCommunicationId, orderByComparator,
+				true);
+
+			array[1] = ticketLink;
+
+			array[2] = getByTicketCommunicationId_PrevAndNext(
+				session, ticketLink, ticketCommunicationId, orderByComparator,
+				false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected TicketLink getByTicketCommunicationId_PrevAndNext(
+		Session session, TicketLink ticketLink, long ticketCommunicationId,
+		OrderByComparator<TicketLink> orderByComparator, boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TICKETLINK_WHERE);
+
+		query.append(
+			_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TicketLinkModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(ticketCommunicationId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(ticketLink)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<TicketLink> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the ticket links where ticketCommunicationId = &#63; from the database.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 */
+	@Override
+	public void removeByTicketCommunicationId(long ticketCommunicationId) {
+		for (TicketLink ticketLink :
+				findByTicketCommunicationId(
+					ticketCommunicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(ticketLink);
+		}
+	}
+
+	/**
+	 * Returns the number of ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the number of matching ticket links
+	 */
+	@Override
+	public int countByTicketCommunicationId(long ticketCommunicationId) {
+		FinderPath finderPath = _finderPathCountByTicketCommunicationId;
+
+		Object[] finderArgs = new Object[] {ticketCommunicationId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_TICKETLINK_WHERE);
+
+			query.append(
+				_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketCommunicationId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2 =
+			"ticketLink.ticketCommunicationId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByTEI_V;
 	private FinderPath _finderPathWithoutPaginationFindByTEI_V;
 	private FinderPath _finderPathCountByTEI_V;
@@ -1705,6 +2231,15 @@ public class TicketLinkPersistenceImpl
 				_finderPathWithoutPaginationFindByTicketEntryId, args);
 
 			args = new Object[] {
+				ticketLinkModelImpl.getTicketCommunicationId()
+			};
+
+			finderCache.removeResult(
+				_finderPathCountByTicketCommunicationId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByTicketCommunicationId, args);
+
+			args = new Object[] {
 				ticketLinkModelImpl.getTicketEntryId(),
 				ticketLinkModelImpl.getVisibility()
 			};
@@ -1735,6 +2270,31 @@ public class TicketLinkPersistenceImpl
 				finderCache.removeResult(_finderPathCountByTicketEntryId, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByTicketEntryId, args);
+			}
+
+			if ((ticketLinkModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByTicketCommunicationId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					ticketLinkModelImpl.getOriginalTicketCommunicationId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByTicketCommunicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByTicketCommunicationId,
+					args);
+
+				args = new Object[] {
+					ticketLinkModelImpl.getTicketCommunicationId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByTicketCommunicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByTicketCommunicationId,
+					args);
 			}
 
 			if ((ticketLinkModelImpl.getColumnBitmask() &
@@ -2078,6 +2638,29 @@ public class TicketLinkPersistenceImpl
 		_finderPathCountByTicketEntryId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTicketEntryId",
+			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByTicketCommunicationId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketLinkImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByTicketCommunicationId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByTicketCommunicationId =
+			new FinderPath(
+				entityCacheEnabled, finderCacheEnabled, TicketLinkImpl.class,
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByTicketCommunicationId",
+				new String[] {Long.class.getName()},
+				TicketLinkModelImpl.TICKETCOMMUNICATIONID_COLUMN_BITMASK);
+
+		_finderPathCountByTicketCommunicationId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByTicketCommunicationId",
 			new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByTEI_V = new FinderPath(

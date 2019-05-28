@@ -51,6 +51,7 @@ public class TicketAttachmentWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
+		attributes.put("ticketCommunicationId", getTicketCommunicationId());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
 		attributes.put("visibility", getVisibility());
@@ -95,6 +96,13 @@ public class TicketAttachmentWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
+		}
+
+		Long ticketCommunicationId = (Long)attributes.get(
+			"ticketCommunicationId");
+
+		if (ticketCommunicationId != null) {
+			setTicketCommunicationId(ticketCommunicationId);
 		}
 
 		String fileName = (String)attributes.get("fileName");
@@ -210,6 +218,16 @@ public class TicketAttachmentWrapper
 	@Override
 	public long getTicketAttachmentId() {
 		return model.getTicketAttachmentId();
+	}
+
+	/**
+	 * Returns the ticket communication ID of this ticket attachment.
+	 *
+	 * @return the ticket communication ID of this ticket attachment
+	 */
+	@Override
+	public long getTicketCommunicationId() {
+		return model.getTicketCommunicationId();
 	}
 
 	/**
@@ -345,6 +363,16 @@ public class TicketAttachmentWrapper
 	@Override
 	public void setTicketAttachmentId(long ticketAttachmentId) {
 		model.setTicketAttachmentId(ticketAttachmentId);
+	}
+
+	/**
+	 * Sets the ticket communication ID of this ticket attachment.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket attachment
+	 */
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		model.setTicketCommunicationId(ticketCommunicationId);
 	}
 
 	/**

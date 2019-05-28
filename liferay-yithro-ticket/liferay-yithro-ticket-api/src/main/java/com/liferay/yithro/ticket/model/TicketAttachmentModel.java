@@ -159,6 +159,20 @@ public interface TicketAttachmentModel
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
+	 * Returns the ticket communication ID of this ticket attachment.
+	 *
+	 * @return the ticket communication ID of this ticket attachment
+	 */
+	public long getTicketCommunicationId();
+
+	/**
+	 * Sets the ticket communication ID of this ticket attachment.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket attachment
+	 */
+	public void setTicketCommunicationId(long ticketCommunicationId);
+
+	/**
 	 * Returns the file name of this ticket attachment.
 	 *
 	 * @return the file name of this ticket attachment

@@ -35,17 +35,6 @@ public class TicketLinkLocalServiceWrapper
 		_ticketLinkLocalService = ticketLinkLocalService;
 	}
 
-	@Override
-	public com.liferay.yithro.ticket.model.TicketLink addTicketLink(
-			long userId, long ticketEntryId, String url, int type,
-			int visibility,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketLinkLocalService.addTicketLink(
-			userId, ticketEntryId, url, type, visibility, serviceContext);
-	}
-
 	/**
 	 * Adds the ticket link to the database. Also notifies the appropriate model listeners.
 	 *
@@ -57,6 +46,16 @@ public class TicketLinkLocalServiceWrapper
 		com.liferay.yithro.ticket.model.TicketLink ticketLink) {
 
 		return _ticketLinkLocalService.addTicketLink(ticketLink);
+	}
+
+	@Override
+	public void addTicketLinks(
+			long userId, long ticketEntryId, String[] urls, int[] types,
+			int visibility)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketLinkLocalService.addTicketLinks(
+			userId, ticketEntryId, urls, types, visibility);
 	}
 
 	/**
@@ -111,6 +110,13 @@ public class TicketLinkLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketLinkLocalService.deleteTicketLink(ticketLink);
+	}
+
+	@Override
+	public void deleteTicketLinks(long[] ticketLinkIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketLinkLocalService.deleteTicketLinks(ticketLinkIds);
 	}
 
 	@Override

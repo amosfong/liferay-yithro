@@ -5,6 +5,7 @@ create table Yithro_TicketAttachment (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	ticketEntryId LONG,
+	ticketCommunicationId LONG,
 	fileName VARCHAR(255) null,
 	fileSize LONG,
 	visibility INTEGER,
@@ -19,6 +20,7 @@ create table Yithro_TicketComment (
 	createDate DATE null,
 	modifiedDate DATE null,
 	ticketEntryId LONG,
+	ticketCommunicationId LONG,
 	body TEXT null,
 	type_ INTEGER,
 	format VARCHAR(75) null,
@@ -45,10 +47,9 @@ create table Yithro_TicketCommunication (
 	createDate DATE null,
 	modifiedDate DATE null,
 	ticketEntryId LONG,
-	classNameId LONG,
-	classPK LONG,
-	content STRING null,
-	properties STRING null
+	channel VARCHAR(75) null,
+	data_ VARCHAR(75) null,
+	visibility INTEGER
 );
 
 create table Yithro_TicketEntry (
@@ -107,6 +108,7 @@ create table Yithro_TicketLink (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	ticketEntryId LONG,
+	ticketCommunicationId LONG,
 	url STRING null,
 	type_ INTEGER,
 	visibility INTEGER

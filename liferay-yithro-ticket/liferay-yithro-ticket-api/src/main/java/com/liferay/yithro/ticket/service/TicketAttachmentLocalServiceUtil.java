@@ -39,17 +39,6 @@ public class TicketAttachmentLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.yithro.ticket.model.TicketAttachment
-			addTicketAttachment(
-				long userId, long ticketEntryId, String fileName,
-				java.io.File file, int visibility, int status,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().addTicketAttachment(
-			userId, ticketEntryId, fileName, file, visibility, status,
-			serviceContext);
-	}
 
 	/**
 	 * Adds the ticket attachment to the database. Also notifies the appropriate model listeners.
@@ -62,6 +51,17 @@ public class TicketAttachmentLocalServiceUtil {
 			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment) {
 
 		return getService().addTicketAttachment(ticketAttachment);
+	}
+
+	public static void addTicketAttachments(
+			long userId, long ticketEntryId, String[] fileNames,
+			java.io.File[] files, int visibility, int status,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().addTicketAttachments(
+			userId, ticketEntryId, fileNames, files, visibility, status,
+			serviceContext);
 	}
 
 	/**
@@ -121,6 +121,12 @@ public class TicketAttachmentLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteTicketAttachment(ticketAttachment);
+	}
+
+	public static void deleteTicketAttachments(long[] ticketAttachmentIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteTicketAttachments(ticketAttachmentIds);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
@@ -332,13 +338,15 @@ public class TicketAttachmentLocalServiceUtil {
 
 	public static void updateStatus(
 			long userId,
-			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment,
-			long ticketEntryId, int status,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments,
+			long ticketEntryId, int visibility, int status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().updateStatus(
-			userId, ticketAttachment, ticketEntryId, status, serviceContext);
+			userId, ticketAttachments, ticketEntryId, visibility, status,
+			serviceContext);
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketAttachment

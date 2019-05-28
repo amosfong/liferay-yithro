@@ -37,6 +37,9 @@ import com.liferay.yithro.ticket.model.TicketFieldSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -255,6 +258,32 @@ public class TicketFieldModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, TicketField>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketField.class.getClassLoader(), TicketField.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketField> constructor =
+				(Constructor<TicketField>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<TicketField, Object>>
@@ -590,8 +619,7 @@ public class TicketFieldModelImpl
 	@Override
 	public TicketField toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketField)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -782,11 +810,8 @@ public class TicketFieldModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketField.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketField.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketField>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

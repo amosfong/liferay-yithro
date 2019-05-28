@@ -33,6 +33,9 @@ import com.liferay.yithro.ticket.model.TicketFlagSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -256,6 +259,32 @@ public class TicketFlagModelImpl
 		return _attributeSetterBiConsumers;
 	}
 
+	private static Function<InvocationHandler, TicketFlag>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketFlag.class.getClassLoader(), TicketFlag.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketFlag> constructor =
+				(Constructor<TicketFlag>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
+	}
+
 	private static final Map<String, Function<TicketFlag, Object>>
 		_attributeGetterFunctions;
 	private static final Map<String, BiConsumer<TicketFlag, Object>>
@@ -463,8 +492,7 @@ public class TicketFlagModelImpl
 	@Override
 	public TicketFlag toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketFlag)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -655,11 +683,8 @@ public class TicketFlagModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketFlag.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketFlag.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketFlag>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

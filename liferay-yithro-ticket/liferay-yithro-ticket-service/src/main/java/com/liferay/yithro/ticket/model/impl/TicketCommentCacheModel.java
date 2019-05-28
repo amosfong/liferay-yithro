@@ -65,7 +65,7 @@ public class TicketCommentCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{ticketCommentId=");
 		sb.append(ticketCommentId);
@@ -81,6 +81,8 @@ public class TicketCommentCacheModel
 		sb.append(modifiedDate);
 		sb.append(", ticketEntryId=");
 		sb.append(ticketEntryId);
+		sb.append(", ticketCommunicationId=");
+		sb.append(ticketCommunicationId);
 		sb.append(", body=");
 		sb.append(body);
 		sb.append(", type=");
@@ -128,6 +130,7 @@ public class TicketCommentCacheModel
 		}
 
 		ticketCommentImpl.setTicketEntryId(ticketEntryId);
+		ticketCommentImpl.setTicketCommunicationId(ticketCommunicationId);
 
 		if (body == null) {
 			ticketCommentImpl.setBody("");
@@ -173,6 +176,8 @@ public class TicketCommentCacheModel
 		modifiedDate = objectInput.readLong();
 
 		ticketEntryId = objectInput.readLong();
+
+		ticketCommunicationId = objectInput.readLong();
 		body = objectInput.readUTF();
 
 		type = objectInput.readInt();
@@ -203,6 +208,8 @@ public class TicketCommentCacheModel
 		objectOutput.writeLong(modifiedDate);
 
 		objectOutput.writeLong(ticketEntryId);
+
+		objectOutput.writeLong(ticketCommunicationId);
 
 		if (body == null) {
 			objectOutput.writeUTF("");
@@ -239,6 +246,7 @@ public class TicketCommentCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public long ticketEntryId;
+	public long ticketCommunicationId;
 	public String body;
 	public int type;
 	public String format;

@@ -15,7 +15,6 @@
 package com.liferay.yithro.ticket.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.model.AttachedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
@@ -36,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface TicketCommunicationModel
-	extends AttachedModel, BaseModel<TicketCommunication>, ShardedModel {
+	extends BaseModel<TicketCommunication>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -159,75 +158,47 @@ public interface TicketCommunicationModel
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
-	 * Returns the fully qualified class name of this ticket communication.
+	 * Returns the channel of this ticket communication.
 	 *
-	 * @return the fully qualified class name of this ticket communication
-	 */
-	@Override
-	public String getClassName();
-
-	public void setClassName(String className);
-
-	/**
-	 * Returns the class name ID of this ticket communication.
-	 *
-	 * @return the class name ID of this ticket communication
-	 */
-	@Override
-	public long getClassNameId();
-
-	/**
-	 * Sets the class name ID of this ticket communication.
-	 *
-	 * @param classNameId the class name ID of this ticket communication
-	 */
-	@Override
-	public void setClassNameId(long classNameId);
-
-	/**
-	 * Returns the class pk of this ticket communication.
-	 *
-	 * @return the class pk of this ticket communication
-	 */
-	@Override
-	public long getClassPK();
-
-	/**
-	 * Sets the class pk of this ticket communication.
-	 *
-	 * @param classPK the class pk of this ticket communication
-	 */
-	@Override
-	public void setClassPK(long classPK);
-
-	/**
-	 * Returns the content of this ticket communication.
-	 *
-	 * @return the content of this ticket communication
+	 * @return the channel of this ticket communication
 	 */
 	@AutoEscape
-	public String getContent();
+	public String getChannel();
 
 	/**
-	 * Sets the content of this ticket communication.
+	 * Sets the channel of this ticket communication.
 	 *
-	 * @param content the content of this ticket communication
+	 * @param channel the channel of this ticket communication
 	 */
-	public void setContent(String content);
+	public void setChannel(String channel);
 
 	/**
-	 * Returns the properties of this ticket communication.
+	 * Returns the data of this ticket communication.
 	 *
-	 * @return the properties of this ticket communication
+	 * @return the data of this ticket communication
 	 */
 	@AutoEscape
-	public String getProperties();
+	public String getData();
 
 	/**
-	 * Sets the properties of this ticket communication.
+	 * Sets the data of this ticket communication.
 	 *
-	 * @param properties the properties of this ticket communication
+	 * @param data the data of this ticket communication
 	 */
-	public void setProperties(String properties);
+	public void setData(String data);
+
+	/**
+	 * Returns the visibility of this ticket communication.
+	 *
+	 * @return the visibility of this ticket communication
+	 */
+	public int getVisibility();
+
+	/**
+	 * Sets the visibility of this ticket communication.
+	 *
+	 * @param visibility the visibility of this ticket communication
+	 */
+	public void setVisibility(int visibility);
 
 }

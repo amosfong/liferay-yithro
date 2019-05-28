@@ -51,10 +51,9 @@ public class TicketCommunicationWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
-		attributes.put("classNameId", getClassNameId());
-		attributes.put("classPK", getClassPK());
-		attributes.put("content", getContent());
-		attributes.put("properties", getProperties());
+		attributes.put("channel", getChannel());
+		attributes.put("data", getData());
+		attributes.put("visibility", getVisibility());
 
 		return attributes;
 	}
@@ -98,59 +97,33 @@ public class TicketCommunicationWrapper
 			setTicketEntryId(ticketEntryId);
 		}
 
-		Long classNameId = (Long)attributes.get("classNameId");
+		String channel = (String)attributes.get("channel");
 
-		if (classNameId != null) {
-			setClassNameId(classNameId);
+		if (channel != null) {
+			setChannel(channel);
 		}
 
-		Long classPK = (Long)attributes.get("classPK");
+		String data = (String)attributes.get("data");
 
-		if (classPK != null) {
-			setClassPK(classPK);
+		if (data != null) {
+			setData(data);
 		}
 
-		String content = (String)attributes.get("content");
+		Integer visibility = (Integer)attributes.get("visibility");
 
-		if (content != null) {
-			setContent(content);
-		}
-
-		String properties = (String)attributes.get("properties");
-
-		if (properties != null) {
-			setProperties(properties);
+		if (visibility != null) {
+			setVisibility(visibility);
 		}
 	}
 
 	/**
-	 * Returns the fully qualified class name of this ticket communication.
+	 * Returns the channel of this ticket communication.
 	 *
-	 * @return the fully qualified class name of this ticket communication
+	 * @return the channel of this ticket communication
 	 */
 	@Override
-	public String getClassName() {
-		return model.getClassName();
-	}
-
-	/**
-	 * Returns the class name ID of this ticket communication.
-	 *
-	 * @return the class name ID of this ticket communication
-	 */
-	@Override
-	public long getClassNameId() {
-		return model.getClassNameId();
-	}
-
-	/**
-	 * Returns the class pk of this ticket communication.
-	 *
-	 * @return the class pk of this ticket communication
-	 */
-	@Override
-	public long getClassPK() {
-		return model.getClassPK();
+	public String getChannel() {
+		return model.getChannel();
 	}
 
 	/**
@@ -164,16 +137,6 @@ public class TicketCommunicationWrapper
 	}
 
 	/**
-	 * Returns the content of this ticket communication.
-	 *
-	 * @return the content of this ticket communication
-	 */
-	@Override
-	public String getContent() {
-		return model.getContent();
-	}
-
-	/**
 	 * Returns the create date of this ticket communication.
 	 *
 	 * @return the create date of this ticket communication
@@ -181,6 +144,23 @@ public class TicketCommunicationWrapper
 	@Override
 	public Date getCreateDate() {
 		return model.getCreateDate();
+	}
+
+	/**
+	 * Returns the data of this ticket communication.
+	 *
+	 * @return the data of this ticket communication
+	 */
+	@Override
+	public String getData() {
+		return model.getData();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.json.JSONObject getDataJSONObject()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getDataJSONObject();
 	}
 
 	/**
@@ -204,16 +184,6 @@ public class TicketCommunicationWrapper
 	}
 
 	/**
-	 * Returns the properties of this ticket communication.
-	 *
-	 * @return the properties of this ticket communication
-	 */
-	@Override
-	public String getProperties() {
-		return model.getProperties();
-	}
-
-	/**
 	 * Returns the ticket communication ID of this ticket communication.
 	 *
 	 * @return the ticket communication ID of this ticket communication
@@ -231,6 +201,13 @@ public class TicketCommunicationWrapper
 	@Override
 	public long getTicketEntryId() {
 		return model.getTicketEntryId();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.User getUser()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getUser();
 	}
 
 	/**
@@ -253,34 +230,29 @@ public class TicketCommunicationWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * Returns the visibility of this ticket communication.
+	 *
+	 * @return the visibility of this ticket communication
+	 */
+	@Override
+	public int getVisibility() {
+		return model.getVisibility();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
 	}
 
-	@Override
-	public void setClassName(String className) {
-		model.setClassName(className);
-	}
-
 	/**
-	 * Sets the class name ID of this ticket communication.
+	 * Sets the channel of this ticket communication.
 	 *
-	 * @param classNameId the class name ID of this ticket communication
+	 * @param channel the channel of this ticket communication
 	 */
 	@Override
-	public void setClassNameId(long classNameId) {
-		model.setClassNameId(classNameId);
-	}
-
-	/**
-	 * Sets the class pk of this ticket communication.
-	 *
-	 * @param classPK the class pk of this ticket communication
-	 */
-	@Override
-	public void setClassPK(long classPK) {
-		model.setClassPK(classPK);
+	public void setChannel(String channel) {
+		model.setChannel(channel);
 	}
 
 	/**
@@ -294,16 +266,6 @@ public class TicketCommunicationWrapper
 	}
 
 	/**
-	 * Sets the content of this ticket communication.
-	 *
-	 * @param content the content of this ticket communication
-	 */
-	@Override
-	public void setContent(String content) {
-		model.setContent(content);
-	}
-
-	/**
 	 * Sets the create date of this ticket communication.
 	 *
 	 * @param createDate the create date of this ticket communication
@@ -311,6 +273,16 @@ public class TicketCommunicationWrapper
 	@Override
 	public void setCreateDate(Date createDate) {
 		model.setCreateDate(createDate);
+	}
+
+	/**
+	 * Sets the data of this ticket communication.
+	 *
+	 * @param data the data of this ticket communication
+	 */
+	@Override
+	public void setData(String data) {
+		model.setData(data);
 	}
 
 	/**
@@ -331,16 +303,6 @@ public class TicketCommunicationWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
-	}
-
-	/**
-	 * Sets the properties of this ticket communication.
-	 *
-	 * @param properties the properties of this ticket communication
-	 */
-	@Override
-	public void setProperties(String properties) {
-		model.setProperties(properties);
 	}
 
 	/**
@@ -381,6 +343,16 @@ public class TicketCommunicationWrapper
 	@Override
 	public void setUserUuid(String userUuid) {
 		model.setUserUuid(userUuid);
+	}
+
+	/**
+	 * Sets the visibility of this ticket communication.
+	 *
+	 * @param visibility the visibility of this ticket communication
+	 */
+	@Override
+	public void setVisibility(int visibility) {
+		model.setVisibility(visibility);
 	}
 
 	@Override

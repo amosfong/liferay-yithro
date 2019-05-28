@@ -67,7 +67,7 @@ public class TicketCommunicationCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{ticketCommunicationId=");
 		sb.append(ticketCommunicationId);
@@ -81,14 +81,12 @@ public class TicketCommunicationCacheModel
 		sb.append(modifiedDate);
 		sb.append(", ticketEntryId=");
 		sb.append(ticketEntryId);
-		sb.append(", classNameId=");
-		sb.append(classNameId);
-		sb.append(", classPK=");
-		sb.append(classPK);
-		sb.append(", content=");
-		sb.append(content);
-		sb.append(", properties=");
-		sb.append(properties);
+		sb.append(", channel=");
+		sb.append(channel);
+		sb.append(", data=");
+		sb.append(data);
+		sb.append(", visibility=");
+		sb.append(visibility);
 		sb.append("}");
 
 		return sb.toString();
@@ -118,22 +116,22 @@ public class TicketCommunicationCacheModel
 		}
 
 		ticketCommunicationImpl.setTicketEntryId(ticketEntryId);
-		ticketCommunicationImpl.setClassNameId(classNameId);
-		ticketCommunicationImpl.setClassPK(classPK);
 
-		if (content == null) {
-			ticketCommunicationImpl.setContent("");
+		if (channel == null) {
+			ticketCommunicationImpl.setChannel("");
 		}
 		else {
-			ticketCommunicationImpl.setContent(content);
+			ticketCommunicationImpl.setChannel(channel);
 		}
 
-		if (properties == null) {
-			ticketCommunicationImpl.setProperties("");
+		if (data == null) {
+			ticketCommunicationImpl.setData("");
 		}
 		else {
-			ticketCommunicationImpl.setProperties(properties);
+			ticketCommunicationImpl.setData(data);
 		}
+
+		ticketCommunicationImpl.setVisibility(visibility);
 
 		ticketCommunicationImpl.resetOriginalValues();
 
@@ -151,12 +149,10 @@ public class TicketCommunicationCacheModel
 		modifiedDate = objectInput.readLong();
 
 		ticketEntryId = objectInput.readLong();
+		channel = objectInput.readUTF();
+		data = objectInput.readUTF();
 
-		classNameId = objectInput.readLong();
-
-		classPK = objectInput.readLong();
-		content = objectInput.readUTF();
-		properties = objectInput.readUTF();
+		visibility = objectInput.readInt();
 	}
 
 	@Override
@@ -171,23 +167,21 @@ public class TicketCommunicationCacheModel
 
 		objectOutput.writeLong(ticketEntryId);
 
-		objectOutput.writeLong(classNameId);
-
-		objectOutput.writeLong(classPK);
-
-		if (content == null) {
+		if (channel == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(content);
+			objectOutput.writeUTF(channel);
 		}
 
-		if (properties == null) {
+		if (data == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(properties);
+			objectOutput.writeUTF(data);
 		}
+
+		objectOutput.writeInt(visibility);
 	}
 
 	public long ticketCommunicationId;
@@ -196,9 +190,8 @@ public class TicketCommunicationCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public long ticketEntryId;
-	public long classNameId;
-	public long classPK;
-	public String content;
-	public String properties;
+	public String channel;
+	public String data;
+	public int visibility;
 
 }

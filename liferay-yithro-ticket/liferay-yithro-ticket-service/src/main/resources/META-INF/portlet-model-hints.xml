@@ -8,6 +8,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
+		<field name="ticketCommunicationId" type="long" />
 		<field name="fileName" type="String">
 			<hint name="max-length">255</hint>
 		</field>
@@ -23,6 +24,7 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
+		<field name="ticketCommunicationId" type="long" />
 		<field name="body" type="String">
 			<hint-collection name="TEXTAREA" />
 			<hint name="max-length">200000</hint>
@@ -50,14 +52,9 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
-		<field name="classNameId" type="long" />
-		<field name="classPK" type="long" />
-		<field name="content" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="properties" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="channel" type="String" />
+		<field name="data" type="String" />
+		<field name="visibility" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketEntry">
 		<field name="ticketEntryId" type="long" />
@@ -120,6 +117,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
+		<field name="ticketCommunicationId" type="long" />
 		<field name="url" type="String">
 			<hint-collection name="URL" />
 		</field>

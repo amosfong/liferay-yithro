@@ -34,7 +34,7 @@ import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
-import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.yithro.ticket.exception.NoSuchTicketCommunicationException;
 import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.model.impl.TicketCommunicationImpl;
@@ -48,8 +48,10 @@ import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -92,71 +94,78 @@ public class TicketCommunicationPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathWithPaginationFindByTicketEntryId;
-	private FinderPath _finderPathWithoutPaginationFindByTicketEntryId;
-	private FinderPath _finderPathCountByTicketEntryId;
+	private FinderPath _finderPathWithPaginationFindByTEI_V;
+	private FinderPath _finderPathWithoutPaginationFindByTEI_V;
+	private FinderPath _finderPathCountByTEI_V;
 
 	/**
-	 * Returns all the ticket communications where ticketEntryId = &#63;.
+	 * Returns all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @return the matching ticket communications
 	 */
 	@Override
-	public List<TicketCommunication> findByTicketEntryId(long ticketEntryId) {
-		return findByTicketEntryId(
-			ticketEntryId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility) {
+
+		return findByTEI_V(
+			ticketEntryId, visibility, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
 	}
 
 	/**
-	 * Returns a range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns a range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @return the range of matching ticket communications
 	 */
 	@Override
-	public List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end) {
+	public List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end) {
 
-		return findByTicketEntryId(ticketEntryId, start, end, null);
+		return findByTEI_V(ticketEntryId, visibility, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket communications
 	 */
 	@Override
-	public List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end,
+	public List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		return findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, true);
+		return findByTEI_V(
+			ticketEntryId, visibility, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -164,8 +173,8 @@ public class TicketCommunicationPersistenceImpl
 	 * @return the ordered range of matching ticket communications
 	 */
 	@Override
-	public List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end,
+	public List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator,
 		boolean retrieveFromCache) {
 
@@ -177,13 +186,13 @@ public class TicketCommunicationPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTicketEntryId;
-			finderArgs = new Object[] {ticketEntryId};
+			finderPath = _finderPathWithoutPaginationFindByTEI_V;
+			finderArgs = new Object[] {ticketEntryId, visibility};
 		}
 		else {
-			finderPath = _finderPathWithPaginationFindByTicketEntryId;
+			finderPath = _finderPathWithPaginationFindByTEI_V;
 			finderArgs = new Object[] {
-				ticketEntryId, start, end, orderByComparator
+				ticketEntryId, visibility, start, end, orderByComparator
 			};
 		}
 
@@ -196,7 +205,8 @@ public class TicketCommunicationPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (TicketCommunication ticketCommunication : list) {
 					if ((ticketEntryId !=
-							ticketCommunication.getTicketEntryId())) {
+							ticketCommunication.getTicketEntryId()) ||
+						(visibility != ticketCommunication.getVisibility())) {
 
 						list = null;
 
@@ -211,15 +221,17 @@ public class TicketCommunicationPersistenceImpl
 
 			if (orderByComparator != null) {
 				query = new StringBundler(
-					3 + (orderByComparator.getOrderByFields().length * 2));
+					4 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				query = new StringBundler(3);
+				query = new StringBundler(4);
 			}
 
 			query.append(_SQL_SELECT_TICKETCOMMUNICATION_WHERE);
 
-			query.append(_FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_V_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_TEI_V_VISIBILITY_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -241,6 +253,8 @@ public class TicketCommunicationPersistenceImpl
 				QueryPos qPos = QueryPos.getInstance(q);
 
 				qPos.add(ticketEntryId);
+
+				qPos.add(visibility);
 
 				if (!pagination) {
 					list = (List<TicketCommunication>)QueryUtil.list(
@@ -273,32 +287,36 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket communication
 	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
 	 */
 	@Override
-	public TicketCommunication findByTicketEntryId_First(
-			long ticketEntryId,
+	public TicketCommunication findByTEI_V_First(
+			long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws NoSuchTicketCommunicationException {
 
-		TicketCommunication ticketCommunication = fetchByTicketEntryId_First(
-			ticketEntryId, orderByComparator);
+		TicketCommunication ticketCommunication = fetchByTEI_V_First(
+			ticketEntryId, visibility, orderByComparator);
 
 		if (ticketCommunication != null) {
 			return ticketCommunication;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler msg = new StringBundler(6);
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 		msg.append("ticketEntryId=");
 		msg.append(ticketEntryId);
+
+		msg.append(", visibility=");
+		msg.append(visibility);
 
 		msg.append("}");
 
@@ -306,19 +324,20 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
 	 */
 	@Override
-	public TicketCommunication fetchByTicketEntryId_First(
-		long ticketEntryId,
+	public TicketCommunication fetchByTEI_V_First(
+		long ticketEntryId, int visibility,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		List<TicketCommunication> list = findByTicketEntryId(
-			ticketEntryId, 0, 1, orderByComparator);
+		List<TicketCommunication> list = findByTEI_V(
+			ticketEntryId, visibility, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -328,32 +347,36 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket communication
 	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
 	 */
 	@Override
-	public TicketCommunication findByTicketEntryId_Last(
-			long ticketEntryId,
+	public TicketCommunication findByTEI_V_Last(
+			long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws NoSuchTicketCommunicationException {
 
-		TicketCommunication ticketCommunication = fetchByTicketEntryId_Last(
-			ticketEntryId, orderByComparator);
+		TicketCommunication ticketCommunication = fetchByTEI_V_Last(
+			ticketEntryId, visibility, orderByComparator);
 
 		if (ticketCommunication != null) {
 			return ticketCommunication;
 		}
 
-		StringBundler msg = new StringBundler(4);
+		StringBundler msg = new StringBundler(6);
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 		msg.append("ticketEntryId=");
 		msg.append(ticketEntryId);
+
+		msg.append(", visibility=");
+		msg.append(visibility);
 
 		msg.append("}");
 
@@ -361,25 +384,26 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
 	 */
 	@Override
-	public TicketCommunication fetchByTicketEntryId_Last(
-		long ticketEntryId,
+	public TicketCommunication fetchByTEI_V_Last(
+		long ticketEntryId, int visibility,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		int count = countByTicketEntryId(ticketEntryId);
+		int count = countByTEI_V(ticketEntryId, visibility);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<TicketCommunication> list = findByTicketEntryId(
-			ticketEntryId, count - 1, count, orderByComparator);
+		List<TicketCommunication> list = findByTEI_V(
+			ticketEntryId, visibility, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -389,17 +413,18 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Returns the ticket communications before and after the current ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the ticket communications before and after the current ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketCommunicationId the primary key of the current ticket communication
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next ticket communication
 	 * @throws NoSuchTicketCommunicationException if a ticket communication with the primary key could not be found
 	 */
 	@Override
-	public TicketCommunication[] findByTicketEntryId_PrevAndNext(
-			long ticketCommunicationId, long ticketEntryId,
+	public TicketCommunication[] findByTEI_V_PrevAndNext(
+			long ticketCommunicationId, long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws NoSuchTicketCommunicationException {
 
@@ -413,15 +438,15 @@ public class TicketCommunicationPersistenceImpl
 
 			TicketCommunication[] array = new TicketCommunicationImpl[3];
 
-			array[0] = getByTicketEntryId_PrevAndNext(
-				session, ticketCommunication, ticketEntryId, orderByComparator,
-				true);
+			array[0] = getByTEI_V_PrevAndNext(
+				session, ticketCommunication, ticketEntryId, visibility,
+				orderByComparator, true);
 
 			array[1] = ticketCommunication;
 
-			array[2] = getByTicketEntryId_PrevAndNext(
-				session, ticketCommunication, ticketEntryId, orderByComparator,
-				false);
+			array[2] = getByTEI_V_PrevAndNext(
+				session, ticketCommunication, ticketEntryId, visibility,
+				orderByComparator, false);
 
 			return array;
 		}
@@ -433,9 +458,9 @@ public class TicketCommunicationPersistenceImpl
 		}
 	}
 
-	protected TicketCommunication getByTicketEntryId_PrevAndNext(
+	protected TicketCommunication getByTEI_V_PrevAndNext(
 		Session session, TicketCommunication ticketCommunication,
-		long ticketEntryId,
+		long ticketEntryId, int visibility,
 		OrderByComparator<TicketCommunication> orderByComparator,
 		boolean previous) {
 
@@ -443,16 +468,18 @@ public class TicketCommunicationPersistenceImpl
 
 		if (orderByComparator != null) {
 			query = new StringBundler(
-				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+				5 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(3);
+			query = new StringBundler(4);
 		}
 
 		query.append(_SQL_SELECT_TICKETCOMMUNICATION_WHERE);
 
-		query.append(_FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2);
+		query.append(_FINDER_COLUMN_TEI_V_TICKETENTRYID_2);
+
+		query.append(_FINDER_COLUMN_TEI_V_VISIBILITY_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -525,6 +552,8 @@ public class TicketCommunicationPersistenceImpl
 
 		qPos.add(ticketEntryId);
 
+		qPos.add(visibility);
+
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
 					orderByComparator.getOrderByConditionValues(
@@ -545,41 +574,45 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	/**
-	 * Removes all the ticket communications where ticketEntryId = &#63; from the database.
+	 * Removes all the ticket communications where ticketEntryId = &#63; and visibility = &#63; from the database.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 */
 	@Override
-	public void removeByTicketEntryId(long ticketEntryId) {
+	public void removeByTEI_V(long ticketEntryId, int visibility) {
 		for (TicketCommunication ticketCommunication :
-				findByTicketEntryId(
-					ticketEntryId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-					null)) {
+				findByTEI_V(
+					ticketEntryId, visibility, QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null)) {
 
 			remove(ticketCommunication);
 		}
 	}
 
 	/**
-	 * Returns the number of ticket communications where ticketEntryId = &#63;.
+	 * Returns the number of ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @return the number of matching ticket communications
 	 */
 	@Override
-	public int countByTicketEntryId(long ticketEntryId) {
-		FinderPath finderPath = _finderPathCountByTicketEntryId;
+	public int countByTEI_V(long ticketEntryId, int visibility) {
+		FinderPath finderPath = _finderPathCountByTEI_V;
 
-		Object[] finderArgs = new Object[] {ticketEntryId};
+		Object[] finderArgs = new Object[] {ticketEntryId, visibility};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_TICKETCOMMUNICATION_WHERE);
 
-			query.append(_FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2);
+			query.append(_FINDER_COLUMN_TEI_V_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_TEI_V_VISIBILITY_2);
 
 			String sql = query.toString();
 
@@ -594,233 +627,7 @@ public class TicketCommunicationPersistenceImpl
 
 				qPos.add(ticketEntryId);
 
-				count = (Long)q.uniqueResult();
-
-				finderCache.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2 =
-		"ticketCommunication.ticketEntryId = ?";
-
-	private FinderPath _finderPathFetchByC_C;
-	private FinderPath _finderPathCountByC_C;
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or throws a <code>NoSuchTicketCommunicationException</code> if it could not be found.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the matching ticket communication
-	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
-	 */
-	@Override
-	public TicketCommunication findByC_C(long classNameId, long classPK)
-		throws NoSuchTicketCommunicationException {
-
-		TicketCommunication ticketCommunication = fetchByC_C(
-			classNameId, classPK);
-
-		if (ticketCommunication == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("classNameId=");
-			msg.append(classNameId);
-
-			msg.append(", classPK=");
-			msg.append(classPK);
-
-			msg.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
-			}
-
-			throw new NoSuchTicketCommunicationException(msg.toString());
-		}
-
-		return ticketCommunication;
-	}
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
-	 */
-	@Override
-	public TicketCommunication fetchByC_C(long classNameId, long classPK) {
-		return fetchByC_C(classNameId, classPK, true);
-	}
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
-	 */
-	@Override
-	public TicketCommunication fetchByC_C(
-		long classNameId, long classPK, boolean retrieveFromCache) {
-
-		Object[] finderArgs = new Object[] {classNameId, classPK};
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByC_C, finderArgs, this);
-		}
-
-		if (result instanceof TicketCommunication) {
-			TicketCommunication ticketCommunication =
-				(TicketCommunication)result;
-
-			if ((classNameId != ticketCommunication.getClassNameId()) ||
-				(classPK != ticketCommunication.getClassPK())) {
-
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(4);
-
-			query.append(_SQL_SELECT_TICKETCOMMUNICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_C_CLASSNAMEID_2);
-
-			query.append(_FINDER_COLUMN_C_C_CLASSPK_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(classNameId);
-
-				qPos.add(classPK);
-
-				List<TicketCommunication> list = q.list();
-
-				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByC_C, finderArgs, list);
-				}
-				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
-
-						if (_log.isWarnEnabled()) {
-							_log.warn(
-								"TicketCommunicationPersistenceImpl.fetchByC_C(long, long, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					TicketCommunication ticketCommunication = list.get(0);
-
-					result = ticketCommunication;
-
-					cacheResult(ticketCommunication);
-				}
-			}
-			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByC_C, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (TicketCommunication)result;
-		}
-	}
-
-	/**
-	 * Removes the ticket communication where classNameId = &#63; and classPK = &#63; from the database.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the ticket communication that was removed
-	 */
-	@Override
-	public TicketCommunication removeByC_C(long classNameId, long classPK)
-		throws NoSuchTicketCommunicationException {
-
-		TicketCommunication ticketCommunication = findByC_C(
-			classNameId, classPK);
-
-		return remove(ticketCommunication);
-	}
-
-	/**
-	 * Returns the number of ticket communications where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the number of matching ticket communications
-	 */
-	@Override
-	public int countByC_C(long classNameId, long classPK) {
-		FinderPath finderPath = _finderPathCountByC_C;
-
-		Object[] finderArgs = new Object[] {classNameId, classPK};
-
-		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_TICKETCOMMUNICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_C_CLASSNAMEID_2);
-
-			query.append(_FINDER_COLUMN_C_C_CLASSPK_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(classNameId);
-
-				qPos.add(classPK);
+				qPos.add(visibility);
 
 				count = (Long)q.uniqueResult();
 
@@ -839,17 +646,23 @@ public class TicketCommunicationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_C_CLASSNAMEID_2 =
-		"ticketCommunication.classNameId = ? AND ";
+	private static final String _FINDER_COLUMN_TEI_V_TICKETENTRYID_2 =
+		"ticketCommunication.ticketEntryId = ? AND ";
 
-	private static final String _FINDER_COLUMN_C_C_CLASSPK_2 =
-		"ticketCommunication.classPK = ?";
+	private static final String _FINDER_COLUMN_TEI_V_VISIBILITY_2 =
+		"ticketCommunication.visibility = ?";
 
 	public TicketCommunicationPersistenceImpl() {
 		setModelClass(TicketCommunication.class);
 
 		setModelImplClass(TicketCommunicationImpl.class);
 		setModelPKClass(long.class);
+
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("data", "data_");
+
+		setDBColumnNames(dbColumnNames);
 	}
 
 	/**
@@ -862,14 +675,6 @@ public class TicketCommunicationPersistenceImpl
 		entityCache.putResult(
 			entityCacheEnabled, TicketCommunicationImpl.class,
 			ticketCommunication.getPrimaryKey(), ticketCommunication);
-
-		finderCache.putResult(
-			_finderPathFetchByC_C,
-			new Object[] {
-				ticketCommunication.getClassNameId(),
-				ticketCommunication.getClassPK()
-			},
-			ticketCommunication);
 
 		ticketCommunication.resetOriginalValues();
 	}
@@ -925,9 +730,6 @@ public class TicketCommunicationPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(
-			(TicketCommunicationModelImpl)ticketCommunication, true);
 	}
 
 	@Override
@@ -939,50 +741,6 @@ public class TicketCommunicationPersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, TicketCommunicationImpl.class,
 				ticketCommunication.getPrimaryKey());
-
-			clearUniqueFindersCache(
-				(TicketCommunicationModelImpl)ticketCommunication, true);
-		}
-	}
-
-	protected void cacheUniqueFindersCache(
-		TicketCommunicationModelImpl ticketCommunicationModelImpl) {
-
-		Object[] args = new Object[] {
-			ticketCommunicationModelImpl.getClassNameId(),
-			ticketCommunicationModelImpl.getClassPK()
-		};
-
-		finderCache.putResult(
-			_finderPathCountByC_C, args, Long.valueOf(1), false);
-		finderCache.putResult(
-			_finderPathFetchByC_C, args, ticketCommunicationModelImpl, false);
-	}
-
-	protected void clearUniqueFindersCache(
-		TicketCommunicationModelImpl ticketCommunicationModelImpl,
-		boolean clearCurrent) {
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {
-				ticketCommunicationModelImpl.getClassNameId(),
-				ticketCommunicationModelImpl.getClassPK()
-			};
-
-			finderCache.removeResult(_finderPathCountByC_C, args);
-			finderCache.removeResult(_finderPathFetchByC_C, args);
-		}
-
-		if ((ticketCommunicationModelImpl.getColumnBitmask() &
-			 _finderPathFetchByC_C.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {
-				ticketCommunicationModelImpl.getOriginalClassNameId(),
-				ticketCommunicationModelImpl.getOriginalClassPK()
-			};
-
-			finderCache.removeResult(_finderPathCountByC_C, args);
-			finderCache.removeResult(_finderPathFetchByC_C, args);
 		}
 	}
 
@@ -1173,12 +931,13 @@ public class TicketCommunicationPersistenceImpl
 		}
 		else if (isNew) {
 			Object[] args = new Object[] {
-				ticketCommunicationModelImpl.getTicketEntryId()
+				ticketCommunicationModelImpl.getTicketEntryId(),
+				ticketCommunicationModelImpl.getVisibility()
 			};
 
-			finderCache.removeResult(_finderPathCountByTicketEntryId, args);
+			finderCache.removeResult(_finderPathCountByTEI_V, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByTicketEntryId, args);
+				_finderPathWithoutPaginationFindByTEI_V, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -1186,33 +945,32 @@ public class TicketCommunicationPersistenceImpl
 		}
 		else {
 			if ((ticketCommunicationModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByTicketEntryId.
-					 getColumnBitmask()) != 0) {
+				 _finderPathWithoutPaginationFindByTEI_V.getColumnBitmask()) !=
+					 0) {
 
 				Object[] args = new Object[] {
-					ticketCommunicationModelImpl.getOriginalTicketEntryId()
+					ticketCommunicationModelImpl.getOriginalTicketEntryId(),
+					ticketCommunicationModelImpl.getOriginalVisibility()
 				};
 
-				finderCache.removeResult(_finderPathCountByTicketEntryId, args);
+				finderCache.removeResult(_finderPathCountByTEI_V, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTicketEntryId, args);
+					_finderPathWithoutPaginationFindByTEI_V, args);
 
 				args = new Object[] {
-					ticketCommunicationModelImpl.getTicketEntryId()
+					ticketCommunicationModelImpl.getTicketEntryId(),
+					ticketCommunicationModelImpl.getVisibility()
 				};
 
-				finderCache.removeResult(_finderPathCountByTicketEntryId, args);
+				finderCache.removeResult(_finderPathCountByTEI_V, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTicketEntryId, args);
+					_finderPathWithoutPaginationFindByTEI_V, args);
 			}
 		}
 
 		entityCache.putResult(
 			entityCacheEnabled, TicketCommunicationImpl.class,
 			ticketCommunication.getPrimaryKey(), ticketCommunication, false);
-
-		clearUniqueFindersCache(ticketCommunicationModelImpl, false);
-		cacheUniqueFindersCache(ticketCommunicationModelImpl);
 
 		ticketCommunication.resetOriginalValues();
 
@@ -1467,6 +1225,11 @@ public class TicketCommunicationPersistenceImpl
 	}
 
 	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
 	protected EntityCache getEntityCache() {
 		return entityCache;
 	}
@@ -1510,40 +1273,29 @@ public class TicketCommunicationPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_finderPathWithPaginationFindByTicketEntryId = new FinderPath(
+		_finderPathWithPaginationFindByTEI_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
 			TicketCommunicationImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTicketEntryId",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTEI_V",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), OrderByComparator.class.getName()
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByTicketEntryId = new FinderPath(
+		_finderPathWithoutPaginationFindByTEI_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
 			TicketCommunicationImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTicketEntryId",
-			new String[] {Long.class.getName()},
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTEI_V",
+			new String[] {Long.class.getName(), Integer.class.getName()},
 			TicketCommunicationModelImpl.TICKETENTRYID_COLUMN_BITMASK |
+			TicketCommunicationModelImpl.VISIBILITY_COLUMN_BITMASK |
 			TicketCommunicationModelImpl.CREATEDATE_COLUMN_BITMASK);
 
-		_finderPathCountByTicketEntryId = new FinderPath(
+		_finderPathCountByTEI_V = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTicketEntryId",
-			new String[] {Long.class.getName()});
-
-		_finderPathFetchByC_C = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled,
-			TicketCommunicationImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByC_C",
-			new String[] {Long.class.getName(), Long.class.getName()},
-			TicketCommunicationModelImpl.CLASSNAMEID_COLUMN_BITMASK |
-			TicketCommunicationModelImpl.CLASSPK_COLUMN_BITMASK);
-
-		_finderPathCountByC_C = new FinderPath(
-			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
-			new String[] {Long.class.getName(), Long.class.getName()});
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTEI_V",
+			new String[] {Long.class.getName(), Integer.class.getName()});
 	}
 
 	@Deactivate
@@ -1619,5 +1371,8 @@ public class TicketCommunicationPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		TicketCommunicationPersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"data"});
 
 }

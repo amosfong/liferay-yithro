@@ -305,6 +305,190 @@ public class TicketAttachmentUtil {
 	}
 
 	/**
+	 * Returns all the ticket attachments where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTicketCommunicationId(
+		long ticketCommunicationId) {
+
+		return getPersistence().findByTicketCommunicationId(
+			ticketCommunicationId);
+	}
+
+	/**
+	 * Returns a range of all the ticket attachments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @return the range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end) {
+
+		return getPersistence().findByTicketCommunicationId(
+			ticketCommunicationId, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket attachments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketAttachment> orderByComparator) {
+
+		return getPersistence().findByTicketCommunicationId(
+			ticketCommunicationId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket attachments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketAttachmentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket attachments
+	 * @param end the upper bound of the range of ticket attachments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket attachments
+	 */
+	public static List<TicketAttachment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketAttachment> orderByComparator,
+		boolean retrieveFromCache) {
+
+		return getPersistence().findByTicketCommunicationId(
+			ticketCommunicationId, start, end, orderByComparator,
+			retrieveFromCache);
+	}
+
+	/**
+	 * Returns the first ticket attachment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket attachment
+	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
+	 */
+	public static TicketAttachment findByTicketCommunicationId_First(
+			long ticketCommunicationId,
+			OrderByComparator<TicketAttachment> orderByComparator)
+		throws com.liferay.yithro.ticket.exception.
+			NoSuchTicketAttachmentException {
+
+		return getPersistence().findByTicketCommunicationId_First(
+			ticketCommunicationId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first ticket attachment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	public static TicketAttachment fetchByTicketCommunicationId_First(
+		long ticketCommunicationId,
+		OrderByComparator<TicketAttachment> orderByComparator) {
+
+		return getPersistence().fetchByTicketCommunicationId_First(
+			ticketCommunicationId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last ticket attachment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket attachment
+	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
+	 */
+	public static TicketAttachment findByTicketCommunicationId_Last(
+			long ticketCommunicationId,
+			OrderByComparator<TicketAttachment> orderByComparator)
+		throws com.liferay.yithro.ticket.exception.
+			NoSuchTicketAttachmentException {
+
+		return getPersistence().findByTicketCommunicationId_Last(
+			ticketCommunicationId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last ticket attachment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	public static TicketAttachment fetchByTicketCommunicationId_Last(
+		long ticketCommunicationId,
+		OrderByComparator<TicketAttachment> orderByComparator) {
+
+		return getPersistence().fetchByTicketCommunicationId_Last(
+			ticketCommunicationId, orderByComparator);
+	}
+
+	/**
+	 * Returns the ticket attachments before and after the current ticket attachment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketAttachmentId the primary key of the current ticket attachment
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket attachment
+	 * @throws NoSuchTicketAttachmentException if a ticket attachment with the primary key could not be found
+	 */
+	public static TicketAttachment[] findByTicketCommunicationId_PrevAndNext(
+			long ticketAttachmentId, long ticketCommunicationId,
+			OrderByComparator<TicketAttachment> orderByComparator)
+		throws com.liferay.yithro.ticket.exception.
+			NoSuchTicketAttachmentException {
+
+		return getPersistence().findByTicketCommunicationId_PrevAndNext(
+			ticketAttachmentId, ticketCommunicationId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the ticket attachments where ticketCommunicationId = &#63; from the database.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 */
+	public static void removeByTicketCommunicationId(
+		long ticketCommunicationId) {
+
+		getPersistence().removeByTicketCommunicationId(ticketCommunicationId);
+	}
+
+	/**
+	 * Returns the number of ticket attachments where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the number of matching ticket attachments
+	 */
+	public static int countByTicketCommunicationId(long ticketCommunicationId) {
+		return getPersistence().countByTicketCommunicationId(
+			ticketCommunicationId);
+	}
+
+	/**
 	 * Returns all the ticket attachments where createDate &lt; &#63; and ticketEntryId = &#63;.
 	 *
 	 * @param createDate the create date

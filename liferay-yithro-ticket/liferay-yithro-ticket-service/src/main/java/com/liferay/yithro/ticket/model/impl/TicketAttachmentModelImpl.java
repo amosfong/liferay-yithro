@@ -35,6 +35,9 @@ import com.liferay.yithro.ticket.model.TicketAttachmentSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -76,8 +79,9 @@ public class TicketAttachmentModelImpl
 		{"ticketAttachmentId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
-		{"fileName", Types.VARCHAR}, {"fileSize", Types.BIGINT},
-		{"visibility", Types.INTEGER}, {"status", Types.INTEGER}
+		{"ticketCommunicationId", Types.BIGINT}, {"fileName", Types.VARCHAR},
+		{"fileSize", Types.BIGINT}, {"visibility", Types.INTEGER},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -90,6 +94,7 @@ public class TicketAttachmentModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ticketCommunicationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileSize", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
@@ -97,7 +102,7 @@ public class TicketAttachmentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,fileName VARCHAR(255) null,fileSize LONG,visibility INTEGER,status INTEGER)";
+		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketCommunicationId LONG,fileName VARCHAR(255) null,fileSize LONG,visibility INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketAttachment";
@@ -120,11 +125,13 @@ public class TicketAttachmentModelImpl
 
 	public static final long STATUS_COLUMN_BITMASK = 4L;
 
-	public static final long TICKETENTRYID_COLUMN_BITMASK = 8L;
+	public static final long TICKETCOMMUNICATIONID_COLUMN_BITMASK = 8L;
 
-	public static final long USERID_COLUMN_BITMASK = 16L;
+	public static final long TICKETENTRYID_COLUMN_BITMASK = 16L;
 
-	public static final long VISIBILITY_COLUMN_BITMASK = 32L;
+	public static final long USERID_COLUMN_BITMASK = 32L;
+
+	public static final long VISIBILITY_COLUMN_BITMASK = 64L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -153,6 +160,7 @@ public class TicketAttachmentModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
+		model.setTicketCommunicationId(soapModel.getTicketCommunicationId());
 		model.setFileName(soapModel.getFileName());
 		model.setFileSize(soapModel.getFileSize());
 		model.setVisibility(soapModel.getVisibility());
@@ -272,6 +280,32 @@ public class TicketAttachmentModelImpl
 		return _attributeSetterBiConsumers;
 	}
 
+	private static Function<InvocationHandler, TicketAttachment>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketAttachment.class.getClassLoader(), TicketAttachment.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketAttachment> constructor =
+				(Constructor<TicketAttachment>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
+	}
+
 	private static final Map<String, Function<TicketAttachment, Object>>
 		_attributeGetterFunctions;
 	private static final Map<String, BiConsumer<TicketAttachment, Object>>
@@ -317,6 +351,13 @@ public class TicketAttachmentModelImpl
 			"ticketEntryId",
 			(BiConsumer<TicketAttachment, Long>)
 				TicketAttachment::setTicketEntryId);
+		attributeGetterFunctions.put(
+			"ticketCommunicationId",
+			TicketAttachment::getTicketCommunicationId);
+		attributeSetterBiConsumers.put(
+			"ticketCommunicationId",
+			(BiConsumer<TicketAttachment, Long>)
+				TicketAttachment::setTicketCommunicationId);
 		attributeGetterFunctions.put("fileName", TicketAttachment::getFileName);
 		attributeSetterBiConsumers.put(
 			"fileName",
@@ -466,6 +507,29 @@ public class TicketAttachmentModelImpl
 
 	@JSON
 	@Override
+	public long getTicketCommunicationId() {
+		return _ticketCommunicationId;
+	}
+
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		_columnBitmask |= TICKETCOMMUNICATIONID_COLUMN_BITMASK;
+
+		if (!_setOriginalTicketCommunicationId) {
+			_setOriginalTicketCommunicationId = true;
+
+			_originalTicketCommunicationId = _ticketCommunicationId;
+		}
+
+		_ticketCommunicationId = ticketCommunicationId;
+	}
+
+	public long getOriginalTicketCommunicationId() {
+		return _originalTicketCommunicationId;
+	}
+
+	@JSON
+	@Override
 	public String getFileName() {
 		if (_fileName == null) {
 			return "";
@@ -567,8 +631,7 @@ public class TicketAttachmentModelImpl
 	@Override
 	public TicketAttachment toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketAttachment)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -585,6 +648,8 @@ public class TicketAttachmentModelImpl
 		ticketAttachmentImpl.setUserName(getUserName());
 		ticketAttachmentImpl.setCreateDate(getCreateDate());
 		ticketAttachmentImpl.setTicketEntryId(getTicketEntryId());
+		ticketAttachmentImpl.setTicketCommunicationId(
+			getTicketCommunicationId());
 		ticketAttachmentImpl.setFileName(getFileName());
 		ticketAttachmentImpl.setFileSize(getFileSize());
 		ticketAttachmentImpl.setVisibility(getVisibility());
@@ -663,6 +728,11 @@ public class TicketAttachmentModelImpl
 
 		ticketAttachmentModelImpl._setOriginalTicketEntryId = false;
 
+		ticketAttachmentModelImpl._originalTicketCommunicationId =
+			ticketAttachmentModelImpl._ticketCommunicationId;
+
+		ticketAttachmentModelImpl._setOriginalTicketCommunicationId = false;
+
 		ticketAttachmentModelImpl._originalFileName =
 			ticketAttachmentModelImpl._fileName;
 
@@ -708,6 +778,9 @@ public class TicketAttachmentModelImpl
 		}
 
 		ticketAttachmentCacheModel.ticketEntryId = getTicketEntryId();
+
+		ticketAttachmentCacheModel.ticketCommunicationId =
+			getTicketCommunicationId();
 
 		ticketAttachmentCacheModel.fileName = getFileName();
 
@@ -789,11 +862,8 @@ public class TicketAttachmentModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketAttachment.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketAttachment.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketAttachment>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
@@ -808,6 +878,9 @@ public class TicketAttachmentModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
+	private long _ticketCommunicationId;
+	private long _originalTicketCommunicationId;
+	private boolean _setOriginalTicketCommunicationId;
 	private String _fileName;
 	private String _originalFileName;
 	private long _fileSize;

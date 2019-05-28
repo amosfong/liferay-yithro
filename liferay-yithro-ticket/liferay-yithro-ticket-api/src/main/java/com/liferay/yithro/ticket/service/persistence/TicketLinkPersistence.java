@@ -184,6 +184,150 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	public int countByTicketEntryId(long ticketEntryId);
 
 	/**
+	 * Returns all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the matching ticket links
+	 */
+	public java.util.List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId);
+
+	/**
+	 * Returns a range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @return the range of matching ticket links
+	 */
+	public java.util.List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket links
+	 */
+	public java.util.List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketLinkModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket links
+	 * @param end the upper bound of the range of ticket links (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket links
+	 */
+	public java.util.List<TicketLink> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+			orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	 * Returns the first ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket link
+	 * @throws NoSuchTicketLinkException if a matching ticket link could not be found
+	 */
+	public TicketLink findByTicketCommunicationId_First(
+			long ticketCommunicationId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+				orderByComparator)
+		throws NoSuchTicketLinkException;
+
+	/**
+	 * Returns the first ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket link, or <code>null</code> if a matching ticket link could not be found
+	 */
+	public TicketLink fetchByTicketCommunicationId_First(
+		long ticketCommunicationId,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+			orderByComparator);
+
+	/**
+	 * Returns the last ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket link
+	 * @throws NoSuchTicketLinkException if a matching ticket link could not be found
+	 */
+	public TicketLink findByTicketCommunicationId_Last(
+			long ticketCommunicationId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+				orderByComparator)
+		throws NoSuchTicketLinkException;
+
+	/**
+	 * Returns the last ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket link, or <code>null</code> if a matching ticket link could not be found
+	 */
+	public TicketLink fetchByTicketCommunicationId_Last(
+		long ticketCommunicationId,
+		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+			orderByComparator);
+
+	/**
+	 * Returns the ticket links before and after the current ticket link in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketLinkId the primary key of the current ticket link
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket link
+	 * @throws NoSuchTicketLinkException if a ticket link with the primary key could not be found
+	 */
+	public TicketLink[] findByTicketCommunicationId_PrevAndNext(
+			long ticketLinkId, long ticketCommunicationId,
+			com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
+				orderByComparator)
+		throws NoSuchTicketLinkException;
+
+	/**
+	 * Removes all the ticket links where ticketCommunicationId = &#63; from the database.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 */
+	public void removeByTicketCommunicationId(long ticketCommunicationId);
+
+	/**
+	 * Returns the number of ticket links where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the number of matching ticket links
+	 */
+	public int countByTicketCommunicationId(long ticketCommunicationId);
+
+	/**
 	 * Returns all the ticket links where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID

@@ -36,18 +36,6 @@ public class TicketAttachmentLocalServiceWrapper
 		_ticketAttachmentLocalService = ticketAttachmentLocalService;
 	}
 
-	@Override
-	public com.liferay.yithro.ticket.model.TicketAttachment addTicketAttachment(
-			long userId, long ticketEntryId, String fileName, java.io.File file,
-			int visibility, int status,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketAttachmentLocalService.addTicketAttachment(
-			userId, ticketEntryId, fileName, file, visibility, status,
-			serviceContext);
-	}
-
 	/**
 	 * Adds the ticket attachment to the database. Also notifies the appropriate model listeners.
 	 *
@@ -60,6 +48,18 @@ public class TicketAttachmentLocalServiceWrapper
 
 		return _ticketAttachmentLocalService.addTicketAttachment(
 			ticketAttachment);
+	}
+
+	@Override
+	public void addTicketAttachments(
+			long userId, long ticketEntryId, String[] fileNames,
+			java.io.File[] files, int visibility, int status,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketAttachmentLocalService.addTicketAttachments(
+			userId, ticketEntryId, fileNames, files, visibility, status,
+			serviceContext);
 	}
 
 	/**
@@ -127,6 +127,14 @@ public class TicketAttachmentLocalServiceWrapper
 
 		return _ticketAttachmentLocalService.deleteTicketAttachment(
 			ticketAttachment);
+	}
+
+	@Override
+	public void deleteTicketAttachments(long[] ticketAttachmentIds)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketAttachmentLocalService.deleteTicketAttachments(
+			ticketAttachmentIds);
 	}
 
 	@Override
@@ -360,13 +368,15 @@ public class TicketAttachmentLocalServiceWrapper
 	@Override
 	public void updateStatus(
 			long userId,
-			com.liferay.yithro.ticket.model.TicketAttachment ticketAttachment,
-			long ticketEntryId, int status,
+			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
+				ticketAttachments,
+			long ticketEntryId, int visibility, int status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_ticketAttachmentLocalService.updateStatus(
-			userId, ticketAttachment, ticketEntryId, status, serviceContext);
+			userId, ticketAttachments, ticketEntryId, visibility, status,
+			serviceContext);
 	}
 
 	@Override

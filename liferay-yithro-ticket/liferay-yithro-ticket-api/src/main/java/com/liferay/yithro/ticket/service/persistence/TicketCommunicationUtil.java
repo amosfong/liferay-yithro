@@ -129,250 +129,195 @@ public class TicketCommunicationUtil {
 	}
 
 	/**
-	 * Returns all the ticket communications where ticketEntryId = &#63;.
+	 * Returns all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @return the matching ticket communications
 	 */
-	public static List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId) {
+	public static List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility) {
 
-		return getPersistence().findByTicketEntryId(ticketEntryId);
+		return getPersistence().findByTEI_V(ticketEntryId, visibility);
 	}
 
 	/**
-	 * Returns a range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns a range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @return the range of matching ticket communications
 	 */
-	public static List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end) {
+	public static List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end) {
 
-		return getPersistence().findByTicketEntryId(ticketEntryId, start, end);
+		return getPersistence().findByTEI_V(
+			ticketEntryId, visibility, start, end);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching ticket communications
 	 */
-	public static List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end,
+	public static List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator);
+		return getPersistence().findByTEI_V(
+			ticketEntryId, visibility, start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63;.
+	 * Returns an ordered range of all the ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommunicationModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the ordered range of matching ticket communications
 	 */
-	public static List<TicketCommunication> findByTicketEntryId(
-		long ticketEntryId, int start, int end,
+	public static List<TicketCommunication> findByTEI_V(
+		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator,
 		boolean retrieveFromCache) {
 
-		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+		return getPersistence().findByTEI_V(
+			ticketEntryId, visibility, start, end, orderByComparator,
+			retrieveFromCache);
 	}
 
 	/**
-	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket communication
 	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
 	 */
-	public static TicketCommunication findByTicketEntryId_First(
-			long ticketEntryId,
+	public static TicketCommunication findByTEI_V_First(
+			long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketCommunicationException {
 
-		return getPersistence().findByTicketEntryId_First(
-			ticketEntryId, orderByComparator);
+		return getPersistence().findByTEI_V_First(
+			ticketEntryId, visibility, orderByComparator);
 	}
 
 	/**
-	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
 	 */
-	public static TicketCommunication fetchByTicketEntryId_First(
-		long ticketEntryId,
+	public static TicketCommunication fetchByTEI_V_First(
+		long ticketEntryId, int visibility,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		return getPersistence().fetchByTicketEntryId_First(
-			ticketEntryId, orderByComparator);
+		return getPersistence().fetchByTEI_V_First(
+			ticketEntryId, visibility, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket communication
 	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
 	 */
-	public static TicketCommunication findByTicketEntryId_Last(
-			long ticketEntryId,
+	public static TicketCommunication findByTEI_V_Last(
+			long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketCommunicationException {
 
-		return getPersistence().findByTicketEntryId_Last(
-			ticketEntryId, orderByComparator);
+		return getPersistence().findByTEI_V_Last(
+			ticketEntryId, visibility, orderByComparator);
 	}
 
 	/**
-	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the last ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
 	 */
-	public static TicketCommunication fetchByTicketEntryId_Last(
-		long ticketEntryId,
+	public static TicketCommunication fetchByTEI_V_Last(
+		long ticketEntryId, int visibility,
 		OrderByComparator<TicketCommunication> orderByComparator) {
 
-		return getPersistence().fetchByTicketEntryId_Last(
-			ticketEntryId, orderByComparator);
+		return getPersistence().fetchByTEI_V_Last(
+			ticketEntryId, visibility, orderByComparator);
 	}
 
 	/**
-	 * Returns the ticket communications before and after the current ticket communication in the ordered set where ticketEntryId = &#63;.
+	 * Returns the ticket communications before and after the current ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketCommunicationId the primary key of the current ticket communication
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next ticket communication
 	 * @throws NoSuchTicketCommunicationException if a ticket communication with the primary key could not be found
 	 */
-	public static TicketCommunication[] findByTicketEntryId_PrevAndNext(
-			long ticketCommunicationId, long ticketEntryId,
+	public static TicketCommunication[] findByTEI_V_PrevAndNext(
+			long ticketCommunicationId, long ticketEntryId, int visibility,
 			OrderByComparator<TicketCommunication> orderByComparator)
 		throws com.liferay.yithro.ticket.exception.
 			NoSuchTicketCommunicationException {
 
-		return getPersistence().findByTicketEntryId_PrevAndNext(
-			ticketCommunicationId, ticketEntryId, orderByComparator);
+		return getPersistence().findByTEI_V_PrevAndNext(
+			ticketCommunicationId, ticketEntryId, visibility,
+			orderByComparator);
 	}
 
 	/**
-	 * Removes all the ticket communications where ticketEntryId = &#63; from the database.
+	 * Removes all the ticket communications where ticketEntryId = &#63; and visibility = &#63; from the database.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 */
-	public static void removeByTicketEntryId(long ticketEntryId) {
-		getPersistence().removeByTicketEntryId(ticketEntryId);
+	public static void removeByTEI_V(long ticketEntryId, int visibility) {
+		getPersistence().removeByTEI_V(ticketEntryId, visibility);
 	}
 
 	/**
-	 * Returns the number of ticket communications where ticketEntryId = &#63;.
+	 * Returns the number of ticket communications where ticketEntryId = &#63; and visibility = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID
+	 * @param visibility the visibility
 	 * @return the number of matching ticket communications
 	 */
-	public static int countByTicketEntryId(long ticketEntryId) {
-		return getPersistence().countByTicketEntryId(ticketEntryId);
-	}
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or throws a <code>NoSuchTicketCommunicationException</code> if it could not be found.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the matching ticket communication
-	 * @throws NoSuchTicketCommunicationException if a matching ticket communication could not be found
-	 */
-	public static TicketCommunication findByC_C(long classNameId, long classPK)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketCommunicationException {
-
-		return getPersistence().findByC_C(classNameId, classPK);
-	}
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
-	 */
-	public static TicketCommunication fetchByC_C(
-		long classNameId, long classPK) {
-
-		return getPersistence().fetchByC_C(classNameId, classPK);
-	}
-
-	/**
-	 * Returns the ticket communication where classNameId = &#63; and classPK = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the matching ticket communication, or <code>null</code> if a matching ticket communication could not be found
-	 */
-	public static TicketCommunication fetchByC_C(
-		long classNameId, long classPK, boolean retrieveFromCache) {
-
-		return getPersistence().fetchByC_C(
-			classNameId, classPK, retrieveFromCache);
-	}
-
-	/**
-	 * Removes the ticket communication where classNameId = &#63; and classPK = &#63; from the database.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the ticket communication that was removed
-	 */
-	public static TicketCommunication removeByC_C(
-			long classNameId, long classPK)
-		throws com.liferay.yithro.ticket.exception.
-			NoSuchTicketCommunicationException {
-
-		return getPersistence().removeByC_C(classNameId, classPK);
-	}
-
-	/**
-	 * Returns the number of ticket communications where classNameId = &#63; and classPK = &#63;.
-	 *
-	 * @param classNameId the class name ID
-	 * @param classPK the class pk
-	 * @return the number of matching ticket communications
-	 */
-	public static int countByC_C(long classNameId, long classPK) {
-		return getPersistence().countByC_C(classNameId, classPK);
+	public static int countByTEI_V(long ticketEntryId, int visibility) {
+		return getPersistence().countByTEI_V(ticketEntryId, visibility);
 	}
 
 	/**

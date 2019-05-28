@@ -60,4 +60,10 @@ public interface TicketCommunication
 
 			};
 
+	public com.liferay.portal.kernel.json.JSONObject getDataJSONObject()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	public com.liferay.portal.kernel.model.User getUser()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

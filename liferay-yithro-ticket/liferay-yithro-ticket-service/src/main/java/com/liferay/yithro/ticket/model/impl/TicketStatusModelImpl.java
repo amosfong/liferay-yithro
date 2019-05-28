@@ -37,6 +37,9 @@ import com.liferay.yithro.ticket.model.TicketStatusSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -267,6 +270,32 @@ public class TicketStatusModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, TicketStatus>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketStatus.class.getClassLoader(), TicketStatus.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketStatus> constructor =
+				(Constructor<TicketStatus>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<TicketStatus, Object>>
@@ -788,8 +817,7 @@ public class TicketStatusModelImpl
 	@Override
 	public TicketStatus toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketStatus)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -1009,11 +1037,8 @@ public class TicketStatusModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketStatus.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketStatus.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketStatus>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

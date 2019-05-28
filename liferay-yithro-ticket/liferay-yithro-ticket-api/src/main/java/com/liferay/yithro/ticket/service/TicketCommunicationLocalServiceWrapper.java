@@ -39,27 +39,13 @@ public class TicketCommunicationLocalServiceWrapper
 	@Override
 	public com.liferay.yithro.ticket.model.TicketCommunication
 			addTicketCommunication(
-				long userId, long ticketEntryId, Class<?> clazz, long classPK,
-				String content,
-				com.liferay.portal.kernel.json.JSONObject propertiesJSONObject)
+				long userId, long ticketEntryId, String channel,
+				com.liferay.portal.kernel.json.JSONObject dataJSONObject,
+				int visibility)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketCommunicationLocalService.addTicketCommunication(
-			userId, ticketEntryId, clazz, classPK, content,
-			propertiesJSONObject);
-	}
-
-	@Override
-	public com.liferay.yithro.ticket.model.TicketCommunication
-			addTicketCommunication(
-				long userId, long ticketEntryId, long classNameId, long classPK,
-				String content,
-				com.liferay.portal.kernel.json.JSONObject propertiesJSONObject)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketCommunicationLocalService.addTicketCommunication(
-			userId, ticketEntryId, classNameId, classPK, content,
-			propertiesJSONObject);
+			userId, ticketEntryId, channel, dataJSONObject, visibility);
 	}
 
 	/**
@@ -104,15 +90,6 @@ public class TicketCommunicationLocalServiceWrapper
 			persistedModel);
 	}
 
-	@Override
-	public com.liferay.yithro.ticket.model.TicketCommunication
-			deleteTicketCommunication(Class<?> clazz, long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketCommunicationLocalService.deleteTicketCommunication(
-			clazz, classPK);
-	}
-
 	/**
 	 * Deletes the ticket communication with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -127,15 +104,6 @@ public class TicketCommunicationLocalServiceWrapper
 
 		return _ticketCommunicationLocalService.deleteTicketCommunication(
 			ticketCommunicationId);
-	}
-
-	@Override
-	public com.liferay.yithro.ticket.model.TicketCommunication
-			deleteTicketCommunication(long classNameId, long classPK)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _ticketCommunicationLocalService.deleteTicketCommunication(
-			classNameId, classPK);
 	}
 
 	/**
@@ -247,26 +215,10 @@ public class TicketCommunicationLocalServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketCommunication
-		fetchTicketCommunication(Class<?> clazz, long classPK) {
-
-		return _ticketCommunicationLocalService.fetchTicketCommunication(
-			clazz, classPK);
-	}
-
-	@Override
-	public com.liferay.yithro.ticket.model.TicketCommunication
 		fetchTicketCommunication(long ticketCommunicationId) {
 
 		return _ticketCommunicationLocalService.fetchTicketCommunication(
 			ticketCommunicationId);
-	}
-
-	@Override
-	public com.liferay.yithro.ticket.model.TicketCommunication
-		fetchTicketCommunication(long classNameId, long classPK) {
-
-		return _ticketCommunicationLocalService.fetchTicketCommunication(
-			classNameId, classPK);
 	}
 
 	@Override
@@ -340,11 +292,12 @@ public class TicketCommunicationLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.yithro.ticket.model.TicketCommunication>
-			getTicketCommunications(long ticketEntryId)
+			getTicketCommunications(
+				long ticketEntryId, int visibility, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketCommunicationLocalService.getTicketCommunications(
-			ticketEntryId);
+			ticketEntryId, visibility, start, end);
 	}
 
 	/**
@@ -360,12 +313,12 @@ public class TicketCommunicationLocalServiceWrapper
 	@Override
 	public com.liferay.yithro.ticket.model.TicketCommunication
 			updateTicketCommunication(
-				long ticketCommunicationId, String content,
-				com.liferay.portal.kernel.json.JSONObject propertiesJSONObject)
+				long ticketCommunicationId,
+				com.liferay.portal.kernel.json.JSONObject dataJSONObject)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketCommunicationLocalService.updateTicketCommunication(
-			ticketCommunicationId, content, propertiesJSONObject);
+			ticketCommunicationId, dataJSONObject);
 	}
 
 	/**

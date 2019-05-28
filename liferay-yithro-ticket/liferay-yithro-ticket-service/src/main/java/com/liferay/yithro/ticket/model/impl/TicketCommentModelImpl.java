@@ -34,6 +34,9 @@ import com.liferay.yithro.ticket.model.TicketCommentSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -75,7 +78,8 @@ public class TicketCommentModelImpl
 		{"ticketCommentId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"ticketEntryId", Types.BIGINT}, {"body", Types.VARCHAR},
+		{"ticketEntryId", Types.BIGINT},
+		{"ticketCommunicationId", Types.BIGINT}, {"body", Types.VARCHAR},
 		{"type_", Types.INTEGER}, {"format", Types.VARCHAR},
 		{"visibility", Types.INTEGER}, {"settings_", Types.VARCHAR},
 		{"status", Types.INTEGER}
@@ -92,6 +96,7 @@ public class TicketCommentModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ticketCommunicationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("body", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("format", Types.VARCHAR);
@@ -101,7 +106,7 @@ public class TicketCommentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketComment (ticketCommentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,body TEXT null,type_ INTEGER,format VARCHAR(75) null,visibility INTEGER,settings_ VARCHAR(75) null,status INTEGER)";
+		"create table Yithro_TicketComment (ticketCommentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketEntryId LONG,ticketCommunicationId LONG,body TEXT null,type_ INTEGER,format VARCHAR(75) null,visibility INTEGER,settings_ VARCHAR(75) null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketComment";
@@ -120,17 +125,19 @@ public class TicketCommentModelImpl
 
 	public static final long STATUS_COLUMN_BITMASK = 1L;
 
-	public static final long TICKETENTRYID_COLUMN_BITMASK = 2L;
+	public static final long TICKETCOMMUNICATIONID_COLUMN_BITMASK = 2L;
 
-	public static final long TYPE_COLUMN_BITMASK = 4L;
+	public static final long TICKETENTRYID_COLUMN_BITMASK = 4L;
 
-	public static final long USERID_COLUMN_BITMASK = 8L;
+	public static final long TYPE_COLUMN_BITMASK = 8L;
 
-	public static final long VISIBILITY_COLUMN_BITMASK = 16L;
+	public static final long USERID_COLUMN_BITMASK = 16L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 32L;
+	public static final long VISIBILITY_COLUMN_BITMASK = 32L;
 
-	public static final long TICKETCOMMENTID_COLUMN_BITMASK = 64L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 64L;
+
+	public static final long TICKETCOMMENTID_COLUMN_BITMASK = 128L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -160,6 +167,7 @@ public class TicketCommentModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
+		model.setTicketCommunicationId(soapModel.getTicketCommunicationId());
 		model.setBody(soapModel.getBody());
 		model.setType(soapModel.getType());
 		model.setFormat(soapModel.getFormat());
@@ -279,6 +287,32 @@ public class TicketCommentModelImpl
 		return _attributeSetterBiConsumers;
 	}
 
+	private static Function<InvocationHandler, TicketComment>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			TicketComment.class.getClassLoader(), TicketComment.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<TicketComment> constructor =
+				(Constructor<TicketComment>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
+	}
+
 	private static final Map<String, Function<TicketComment, Object>>
 		_attributeGetterFunctions;
 	private static final Map<String, BiConsumer<TicketComment, Object>>
@@ -322,6 +356,12 @@ public class TicketCommentModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketEntryId",
 			(BiConsumer<TicketComment, Long>)TicketComment::setTicketEntryId);
+		attributeGetterFunctions.put(
+			"ticketCommunicationId", TicketComment::getTicketCommunicationId);
+		attributeSetterBiConsumers.put(
+			"ticketCommunicationId",
+			(BiConsumer<TicketComment, Long>)
+				TicketComment::setTicketCommunicationId);
 		attributeGetterFunctions.put("body", TicketComment::getBody);
 		attributeSetterBiConsumers.put(
 			"body", (BiConsumer<TicketComment, String>)TicketComment::setBody);
@@ -486,6 +526,29 @@ public class TicketCommentModelImpl
 
 	@JSON
 	@Override
+	public long getTicketCommunicationId() {
+		return _ticketCommunicationId;
+	}
+
+	@Override
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		_columnBitmask |= TICKETCOMMUNICATIONID_COLUMN_BITMASK;
+
+		if (!_setOriginalTicketCommunicationId) {
+			_setOriginalTicketCommunicationId = true;
+
+			_originalTicketCommunicationId = _ticketCommunicationId;
+		}
+
+		_ticketCommunicationId = ticketCommunicationId;
+	}
+
+	public long getOriginalTicketCommunicationId() {
+		return _originalTicketCommunicationId;
+	}
+
+	@JSON
+	@Override
 	public String getBody() {
 		if (_body == null) {
 			return "";
@@ -621,8 +684,7 @@ public class TicketCommentModelImpl
 	@Override
 	public TicketComment toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (TicketComment)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			_escapedModel = _escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -640,6 +702,7 @@ public class TicketCommentModelImpl
 		ticketCommentImpl.setCreateDate(getCreateDate());
 		ticketCommentImpl.setModifiedDate(getModifiedDate());
 		ticketCommentImpl.setTicketEntryId(getTicketEntryId());
+		ticketCommentImpl.setTicketCommunicationId(getTicketCommunicationId());
 		ticketCommentImpl.setBody(getBody());
 		ticketCommentImpl.setType(getType());
 		ticketCommentImpl.setFormat(getFormat());
@@ -732,6 +795,11 @@ public class TicketCommentModelImpl
 
 		ticketCommentModelImpl._setOriginalTicketEntryId = false;
 
+		ticketCommentModelImpl._originalTicketCommunicationId =
+			ticketCommentModelImpl._ticketCommunicationId;
+
+		ticketCommentModelImpl._setOriginalTicketCommunicationId = false;
+
 		ticketCommentModelImpl._originalType = ticketCommentModelImpl._type;
 
 		ticketCommentModelImpl._setOriginalType = false;
@@ -786,6 +854,9 @@ public class TicketCommentModelImpl
 		}
 
 		ticketCommentCacheModel.ticketEntryId = getTicketEntryId();
+
+		ticketCommentCacheModel.ticketCommunicationId =
+			getTicketCommunicationId();
 
 		ticketCommentCacheModel.body = getBody();
 
@@ -883,11 +954,8 @@ public class TicketCommentModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		TicketComment.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		TicketComment.class, ModelWrapper.class
-	};
+	private static final Function<InvocationHandler, TicketComment>
+		_escapedModelProxyProviderFunction = _getProxyProviderFunction();
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
@@ -903,6 +971,9 @@ public class TicketCommentModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
+	private long _ticketCommunicationId;
+	private long _originalTicketCommunicationId;
+	private boolean _setOriginalTicketCommunicationId;
 	private String _body;
 	private int _type;
 	private int _originalType;

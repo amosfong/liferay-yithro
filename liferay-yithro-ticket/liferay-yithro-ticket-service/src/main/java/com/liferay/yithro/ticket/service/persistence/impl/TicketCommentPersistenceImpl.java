@@ -613,6 +613,534 @@ public class TicketCommentPersistenceImpl
 	private static final String _FINDER_COLUMN_TICKETENTRYID_TICKETENTRYID_2 =
 		"ticketComment.ticketEntryId = ?";
 
+	private FinderPath _finderPathWithPaginationFindByTicketCommunicationId;
+	private FinderPath _finderPathWithoutPaginationFindByTicketCommunicationId;
+	private FinderPath _finderPathCountByTicketCommunicationId;
+
+	/**
+	 * Returns all the ticket comments where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the matching ticket comments
+	 */
+	@Override
+	public List<TicketComment> findByTicketCommunicationId(
+		long ticketCommunicationId) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the ticket comments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket comments
+	 * @param end the upper bound of the range of ticket comments (not inclusive)
+	 * @return the range of matching ticket comments
+	 */
+	@Override
+	public List<TicketComment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket comments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket comments
+	 * @param end the upper bound of the range of ticket comments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching ticket comments
+	 */
+	@Override
+	public List<TicketComment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketComment> orderByComparator) {
+
+		return findByTicketCommunicationId(
+			ticketCommunicationId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the ticket comments where ticketCommunicationId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>TicketCommentModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param start the lower bound of the range of ticket comments
+	 * @param end the upper bound of the range of ticket comments (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching ticket comments
+	 */
+	@Override
+	public List<TicketComment> findByTicketCommunicationId(
+		long ticketCommunicationId, int start, int end,
+		OrderByComparator<TicketComment> orderByComparator,
+		boolean retrieveFromCache) {
+
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			pagination = false;
+			finderPath =
+				_finderPathWithoutPaginationFindByTicketCommunicationId;
+			finderArgs = new Object[] {ticketCommunicationId};
+		}
+		else {
+			finderPath = _finderPathWithPaginationFindByTicketCommunicationId;
+			finderArgs = new Object[] {
+				ticketCommunicationId, start, end, orderByComparator
+			};
+		}
+
+		List<TicketComment> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<TicketComment>)finderCache.getResult(
+				finderPath, finderArgs, this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (TicketComment ticketComment : list) {
+					if ((ticketCommunicationId !=
+							ticketComment.getTicketCommunicationId())) {
+
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_TICKETCOMMENT_WHERE);
+
+			query.append(
+				_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else if (pagination) {
+				query.append(TicketCommentModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketCommunicationId);
+
+				if (!pagination) {
+					list = (List<TicketComment>)QueryUtil.list(
+						q, getDialect(), start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<TicketComment>)QueryUtil.list(
+						q, getDialect(), start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first ticket comment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket comment
+	 * @throws NoSuchTicketCommentException if a matching ticket comment could not be found
+	 */
+	@Override
+	public TicketComment findByTicketCommunicationId_First(
+			long ticketCommunicationId,
+			OrderByComparator<TicketComment> orderByComparator)
+		throws NoSuchTicketCommentException {
+
+		TicketComment ticketComment = fetchByTicketCommunicationId_First(
+			ticketCommunicationId, orderByComparator);
+
+		if (ticketComment != null) {
+			return ticketComment;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("ticketCommunicationId=");
+		msg.append(ticketCommunicationId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketCommentException(msg.toString());
+	}
+
+	/**
+	 * Returns the first ticket comment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching ticket comment, or <code>null</code> if a matching ticket comment could not be found
+	 */
+	@Override
+	public TicketComment fetchByTicketCommunicationId_First(
+		long ticketCommunicationId,
+		OrderByComparator<TicketComment> orderByComparator) {
+
+		List<TicketComment> list = findByTicketCommunicationId(
+			ticketCommunicationId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last ticket comment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket comment
+	 * @throws NoSuchTicketCommentException if a matching ticket comment could not be found
+	 */
+	@Override
+	public TicketComment findByTicketCommunicationId_Last(
+			long ticketCommunicationId,
+			OrderByComparator<TicketComment> orderByComparator)
+		throws NoSuchTicketCommentException {
+
+		TicketComment ticketComment = fetchByTicketCommunicationId_Last(
+			ticketCommunicationId, orderByComparator);
+
+		if (ticketComment != null) {
+			return ticketComment;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("ticketCommunicationId=");
+		msg.append(ticketCommunicationId);
+
+		msg.append("}");
+
+		throw new NoSuchTicketCommentException(msg.toString());
+	}
+
+	/**
+	 * Returns the last ticket comment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching ticket comment, or <code>null</code> if a matching ticket comment could not be found
+	 */
+	@Override
+	public TicketComment fetchByTicketCommunicationId_Last(
+		long ticketCommunicationId,
+		OrderByComparator<TicketComment> orderByComparator) {
+
+		int count = countByTicketCommunicationId(ticketCommunicationId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<TicketComment> list = findByTicketCommunicationId(
+			ticketCommunicationId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the ticket comments before and after the current ticket comment in the ordered set where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommentId the primary key of the current ticket comment
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next ticket comment
+	 * @throws NoSuchTicketCommentException if a ticket comment with the primary key could not be found
+	 */
+	@Override
+	public TicketComment[] findByTicketCommunicationId_PrevAndNext(
+			long ticketCommentId, long ticketCommunicationId,
+			OrderByComparator<TicketComment> orderByComparator)
+		throws NoSuchTicketCommentException {
+
+		TicketComment ticketComment = findByPrimaryKey(ticketCommentId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			TicketComment[] array = new TicketCommentImpl[3];
+
+			array[0] = getByTicketCommunicationId_PrevAndNext(
+				session, ticketComment, ticketCommunicationId,
+				orderByComparator, true);
+
+			array[1] = ticketComment;
+
+			array[2] = getByTicketCommunicationId_PrevAndNext(
+				session, ticketComment, ticketCommunicationId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected TicketComment getByTicketCommunicationId_PrevAndNext(
+		Session session, TicketComment ticketComment,
+		long ticketCommunicationId,
+		OrderByComparator<TicketComment> orderByComparator, boolean previous) {
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TICKETCOMMENT_WHERE);
+
+		query.append(
+			_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TicketCommentModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(ticketCommunicationId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						ticketComment)) {
+
+				qPos.add(orderByConditionValue);
+			}
+		}
+
+		List<TicketComment> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the ticket comments where ticketCommunicationId = &#63; from the database.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 */
+	@Override
+	public void removeByTicketCommunicationId(long ticketCommunicationId) {
+		for (TicketComment ticketComment :
+				findByTicketCommunicationId(
+					ticketCommunicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
+
+			remove(ticketComment);
+		}
+	}
+
+	/**
+	 * Returns the number of ticket comments where ticketCommunicationId = &#63;.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID
+	 * @return the number of matching ticket comments
+	 */
+	@Override
+	public int countByTicketCommunicationId(long ticketCommunicationId) {
+		FinderPath finderPath = _finderPathCountByTicketCommunicationId;
+
+		Object[] finderArgs = new Object[] {ticketCommunicationId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_TICKETCOMMENT_WHERE);
+
+			query.append(
+				_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketCommunicationId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String
+		_FINDER_COLUMN_TICKETCOMMUNICATIONID_TICKETCOMMUNICATIONID_2 =
+			"ticketComment.ticketCommunicationId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByTEI_T;
 	private FinderPath _finderPathWithoutPaginationFindByTEI_T;
 	private FinderPath _finderPathCountByTEI_T;
@@ -4080,6 +4608,15 @@ public class TicketCommentPersistenceImpl
 				_finderPathWithoutPaginationFindByTicketEntryId, args);
 
 			args = new Object[] {
+				ticketCommentModelImpl.getTicketCommunicationId()
+			};
+
+			finderCache.removeResult(
+				_finderPathCountByTicketCommunicationId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByTicketCommunicationId, args);
+
+			args = new Object[] {
 				ticketCommentModelImpl.getTicketEntryId(),
 				ticketCommentModelImpl.getType()
 			};
@@ -4143,6 +4680,31 @@ public class TicketCommentPersistenceImpl
 				finderCache.removeResult(_finderPathCountByTicketEntryId, args);
 				finderCache.removeResult(
 					_finderPathWithoutPaginationFindByTicketEntryId, args);
+			}
+
+			if ((ticketCommentModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByTicketCommunicationId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					ticketCommentModelImpl.getOriginalTicketCommunicationId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByTicketCommunicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByTicketCommunicationId,
+					args);
+
+				args = new Object[] {
+					ticketCommentModelImpl.getTicketCommunicationId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByTicketCommunicationId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByTicketCommunicationId,
+					args);
 			}
 
 			if ((ticketCommentModelImpl.getColumnBitmask() &
@@ -4569,6 +5131,30 @@ public class TicketCommentPersistenceImpl
 		_finderPathCountByTicketEntryId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTicketEntryId",
+			new String[] {Long.class.getName()});
+
+		_finderPathWithPaginationFindByTicketCommunicationId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketCommentImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByTicketCommunicationId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByTicketCommunicationId =
+			new FinderPath(
+				entityCacheEnabled, finderCacheEnabled, TicketCommentImpl.class,
+				FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+				"findByTicketCommunicationId",
+				new String[] {Long.class.getName()},
+				TicketCommentModelImpl.TICKETCOMMUNICATIONID_COLUMN_BITMASK |
+				TicketCommentModelImpl.CREATEDATE_COLUMN_BITMASK);
+
+		_finderPathCountByTicketCommunicationId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByTicketCommunicationId",
 			new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByTEI_T = new FinderPath(

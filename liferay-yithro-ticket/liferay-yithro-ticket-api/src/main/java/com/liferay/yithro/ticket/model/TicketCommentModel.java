@@ -184,6 +184,20 @@ public interface TicketCommentModel
 	public void setTicketEntryId(long ticketEntryId);
 
 	/**
+	 * Returns the ticket communication ID of this ticket comment.
+	 *
+	 * @return the ticket communication ID of this ticket comment
+	 */
+	public long getTicketCommunicationId();
+
+	/**
+	 * Sets the ticket communication ID of this ticket comment.
+	 *
+	 * @param ticketCommunicationId the ticket communication ID of this ticket comment
+	 */
+	public void setTicketCommunicationId(long ticketCommunicationId);
+
+	/**
 	 * Returns the body of this ticket comment.
 	 *
 	 * @return the body of this ticket comment

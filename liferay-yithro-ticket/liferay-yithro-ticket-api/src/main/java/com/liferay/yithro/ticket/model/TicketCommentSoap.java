@@ -41,6 +41,7 @@ public class TicketCommentSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
+		soapModel.setTicketCommunicationId(model.getTicketCommunicationId());
 		soapModel.setBody(model.getBody());
 		soapModel.setType(model.getType());
 		soapModel.setFormat(model.getFormat());
@@ -156,6 +157,14 @@ public class TicketCommentSoap implements Serializable {
 		_ticketEntryId = ticketEntryId;
 	}
 
+	public long getTicketCommunicationId() {
+		return _ticketCommunicationId;
+	}
+
+	public void setTicketCommunicationId(long ticketCommunicationId) {
+		_ticketCommunicationId = ticketCommunicationId;
+	}
+
 	public String getBody() {
 		return _body;
 	}
@@ -211,6 +220,7 @@ public class TicketCommentSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _ticketEntryId;
+	private long _ticketCommunicationId;
 	private String _body;
 	private int _type;
 	private String _format;
