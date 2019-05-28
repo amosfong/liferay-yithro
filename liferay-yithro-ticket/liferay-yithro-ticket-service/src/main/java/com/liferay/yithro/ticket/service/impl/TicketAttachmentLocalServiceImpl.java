@@ -35,6 +35,7 @@ import com.liferay.yithro.ticket.constants.TicketAttachmentConstants;
 import com.liferay.yithro.ticket.exception.DuplicateTicketAttachmentException;
 import com.liferay.yithro.ticket.exception.TicketAttachmentVisibilityException;
 import com.liferay.yithro.ticket.model.TicketAttachment;
+import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.service.TicketCommunicationLocalService;
 import com.liferay.yithro.ticket.service.base.TicketAttachmentLocalServiceBaseImpl;
 
@@ -42,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -59,50 +61,63 @@ import org.osgi.service.component.annotations.Reference;
 public class TicketAttachmentLocalServiceImpl
 	extends TicketAttachmentLocalServiceBaseImpl {
 
-	public TicketAttachment addTicketAttachment(
-			long userId, long ticketEntryId, String fileName, File file,
+	public void addTicketAttachments(
+			long userId, long ticketEntryId, String[] fileNames, File[] files,
 			int visibility, int status, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 		Date now = serviceContext.getCreateDate(new Date());
 
-		validate(ticketEntryId, fileName, file.length(), visibility);
+		for (int i = 0; i < files.length; i++) {
+			String fileName = fileNames[i];
+			File file = files[i];
 
-		long ticketAttachmentId = counterLocalService.increment();
+			validate(ticketEntryId, fileName, file.length(), visibility);
+		}
 
-		TicketAttachment ticketAttachment = ticketAttachmentPersistence.create(
-			ticketAttachmentId);
+		List<TicketAttachment> ticketAttachments = new ArrayList<>();
 
-		ticketAttachment.setUserId(user.getUserId());
-		ticketAttachment.setUserName(user.getFullName());
-		ticketAttachment.setCompanyId(user.getCompanyId());
-		ticketAttachment.setCreateDate(now);
-		ticketAttachment.setTicketEntryId(ticketEntryId);
-		ticketAttachment.setFileName(fileName);
-		ticketAttachment.setFileSize(file.length());
-		ticketAttachment.setVisibility(visibility);
+		for (int i = 0; i < files.length; i++) {
+			String fileName = fileNames[i];
+			File file = files[i];
 
-		ticketAttachmentPersistence.update(ticketAttachment);
+			long ticketAttachmentId = counterLocalService.increment();
 
-		// File
+			TicketAttachment ticketAttachment =
+				ticketAttachmentPersistence.create(ticketAttachmentId);
 
-		try {
-			DLStoreUtil.addDirectory(
+			ticketAttachment.setUserId(user.getUserId());
+			ticketAttachment.setUserName(user.getFullName());
+			ticketAttachment.setCompanyId(user.getCompanyId());
+			ticketAttachment.setCreateDate(now);
+			ticketAttachment.setTicketEntryId(ticketEntryId);
+			ticketAttachment.setFileName(fileName);
+			ticketAttachment.setFileSize(file.length());
+			ticketAttachment.setVisibility(visibility);
+
+			ticketAttachmentPersistence.update(ticketAttachment);
+
+			// File
+
+			try {
+				DLStoreUtil.addDirectory(
+					ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
+					ticketAttachment.getFileDir());
+			}
+			catch (DuplicateDirectoryException dde) {
+			}
+
+			DLStoreUtil.addFile(
 				ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
-				ticketAttachment.getFileDir());
-		}
-		catch (DuplicateDirectoryException dde) {
-		}
+				ticketAttachment.getFilePath(), file);
 
-		DLStoreUtil.addFile(
-			ticketAttachment.getCompanyId(), CompanyConstants.SYSTEM,
-			ticketAttachment.getFilePath(), file);
+			ticketAttachments.add(ticketAttachment);
+		}
 
 		updateStatus(
-			userId, ticketAttachment, ticketEntryId, status, serviceContext);
-
-		return ticketAttachment;
+			userId, ticketAttachments, ticketEntryId, visibility, status,
+			serviceContext);
 	}
 
 	public void deleteOrphanTicketAttachments() throws PortalException {
@@ -156,10 +171,36 @@ public class TicketAttachmentLocalServiceImpl
 
 		// Ticket communication
 
-		ticketCommunicationLocalService.deleteTicketCommunication(
-			TicketAttachment.class, ticketAttachment.getTicketAttachmentId());
+		TicketCommunication ticketCommunication =
+			ticketCommunicationLocalService.getTicketCommunication(
+				ticketAttachment.getTicketCommunicationId());
+
+		JSONObject jsonObject = ticketCommunication.getDataJSONObject();
+
+		JSONArray jsonArray = updateJSONArray(
+			jsonObject.getJSONArray("ticketAttachments"),
+			ticketAttachment.getTicketAttachmentId());
+
+		if (jsonArray.length() > 0) {
+			jsonObject.put("ticketAttachments", jsonArray);
+
+			ticketCommunicationLocalService.updateTicketCommunication(
+				ticketCommunication.getTicketCommunicationId(), jsonObject);
+		}
+		else {
+			ticketCommunicationLocalService.deleteTicketCommunication(
+				ticketCommunication.getTicketCommunicationId());
+		}
 
 		return ticketAttachment;
+	}
+
+	public void deleteTicketAttachments(long[] ticketAttachmentIds)
+		throws PortalException {
+
+		for (long ticketAttachmentId : ticketAttachmentIds) {
+			deleteTicketAttachment(ticketAttachmentId);
+		}
 	}
 
 	public TicketAttachment fetchTicketAttachment(
@@ -221,25 +262,28 @@ public class TicketAttachmentLocalServiceImpl
 	}
 
 	public void updateStatus(
-			long userId, TicketAttachment ticketAttachment, long ticketEntryId,
-			int status, ServiceContext serviceContext)
+			long userId, List<TicketAttachment> ticketAttachments,
+			long ticketEntryId, int visibility, int status,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		// Ticket attachment
 
 		Date now = serviceContext.getCreateDate(new Date());
 
-		if (status == WorkflowConstants.STATUS_APPROVED) {
-			if (ticketAttachment.getStatus() ==
-					WorkflowConstants.STATUS_DRAFT) {
+		for (TicketAttachment ticketAttachment : ticketAttachments) {
+			if (status == WorkflowConstants.STATUS_APPROVED) {
+				if (ticketAttachment.getStatus() ==
+						WorkflowConstants.STATUS_DRAFT) {
 
-				ticketAttachment.setCreateDate(now);
+					ticketAttachment.setCreateDate(now);
+				}
 			}
+
+			ticketAttachment.setStatus(status);
+
+			ticketAttachmentPersistence.update(ticketAttachment);
 		}
-
-		ticketAttachment.setStatus(status);
-
-		ticketAttachmentPersistence.update(ticketAttachment);
 
 		if ((status != WorkflowConstants.STATUS_APPROVED) ||
 			(ticketEntryId ==
@@ -250,10 +294,17 @@ public class TicketAttachmentLocalServiceImpl
 
 		// Ticket communication
 
-		ticketCommunicationLocalService.addTicketCommunication(
-			ticketAttachment.getUserId(), ticketAttachment.getTicketEntryId(),
-			TicketAttachment.class, ticketAttachment.getTicketAttachmentId(),
-			null, getJSONObject(ticketAttachment));
+		TicketCommunication ticketCommunication =
+			ticketCommunicationLocalService.addTicketCommunication(
+				userId, ticketEntryId, TicketAttachment.class.getName(),
+				getDataJSONObject(ticketAttachments), visibility);
+
+		for (TicketAttachment ticketAttachment : ticketAttachments) {
+			ticketAttachment.setTicketCommunicationId(
+				ticketCommunication.getTicketCommunicationId());
+
+			ticketAttachmentPersistence.update(ticketAttachment);
+		}
 	}
 
 	public TicketAttachment updateTicketAttachment(
@@ -291,23 +342,49 @@ public class TicketAttachmentLocalServiceImpl
 		return ticketAttachment;
 	}
 
-	protected JSONObject getJSONObject(TicketAttachment ticketAttachment) {
+	protected JSONObject getDataJSONObject(
+		List<TicketAttachment> ticketAttachments) {
+
 		JSONObject jsonObject = jsonFactory.createJSONObject();
 
 		JSONArray jsonArray = jsonFactory.createJSONArray();
 
-		JSONObject attachmentJSONObject = jsonFactory.createJSONObject();
+		for (TicketAttachment ticketAttachment : ticketAttachments) {
+			JSONObject attachmentJSONObject = jsonFactory.createJSONObject();
 
-		attachmentJSONObject.put("fileName", ticketAttachment.getFileName());
-		attachmentJSONObject.put("fileSize", ticketAttachment.getFileSize());
-		attachmentJSONObject.put(
-			"ticketAttachmentId", ticketAttachment.getTicketAttachmentId());
+			attachmentJSONObject.put(
+				"fileName", ticketAttachment.getFileName());
+			attachmentJSONObject.put(
+				"fileSize", ticketAttachment.getFileSize());
+			attachmentJSONObject.put(
+				"ticketAttachmentId", ticketAttachment.getTicketAttachmentId());
 
-		jsonArray.put(attachmentJSONObject);
+			jsonArray.put(attachmentJSONObject);
+		}
 
 		jsonObject.put("ticketAttachments", jsonArray);
 
 		return jsonObject;
+	}
+
+	protected JSONArray updateJSONArray(
+		JSONArray jsonArray, long removeTicketAttachmentId) {
+
+		JSONArray newJSONArray = jsonFactory.createJSONArray();
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			if (jsonObject.getLong("ticketAttachmentId") ==
+					removeTicketAttachmentId) {
+
+				continue;
+			}
+
+			newJSONArray.put(jsonObject);
+		}
+
+		return newJSONArray;
 	}
 
 	protected void validate(

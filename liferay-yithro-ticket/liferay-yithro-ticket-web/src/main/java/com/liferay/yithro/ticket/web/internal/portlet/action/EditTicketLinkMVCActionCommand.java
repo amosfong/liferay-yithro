@@ -19,10 +19,11 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.yithro.ticket.constants.TicketLinkTypes;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
@@ -46,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditTicketLinkMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void addTicketLink(ActionRequest actionRequest)
+	protected void addTicketLinks(ActionRequest actionRequest)
 		throws PortalException {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -54,20 +55,33 @@ public class EditTicketLinkMVCActionCommand extends BaseMVCActionCommand {
 
 		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
 
-		String url = ParamUtil.getString(actionRequest, "url");
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
-		_ticketLinkLocalService.addTicketLink(
-			themeDisplay.getUserId(), ticketEntryId, url,
-			TicketLinkTypes.NORMAL, visibility, new ServiceContext());
+		String[] urls = new String[0];
+		int[] types = new int[0];
+
+		int[] urlIndexes = StringUtil.split(
+			ParamUtil.getString(actionRequest, "urlIndexes"), 0);
+
+		for (int urlIndex : urlIndexes) {
+			String url = ParamUtil.getString(actionRequest, "url_" + urlIndex);
+
+			urls = ArrayUtil.append(urls, url);
+
+			types = ArrayUtil.append(types, TicketLinkTypes.NORMAL);
+		}
+
+		_ticketLinkLocalService.addTicketLinks(
+			themeDisplay.getUserId(), ticketEntryId, urls, types, visibility);
 	}
 
-	protected void deleteTicketLink(ActionRequest actionRequest)
+	protected void deleteTicketLinks(ActionRequest actionRequest)
 		throws PortalException {
 
-		long ticketLinkId = ParamUtil.getLong(actionRequest, "ticketLinkId");
+		long[] ticketLinkIds = ParamUtil.getLongValues(
+			actionRequest, "ticketLinkId");
 
-		_ticketLinkLocalService.deleteTicketLink(ticketLinkId);
+		_ticketLinkLocalService.deleteTicketLinks(ticketLinkIds);
 	}
 
 	@Override
@@ -79,10 +93,10 @@ public class EditTicketLinkMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.DELETE)) {
-				deleteTicketLink(actionRequest);
+				deleteTicketLinks(actionRequest);
 			}
 			else {
-				addTicketLink(actionRequest);
+				addTicketLinks(actionRequest);
 			}
 
 			sendRedirect(actionRequest, actionResponse);

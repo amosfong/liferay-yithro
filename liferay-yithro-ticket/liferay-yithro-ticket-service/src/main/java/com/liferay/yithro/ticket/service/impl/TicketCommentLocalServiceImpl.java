@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -140,7 +141,7 @@ public class TicketCommentLocalServiceImpl
 			// Ticket communication
 
 			ticketCommunicationLocalService.deleteTicketCommunication(
-				TicketComment.class, ticketComment.getTicketCommentId());
+				ticketComment.getTicketCommunicationId());
 		}
 		else {
 			List<TicketAttachment> ticketAttachments =
@@ -242,20 +243,6 @@ public class TicketCommentLocalServiceImpl
 
 		ticketCommentPersistence.update(ticketComment);
 
-		int auditAction = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditAction"));
-
-		if (auditAction <= 0) {
-			if (ticketComment.getStatus() ==
-					WorkflowConstants.STATUS_APPROVED) {
-
-				serviceContext.setAttribute("auditAction", Actions.UPDATE);
-			}
-			else {
-				serviceContext.setAttribute("auditAction", Actions.ADD);
-			}
-		}
-
 		updateStatus(
 			user, ticketComment, ticketEntry, status, pendingTypes,
 			serviceContext);
@@ -263,10 +250,16 @@ public class TicketCommentLocalServiceImpl
 		return ticketComment;
 	}
 
-	protected String renderTicketComment(TicketComment ticketComment) {
-		String renderedContent = ticketComment.getBody();
+	protected JSONObject getDataJSONObject(TicketComment ticketComment) {
+		JSONObject jsonObject = jsonFactory.createJSONObject();
 
-		return renderedContent.replace("\n", "<br />");
+		String body = ticketComment.getBody();
+
+		jsonObject.put("content", body.replace("\n", "<br />"));
+
+		jsonObject.put("ticketCommentId", ticketComment.getTicketCommentId());
+
+		return jsonObject;
 	}
 
 	protected void updateStatus(
@@ -302,11 +295,10 @@ public class TicketCommentLocalServiceImpl
 					ticketComment.getVisibility(),
 					WorkflowConstants.STATUS_DRAFT);
 
-			for (TicketAttachment ticketAttachment : ticketAttachments) {
-				ticketAttachmentLocalService.updateStatus(
-					user.getUserId(), ticketAttachment,
-					ticketComment.getTicketEntryId(), status, serviceContext);
-			}
+			ticketAttachmentLocalService.updateStatus(
+				user.getUserId(), ticketAttachments,
+				ticketComment.getTicketEntryId(), ticketComment.getVisibility(),
+				status, serviceContext);
 		}
 
 		// Pending types
@@ -319,22 +311,23 @@ public class TicketCommentLocalServiceImpl
 
 		// Ticket communication
 
-		TicketCommunication ticketCommunication =
-			ticketCommunicationLocalService.fetchTicketCommunication(
-				TicketComment.class, ticketComment.getTicketCommentId());
-
-		if (ticketCommunication != null) {
+		if (ticketComment.getTicketCommunicationId() > 0) {
 			ticketCommunicationLocalService.updateTicketCommunication(
-				ticketCommunication.getTicketCommunicationId(),
-				renderTicketComment(ticketComment),
-				jsonFactory.createJSONObject());
+				ticketComment.getTicketCommunicationId(),
+				getDataJSONObject(ticketComment));
 		}
 		else {
-			ticketCommunicationLocalService.addTicketCommunication(
-				ticketComment.getUserId(), ticketComment.getTicketEntryId(),
-				TicketComment.class, ticketComment.getTicketCommentId(),
-				renderTicketComment(ticketComment),
-				jsonFactory.createJSONObject());
+			TicketCommunication ticketCommunication =
+				ticketCommunicationLocalService.addTicketCommunication(
+					ticketComment.getUserId(), ticketComment.getTicketEntryId(),
+					TicketComment.class.getName(),
+					getDataJSONObject(ticketComment),
+					ticketComment.getVisibility());
+
+			ticketComment.setTicketCommunicationId(
+				ticketCommunication.getTicketCommunicationId());
+
+			ticketCommentPersistence.update(ticketComment);
 		}
 
 		// Email

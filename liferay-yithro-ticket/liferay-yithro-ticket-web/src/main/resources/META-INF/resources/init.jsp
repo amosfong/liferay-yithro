@@ -28,16 +28,15 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.document.library.kernel.exception.FileNameException" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPCreationMenu" %><%@
+page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPDropdownItemList" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
 page import="com.liferay.portal.kernel.json.JSONArray" %><%@
-page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.json.JSONObject" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.model.User" %><%@
-page import="com.liferay.portal.kernel.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.ArrayUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
@@ -66,6 +65,7 @@ page import="com.liferay.yithro.ticket.exception.TicketLinkURLException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketLinkVisibilityException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketStatusNameException" %><%@
 page import="com.liferay.yithro.ticket.model.TicketAttachment" %><%@
+page import="com.liferay.yithro.ticket.model.TicketComment" %><%@
 page import="com.liferay.yithro.ticket.model.TicketCommunication" %><%@
 page import="com.liferay.yithro.ticket.model.TicketEntry" %><%@
 page import="com.liferay.yithro.ticket.model.TicketLink" %><%@
@@ -82,7 +82,8 @@ page import="java.text.Format" %>
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %>
 
-<%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="javax.portlet.ActionRequest" %><%@
+page import="javax.portlet.PortletURL" %>
 
 <liferay-frontend:defineObjects />
 

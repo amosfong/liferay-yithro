@@ -14,15 +14,29 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketCommunicationImpl extends TicketCommunicationBaseImpl {
 
 	public TicketCommunicationImpl() {
+	}
+
+	public JSONObject getDataJSONObject() throws PortalException {
+		return JSONFactoryUtil.createJSONObject(getData());
+	}
+
+	public User getUser() throws PortalException {
+		return UserLocalServiceUtil.getUser(getUserId());
 	}
 
 }

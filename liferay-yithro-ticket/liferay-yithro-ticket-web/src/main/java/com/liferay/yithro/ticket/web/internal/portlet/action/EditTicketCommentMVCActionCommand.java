@@ -14,10 +14,13 @@
 
 package com.liferay.yithro.ticket.web.internal.portlet.action;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -38,32 +41,75 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
-		"mvc.command.name=/add_ticket_comment"
+		"mvc.command.name=/edit_ticket_comment"
 	},
 	service = MVCActionCommand.class
 )
-public class AddTicketCommentMVCActionCommand extends BaseMVCActionCommand {
+public class EditTicketCommentMVCActionCommand extends BaseMVCActionCommand {
+
+	protected void deleteTicketComment(ActionRequest actionRequest)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long ticketCommentId = ParamUtil.getLong(
+			actionRequest, "ticketCommentId");
+
+		_ticketCommentLocalService.deleteTicketComment(
+			themeDisplay.getUserId(), ticketCommentId);
+	}
 
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+		try {
+			if (cmd.equals(Constants.DELETE)) {
+				deleteTicketComment(actionRequest);
+			}
+			else {
+				updateTicketComment(actionRequest);
+			}
+
+			sendRedirect(actionRequest, actionResponse);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw e;
+		}
+	}
+
+	protected void updateTicketComment(ActionRequest actionRequest)
+		throws Exception {
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
+
+		long ticketCommentId = ParamUtil.getLong(
+			actionRequest, "ticketCommentId");
 
 		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
 		String body = ParamUtil.getString(actionRequest, "body");
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
-		_ticketCommentLocalService.addTicketComment(
-			themeDisplay.getUserId(), ticketEntryId, body,
-			TicketCommentType.NORMAL, visibility,
-			WorkflowConstants.STATUS_APPROVED, new int[0],
-			new ServiceContext());
-
-		sendRedirect(actionRequest, actionResponse);
+		if (ticketCommentId > 0) {
+		}
+		else {
+			_ticketCommentLocalService.addTicketComment(
+				themeDisplay.getUserId(), ticketEntryId, body,
+				TicketCommentType.NORMAL, visibility,
+				WorkflowConstants.STATUS_APPROVED, new int[0],
+				new ServiceContext());
+		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditTicketCommentMVCActionCommand.class);
 
 	@Reference
 	private TicketCommentLocalService _ticketCommentLocalService;

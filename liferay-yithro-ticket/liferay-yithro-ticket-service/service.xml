@@ -19,6 +19,7 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
+		<column name="ticketCommunicationId" type="long" />
 		<column name="fileName" type="String" />
 		<column name="fileSize" type="long" />
 		<column name="visibility" type="int" />
@@ -34,6 +35,9 @@
 
 		<finder name="TicketEntryId" return-type="Collection">
 			<finder-column name="ticketEntryId" />
+		</finder>
+		<finder name="TicketCommunicationId" return-type="Collection">
+			<finder-column name="ticketCommunicationId" />
 		</finder>
 		<finder name="CD_TEI" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
@@ -78,6 +82,7 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
+		<column name="ticketCommunicationId" type="long" />
 		<column name="body" type="String" />
 		<column name="type" type="int" />
 		<column name="format" type="String" />
@@ -96,6 +101,9 @@
 
 		<finder name="TicketEntryId" return-type="Collection">
 			<finder-column name="ticketEntryId" />
+		</finder>
+		<finder name="TicketCommunicationId" return-type="Collection">
+			<finder-column name="ticketCommunicationId" />
 		</finder>
 		<finder name="TEI_T" return-type="Collection">
 			<finder-column name="ticketEntryId" />
@@ -165,10 +173,9 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
-		<column name="classNameId" type="long" />
-		<column name="classPK" type="long" />
-		<column name="content" type="String" />
-		<column name="properties" type="String" />
+		<column name="channel" type="String" />
+		<column name="data" type="String" />
+		<column name="visibility" type="int" />
 
 		<!-- Order -->
 
@@ -178,12 +185,9 @@
 
 		<!-- Finder methods -->
 
-		<finder name="TicketEntryId" return-type="Collection">
+		<finder name="TEI_V" return-type="Collection">
 			<finder-column name="ticketEntryId" />
-		</finder>
-		<finder name="C_C" return-type="TicketCommunication">
-			<finder-column name="classNameId" />
-			<finder-column name="classPK" />
+			<finder-column name="visibility" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="TicketEntry" remote-service="true">
@@ -337,6 +341,7 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
+		<column name="ticketCommunicationId" type="long" />
 		<column name="url" type="String" />
 		<column name="type" type="int" />
 		<column name="visibility" type="int" />
@@ -345,6 +350,9 @@
 
 		<finder name="TicketEntryId" return-type="Collection">
 			<finder-column name="ticketEntryId" />
+		</finder>
+		<finder name="TicketCommunicationId" return-type="Collection">
+			<finder-column name="ticketCommunicationId" />
 		</finder>
 		<finder name="TEI_V" return-type="Collection">
 			<finder-column name="ticketEntryId" />

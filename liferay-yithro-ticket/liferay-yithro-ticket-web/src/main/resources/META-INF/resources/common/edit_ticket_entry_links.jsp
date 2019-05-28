@@ -74,31 +74,47 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 
 <portlet:actionURL name="/edit_ticket_link" var="addTicketLinkURL" />
 
-<aui:form action="<%= addTicketLinkURL %>" method="post" name="fm2">
+<aui:form action="<%= addTicketLinkURL %>" method="post" name="ticketLinkFm" onSubmit="Liferay.fire('submitForm');">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
 
-	<aui:fieldset>
-		<div class="sheet-title">
-			<liferay-ui:message key="add-link" />
-		</div>
+	<div class="sheet-title">
+		<liferay-ui:message key="add-links" />
+	</div>
 
-		<aui:input name="url" type="url" value="<%= url %>" />
+	<aui:fieldset-group>
+		<aui:fieldset id='<%= renderResponse.getNamespace() + "urls" %>'>
+			<div class="lfr-form-row lfr-form-row-inline">
+				<aui:input label="url" name="url_0" value="<%= url %>" />
+			</div>
+		</aui:fieldset>
 
-		<aui:select name="visibility">
+		<aui:fieldset>
+			<aui:select name="visibility">
 
-			<%
-			for (int curVisibility : userVisibilities) {
-			%>
+				<%
+				for (int curVisibility : userVisibilities) {
+				%>
 
-				<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
+					<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
 
-			<%
-			}
-			%>
+				<%
+				}
+				%>
 
-		</aui:select>
-	</aui:fieldset>
+			</aui:select>
+		</aui:fieldset>
+	</aui:fieldset-group>
 
 	<aui:button type="submit" value="save" />
 </aui:form>
+
+<aui:script use="liferay-auto-fields">
+	var autoFields = new Liferay.AutoFields(
+		{
+			contentBox: 'fieldset#<portlet:namespace />urls',
+			fieldIndexes: '<portlet:namespace />urlIndexes',
+			namespace: '<portlet:namespace />'
+		}
+	).render();
+</aui:script>

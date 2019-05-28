@@ -45,6 +45,8 @@ import com.liferay.yithro.ticket.service.TicketFieldDataLocalService;
 import com.liferay.yithro.ticket.service.TicketFlagLocalService;
 import com.liferay.yithro.ticket.service.base.TicketEntryLocalServiceBaseImpl;
 
+import java.io.File;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -103,6 +105,9 @@ public class TicketEntryLocalServiceImpl
 
 		// Ticket attachments
 
+		String[] fileNames = new String[0];
+		File[] files = new File[0];
+
 		for (TicketAttachment ticketAttachment : ticketAttachments) {
 			if (ticketAttachment.getTicketAttachmentId() > 0) {
 				ticketAttachmentLocalService.updateTicketAttachment(
@@ -110,12 +115,17 @@ public class TicketEntryLocalServiceImpl
 					ticketEntry.getTicketEntryId());
 			}
 			else {
-				ticketAttachmentLocalService.addTicketAttachment(
-					userId, ticketEntry.getTicketEntryId(),
-					ticketAttachment.getFileName(), ticketAttachment.getFile(),
-					Visibilities.PUBLIC, WorkflowConstants.STATUS_APPROVED,
-					new ServiceContext());
+				fileNames = ArrayUtil.append(
+					fileNames, ticketAttachment.getFileName());
+				files = ArrayUtil.append(files, ticketAttachment.getFile());
 			}
+		}
+
+		if (!ArrayUtil.isEmpty(files)) {
+			ticketAttachmentLocalService.addTicketAttachments(
+				userId, ticketEntry.getTicketEntryId(), fileNames, files,
+				Visibilities.PUBLIC, WorkflowConstants.STATUS_APPROVED,
+				new ServiceContext());
 		}
 
 		return ticketEntry;

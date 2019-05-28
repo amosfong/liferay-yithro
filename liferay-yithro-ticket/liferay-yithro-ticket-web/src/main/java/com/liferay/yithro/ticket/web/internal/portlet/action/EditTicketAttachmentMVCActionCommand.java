@@ -22,9 +22,11 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
@@ -50,7 +52,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditTicketAttachmentMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void addTicketAttachment(ActionRequest actionRequest)
+	protected void addTicketAttachments(ActionRequest actionRequest)
 		throws PortalException {
 
 		UploadPortletRequest uploadPortletRequest =
@@ -63,24 +65,38 @@ public class EditTicketAttachmentMVCActionCommand extends BaseMVCActionCommand {
 		long ticketEntryId = ParamUtil.getLong(
 			uploadPortletRequest, "ticketEntryId");
 
-		String fileName = uploadPortletRequest.getFileName("file");
-		File file = uploadPortletRequest.getFile("file");
 		int visibility = ParamUtil.getInteger(
 			uploadPortletRequest, "visibility");
 
-		_ticketAttachmentLocalService.addTicketAttachment(
-			themeDisplay.getUserId(), ticketEntryId, fileName, file, visibility,
-			WorkflowConstants.STATUS_APPROVED, new ServiceContext());
+		String[] fileNames = new String[0];
+		File[] files = new File[0];
+
+		int[] fileIndexes = StringUtil.split(
+			ParamUtil.getString(actionRequest, "fileIndexes"), 0);
+
+		for (int fileIndex : fileIndexes) {
+			String fileName = uploadPortletRequest.getFileName(
+				"file_" + fileIndex);
+			File file = uploadPortletRequest.getFile("file_" + fileIndex);
+
+			fileNames = ArrayUtil.append(fileNames, fileName);
+			files = ArrayUtil.append(files, file);
+		}
+
+		_ticketAttachmentLocalService.addTicketAttachments(
+			themeDisplay.getUserId(), ticketEntryId, fileNames, files,
+			visibility, WorkflowConstants.STATUS_APPROVED,
+			new ServiceContext());
 	}
 
-	protected void deleteTicketAttachment(ActionRequest actionRequest)
+	protected void deleteTicketAttachments(ActionRequest actionRequest)
 		throws PortalException {
 
-		long ticketAttachmentId = ParamUtil.getLong(
+		long[] ticketAttachmentIds = ParamUtil.getLongValues(
 			actionRequest, "ticketAttachmentId");
 
-		_ticketAttachmentLocalService.deleteTicketAttachment(
-			ticketAttachmentId);
+		_ticketAttachmentLocalService.deleteTicketAttachments(
+			ticketAttachmentIds);
 	}
 
 	@Override
@@ -92,10 +108,10 @@ public class EditTicketAttachmentMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			if (cmd.equals(Constants.DELETE)) {
-				deleteTicketAttachment(actionRequest);
+				deleteTicketAttachments(actionRequest);
 			}
 			else {
-				addTicketAttachment(actionRequest);
+				addTicketAttachments(actionRequest);
 			}
 
 			sendRedirect(actionRequest, actionResponse);

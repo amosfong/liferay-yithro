@@ -36,20 +36,8 @@ public class TicketCommunicationLocalServiceImpl
 	extends TicketCommunicationLocalServiceBaseImpl {
 
 	public TicketCommunication addTicketCommunication(
-			long userId, long ticketEntryId, Class<?> clazz, long classPK,
-			String content, JSONObject propertiesJSONObject)
-		throws PortalException {
-
-		long classNameId = classNameLocalService.getClassNameId(clazz);
-
-		return addTicketCommunication(
-			userId, ticketEntryId, classNameId, classPK, content,
-			propertiesJSONObject);
-	}
-
-	public TicketCommunication addTicketCommunication(
-			long userId, long ticketEntryId, long classNameId, long classPK,
-			String content, JSONObject propertiesJSONObject)
+			long userId, long ticketEntryId, String channel,
+			JSONObject dataJSONObject, int visibility)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -62,62 +50,30 @@ public class TicketCommunicationLocalServiceImpl
 
 		ticketCommunication.setUserId(user.getUserId());
 		ticketCommunication.setTicketEntryId(ticketEntryId);
-		ticketCommunication.setClassNameId(classNameId);
-		ticketCommunication.setClassPK(classPK);
-		ticketCommunication.setContent(content);
-		ticketCommunication.setProperties(propertiesJSONObject.toString());
+		ticketCommunication.setChannel(channel);
+		ticketCommunication.setData(dataJSONObject.toString());
+		ticketCommunication.setVisibility(visibility);
 
 		return ticketCommunicationPersistence.update(ticketCommunication);
 	}
 
-	public TicketCommunication deleteTicketCommunication(
-			Class<?> clazz, long classPK)
+	public List<TicketCommunication> getTicketCommunications(
+			long ticketEntryId, int visibility, int start, int end)
 		throws PortalException {
 
-		long classNameId = classNameLocalService.getClassNameId(clazz);
-
-		return deleteTicketCommunication(classNameId, classPK);
-	}
-
-	public TicketCommunication deleteTicketCommunication(
-			long classNameId, long classPK)
-		throws PortalException {
-
-		return ticketCommunicationPersistence.removeByC_C(classNameId, classPK);
-	}
-
-	public TicketCommunication fetchTicketCommunication(
-		Class<?> clazz, long classPK) {
-
-		long classNameId = classNameLocalService.getClassNameId(clazz);
-
-		return fetchTicketCommunication(classNameId, classPK);
-	}
-
-	public TicketCommunication fetchTicketCommunication(
-		long classNameId, long classPK) {
-
-		return ticketCommunicationPersistence.fetchByC_C(classNameId, classPK);
-	}
-
-	public List<TicketCommunication> getTicketCommunications(long ticketEntryId)
-		throws PortalException {
-
-		return ticketCommunicationPersistence.findByTicketEntryId(
-			ticketEntryId);
+		return ticketCommunicationPersistence.findByTEI_V(
+			ticketEntryId, visibility, start, end);
 	}
 
 	public TicketCommunication updateTicketCommunication(
-			long ticketCommunicationId, String content,
-			JSONObject propertiesJSONObject)
+			long ticketCommunicationId, JSONObject dataJSONObject)
 		throws PortalException {
 
 		TicketCommunication ticketCommunication =
 			ticketCommunicationPersistence.findByPrimaryKey(
 				ticketCommunicationId);
 
-		ticketCommunication.setContent(content);
-		ticketCommunication.setProperties(propertiesJSONObject.toString());
+		ticketCommunication.setData(dataJSONObject.toString());
 
 		return ticketCommunicationPersistence.update(ticketCommunication);
 	}

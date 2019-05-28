@@ -20,22 +20,19 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.yithro.audit.constants.Actions;
-import com.liferay.yithro.audit.constants.Fields;
 import com.liferay.yithro.audit.service.AuditEntryLocalService;
 import com.liferay.yithro.constants.Visibilities;
 import com.liferay.yithro.ticket.exception.TicketLinkTypeException;
 import com.liferay.yithro.ticket.exception.TicketLinkURLException;
 import com.liferay.yithro.ticket.exception.TicketLinkVisibilityException;
-import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.model.TicketLink;
 import com.liferay.yithro.ticket.service.TicketCommunicationLocalService;
 import com.liferay.yithro.ticket.service.base.TicketLinkLocalServiceBaseImpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,62 +48,53 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
-	public TicketLink addTicketLink(
-			long userId, long ticketEntryId, String url, int type,
-			int visibility, ServiceContext serviceContext)
+	public void addTicketLinks(
+			long userId, long ticketEntryId, String[] urls, int[] types,
+			int visibility)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
-		Date now = serviceContext.getCreateDate(new Date());
+		Date now = new Date();
 
-		validate(ticketEntryId, url, type, visibility);
-
-		long auditSetId = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditSetId"));
-
-		if (auditSetId <= 0) {
-			auditSetId = auditEntryLocalService.getNextAuditSetId(
-				TicketEntry.class.getName(), ticketEntryId);
+		if (ArrayUtil.isEmpty(urls)) {
+			throw new TicketLinkURLException();
 		}
 
-		int auditAction = GetterUtil.getInteger(
-			serviceContext.getAttribute("auditAction"));
+		List<TicketLink> ticketLinks = new ArrayList<>();
 
-		if (auditAction <= 0) {
-			auditAction = Actions.ADD;
+		for (int i = 0; i < urls.length; i++) {
+			String url = urls[i];
+			int type = types[i];
+
+			validate(ticketEntryId, url, type, visibility);
+
+			long ticketLinkId = counterLocalService.increment();
+
+			TicketLink ticketLink = ticketLinkPersistence.create(ticketLinkId);
+
+			ticketLink.setCompanyId(user.getCompanyId());
+			ticketLink.setUserId(user.getUserId());
+			ticketLink.setUserName(user.getFullName());
+			ticketLink.setCreateDate(now);
+			ticketLink.setTicketEntryId(ticketEntryId);
+			ticketLink.setUrl(url);
+			ticketLink.setType(type);
+			ticketLink.setVisibility(visibility);
+
+			ticketLinks.add(ticketLink);
 		}
 
-		long ticketLinkId = counterLocalService.increment();
+		TicketCommunication ticketCommunication =
+			ticketCommunicationLocalService.addTicketCommunication(
+				userId, ticketEntryId, TicketLink.class.getName(),
+				getDataJSONObject(ticketLinks), visibility);
 
-		TicketLink ticketLink = ticketLinkPersistence.create(ticketLinkId);
+		for (TicketLink ticketLink : ticketLinks) {
+			ticketLink.setTicketCommunicationId(
+				ticketCommunication.getTicketCommunicationId());
 
-		ticketLink.setCompanyId(user.getCompanyId());
-		ticketLink.setUserId(user.getUserId());
-		ticketLink.setUserName(user.getFullName());
-		ticketLink.setCreateDate(now);
-		ticketLink.setTicketEntryId(ticketEntryId);
-		ticketLink.setUrl(url);
-		ticketLink.setType(type);
-		ticketLink.setVisibility(visibility);
-
-		ticketLinkPersistence.update(ticketLink);
-
-		// Ticket communication
-
-		ticketCommunicationLocalService.addTicketCommunication(
-			ticketLink.getUserId(), ticketLink.getTicketEntryId(),
-			TicketLink.class, ticketLink.getTicketLinkId(), null,
-			getJSONObject(ticketLink));
-
-		// Audit entry
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
-			TicketLink.class, ticketLinkId, auditAction, Fields.URL, visibility,
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, url,
-			StringPool.BLANK);
-
-		return ticketLink;
+			ticketLinkPersistence.update(ticketLink);
+		}
 	}
 
 	public TicketLink deleteTicketLink(long ticketLinkId)
@@ -125,10 +113,34 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 
 		// Ticket communication
 
-		ticketCommunicationLocalService.deleteTicketCommunication(
-			TicketLink.class, ticketLink.getTicketLinkId());
+		TicketCommunication ticketCommunication =
+			ticketCommunicationLocalService.getTicketCommunication(
+				ticketLink.getTicketCommunicationId());
+
+		JSONObject jsonObject = ticketCommunication.getDataJSONObject();
+
+		JSONArray jsonArray = updateJSONArray(
+			jsonObject.getJSONArray("ticketLinks"),
+			ticketLink.getTicketLinkId());
+
+		if (jsonArray.length() > 0) {
+			jsonObject.put("ticketLinks", jsonArray);
+
+			ticketCommunicationLocalService.updateTicketCommunication(
+				ticketCommunication.getTicketCommunicationId(), jsonObject);
+		}
+		else {
+			ticketCommunicationLocalService.deleteTicketCommunication(
+				ticketCommunication.getTicketCommunicationId());
+		}
 
 		return ticketLink;
+	}
+
+	public void deleteTicketLinks(long[] ticketLinkIds) throws PortalException {
+		for (long ticketLinkId : ticketLinkIds) {
+			deleteTicketLink(ticketLinkId);
+		}
 	}
 
 	public List<TicketLink> getTicketLinks(long ticketEntryId, int visibility) {
@@ -149,20 +161,41 @@ public class TicketLinkLocalServiceImpl extends TicketLinkLocalServiceBaseImpl {
 		return ticketLinkPersistence.countByTEI_V(ticketEntryId, visibilities);
 	}
 
-	protected JSONObject getJSONObject(TicketLink ticketLink) {
+	protected JSONObject getDataJSONObject(List<TicketLink> ticketLinks) {
 		JSONObject jsonObject = jsonFactory.createJSONObject();
 
 		JSONArray jsonArray = jsonFactory.createJSONArray();
 
-		JSONObject linkJSONObject = jsonFactory.createJSONObject();
+		for (TicketLink ticketLink : ticketLinks) {
+			JSONObject linkJSONObject = jsonFactory.createJSONObject();
 
-		linkJSONObject.put("url", ticketLink.getUrl());
+			linkJSONObject.put("ticketLinkId", ticketLink.getTicketLinkId());
+			linkJSONObject.put("url", ticketLink.getUrl());
 
-		jsonArray.put(linkJSONObject);
+			jsonArray.put(linkJSONObject);
+		}
 
 		jsonObject.put("ticketLinks", jsonArray);
 
 		return jsonObject;
+	}
+
+	protected JSONArray updateJSONArray(
+		JSONArray jsonArray, long removeTicketLinkId) {
+
+		JSONArray newJSONArray = jsonFactory.createJSONArray();
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			if (jsonObject.getLong("ticketLinkId") == removeTicketLinkId) {
+				continue;
+			}
+
+			newJSONArray.put(jsonObject);
+		}
+
+		return newJSONArray;
 	}
 
 	protected void validate(

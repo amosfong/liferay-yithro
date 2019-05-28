@@ -93,7 +93,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 		refresh="<%= false %>"
 	>
 		<liferay-ui:section>
-			<portlet:actionURL name="/add_ticket_comment" var="addTicketCommentURL" />
+			<portlet:actionURL name="/edit_ticket_comment" var="addTicketCommentURL" />
 
 			<aui:form action="<%= addTicketCommentURL %>" cssClass="widget-mode-simple-entry" name="commentFm">
 				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
@@ -106,124 +106,28 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 			</aui:form>
 
 			<%
-			List<TicketCommunication> ticketCommunications = TicketCommunicationLocalServiceUtil.getTicketCommunications(ticketEntry.getTicketEntryId());
+			List<TicketCommunication> ticketCommunications = TicketCommunicationLocalServiceUtil.getTicketCommunications(ticketEntry.getTicketEntryId(), Visibilities.PUBLIC, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 			for (TicketCommunication ticketCommunication : ticketCommunications) {
-				User ticketCommunicationUser = UserLocalServiceUtil.getUser(ticketCommunication.getUserId());
+				request.setAttribute("edit_ticket_entry.jsp-ticketCommunication", ticketCommunication);
+
+				String channel = ticketCommunication.getChannel();
 			%>
 
-				<div class="widget-mode-simple-entry">
-					<div class="autofit-row widget-metadata">
-						<div class="autofit-col inline-item-before">
-							<liferay-ui:user-portrait
-								user="<%= ticketCommunicationUser %>"
-							/>
-						</div>
-
-						<div class="autofit-col autofit-col-expand">
-							<div class="autofit-row">
-								<div class="autofit-col autofit-col-expand">
-									<div class="text-truncate-inline">
-										<%= HtmlUtil.escape(ticketCommunicationUser.getFullName()) %>
-									</div>
-
-									<div class="text-secondary">
-										<%= fullDateFormatDateTime.format(ticketCommunication.getCreateDate()) %>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="autofit-col">
-							<liferay-ui:icon
-								cssClass="icon-monospaced"
-								image="../journal/link_to_page"
-								message="permalink"
-								url='<%= "javascript:;" %>'
-							/>
-						</div>
-
-						<div class="autofit-col">
-							<liferay-ui:icon-menu
-								direction="left-side"
-								icon="<%= StringPool.BLANK %>"
-								markupView="lexicon"
-								message="actions"
-								showWhenSingleIcon="<%= true %>"
-							>
-								<liferay-ui:icon
-									message="edit"
-									url='<%= "#" %>'
-								/>
-
-								<liferay-ui:icon-delete
-									label="<%= true %>"
-									url='<%= "#" %>'
-								/>
-							</liferay-ui:icon-menu>
-						</div>
-					</div>
-
-					<div class="widget-content">
-						<c:choose>
-							<c:when test="<%= ticketCommunication.getClassNameId() == PortalUtil.getClassNameId(TicketAttachment.class) %>">
-
-								<%
-								JSONObject jsonObjectProperties = JSONFactoryUtil.createJSONObject(ticketCommunication.getProperties());
-
-								JSONArray jsonArray = jsonObjectProperties.getJSONArray("ticketAttachments");
-
-								for (int i = 0; i < jsonArray.length(); i++) {
-									JSONObject jsonObject = jsonArray.getJSONObject(i);
-								%>
-
-									<portlet:resourceURL id="/download_ticket_attachment" var="downloadAttachmentURL">
-										<portlet:param name="ticketAttachmentId" value='<%= jsonObject.getString("ticketAttachmentId") %>' />
-									</portlet:resourceURL>
-
-									<liferay-ui:icon
-										cssClass="icon-monospaced"
-										image="../common/clip"
-										message="attachment"
-									/>
-
-									<a href="<%= downloadAttachmentURL %>"><%= jsonObject.getString("fileName") %></a> (<%= TextFormatter.formatStorageSize(jsonObject.getDouble("fileSize"), locale) %>)
-
-								<%
-								}
-								%>
-
-							</c:when>
-							<c:when test="<%= ticketCommunication.getClassNameId() == PortalUtil.getClassNameId(TicketLink.class) %>">
-
-								<%
-								JSONObject jsonObjectProperties = JSONFactoryUtil.createJSONObject(ticketCommunication.getProperties());
-
-								JSONArray jsonArray = jsonObjectProperties.getJSONArray("ticketLinks");
-
-								for (int i = 0; i < jsonArray.length(); i++) {
-									JSONObject jsonObject = jsonArray.getJSONObject(i);
-								%>
-
-									<liferay-ui:icon
-										cssClass="icon-monospaced"
-										image="../journal/link_to_page"
-										message="link"
-									/>
-
-									<a href="<%= jsonObject.getString("url") %>"><%= jsonObject.getString("url") %></a>
-
-								<%
-								}
-								%>
-
-							</c:when>
-							<c:otherwise>
-								<%= ticketCommunication.getContent() %>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
+				<c:choose>
+					<c:when test="<%= channel.equals(TicketAttachment.class.getName()) %>">
+						<liferay-util:include page="/common/ticket_communication/render_ticket_attachment.jsp" servletContext="<%= application %>" />
+					</c:when>
+					<c:when test="<%= channel.equals(TicketComment.class.getName()) %>">
+						<liferay-util:include page="/common/ticket_communication/render_ticket_comment.jsp" servletContext="<%= application %>" />
+					</c:when>
+					<c:when test="<%= channel.equals(TicketLink.class.getName()) %>">
+						<liferay-util:include page="/common/ticket_communication/render_ticket_link.jsp" servletContext="<%= application %>" />
+					</c:when>
+					<c:otherwise>
+						N/A
+					</c:otherwise>
+				</c:choose>
 
 			<%
 			}

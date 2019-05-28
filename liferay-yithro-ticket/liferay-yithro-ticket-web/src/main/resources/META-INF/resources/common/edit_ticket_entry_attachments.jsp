@@ -95,31 +95,47 @@ List<TicketAttachment> ticketAttachments = TicketAttachmentLocalServiceUtil.getT
 
 <portlet:actionURL name="/edit_ticket_attachment" var="addTicketAttachmentURL" />
 
-<aui:form action="<%= addTicketAttachmentURL %>" method="post" name="fm2">
+<aui:form action="<%= addTicketAttachmentURL %>" method="post" name="ticketAttachmentFm" onSubmit="Liferay.fire('submitForm');">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
 
-	<aui:fieldset>
-		<div class="sheet-title">
-			<liferay-ui:message key="add-attachment" />
-		</div>
+	<div class="sheet-title">
+		<liferay-ui:message key="add-attachment" />
+	</div>
 
-		<aui:input name="file" type="file" />
+	<aui:fieldset-group>
+		<aui:fieldset id='<%= renderResponse.getNamespace() + "files" %>'>
+			<div class="lfr-form-row lfr-form-row-inline">
+				<aui:input label="file" name="file_0" type="file" />
+			</div>
+		</aui:fieldset>
 
-		<aui:select name="visibility">
+		<aui:fieldset>
+			<aui:select name="visibility">
 
-			<%
-			for (int curVisibility : userVisibilities) {
-			%>
+				<%
+				for (int curVisibility : userVisibilities) {
+				%>
 
-				<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
+					<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == visibility %>" value="<%= curVisibility %>" />
 
-			<%
-			}
-			%>
+				<%
+				}
+				%>
 
-		</aui:select>
-	</aui:fieldset>
+			</aui:select>
+		</aui:fieldset>
+	</aui:fieldset-group>
 
 	<aui:button type="submit" value="save" />
 </aui:form>
+
+<aui:script use="liferay-auto-fields">
+	var autoFields = new Liferay.AutoFields(
+		{
+			contentBox: 'fieldset#<portlet:namespace />files',
+			fieldIndexes: '<portlet:namespace />fileIndexes',
+			namespace: '<portlet:namespace />'
+		}
+	).render();
+</aui:script>
