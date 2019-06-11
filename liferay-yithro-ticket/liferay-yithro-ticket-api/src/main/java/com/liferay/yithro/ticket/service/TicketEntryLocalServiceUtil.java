@@ -306,6 +306,13 @@ public class TicketEntryLocalServiceUtil {
 		return getService().reindexTicketEntry(ticketEntryId);
 	}
 
+	public static com.liferay.portal.kernel.search.Hits search(
+		long companyId, String keywords, int start, int end,
+		com.liferay.portal.kernel.search.Sort sort) {
+
+		return getService().search(companyId, keywords, start, end, sort);
+	}
+
 	public static void sendEmail(
 			long userId,
 			com.liferay.yithro.ticket.model.TicketEntry ticketEntry,

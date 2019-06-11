@@ -21,8 +21,10 @@ import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -257,6 +259,10 @@ public interface TicketEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketEntry reindexTicketEntry(long ticketEntryId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Hits search(
+		long companyId, String keywords, int start, int end, Sort sort);
 
 	public void sendEmail(
 			long userId, TicketEntry ticketEntry, TicketComment ticketComment,
