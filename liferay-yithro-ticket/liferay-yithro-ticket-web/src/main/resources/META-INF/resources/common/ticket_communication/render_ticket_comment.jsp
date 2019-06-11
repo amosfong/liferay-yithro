@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-TicketCommunication ticketCommunication = (TicketCommunication)request.getAttribute("edit_ticket_entry.jsp-ticketCommunication");
+TicketCommunication ticketCommunication = (TicketCommunication)request.getAttribute("view_ticket_entry.jsp-ticketCommunication");
 
 User ticketCommunicationUser = ticketCommunication.getUser();
 JSONObject dataJSONObject = ticketCommunication.getDataJSONObject();

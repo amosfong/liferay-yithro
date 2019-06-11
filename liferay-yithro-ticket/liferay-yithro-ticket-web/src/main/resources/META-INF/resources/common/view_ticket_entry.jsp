@@ -35,9 +35,31 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 />
 
 <div class="widget-mode-simple">
-	<h1>
-		<%= HtmlUtil.escape(ticketEntry.getSubject()) %>
-	</h1>
+	<div class="autofit-row">
+		<div class="autofit-col autofit-col-expand">
+			<h1>
+				<%= HtmlUtil.escape(ticketEntry.getSubject()) %>
+			</h1>
+		</div>
+
+		<div class="autofit-col">
+			<clay:dropdown-actions
+				dropdownItems="<%=
+					new JSPDropdownItemList(pageContext) {
+						{
+							PortletURL portletURL = renderResponse.createActionURL();
+
+							add(
+								dropdownItem -> {
+									dropdownItem.setHref(portletURL.toString());
+									dropdownItem.setLabel(LanguageUtil.get(request, "edit"));
+								});
+						}
+					}
+				%>"
+			/>
+		</div>
+	</div>
 
 	<div class="widget-metadata">
 		<div class="text-secondary">
@@ -109,7 +131,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 			List<TicketCommunication> ticketCommunications = TicketCommunicationLocalServiceUtil.getTicketCommunications(ticketEntry.getTicketEntryId(), Visibilities.PUBLIC, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 			for (TicketCommunication ticketCommunication : ticketCommunications) {
-				request.setAttribute("edit_ticket_entry.jsp-ticketCommunication", ticketCommunication);
+				request.setAttribute("view_ticket_entry.jsp-ticketCommunication", ticketCommunication);
 
 				String channel = ticketCommunication.getChannel();
 			%>

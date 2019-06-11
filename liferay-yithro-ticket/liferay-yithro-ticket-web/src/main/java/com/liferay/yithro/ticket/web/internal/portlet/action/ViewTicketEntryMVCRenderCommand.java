@@ -36,11 +36,11 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
 		"javax.portlet.name=" + TicketPortletKeys.SIMPLE_TICKET_SEARCH,
-		"mvc.command.name=/edit_ticket_entry"
+		"mvc.command.name=/view_ticket_entry"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditTicketEntryMVCRenderCommand implements MVCRenderCommand {
+public class ViewTicketEntryMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
@@ -59,7 +59,7 @@ public class EditTicketEntryMVCRenderCommand implements MVCRenderCommand {
 					TicketWebKeys.TICKET_ENTRY, ticketEntry);
 			}
 
-			return "/common/edit_ticket_entry.jsp";
+			return "/common/view_ticket_entry.jsp";
 		}
 		catch (Exception e) {
 			SessionErrors.add(renderRequest, e.getClass());

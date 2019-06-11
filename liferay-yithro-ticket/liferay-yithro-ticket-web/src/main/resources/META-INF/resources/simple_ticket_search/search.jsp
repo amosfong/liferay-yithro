@@ -43,7 +43,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 		%>
 
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcRenderCommandName" value="/edit_ticket_entry" />
+			<portlet:param name="mvcRenderCommandName" value="/view_ticket_entry" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="ticketEntryId" value="<%= String.valueOf(ticketEntryId) %>" />
 		</portlet:renderURL>
