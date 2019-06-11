@@ -101,6 +101,7 @@ public class TicketEntryModelDocumentContributor
 
 		document.addKeyword("subscriptions", subscriptionUserIds);
 
+		document.addNumber("ticketEntryId", ticketEntry.getTicketEntryId());
 		document.addNumber("ticketNumber", ticketEntry.getTicketNumber());
 		document.addKeyword("ticketStatusId", ticketEntry.getTicketStatusId());
 		document.addKeyword("userId", ticketEntry.getUserId());

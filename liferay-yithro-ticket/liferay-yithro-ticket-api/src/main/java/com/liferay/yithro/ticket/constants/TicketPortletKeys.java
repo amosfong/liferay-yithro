@@ -23,10 +23,13 @@ public class TicketPortletKeys {
 		"com_liferay_yithro_ticket_web_AddTicketFormPortlet";
 
 	public static final String MY_ASSIGNED_TICKETS =
-		"com_liferay_yithro_ticket_web_MyAssignedTickets";
+		"com_liferay_yithro_ticket_web_MyAssignedTicketsPortlet";
 
 	public static final String MY_REQUESTED_TICKETS =
-		"com_liferay_yithro_ticket_web_MyRequestedTickets";
+		"com_liferay_yithro_ticket_web_MyRequestedTicketsPortlet";
+
+	public static final String SIMPLE_TICKET_SEARCH =
+		"com_liferay_yithro_ticket_web_SimpleTicketSearchPortlet";
 
 	public static final String TICKET_CONFIGURATION =
 		"com_liferay_yithro_ticket_web_TicketConfigurationPortlet";

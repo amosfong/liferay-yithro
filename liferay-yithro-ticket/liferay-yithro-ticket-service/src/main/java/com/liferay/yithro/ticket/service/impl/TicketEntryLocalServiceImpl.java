@@ -221,7 +221,7 @@ public class TicketEntryLocalServiceImpl
 
 			SearchContext searchContext = new SearchContext();
 
-			searchContext.setAndSearch(true);
+			searchContext.setAndSearch(false);
 
 			Map<String, Serializable> attributes = new HashMap<>();
 

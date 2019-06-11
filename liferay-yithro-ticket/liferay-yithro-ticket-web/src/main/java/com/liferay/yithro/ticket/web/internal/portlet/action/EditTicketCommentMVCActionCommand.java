@@ -41,6 +41,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
+		"javax.portlet.name=" + TicketPortletKeys.SIMPLE_TICKET_SEARCH,
 		"mvc.command.name=/edit_ticket_comment"
 	},
 	service = MVCActionCommand.class

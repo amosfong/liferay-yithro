@@ -38,7 +38,8 @@ public class TicketEntrySearchRegistrar {
 			TicketEntry.class, bundleContext,
 			modelSearchDefinition -> {
 				modelSearchDefinition.setDefaultSelectedFieldNames(
-					"description", "status", "subject");
+					"description", "subject", "ticketEntryId", "ticketNumber",
+					"ticketStatusId");
 
 				modelSearchDefinition.setModelIndexWriteContributor(
 					modelIndexWriterContributor);
