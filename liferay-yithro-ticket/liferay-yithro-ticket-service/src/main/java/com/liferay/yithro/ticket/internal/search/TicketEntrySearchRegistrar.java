@@ -17,7 +17,6 @@ package com.liferay.yithro.ticket.internal.search;
 import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchRegistrarHelper;
 import com.liferay.portal.search.spi.model.result.contributor.ModelSummaryContributor;
-import com.liferay.portal.search.spi.model.result.contributor.ModelVisibilityContributor;
 import com.liferay.yithro.ticket.model.TicketEntry;
 
 import org.osgi.framework.BundleContext;
@@ -40,12 +39,11 @@ public class TicketEntrySearchRegistrar {
 			modelSearchDefinition -> {
 				modelSearchDefinition.setDefaultSelectedFieldNames(
 					"description", "status", "subject");
+
 				modelSearchDefinition.setModelIndexWriteContributor(
 					modelIndexWriterContributor);
 				modelSearchDefinition.setModelSummaryContributor(
 					modelSummaryContributor);
-				modelSearchDefinition.setModelVisibilityContributor(
-					modelVisibilityContributor);
 			});
 	}
 
@@ -67,11 +65,6 @@ public class TicketEntrySearchRegistrar {
 		target = "(indexer.class.name=com.liferay.yithro.ticket.model.TicketEntry)"
 	)
 	protected ModelSummaryContributor modelSummaryContributor;
-
-	@Reference(
-		target = "(indexer.class.name=com.liferay.yithro.ticket.model.TicketEntry)"
-	)
-	protected ModelVisibilityContributor modelVisibilityContributor;
 
 	private ServiceRegistration<?> _serviceRegistration;
 

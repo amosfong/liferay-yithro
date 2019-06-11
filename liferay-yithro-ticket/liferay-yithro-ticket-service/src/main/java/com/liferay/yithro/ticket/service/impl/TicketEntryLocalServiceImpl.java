@@ -17,9 +17,16 @@ package com.liferay.yithro.ticket.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateUtil;
@@ -46,8 +53,10 @@ import com.liferay.yithro.ticket.service.TicketFlagLocalService;
 import com.liferay.yithro.ticket.service.base.TicketEntryLocalServiceBaseImpl;
 
 import java.io.File;
+import java.io.Serializable;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -201,6 +210,45 @@ public class TicketEntryLocalServiceImpl
 		throws PortalException {
 
 		return ticketEntryPersistence.findByPrimaryKey(ticketEntryId);
+	}
+
+	public Hits search(
+		long companyId, String keywords, int start, int end, Sort sort) {
+
+		try {
+			Indexer<TicketEntry> indexer =
+				IndexerRegistryUtil.nullSafeGetIndexer(TicketEntry.class);
+
+			SearchContext searchContext = new SearchContext();
+
+			searchContext.setAndSearch(true);
+
+			Map<String, Serializable> attributes = new HashMap<>();
+
+			attributes.put("description", keywords);
+			attributes.put("subject", keywords);
+
+			searchContext.setAttributes(attributes);
+
+			searchContext.setCompanyId(companyId);
+			searchContext.setEnd(end);
+
+			if (sort != null) {
+				searchContext.setSorts(sort);
+			}
+
+			searchContext.setStart(start);
+
+			QueryConfig queryConfig = searchContext.getQueryConfig();
+
+			queryConfig.setHighlightEnabled(false);
+			queryConfig.setScoreEnabled(false);
+
+			return indexer.search(searchContext);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	public void sendEmail(

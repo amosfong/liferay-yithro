@@ -14,6 +14,7 @@
 
 package com.liferay.yithro.ticket.internal.search.spi.model.index.contributor;
 
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -43,8 +44,11 @@ import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -122,6 +126,13 @@ public class TicketEntryModelDocumentContributor
 		contributeTicketAttachments(document, ticketEntry.getTicketEntryId());
 		contributeTicketComments(document, ticketEntry.getTicketEntryId());
 		contributeTicketWorkers(document, ticketEntry.getTicketEntryId());
+	}
+
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		yithroTicketConfiguration = ConfigurableUtil.createConfigurable(
+			YithroTicketConfiguration.class, properties);
 	}
 
 	protected void contributeTicketAttachments(
@@ -234,8 +245,7 @@ public class TicketEntryModelDocumentContributor
 	@Reference
 	protected UserLocalService userLocalService;
 
-	@Reference
-	protected YithroTicketConfiguration yithroTicketConfiguration;
+	protected volatile YithroTicketConfiguration yithroTicketConfiguration;
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		TicketEntryModelDocumentContributor.class);
