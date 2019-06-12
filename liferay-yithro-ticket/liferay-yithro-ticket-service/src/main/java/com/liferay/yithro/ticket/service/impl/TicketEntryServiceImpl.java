@@ -16,10 +16,12 @@ package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.service.base.TicketEntryServiceBaseImpl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +48,21 @@ public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 		return ticketEntryLocalService.addTicketEntry(
 			getUserId(), ticketStatusId, languageId, subject, description,
 			weight, ticketFieldsMap, ticketAttachments);
+	}
+
+	public TicketEntry updateTicketEntry(
+			long ticketEntryId, String subject, String description)
+		throws PortalException {
+
+		TicketEntry ticketEntry = ticketEntryLocalService.getTicketEntry(
+			ticketEntryId);
+
+		return ticketEntryLocalService.updateTicketEntry(
+			getUserId(), ticketEntryId, ticketEntry.getUserId(),
+			ticketEntry.getTicketStatusId(), ticketEntry.getLanguageId(),
+			subject, description, ticketEntry.getWeight(),
+			ticketEntry.getDueDate(), Collections.emptyMap(),
+			new ServiceContext());
 	}
 
 	public TicketEntry updateTicketStatus(

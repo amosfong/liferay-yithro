@@ -79,16 +79,24 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
+
 		String subject = ParamUtil.getString(actionRequest, "subject");
 		String description = ParamUtil.getString(actionRequest, "description");
 
-		TicketStatus ticketStatus =
-			_ticketStatusLocalService.getInitialTicketStatus();
+		if (ticketEntryId > 0) {
+			_ticketEntryService.updateTicketEntry(
+				ticketEntryId, subject, description);
+		}
+		else {
+			TicketStatus ticketStatus =
+				_ticketStatusLocalService.getInitialTicketStatus();
 
-		_ticketEntryService.addTicketEntry(
-			ticketStatus.getTicketStatusId(), themeDisplay.getLanguageId(),
-			subject, description, 0, Collections.emptyMap(),
-			Collections.emptyList());
+			_ticketEntryService.addTicketEntry(
+				ticketStatus.getTicketStatusId(), themeDisplay.getLanguageId(),
+				subject, description, 0, Collections.emptyMap(),
+				Collections.emptyList());
+		}
 	}
 
 	protected void updateTicketStatus(ActionRequest actionRequest)
