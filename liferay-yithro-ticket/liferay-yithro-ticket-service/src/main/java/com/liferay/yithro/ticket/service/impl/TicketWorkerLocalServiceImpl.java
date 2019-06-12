@@ -201,9 +201,8 @@ public class TicketWorkerLocalServiceImpl
 		if (ticketWorker == null) {
 			return false;
 		}
-		else {
-			return true;
-		}
+
+		return true;
 	}
 
 	public TicketWorker updateTicketWorker(

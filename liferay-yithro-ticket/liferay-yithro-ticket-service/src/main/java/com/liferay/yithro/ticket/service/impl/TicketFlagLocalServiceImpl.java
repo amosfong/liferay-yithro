@@ -78,9 +78,8 @@ public class TicketFlagLocalServiceImpl extends TicketFlagLocalServiceBaseImpl {
 
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 	public TicketFlag updateTicketFlag(

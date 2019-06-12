@@ -24,7 +24,7 @@ public class TicketFlagType {
 	public static final int PENDING_CUSTOMER = 1;
 
 	public static final int[] PENDING_VALUES = {
-		TicketFlagType.PENDING_CUSTOMER, TicketFlagType.PENDING_WORKER
+		PENDING_CUSTOMER, TicketFlagType.PENDING_WORKER
 	};
 
 	public static final int PENDING_WORKER = 2;

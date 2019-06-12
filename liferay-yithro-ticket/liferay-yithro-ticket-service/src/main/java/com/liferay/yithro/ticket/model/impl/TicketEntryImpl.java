@@ -40,9 +40,8 @@ public class TicketEntryImpl extends TicketEntryBaseImpl {
 		if (ticketStatus.isTerminal()) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 }

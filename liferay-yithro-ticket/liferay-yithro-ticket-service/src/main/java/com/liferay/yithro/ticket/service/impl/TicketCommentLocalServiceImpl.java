@@ -370,9 +370,8 @@ public class TicketCommentLocalServiceImpl
 			if (ticketEntry.isClosed()) {
 				throw new TicketEntryClosedException();
 			}
-			else {
-				throw new TicketCommentMaximumDraftException();
-			}
+
+			throw new TicketCommentMaximumDraftException();
 		}
 	}
 

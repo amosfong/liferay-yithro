@@ -32,9 +32,8 @@ public class TicketCommentImpl extends TicketCommentBaseImpl {
 		if (_settingsProperties == null) {
 			return super.getSettings();
 		}
-		else {
-			return _settingsProperties.toString();
-		}
+
+		return _settingsProperties.toString();
 	}
 
 	@Override
