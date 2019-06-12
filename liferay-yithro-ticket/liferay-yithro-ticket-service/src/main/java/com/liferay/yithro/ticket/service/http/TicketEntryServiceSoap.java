@@ -65,6 +65,26 @@ import org.osgi.annotation.versioning.ProviderType;
 public class TicketEntryServiceSoap {
 
 	public static com.liferay.yithro.ticket.model.TicketEntrySoap
+			updateTicketEntry(
+				long ticketEntryId, String subject, String description)
+		throws RemoteException {
+
+		try {
+			com.liferay.yithro.ticket.model.TicketEntry returnValue =
+				TicketEntryServiceUtil.updateTicketEntry(
+					ticketEntryId, subject, description);
+
+			return com.liferay.yithro.ticket.model.TicketEntrySoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketEntrySoap
 			updateTicketStatus(long ticketEntryId, long ticketStatusId)
 		throws RemoteException {
 

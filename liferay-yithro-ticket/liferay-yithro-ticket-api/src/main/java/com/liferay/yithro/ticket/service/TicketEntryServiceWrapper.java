@@ -58,6 +58,15 @@ public class TicketEntryServiceWrapper
 	}
 
 	@Override
+	public com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
+			long ticketEntryId, String subject, String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketEntryService.updateTicketEntry(
+			ticketEntryId, subject, description);
+	}
+
+	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry updateTicketStatus(
 			long ticketEntryId, long ticketStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException {

@@ -97,6 +97,45 @@ public class TicketEntryServiceHttp {
 		}
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
+			HttpPrincipal httpPrincipal, long ticketEntryId, String subject,
+			String description)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				TicketEntryServiceUtil.class, "updateTicketEntry",
+				_updateTicketEntryParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, ticketEntryId, subject, description);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					e);
+			}
+
+			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.yithro.ticket.model.TicketEntry
 			updateTicketStatus(
 				HttpPrincipal httpPrincipal, long ticketEntryId,
@@ -106,7 +145,7 @@ public class TicketEntryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				TicketEntryServiceUtil.class, "updateTicketStatus",
-				_updateTicketStatusParameterTypes1);
+				_updateTicketStatusParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, ticketEntryId, ticketStatusId);
@@ -145,7 +184,9 @@ public class TicketEntryServiceHttp {
 			long.class, String.class, String.class, String.class, int.class,
 			java.util.Map.class, java.util.List.class
 		};
-	private static final Class<?>[] _updateTicketStatusParameterTypes1 =
+	private static final Class<?>[] _updateTicketEntryParameterTypes1 =
+		new Class[] {long.class, String.class, String.class};
+	private static final Class<?>[] _updateTicketStatusParameterTypes2 =
 		new Class[] {long.class, long.class};
 
 }
