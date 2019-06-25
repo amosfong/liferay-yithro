@@ -47,10 +47,16 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 				dropdownItems="<%=
 					new JSPDropdownItemList(pageContext) {
 						{
+							PortletURL editTicketEntryURL = renderResponse.createRenderURL();
+
+							editTicketEntryURL.setParameter("mvcRenderCommandName", "/edit_ticket_entry");
+							editTicketEntryURL.setParameter("redirect", PortalUtil.getCurrentURL(request));
+							editTicketEntryURL.setParameter("ticketEntryId", String.valueOf(ticketEntry.getTicketEntryId()));
+							editTicketEntryURL.setWindowState(LiferayWindowState.POP_UP);
 
 							add(
 								dropdownItem -> {
-									dropdownItem.setHref("javascript:" + renderResponse.getNamespace() + "editTicketEntry();");
+									dropdownItem.setHref("javascript:" + renderResponse.getNamespace() + "openDialog('" + LanguageUtil.get(request, "edit-ticket") + "', '" + editTicketEntryURL.toString() + "');");
 									dropdownItem.setLabel(LanguageUtil.get(request, "edit"));
 								});
 						}
@@ -159,7 +165,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 </div>
 
 <aui:script use="aui-modal">
-	<portlet:namespace />editTicketEntry = function(event) {
+	<portlet:namespace />openDialog = function(title, uri) {
 		Liferay.Util.openWindow(
 			{
 				dialog: {
@@ -169,8 +175,8 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 				dialogIframe: {
 					bodyCssClass: 'dialog-with-footer'
 				},
-				title: '<liferay-ui:message key="edit-ticket" />',
-				uri: '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcRenderCommandName" value="/edit_ticket_entry" /><portlet:param name="redirect" value="<%= currentURL %>" /><portlet:param name="ticketEntryId" value="<%= String.valueOf(ticketEntry.getTicketEntryId()) %>" /></portlet:renderURL>'
+				title: title,
+				uri: uri
 			}
 		);
 	}

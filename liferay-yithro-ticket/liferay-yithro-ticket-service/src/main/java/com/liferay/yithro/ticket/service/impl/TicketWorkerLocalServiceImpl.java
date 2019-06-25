@@ -52,7 +52,6 @@ public class TicketWorkerLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 		User workerUser = userLocalService.getUser(workerUserId);
-		Date now = new Date();
 
 		TicketWorker ticketWorker = ticketWorkerPersistence.fetchByU_TEI(
 			workerUserId, ticketEntryId);
@@ -61,6 +60,8 @@ public class TicketWorkerLocalServiceImpl
 			return updateTicketWorker(
 				userId, ticketWorker.getTicketWorkerId(), role, primary);
 		}
+
+		Date now = new Date();
 
 		long ticketWorkerId = counterLocalService.increment();
 

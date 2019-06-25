@@ -19,6 +19,8 @@ package com.liferay.yithro.ticket.constants;
  */
 public class TicketWebKeys {
 
+	public static final String TICKET_COMMENT = "TICKET_COMMENT";
+
 	public static final String TICKET_COMMUNICATION = "TICKET_COMMUNICATION";
 
 	public static final String TICKET_ENTRY = "TICKET_ENTRY";

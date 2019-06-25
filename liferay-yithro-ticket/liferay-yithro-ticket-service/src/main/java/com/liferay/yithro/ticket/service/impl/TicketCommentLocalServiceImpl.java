@@ -212,29 +212,27 @@ public class TicketCommentLocalServiceImpl
 	}
 
 	public synchronized TicketComment updateTicketComment(
-			long userId, long ticketCommentId, long ticketEntryId, String body,
-			int visibility, int status, int[] pendingTypes,
-			ServiceContext serviceContext)
+			long userId, long ticketCommentId, String body, int status,
+			int[] pendingTypes, ServiceContext serviceContext)
 		throws PortalException {
 
 		EntityCacheUtil.clearLocalCache();
 
 		User user = userLocalService.getUser(userId);
-		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
-			ticketEntryId);
 
 		TicketComment ticketComment = ticketCommentPersistence.findByPrimaryKey(
 			ticketCommentId);
 
+		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
+			ticketComment.getTicketEntryId());
+
 		validate(
-			ticketEntry, userId, body, ticketComment.getType(), visibility,
-			ticketComment.getStatus(), status);
+			ticketEntry, userId, body, ticketComment.getType(),
+			ticketComment.getVisibility(), ticketComment.getStatus(), status);
 
 		ticketComment.setModifiedDate(new Date());
-		ticketComment.setTicketEntryId(ticketEntryId);
 		ticketComment.setBody(body);
 		ticketComment.setFormat(TicketCommentFormat.PLAIN);
-		ticketComment.setVisibility(visibility);
 
 		if (status == WorkflowConstants.STATUS_DRAFT) {
 			ticketComment.setSettingsProperty(

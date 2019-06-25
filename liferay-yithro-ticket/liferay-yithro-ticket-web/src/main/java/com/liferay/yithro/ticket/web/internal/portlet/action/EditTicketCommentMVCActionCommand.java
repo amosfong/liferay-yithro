@@ -99,6 +99,10 @@ public class EditTicketCommentMVCActionCommand extends BaseMVCActionCommand {
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
 		if (ticketCommentId > 0) {
+			_ticketCommentLocalService.updateTicketComment(
+				themeDisplay.getUserId(), ticketCommentId, body,
+				WorkflowConstants.STATUS_APPROVED, new int[0],
+				new ServiceContext());
 		}
 		else {
 			_ticketCommentLocalService.addTicketComment(

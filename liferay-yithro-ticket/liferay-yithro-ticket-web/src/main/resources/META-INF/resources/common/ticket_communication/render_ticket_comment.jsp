@@ -61,6 +61,19 @@ JSONObject dataJSONObject = ticketCommunication.getDataJSONObject();
 				dropdownItems="<%=
 					new JSPDropdownItemList(pageContext) {
 						{
+							PortletURL editTicketCommentURL = renderResponse.createRenderURL();
+
+							editTicketCommentURL.setParameter("mvcRenderCommandName", "/edit_ticket_comment");
+							editTicketCommentURL.setParameter("redirect", PortalUtil.getCurrentURL(request));
+							editTicketCommentURL.setParameter("ticketCommentId", dataJSONObject.getString("ticketCommentId"));
+							editTicketCommentURL.setWindowState(LiferayWindowState.POP_UP);
+
+							add(
+								dropdownItem -> {
+									dropdownItem.setHref("javascript:" + renderResponse.getNamespace() + "openDialog('" + LanguageUtil.get(request, "edit-comment") + "', '" + editTicketCommentURL.toString() + "');");
+									dropdownItem.setLabel(LanguageUtil.get(request, "edit"));
+								});
+
 							PortletURL deleteURL = renderResponse.createActionURL();
 
 							deleteURL.setParameter(ActionRequest.ACTION_NAME, "/edit_ticket_comment");
