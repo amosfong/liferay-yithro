@@ -351,14 +351,14 @@ public class TicketCommentLocalServiceUtil {
 
 	public static com.liferay.yithro.ticket.model.TicketComment
 			updateTicketComment(
-				long userId, long ticketCommentId, long ticketEntryId,
-				String body, int visibility, int status, int[] pendingTypes,
+				long userId, long ticketCommentId, String body, int status,
+				int[] pendingTypes,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTicketComment(
-			userId, ticketCommentId, ticketEntryId, body, visibility, status,
-			pendingTypes, serviceContext);
+			userId, ticketCommentId, body, status, pendingTypes,
+			serviceContext);
 	}
 
 	/**

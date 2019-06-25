@@ -271,9 +271,8 @@ public interface TicketCommentLocalService
 		long userId, long ticketEntryId, int[] visibilities, int[] statuses);
 
 	public TicketComment updateTicketComment(
-			long userId, long ticketCommentId, long ticketEntryId, String body,
-			int visibility, int status, int[] pendingTypes,
-			ServiceContext serviceContext)
+			long userId, long ticketCommentId, String body, int status,
+			int[] pendingTypes, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
