@@ -77,8 +77,10 @@ create table Yithro_TicketField (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name STRING null,
+	description STRING null,
 	type_ INTEGER,
-	visibility INTEGER
+	visibility INTEGER,
+	status INTEGER
 );
 
 create table Yithro_TicketFieldData (

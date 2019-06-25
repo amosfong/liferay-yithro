@@ -56,4 +56,8 @@ public interface TicketField extends PersistedModel, TicketFieldModel {
 
 		};
 
+	public String getTypeLabel();
+
+	public String getVisibilityLabel();
+
 }

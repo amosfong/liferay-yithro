@@ -87,8 +87,10 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field localized="true" name="name" type="String" />
+		<field localized="true" name="description" type="String" />
 		<field name="type" type="int" />
 		<field name="visibility" type="int" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketFieldData">
 		<field name="ticketFieldDataId" type="long" />

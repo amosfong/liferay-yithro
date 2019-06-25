@@ -40,8 +40,10 @@ public class TicketFieldSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
+		soapModel.setDescription(model.getDescription());
 		soapModel.setType(model.getType());
 		soapModel.setVisibility(model.getVisibility());
+		soapModel.setStatus(model.getStatus());
 
 		return soapModel;
 	}
@@ -143,6 +145,14 @@ public class TicketFieldSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
 	public int getType() {
 		return _type;
 	}
@@ -159,13 +169,23 @@ public class TicketFieldSoap implements Serializable {
 		_visibility = visibility;
 	}
 
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int status) {
+		_status = status;
+	}
+
 	private long _ticketFieldId;
 	private long _companyId;
 	private long _userId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
+	private String _description;
 	private int _type;
 	private int _visibility;
+	private int _status;
 
 }

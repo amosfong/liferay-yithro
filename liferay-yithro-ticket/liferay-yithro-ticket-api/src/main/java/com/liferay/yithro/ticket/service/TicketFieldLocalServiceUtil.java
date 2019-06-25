@@ -40,11 +40,13 @@ public class TicketFieldLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketField addTicketField(
-			java.util.Map<java.util.Locale, String> nameMap, int type,
+			long userId, java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap, int type,
 			int visibility)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().addTicketField(nameMap, type, visibility);
+		return getService().addTicketField(
+			userId, nameMap, descriptionMap, type, visibility);
 	}
 
 	/**
@@ -259,6 +261,12 @@ public class TicketFieldLocalServiceUtil {
 		return getService().getTicketFields(start, end);
 	}
 
+	public static java.util.List<com.liferay.yithro.ticket.model.TicketField>
+		getTicketFields(int status, int start, int end) {
+
+		return getService().getTicketFields(status, start, end);
+	}
+
 	/**
 	 * Returns the number of ticket fields.
 	 *
@@ -266,6 +274,26 @@ public class TicketFieldLocalServiceUtil {
 	 */
 	public static int getTicketFieldsCount() {
 		return getService().getTicketFieldsCount();
+	}
+
+	public static int getTicketFieldsCount(int status) {
+		return getService().getTicketFieldsCount(status);
+	}
+
+	public static void updateStatus(long ticketFieldId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().updateStatus(ticketFieldId, status);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketField updateTicketField(
+			long ticketFieldId, java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap, int type,
+			int visibility)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketField(
+			ticketFieldId, nameMap, descriptionMap, type, visibility);
 	}
 
 	/**

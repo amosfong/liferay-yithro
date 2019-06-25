@@ -84,7 +84,8 @@ public class TicketFieldModelImpl
 		{"ticketFieldId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
-		{"type_", Types.INTEGER}, {"visibility", Types.INTEGER}
+		{"description", Types.VARCHAR}, {"type_", Types.INTEGER},
+		{"visibility", Types.INTEGER}, {"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,12 +98,14 @@ public class TicketFieldModelImpl
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketField (ticketFieldId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null,type_ INTEGER,visibility INTEGER)";
+		"create table Yithro_TicketField (ticketFieldId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null,description STRING null,type_ INTEGER,visibility INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketField";
 
@@ -117,6 +120,10 @@ public class TicketFieldModelImpl
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
+
+	public static final long STATUS_COLUMN_BITMASK = 1L;
+
+	public static final long TICKETFIELDID_COLUMN_BITMASK = 2L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -145,8 +152,10 @@ public class TicketFieldModelImpl
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setName(soapModel.getName());
+		model.setDescription(soapModel.getDescription());
 		model.setType(soapModel.getType());
 		model.setVisibility(soapModel.getVisibility());
+		model.setStatus(soapModel.getStatus());
 
 		return model;
 	}
@@ -321,6 +330,11 @@ public class TicketFieldModelImpl
 		attributeGetterFunctions.put("name", TicketField::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<TicketField, String>)TicketField::setName);
+		attributeGetterFunctions.put(
+			"description", TicketField::getDescription);
+		attributeSetterBiConsumers.put(
+			"description",
+			(BiConsumer<TicketField, String>)TicketField::setDescription);
 		attributeGetterFunctions.put("type", TicketField::getType);
 		attributeSetterBiConsumers.put(
 			"type", (BiConsumer<TicketField, Integer>)TicketField::setType);
@@ -328,6 +342,9 @@ public class TicketFieldModelImpl
 		attributeSetterBiConsumers.put(
 			"visibility",
 			(BiConsumer<TicketField, Integer>)TicketField::setVisibility);
+		attributeGetterFunctions.put("status", TicketField::getStatus);
+		attributeSetterBiConsumers.put(
+			"status", (BiConsumer<TicketField, Integer>)TicketField::setStatus);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -517,6 +534,114 @@ public class TicketFieldModelImpl
 
 	@JSON
 	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return "";
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public String getDescription(Locale locale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getDescription(languageId);
+	}
+
+	@Override
+	public String getDescription(Locale locale, boolean useDefault) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getDescription(languageId, useDefault);
+	}
+
+	@Override
+	public String getDescription(String languageId) {
+		return LocalizationUtil.getLocalization(getDescription(), languageId);
+	}
+
+	@Override
+	public String getDescription(String languageId, boolean useDefault) {
+		return LocalizationUtil.getLocalization(
+			getDescription(), languageId, useDefault);
+	}
+
+	@Override
+	public String getDescriptionCurrentLanguageId() {
+		return _descriptionCurrentLanguageId;
+	}
+
+	@JSON
+	@Override
+	public String getDescriptionCurrentValue() {
+		Locale locale = getLocale(_descriptionCurrentLanguageId);
+
+		return getDescription(locale);
+	}
+
+	@Override
+	public Map<Locale, String> getDescriptionMap() {
+		return LocalizationUtil.getLocalizationMap(getDescription());
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+	}
+
+	@Override
+	public void setDescription(String description, Locale locale) {
+		setDescription(description, locale, LocaleUtil.getDefault());
+	}
+
+	@Override
+	public void setDescription(
+		String description, Locale locale, Locale defaultLocale) {
+
+		String languageId = LocaleUtil.toLanguageId(locale);
+		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
+
+		if (Validator.isNotNull(description)) {
+			setDescription(
+				LocalizationUtil.updateLocalization(
+					getDescription(), "Description", description, languageId,
+					defaultLanguageId));
+		}
+		else {
+			setDescription(
+				LocalizationUtil.removeLocalization(
+					getDescription(), "Description", languageId));
+		}
+	}
+
+	@Override
+	public void setDescriptionCurrentLanguageId(String languageId) {
+		_descriptionCurrentLanguageId = languageId;
+	}
+
+	@Override
+	public void setDescriptionMap(Map<Locale, String> descriptionMap) {
+		setDescriptionMap(descriptionMap, LocaleUtil.getDefault());
+	}
+
+	@Override
+	public void setDescriptionMap(
+		Map<Locale, String> descriptionMap, Locale defaultLocale) {
+
+		if (descriptionMap == null) {
+			return;
+		}
+
+		setDescription(
+			LocalizationUtil.updateLocalization(
+				descriptionMap, getDescription(), "Description",
+				LocaleUtil.toLanguageId(defaultLocale)));
+	}
+
+	@JSON
+	@Override
 	public int getType() {
 		return _type;
 	}
@@ -535,6 +660,33 @@ public class TicketFieldModelImpl
 	@Override
 	public void setVisibility(int visibility) {
 		_visibility = visibility;
+	}
+
+	@JSON
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
+
+		if (!_setOriginalStatus) {
+			_setOriginalStatus = true;
+
+			_originalStatus = _status;
+		}
+
+		_status = status;
+	}
+
+	public int getOriginalStatus() {
+		return _originalStatus;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -557,6 +709,17 @@ public class TicketFieldModelImpl
 		Map<Locale, String> nameMap = getNameMap();
 
 		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
+			Locale locale = entry.getKey();
+			String value = entry.getValue();
+
+			if (Validator.isNotNull(value)) {
+				availableLanguageIds.add(LocaleUtil.toLanguageId(locale));
+			}
+		}
+
+		Map<Locale, String> descriptionMap = getDescriptionMap();
+
+		for (Map.Entry<Locale, String> entry : descriptionMap.entrySet()) {
 			Locale locale = entry.getKey();
 			String value = entry.getValue();
 
@@ -614,6 +777,17 @@ public class TicketFieldModelImpl
 		else {
 			setName(getName(defaultLocale), defaultLocale, defaultLocale);
 		}
+
+		String description = getDescription(defaultLocale);
+
+		if (Validator.isNull(description)) {
+			setDescription(
+				getDescription(modelDefaultLanguageId), defaultLocale);
+		}
+		else {
+			setDescription(
+				getDescription(defaultLocale), defaultLocale, defaultLocale);
+		}
 	}
 
 	@Override
@@ -641,8 +815,10 @@ public class TicketFieldModelImpl
 		ticketFieldImpl.setCreateDate(getCreateDate());
 		ticketFieldImpl.setModifiedDate(getModifiedDate());
 		ticketFieldImpl.setName(getName());
+		ticketFieldImpl.setDescription(getDescription());
 		ticketFieldImpl.setType(getType());
 		ticketFieldImpl.setVisibility(getVisibility());
+		ticketFieldImpl.setStatus(getStatus());
 
 		ticketFieldImpl.resetOriginalValues();
 
@@ -706,6 +882,12 @@ public class TicketFieldModelImpl
 		TicketFieldModelImpl ticketFieldModelImpl = this;
 
 		ticketFieldModelImpl._setModifiedDate = false;
+
+		ticketFieldModelImpl._originalStatus = ticketFieldModelImpl._status;
+
+		ticketFieldModelImpl._setOriginalStatus = false;
+
+		ticketFieldModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -745,9 +927,19 @@ public class TicketFieldModelImpl
 			ticketFieldCacheModel.name = null;
 		}
 
+		ticketFieldCacheModel.description = getDescription();
+
+		String description = ticketFieldCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			ticketFieldCacheModel.description = null;
+		}
+
 		ticketFieldCacheModel.type = getType();
 
 		ticketFieldCacheModel.visibility = getVisibility();
+
+		ticketFieldCacheModel.status = getStatus();
 
 		return ticketFieldCacheModel;
 	}
@@ -833,8 +1025,14 @@ public class TicketFieldModelImpl
 	private boolean _setModifiedDate;
 	private String _name;
 	private String _nameCurrentLanguageId;
+	private String _description;
+	private String _descriptionCurrentLanguageId;
 	private int _type;
 	private int _visibility;
+	private int _status;
+	private int _originalStatus;
+	private boolean _setOriginalStatus;
+	private long _columnBitmask;
 	private TicketField _escapedModel;
 
 }

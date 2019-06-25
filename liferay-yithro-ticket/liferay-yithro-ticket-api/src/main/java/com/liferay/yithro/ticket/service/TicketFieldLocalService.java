@@ -63,7 +63,8 @@ public interface TicketFieldLocalService
 	 * Never modify or reference this interface directly. Always use {@link TicketFieldLocalServiceUtil} to access the ticket field local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketField addTicketField(
-			Map<Locale, String> nameMap, int type, int visibility)
+			long userId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, int type, int visibility)
 		throws PortalException;
 
 	/**
@@ -223,6 +224,9 @@ public interface TicketFieldLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketField> getTicketFields(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketField> getTicketFields(int status, int start, int end);
+
 	/**
 	 * Returns the number of ticket fields.
 	 *
@@ -230,6 +234,17 @@ public interface TicketFieldLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTicketFieldsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getTicketFieldsCount(int status);
+
+	public void updateStatus(long ticketFieldId, int status)
+		throws PortalException;
+
+	public TicketField updateTicketField(
+			long ticketFieldId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, int type, int visibility)
+		throws PortalException;
 
 	/**
 	 * Updates the ticket field in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

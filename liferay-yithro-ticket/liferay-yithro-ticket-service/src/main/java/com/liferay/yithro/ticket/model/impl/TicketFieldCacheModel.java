@@ -65,7 +65,7 @@ public class TicketFieldCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{ticketFieldId=");
 		sb.append(ticketFieldId);
@@ -79,10 +79,14 @@ public class TicketFieldCacheModel
 		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", visibility=");
 		sb.append(visibility);
+		sb.append(", status=");
+		sb.append(status);
 		sb.append("}");
 
 		return sb.toString();
@@ -117,8 +121,16 @@ public class TicketFieldCacheModel
 			ticketFieldImpl.setName(name);
 		}
 
+		if (description == null) {
+			ticketFieldImpl.setDescription("");
+		}
+		else {
+			ticketFieldImpl.setDescription(description);
+		}
+
 		ticketFieldImpl.setType(type);
 		ticketFieldImpl.setVisibility(visibility);
+		ticketFieldImpl.setStatus(status);
 
 		ticketFieldImpl.resetOriginalValues();
 
@@ -135,10 +147,13 @@ public class TicketFieldCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
+		description = objectInput.readUTF();
 
 		type = objectInput.readInt();
 
 		visibility = objectInput.readInt();
+
+		status = objectInput.readInt();
 	}
 
 	@Override
@@ -158,9 +173,18 @@ public class TicketFieldCacheModel
 			objectOutput.writeUTF(name);
 		}
 
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
 		objectOutput.writeInt(type);
 
 		objectOutput.writeInt(visibility);
+
+		objectOutput.writeInt(status);
 	}
 
 	public long ticketFieldId;
@@ -169,7 +193,9 @@ public class TicketFieldCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public String name;
+	public String description;
 	public int type;
 	public int visibility;
+	public int status;
 
 }

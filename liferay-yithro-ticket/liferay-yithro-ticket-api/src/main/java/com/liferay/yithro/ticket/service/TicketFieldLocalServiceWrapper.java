@@ -38,12 +38,13 @@ public class TicketFieldLocalServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketField addTicketField(
-			java.util.Map<java.util.Locale, String> nameMap, int type,
+			long userId, java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap, int type,
 			int visibility)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketFieldLocalService.addTicketField(
-			nameMap, type, visibility);
+			userId, nameMap, descriptionMap, type, visibility);
 	}
 
 	/**
@@ -273,6 +274,13 @@ public class TicketFieldLocalServiceWrapper
 		return _ticketFieldLocalService.getTicketFields(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketField>
+		getTicketFields(int status, int start, int end) {
+
+		return _ticketFieldLocalService.getTicketFields(status, start, end);
+	}
+
 	/**
 	 * Returns the number of ticket fields.
 	 *
@@ -281,6 +289,29 @@ public class TicketFieldLocalServiceWrapper
 	@Override
 	public int getTicketFieldsCount() {
 		return _ticketFieldLocalService.getTicketFieldsCount();
+	}
+
+	@Override
+	public int getTicketFieldsCount(int status) {
+		return _ticketFieldLocalService.getTicketFieldsCount(status);
+	}
+
+	@Override
+	public void updateStatus(long ticketFieldId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketFieldLocalService.updateStatus(ticketFieldId, status);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketField updateTicketField(
+			long ticketFieldId, java.util.Map<java.util.Locale, String> nameMap,
+			java.util.Map<java.util.Locale, String> descriptionMap, int type,
+			int visibility)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketFieldLocalService.updateTicketField(
+			ticketFieldId, nameMap, descriptionMap, type, visibility);
 	}
 
 	/**
