@@ -103,6 +103,8 @@ public class TicketStatusLocalServiceImpl
 			Map<Locale, String> descriptionMap, int order, boolean terminal)
 		throws PortalException {
 
+		validate(nameMap);
+
 		TicketStatus ticketStatus = ticketStatusPersistence.findByPrimaryKey(
 			ticketStatusId);
 

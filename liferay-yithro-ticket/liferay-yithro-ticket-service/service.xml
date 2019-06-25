@@ -256,8 +256,16 @@
 		<!-- Other fields -->
 
 		<column localized="true" name="name" type="String" />
+		<column localized="true" name="description" type="String" />
 		<column name="type" type="int" />
 		<column name="visibility" type="int" />
+		<column name="status" type="int" />
+
+		<!-- Finder methods -->
+
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="TicketFieldData" remote-service="true">
 
@@ -460,6 +468,7 @@
 		<exception>TicketEntryClosed</exception>
 		<exception>TicketEntryDescription</exception>
 		<exception>TicketEntrySubject</exception>
+		<exception>TicketFieldName</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>

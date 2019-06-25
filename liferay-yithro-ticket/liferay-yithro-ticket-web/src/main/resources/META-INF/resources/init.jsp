@@ -29,7 +29,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%@ page import="com.liferay.document.library.kernel.exception.FileNameException" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPCreationMenu" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPDropdownItemList" %><%@
-page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem" %><%@
+page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationItemList" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
@@ -57,6 +57,7 @@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
 page import="com.liferay.taglib.search.ResultRow" %><%@
 page import="com.liferay.yithro.constants.Visibilities" %><%@
 page import="com.liferay.yithro.ticket.configuration.YithroTicketConfiguration" %><%@
+page import="com.liferay.yithro.ticket.constants.TicketFieldType" %><%@
 page import="com.liferay.yithro.ticket.constants.TicketWebKeys" %><%@
 page import="com.liferay.yithro.ticket.exception.DuplicateTicketAttachmentException" %><%@
 page import="com.liferay.yithro.ticket.exception.NoSuchTicketStatusException" %><%@
@@ -64,6 +65,7 @@ page import="com.liferay.yithro.ticket.exception.TicketAttachmentSizeException" 
 page import="com.liferay.yithro.ticket.exception.TicketAttachmentVisibilityException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntryDescriptionException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketEntrySubjectException" %><%@
+page import="com.liferay.yithro.ticket.exception.TicketFieldNameException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketLinkURLException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketLinkVisibilityException" %><%@
 page import="com.liferay.yithro.ticket.exception.TicketStatusNameException" %><%@
@@ -71,19 +73,20 @@ page import="com.liferay.yithro.ticket.model.TicketAttachment" %><%@
 page import="com.liferay.yithro.ticket.model.TicketComment" %><%@
 page import="com.liferay.yithro.ticket.model.TicketCommunication" %><%@
 page import="com.liferay.yithro.ticket.model.TicketEntry" %><%@
+page import="com.liferay.yithro.ticket.model.TicketField" %><%@
 page import="com.liferay.yithro.ticket.model.TicketLink" %><%@
 page import="com.liferay.yithro.ticket.model.TicketStatus" %><%@
 page import="com.liferay.yithro.ticket.service.TicketAttachmentLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketCommunicationLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketEntryLocalServiceUtil" %><%@
+page import="com.liferay.yithro.ticket.service.TicketFieldLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketLinkLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil" %>
 
 <%@ page import="java.text.DateFormat" %><%@
 page import="java.text.Format" %>
 
-<%@ page import="java.util.ArrayList" %><%@
-page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 
 <%@ page import="javax.portlet.ActionRequest" %><%@
 page import="javax.portlet.PortletURL" %><%@

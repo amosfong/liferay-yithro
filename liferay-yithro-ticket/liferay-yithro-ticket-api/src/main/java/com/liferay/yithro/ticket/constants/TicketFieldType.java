@@ -14,19 +14,29 @@
 
 package com.liferay.yithro.ticket.constants;
 
+import com.liferay.portal.kernel.util.StringPool;
+
 /**
  * @author Amos Fong
  */
-public class TicketWebKeys {
+public class TicketFieldType {
 
-	public static final String TICKET_COMMENT = "TICKET_COMMENT";
+	public static final int NUMBER = 1;
 
-	public static final String TICKET_COMMUNICATION = "TICKET_COMMUNICATION";
+	public static final int TEXT = 2;
 
-	public static final String TICKET_ENTRY = "TICKET_ENTRY";
+	public static final int[] VALUES = {NUMBER, TEXT};
 
-	public static final String TICKET_FIELD = "TICKET_FIELD";
-
-	public static final String TICKET_STATUS = "TICKET_STATUS";
+	public static String getLabel(int type) {
+		if (type == NUMBER) {
+			return "number";
+		}
+		else if (type == TEXT) {
+			return "text";
+		}
+		else {
+			return StringPool.BLANK;
+		}
+	}
 
 }

@@ -16,13 +16,24 @@ package com.liferay.yithro.ticket.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.yithro.constants.Visibilities;
+import com.liferay.yithro.ticket.constants.TicketFieldType;
+
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketFieldImpl extends TicketFieldBaseImpl {
 
 	public TicketFieldImpl() {
+	}
+
+	public String getTypeLabel() {
+		return TicketFieldType.getLabel(getType());
+	}
+
+	public String getVisibilityLabel() {
+		return Visibilities.getLabel(getVisibility());
 	}
 
 }
