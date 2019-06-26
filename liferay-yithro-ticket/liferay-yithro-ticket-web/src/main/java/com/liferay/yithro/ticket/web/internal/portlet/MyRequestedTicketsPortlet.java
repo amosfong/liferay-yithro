@@ -41,6 +41,7 @@ import org.osgi.service.component.annotations.Modified;
 		"com.liferay.portlet.display-category=category.yithro",
 		"javax.portlet.display-name=My Requested Tickets",
 		"javax.portlet.expiration-cache=0",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"

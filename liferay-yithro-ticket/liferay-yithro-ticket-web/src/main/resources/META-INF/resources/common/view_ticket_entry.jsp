@@ -122,14 +122,22 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 		<liferay-ui:section>
 			<portlet:actionURL name="/edit_ticket_comment" var="addTicketCommentURL" />
 
-			<aui:form action="<%= addTicketCommentURL %>" cssClass="widget-mode-simple-entry" name="commentFm">
+			<aui:form action="<%= addTicketCommentURL %>" cssClass="widget-mode-simple-entry" name="commentFm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveComment();" %>'>
 				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 				<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
 				<aui:input name="visibility" type="hidden" value="<%= Visibilities.PUBLIC %>" />
+				<aui:input name="body" type="hidden" value="" />
 
-				<aui:input label="" name="body" placeholder="compose-your-public-message-here" type="textarea" />
+				<liferay-ui:input-editor
+					cssClass="form-control"
+					editorName="alloyeditor"
+					name="bodyEditor"
+					placeholder="compose-your-public-message-here"
+				/>
 
-				<aui:button type="submit" value="post" />
+				<aui:button-row>
+					<aui:button type="submit" value="post" />
+				</aui:button-row>
 			</aui:form>
 
 			<%
@@ -227,4 +235,15 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 			modal.show();
 		}
 	</c:if>
+
+	<portlet:namespace />saveComment= function() {
+		Liferay.Util.postForm(
+			document.<portlet:namespace />fm,
+			{
+				data: {
+					body: window.<portlet:namespace />bodyEditor.getHTML()
+				}
+			}
+		);
+	}
 </aui:script>
