@@ -42,13 +42,13 @@ public class TicketCommentLocalServiceUtil {
 	public static com.liferay.yithro.ticket.model.TicketComment
 			addTicketComment(
 				long userId, long ticketEntryId, String body, int type,
-				int visibility, int status, int[] pendingTypes,
+				String format, int visibility, int status, int[] pendingTypes,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketComment(
-			userId, ticketEntryId, body, type, visibility, status, pendingTypes,
-			serviceContext);
+			userId, ticketEntryId, body, type, format, visibility, status,
+			pendingTypes, serviceContext);
 	}
 
 	/**

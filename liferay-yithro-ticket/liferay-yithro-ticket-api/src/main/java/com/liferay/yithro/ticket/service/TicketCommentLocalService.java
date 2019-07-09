@@ -63,7 +63,7 @@ public interface TicketCommentLocalService
 	 */
 	public TicketComment addTicketComment(
 			long userId, long ticketEntryId, String body, int type,
-			int visibility, int status, int[] pendingTypes,
+			String format, int visibility, int status, int[] pendingTypes,
 			ServiceContext serviceContext)
 		throws PortalException;
 
