@@ -96,6 +96,7 @@ public class EditTicketCommentMVCActionCommand extends BaseMVCActionCommand {
 
 		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
 		String body = ParamUtil.getString(actionRequest, "body");
+		String format = ParamUtil.getString(actionRequest, "format");
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
 		if (ticketCommentId > 0) {
@@ -107,7 +108,7 @@ public class EditTicketCommentMVCActionCommand extends BaseMVCActionCommand {
 		else {
 			_ticketCommentLocalService.addTicketComment(
 				themeDisplay.getUserId(), ticketEntryId, body,
-				TicketCommentType.NORMAL, visibility,
+				TicketCommentType.NORMAL, format, visibility,
 				WorkflowConstants.STATUS_APPROVED, new int[0],
 				new ServiceContext());
 		}

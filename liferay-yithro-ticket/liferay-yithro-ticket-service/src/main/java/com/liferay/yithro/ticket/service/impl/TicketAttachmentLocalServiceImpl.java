@@ -272,12 +272,11 @@ public class TicketAttachmentLocalServiceImpl
 		Date now = serviceContext.getCreateDate(new Date());
 
 		for (TicketAttachment ticketAttachment : ticketAttachments) {
-			if (status == WorkflowConstants.STATUS_APPROVED) {
-				if (ticketAttachment.getStatus() ==
-						WorkflowConstants.STATUS_DRAFT) {
+			if ((status == WorkflowConstants.STATUS_APPROVED) &&
+				(ticketAttachment.getStatus() ==
+					WorkflowConstants.STATUS_DRAFT)) {
 
-					ticketAttachment.setCreateDate(now);
-				}
+				ticketAttachment.setCreateDate(now);
 			}
 
 			ticketAttachment.setStatus(status);

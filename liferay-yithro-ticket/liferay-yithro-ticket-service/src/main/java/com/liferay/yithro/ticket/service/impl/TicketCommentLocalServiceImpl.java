@@ -66,7 +66,7 @@ public class TicketCommentLocalServiceImpl
 
 	public TicketComment addTicketComment(
 			long userId, long ticketEntryId, String body, int type,
-			int visibility, int status, int[] pendingTypes,
+			String format, int visibility, int status, int[] pendingTypes,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -89,7 +89,7 @@ public class TicketCommentLocalServiceImpl
 		ticketComment.setTicketEntryId(ticketEntryId);
 		ticketComment.setBody(body);
 		ticketComment.setType(type);
-		ticketComment.setFormat(TicketCommentFormat.BBCODE);
+		ticketComment.setFormat(format);
 		ticketComment.setVisibility(visibility);
 
 		if (status == WorkflowConstants.STATUS_DRAFT) {
@@ -232,7 +232,6 @@ public class TicketCommentLocalServiceImpl
 
 		ticketComment.setModifiedDate(new Date());
 		ticketComment.setBody(body);
-		ticketComment.setFormat(TicketCommentFormat.PLAIN);
 
 		if (status == WorkflowConstants.STATUS_DRAFT) {
 			ticketComment.setSettingsProperty(
@@ -253,8 +252,11 @@ public class TicketCommentLocalServiceImpl
 
 		String body = ticketComment.getBody();
 
-		jsonObject.put("content", body.replace("\n", "<br />"));
+		if (TicketCommentFormat.isPlain(ticketComment.getFormat())) {
+			body = body.replace("\n", "<br />");
+		}
 
+		jsonObject.put("content", body);
 		jsonObject.put("ticketCommentId", ticketComment.getTicketCommentId());
 
 		return jsonObject;

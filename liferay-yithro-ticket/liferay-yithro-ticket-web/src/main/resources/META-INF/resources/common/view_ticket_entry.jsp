@@ -236,12 +236,13 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 		}
 	</c:if>
 
-	<portlet:namespace />saveComment= function() {
+	<portlet:namespace />saveComment = function() {
 		Liferay.Util.postForm(
-			document.<portlet:namespace />fm,
+			document.<portlet:namespace />commentFm,
 			{
 				data: {
-					body: window.<portlet:namespace />bodyEditor.getHTML()
+					body: window.<portlet:namespace />bodyEditor.getHTML(),
+					format: '<%= TicketCommentFormat.HTML %>'
 				}
 			}
 		);

@@ -57,6 +57,7 @@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
 page import="com.liferay.taglib.search.ResultRow" %><%@
 page import="com.liferay.yithro.constants.Visibilities" %><%@
 page import="com.liferay.yithro.ticket.configuration.YithroTicketConfiguration" %><%@
+page import="com.liferay.yithro.ticket.constants.TicketCommentFormat" %><%@
 page import="com.liferay.yithro.ticket.constants.TicketFieldType" %><%@
 page import="com.liferay.yithro.ticket.constants.TicketWebKeys" %><%@
 page import="com.liferay.yithro.ticket.exception.DuplicateTicketAttachmentException" %><%@

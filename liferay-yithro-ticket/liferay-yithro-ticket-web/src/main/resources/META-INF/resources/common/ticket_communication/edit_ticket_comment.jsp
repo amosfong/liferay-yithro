@@ -22,13 +22,34 @@ TicketComment ticketComment = (TicketComment)request.getAttribute(TicketWebKeys.
 
 <portlet:actionURL name="/edit_ticket_comment" var="editTicketCommentURL" />
 
-<aui:form action="<%= editTicketCommentURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editTicketCommentURL %>" cssClass="container-fluid-1280" method="post" name="commentFm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveComment();" %>'>
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="ticketCommentId" type="hidden" value="<%= ticketComment.getTicketCommentId() %>" />
+	<aui:input name="body" type="hidden" value="" />
 
 	<aui:fieldset>
-		<aui:input label="" name="body" rows="50" type="textarea" value="<%= ticketComment.getBody() %>" />
+		<liferay-ui:input-editor
+			contents="<%= ticketComment.getBody() %>"
+			cssClass="form-control"
+			editorName="alloyeditor"
+			name="bodyEditor"
+			placeholder="compose-your-public-message-here"
+		/>
 	</aui:fieldset>
 
 	<aui:button type="submit" value="update" />
 </aui:form>
+
+<aui:script>
+	<portlet:namespace />saveComment = function() {
+		Liferay.Util.postForm(
+			document.<portlet:namespace />commentFm,
+			{
+				data: {
+					body: window.<portlet:namespace />bodyEditor.getHTML(),
+					format: '<%= TicketCommentFormat.HTML %>'
+				}
+			}
+		);
+	}
+</aui:script>

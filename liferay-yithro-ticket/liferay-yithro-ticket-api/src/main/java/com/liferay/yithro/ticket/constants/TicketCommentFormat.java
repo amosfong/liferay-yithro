@@ -21,6 +21,16 @@ public class TicketCommentFormat {
 
 	public static final String BBCODE = "bbcode";
 
+	public static final String HTML = "html";
+
 	public static final String PLAIN = "plain";
+
+	public static boolean isPlain(String type) {
+		if (type.equals(PLAIN)) {
+			return true;
+		}
+
+		return false;
+	}
 
 }
