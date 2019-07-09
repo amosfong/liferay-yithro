@@ -224,6 +224,15 @@ public class TicketFieldDataLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.yithro.ticket.model.TicketFieldData fetchTicketFieldData(
+			long ticketEntryId, long ticketFieldId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _ticketFieldDataLocalService.fetchTicketFieldData(
+			ticketEntryId, ticketFieldId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

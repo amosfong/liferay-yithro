@@ -209,6 +209,13 @@ public class TicketFieldDataLocalServiceUtil {
 		return getService().fetchTicketFieldData(ticketFieldDataId);
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketFieldData
+			fetchTicketFieldData(long ticketEntryId, long ticketFieldId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchTicketFieldData(ticketEntryId, ticketFieldId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

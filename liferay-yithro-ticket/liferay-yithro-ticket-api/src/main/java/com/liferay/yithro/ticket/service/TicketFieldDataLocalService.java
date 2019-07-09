@@ -186,6 +186,11 @@ public interface TicketFieldDataLocalService
 	public TicketFieldData fetchTicketFieldData(long ticketFieldDataId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketFieldData fetchTicketFieldData(
+			long ticketEntryId, long ticketFieldId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
