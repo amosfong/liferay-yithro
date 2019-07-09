@@ -33,6 +33,13 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 
 		<h4>
 			<%= HtmlUtil.escape(ticketField.getName(locale)) %>
+
+			<a href="javascript:;" onClick="<portlet:namespace />editTicketField('<%= ticketFieldId %>');">
+				<aui:icon
+					image="pencil"
+					markupView="lexicon"
+				/>
+			</a>
 		</h4>
 
 		<div class="form-group">
@@ -41,14 +48,36 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 			TicketFieldData ticketFieldData = TicketFieldDataLocalServiceUtil.fetchTicketFieldData(ticketEntry.getTicketEntryId(), ticketFieldId);
 			%>
 
-			<c:choose>
-				<c:when test="<%= ticketFieldData != null %>">
-					<%= HtmlUtil.escape(ticketFieldData.getData()) %>
-				</c:when>
-				<c:otherwise>
-					N/A
-				</c:otherwise>
-			</c:choose>
+			<div class="text-secondary" id="<portlet:namespace />ticketFieldDisplay_<%= ticketFieldId %>">
+				<c:choose>
+					<c:when test="<%= ticketFieldData != null %>">
+						<%= HtmlUtil.escape(ticketFieldData.getData()) %>
+					</c:when>
+					<c:otherwise>
+						N/A
+					</c:otherwise>
+				</c:choose>
+			</div>
+
+			<div class="hide" id="<portlet:namespace />ticketFieldEdit_<%= ticketFieldId %>">
+				<aui:input inlineField="<%= true %>" label="" name='<%= "ticketFieldIdData_" + ticketFieldId %>' value="<%= (ticketFieldData != null) ? ticketFieldData.getData() : StringPool.BLANK %>" />
+
+				<a href="javascript:;" onClick="<portlet:namespace />saveTicketField('<%= ticketFieldId %>');">
+					<aui:icon
+						cssClass="icon-monospaced"
+						image="check-circle"
+						markupView="lexicon"
+					/>
+				</a>
+
+				<a href="javascript:;" onClick="<portlet:namespace />cancelEditTicketField('<%= ticketFieldId %>');">
+					<aui:icon
+						cssClass="icon-monospaced"
+						image="times-circle"
+						markupView="lexicon"
+					/>
+				</a>
+			</div>
 		</div>
 
 	<%
@@ -56,3 +85,43 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 	%>
 
 </div>
+
+<aui:script use="aui-io-request">
+	<portlet:namespace />cancelEditTicketField = function(ticketFieldId) {
+		A.one('#<portlet:namespace />ticketFieldDisplay_' + ticketFieldId).show();
+
+		A.one('#<portlet:namespace />ticketFieldEdit_' + ticketFieldId).hide();
+	}
+
+	<portlet:namespace />editTicketField = function(ticketFieldId) {
+		A.one('#<portlet:namespace />ticketFieldDisplay_' + ticketFieldId).hide();
+
+		A.one('#<portlet:namespace />ticketFieldEdit_' + ticketFieldId).show();
+	}
+
+	<portlet:namespace />saveTicketField = function(ticketFieldId) {
+		var ticketFieldDataElement = A.one('#<portlet:namespace />ticketFieldIdData_' + ticketFieldId);
+
+		A.io.request(
+			'<portlet:actionURL name="/edit_ticket_field_data" />',
+			{
+				dataType: 'JSON',
+				data: Liferay.Util.ns(
+					'<portlet:namespace />',
+					{
+						ticketEntryId: '<%= ticketEntry.getTicketEntryId() %>',
+						ticketFieldId: ticketFieldId,
+						data: ticketFieldDataElement.val()
+					}
+				),
+				on: {
+					success: function(event, id, obj) {
+						A.one('#<portlet:namespace />ticketFieldDisplay_' + ticketFieldId).html(ticketFieldDataElement.val());
+
+						<portlet:namespace />cancelEditTicketField(ticketFieldId);
+					}
+				}
+			}
+		);
+	}
+</aui:script>

@@ -37,6 +37,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.display-category=category.yithro",
 		"javax.portlet.display-name=Ticket Fields Display",
 		"javax.portlet.expiration-cache=0",
+		"com.liferay.portlet.header-portlet-css=/ticket_fields_display/css/main.css",
 		"com.liferay.portlet.instanceable=true",
 		"com.liferay.portlet.preferences-owned-by-group=false",
 		"javax.portlet.name=" + TicketPortletKeys.TICKET_FIELDS_DISPLAY,
