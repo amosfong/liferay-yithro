@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,22 +12,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
-package com.liferay.yithro.ticket.constants;
+<%@ include file="/init.jsp" %>
 
-/**
- * @author Amos Fong
- */
-public class TicketWebKeys {
-
-	public static final String TICKET_COMMENT = "TICKET_COMMENT";
-
-	public static final String TICKET_COMMUNICATION = "TICKET_COMMUNICATION";
-
-	public static final String TICKET_ENTRY = "LIFERAY_SHARED_TICKET_ENTRY";
-
-	public static final String TICKET_FIELD = "TICKET_FIELD";
-
-	public static final String TICKET_STATUS = "TICKET_STATUS";
-
-}
+<%
+long[] ticketFieldIds = StringUtil.split(portletPreferences.getValue("ticketFieldIds", null), 0l);
+%>

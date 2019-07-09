@@ -79,6 +79,14 @@ public class TicketFieldDataLocalServiceImpl
 		}
 	}
 
+	public TicketFieldData fetchTicketFieldData(
+			long ticketEntryId, long ticketFieldId)
+		throws PortalException {
+
+		return ticketFieldDataPersistence.fetchByTEI_TFI(
+			ticketEntryId, ticketFieldId);
+	}
+
 	public String getData(long ticketEntryId, long ticketFieldId)
 		throws PortalException {
 

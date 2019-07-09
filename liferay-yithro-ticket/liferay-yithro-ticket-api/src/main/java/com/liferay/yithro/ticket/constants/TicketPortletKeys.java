@@ -34,4 +34,7 @@ public class TicketPortletKeys {
 	public static final String TICKET_CONFIGURATION =
 		"com_liferay_yithro_ticket_web_TicketConfigurationPortlet";
 
+	public static final String TICKET_FIELDS_DISPLAY =
+		"com_liferay_yithro_ticket_web_TicketFieldsDisplayPortlet";
+
 }

@@ -14,62 +14,50 @@
 
 package com.liferay.yithro.ticket.web.internal.portlet;
 
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.yithro.ticket.configuration.YithroTicketConfiguration;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
+import com.liferay.yithro.ticket.constants.TicketWebKeys;
+import com.liferay.yithro.ticket.model.TicketEntry;
 
 import java.io.IOException;
-
-import java.util.Map;
 
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
 
 /**
  * @author Amos Fong
  */
 @Component(
 	property = {
-		"com.liferay.portlet.css-class-wrapper=yithro-my-requested-tickets-portlet",
+		"com.liferay.portlet.css-class-wrapper=yithro-ticket-fields-display-portlet",
 		"com.liferay.portlet.display-category=category.yithro",
-		"javax.portlet.display-name=My Requested Tickets",
+		"javax.portlet.display-name=Ticket Fields Display",
 		"javax.portlet.expiration-cache=0",
-		"com.liferay.portlet.render-weight=50",
-		"com.liferay.portlet.header-portlet-css=/css/main.css",
-		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
+		"com.liferay.portlet.instanceable=true",
+		"com.liferay.portlet.preferences-owned-by-group=false",
+		"javax.portlet.name=" + TicketPortletKeys.TICKET_FIELDS_DISPLAY,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
 	},
 	service = Portlet.class
 )
-public class MyRequestedTicketsPortlet extends MVCPortlet {
+public class TicketFieldsDisplayPortlet extends MVCPortlet {
 
 	@Override
 	public void render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(
-			YithroTicketConfiguration.class.getName(),
-			_yithroTicketConfiguration);
+		TicketEntry ticketEntry = (TicketEntry)renderRequest.getAttribute(
+			TicketWebKeys.TICKET_ENTRY);
 
-		super.render(renderRequest, renderResponse);
+		if (ticketEntry != null) {
+			super.render(renderRequest, renderResponse);
+		}
 	}
-
-	@Activate
-	@Modified
-	protected void activate(Map<String, Object> properties) {
-		_yithroTicketConfiguration = ConfigurableUtil.createConfigurable(
-			YithroTicketConfiguration.class, properties);
-	}
-
-	private volatile YithroTicketConfiguration _yithroTicketConfiguration;
 
 }
