@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.yithro.rules.model.Action">
+		<field name="actionId" type="long" />
+		<field name="ruleId" type="long" />
+		<field name="name" type="String" />
+		<field name="value" type="String" />
+	</model>
+	<model name="com.liferay.yithro.rules.model.Expression">
+		<field name="expressionId" type="long" />
+		<field name="type" type="String" />
+		<field name="field" type="String" />
+		<field name="operation" type="String" />
+		<field name="value" type="String" />
+		<field name="ruleId" type="long" />
+	</model>
+	<model name="com.liferay.yithro.rules.model.Rule">
+		<field name="ruleId" type="long" />
+		<field name="name" type="String" />
+		<field name="triggerAction" type="String" />
+		<field name="triggerObject" type="String" />
+	</model>
+</model-hints>
