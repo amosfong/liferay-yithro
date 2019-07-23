@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-fields");
+String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-statuses");
 %>
 
 <clay:navigation-bar
@@ -27,6 +27,13 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-fields");
 			{
 				add(
 					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("ticket-statuses"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-statuses");
+						navigationItem.setLabel(LanguageUtil.get(request, "ticket-statuses"));
+					});
+
+				add(
+					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("ticket-fields"));
 						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-fields");
 						navigationItem.setLabel(LanguageUtil.get(request, "ticket-fields"));
@@ -34,9 +41,9 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-fields");
 
 				add(
 					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("ticket-statuses"));
-						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-statuses");
-						navigationItem.setLabel(LanguageUtil.get(request, "ticket-statuses"));
+						navigationItem.setActive(tabs1.equals("ticket-structures"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-structures");
+						navigationItem.setLabel(LanguageUtil.get(request, "ticket-structures"));
 					});
 			}
 		}
@@ -46,6 +53,9 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-fields");
 <c:choose>
 	<c:when test='<%= tabs1.equals("ticket-statuses") %>'>
 		<liferay-util:include page="/ticket_configuration/view_ticket_statuses.jsp" servletContext="<%= application %>" />
+	</c:when>
+	<c:when test='<%= tabs1.equals("ticket-structures") %>'>
+		<liferay-util:include page="/ticket_configuration/view_ticket_structures.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
 		<liferay-util:include page="/ticket_configuration/view_ticket_fields.jsp" servletContext="<%= application %>" />

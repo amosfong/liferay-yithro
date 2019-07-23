@@ -12,23 +12,17 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.model.impl;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class TicketWebKeys {
+@ProviderType
+public class TicketStructureImpl extends TicketStructureBaseImpl {
 
-	public static final String TICKET_COMMENT = "TICKET_COMMENT";
-
-	public static final String TICKET_COMMUNICATION = "TICKET_COMMUNICATION";
-
-	public static final String TICKET_ENTRY = "LIFERAY_SHARED_TICKET_ENTRY";
-
-	public static final String TICKET_FIELD = "TICKET_FIELD";
-
-	public static final String TICKET_STATUS = "TICKET_STATUS";
-
-	public static final String TICKET_STRUCTURE = "TICKET_STRUCTURE";
+	public TicketStructureImpl() {
+	}
 
 }

@@ -206,6 +206,7 @@
 
 		<!-- Other fields -->
 
+		<column name="ticketStructureId" type="long" />
 		<column name="ticketStatusId" type="long" />
 		<column name="languageId" type="String" />
 		<column name="ticketNumber" type="long" />
@@ -444,6 +445,32 @@
 			<finder-column name="status" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="TicketStructure" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="ticketStructureId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="structure" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+	</entity>
 	<entity local-service="true" name="TicketWorker" remote-service="true">
 
 		<!-- PK fields -->
@@ -510,5 +537,6 @@
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>
 		<exception>TicketStatusName</exception>
+		<exception>TicketStructureName</exception>
 	</exceptions>
 </service-builder>

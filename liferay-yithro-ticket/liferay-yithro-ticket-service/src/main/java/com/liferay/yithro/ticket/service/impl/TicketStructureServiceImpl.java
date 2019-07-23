@@ -12,23 +12,22 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.service.impl;
+
+import com.liferay.portal.aop.AopService;
+import com.liferay.yithro.ticket.service.base.TicketStructureServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class TicketWebKeys {
-
-	public static final String TICKET_COMMENT = "TICKET_COMMENT";
-
-	public static final String TICKET_COMMUNICATION = "TICKET_COMMUNICATION";
-
-	public static final String TICKET_ENTRY = "LIFERAY_SHARED_TICKET_ENTRY";
-
-	public static final String TICKET_FIELD = "TICKET_FIELD";
-
-	public static final String TICKET_STATUS = "TICKET_STATUS";
-
-	public static final String TICKET_STRUCTURE = "TICKET_STRUCTURE";
-
+@Component(
+	property = {
+		"json.web.service.context.name=yithro",
+		"json.web.service.context.path=TicketStructure"
+	},
+	service = AopService.class
+)
+public class TicketStructureServiceImpl extends TicketStructureServiceBaseImpl {
 }
