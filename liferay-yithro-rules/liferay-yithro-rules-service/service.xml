@@ -27,6 +27,16 @@
 		<column name="operation" type="String" />
 		<column name="value" type="String" />
 		<column name="ruleId" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="RuleId" return-type="Collection">
+			<finder-column name="ruleId" />
+		</finder>
+		<finder name="R_T" return-type="Collection">
+			<finder-column name="ruleId" />
+			<finder-column name="type" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="Rule" remote-service="false">
 
@@ -40,4 +50,7 @@
 		<column name="triggerAction" type="String" />
 		<column name="triggerObject" type="String" />
 	</entity>
+	<exceptions>
+		<exception>RuleName</exception>
+	</exceptions>
 </service-builder>
