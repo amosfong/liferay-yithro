@@ -7,11 +7,11 @@ create table Yithro_Action (
 
 create table Yithro_Expression (
 	expressionId LONG not null primary key,
+	ruleId LONG,
 	type_ VARCHAR(75) null,
 	field VARCHAR(75) null,
 	operation VARCHAR(75) null,
-	value VARCHAR(75) null,
-	ruleId LONG
+	value VARCHAR(75) null
 );
 
 create table Yithro_Rule (

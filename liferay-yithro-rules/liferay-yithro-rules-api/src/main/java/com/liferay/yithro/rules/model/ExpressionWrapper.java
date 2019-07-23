@@ -45,11 +45,11 @@ public class ExpressionWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("expressionId", getExpressionId());
+		attributes.put("ruleId", getRuleId());
 		attributes.put("type", getType());
 		attributes.put("field", getField());
 		attributes.put("operation", getOperation());
 		attributes.put("value", getValue());
-		attributes.put("ruleId", getRuleId());
 
 		return attributes;
 	}
@@ -60,6 +60,12 @@ public class ExpressionWrapper
 
 		if (expressionId != null) {
 			setExpressionId(expressionId);
+		}
+
+		Long ruleId = (Long)attributes.get("ruleId");
+
+		if (ruleId != null) {
+			setRuleId(ruleId);
 		}
 
 		String type = (String)attributes.get("type");
@@ -84,12 +90,6 @@ public class ExpressionWrapper
 
 		if (value != null) {
 			setValue(value);
-		}
-
-		Long ruleId = (Long)attributes.get("ruleId");
-
-		if (ruleId != null) {
-			setRuleId(ruleId);
 		}
 	}
 

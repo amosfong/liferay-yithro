@@ -9,11 +9,11 @@
 	</model>
 	<model name="com.liferay.yithro.rules.model.Expression">
 		<field name="expressionId" type="long" />
+		<field name="ruleId" type="long" />
 		<field name="type" type="String" />
 		<field name="field" type="String" />
 		<field name="operation" type="String" />
 		<field name="value" type="String" />
-		<field name="ruleId" type="long" />
 	</model>
 	<model name="com.liferay.yithro.rules.model.Rule">
 		<field name="ruleId" type="long" />

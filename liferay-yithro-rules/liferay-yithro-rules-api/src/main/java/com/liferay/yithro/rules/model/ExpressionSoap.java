@@ -34,11 +34,11 @@ public class ExpressionSoap implements Serializable {
 		ExpressionSoap soapModel = new ExpressionSoap();
 
 		soapModel.setExpressionId(model.getExpressionId());
+		soapModel.setRuleId(model.getRuleId());
 		soapModel.setType(model.getType());
 		soapModel.setField(model.getField());
 		soapModel.setOperation(model.getOperation());
 		soapModel.setValue(model.getValue());
-		soapModel.setRuleId(model.getRuleId());
 
 		return soapModel;
 	}
@@ -100,6 +100,14 @@ public class ExpressionSoap implements Serializable {
 		_expressionId = expressionId;
 	}
 
+	public long getRuleId() {
+		return _ruleId;
+	}
+
+	public void setRuleId(long ruleId) {
+		_ruleId = ruleId;
+	}
+
 	public String getType() {
 		return _type;
 	}
@@ -132,19 +140,11 @@ public class ExpressionSoap implements Serializable {
 		_value = value;
 	}
 
-	public long getRuleId() {
-		return _ruleId;
-	}
-
-	public void setRuleId(long ruleId) {
-		_ruleId = ruleId;
-	}
-
 	private long _expressionId;
+	private long _ruleId;
 	private String _type;
 	private String _field;
 	private String _operation;
 	private String _value;
-	private long _ruleId;
 
 }

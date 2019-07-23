@@ -68,6 +68,20 @@ public interface ExpressionModel extends BaseModel<Expression> {
 	public void setExpressionId(long expressionId);
 
 	/**
+	 * Returns the rule ID of this expression.
+	 *
+	 * @return the rule ID of this expression
+	 */
+	public long getRuleId();
+
+	/**
+	 * Sets the rule ID of this expression.
+	 *
+	 * @param ruleId the rule ID of this expression
+	 */
+	public void setRuleId(long ruleId);
+
+	/**
 	 * Returns the type of this expression.
 	 *
 	 * @return the type of this expression
@@ -126,19 +140,5 @@ public interface ExpressionModel extends BaseModel<Expression> {
 	 * @param value the value of this expression
 	 */
 	public void setValue(String value);
-
-	/**
-	 * Returns the rule ID of this expression.
-	 *
-	 * @return the rule ID of this expression
-	 */
-	public long getRuleId();
-
-	/**
-	 * Sets the rule ID of this expression.
-	 *
-	 * @param ruleId the rule ID of this expression
-	 */
-	public void setRuleId(long ruleId);
 
 }

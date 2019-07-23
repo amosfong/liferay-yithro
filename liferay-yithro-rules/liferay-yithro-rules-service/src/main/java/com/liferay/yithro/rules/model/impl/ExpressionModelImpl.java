@@ -66,9 +66,9 @@ public class ExpressionModelImpl
 	public static final String TABLE_NAME = "Yithro_Expression";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"expressionId", Types.BIGINT}, {"type_", Types.VARCHAR},
-		{"field", Types.VARCHAR}, {"operation", Types.VARCHAR},
-		{"value", Types.VARCHAR}, {"ruleId", Types.BIGINT}
+		{"expressionId", Types.BIGINT}, {"ruleId", Types.BIGINT},
+		{"type_", Types.VARCHAR}, {"field", Types.VARCHAR},
+		{"operation", Types.VARCHAR}, {"value", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -76,15 +76,15 @@ public class ExpressionModelImpl
 
 	static {
 		TABLE_COLUMNS_MAP.put("expressionId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ruleId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("field", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("operation", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("value", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("ruleId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_Expression (expressionId LONG not null primary key,type_ VARCHAR(75) null,field VARCHAR(75) null,operation VARCHAR(75) null,value VARCHAR(75) null,ruleId LONG)";
+		"create table Yithro_Expression (expressionId LONG not null primary key,ruleId LONG,type_ VARCHAR(75) null,field VARCHAR(75) null,operation VARCHAR(75) null,value VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_Expression";
 
@@ -243,6 +243,9 @@ public class ExpressionModelImpl
 		attributeSetterBiConsumers.put(
 			"expressionId",
 			(BiConsumer<Expression, Long>)Expression::setExpressionId);
+		attributeGetterFunctions.put("ruleId", Expression::getRuleId);
+		attributeSetterBiConsumers.put(
+			"ruleId", (BiConsumer<Expression, Long>)Expression::setRuleId);
 		attributeGetterFunctions.put("type", Expression::getType);
 		attributeSetterBiConsumers.put(
 			"type", (BiConsumer<Expression, String>)Expression::setType);
@@ -256,9 +259,6 @@ public class ExpressionModelImpl
 		attributeGetterFunctions.put("value", Expression::getValue);
 		attributeSetterBiConsumers.put(
 			"value", (BiConsumer<Expression, String>)Expression::setValue);
-		attributeGetterFunctions.put("ruleId", Expression::getRuleId);
-		attributeSetterBiConsumers.put(
-			"ruleId", (BiConsumer<Expression, Long>)Expression::setRuleId);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -274,6 +274,28 @@ public class ExpressionModelImpl
 	@Override
 	public void setExpressionId(long expressionId) {
 		_expressionId = expressionId;
+	}
+
+	@Override
+	public long getRuleId() {
+		return _ruleId;
+	}
+
+	@Override
+	public void setRuleId(long ruleId) {
+		_columnBitmask |= RULEID_COLUMN_BITMASK;
+
+		if (!_setOriginalRuleId) {
+			_setOriginalRuleId = true;
+
+			_originalRuleId = _ruleId;
+		}
+
+		_ruleId = ruleId;
+	}
+
+	public long getOriginalRuleId() {
+		return _originalRuleId;
 	}
 
 	@Override
@@ -346,28 +368,6 @@ public class ExpressionModelImpl
 		_value = value;
 	}
 
-	@Override
-	public long getRuleId() {
-		return _ruleId;
-	}
-
-	@Override
-	public void setRuleId(long ruleId) {
-		_columnBitmask |= RULEID_COLUMN_BITMASK;
-
-		if (!_setOriginalRuleId) {
-			_setOriginalRuleId = true;
-
-			_originalRuleId = _ruleId;
-		}
-
-		_ruleId = ruleId;
-	}
-
-	public long getOriginalRuleId() {
-		return _originalRuleId;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -405,11 +405,11 @@ public class ExpressionModelImpl
 		ExpressionImpl expressionImpl = new ExpressionImpl();
 
 		expressionImpl.setExpressionId(getExpressionId());
+		expressionImpl.setRuleId(getRuleId());
 		expressionImpl.setType(getType());
 		expressionImpl.setField(getField());
 		expressionImpl.setOperation(getOperation());
 		expressionImpl.setValue(getValue());
-		expressionImpl.setRuleId(getRuleId());
 
 		expressionImpl.resetOriginalValues();
 
@@ -472,11 +472,11 @@ public class ExpressionModelImpl
 	public void resetOriginalValues() {
 		ExpressionModelImpl expressionModelImpl = this;
 
-		expressionModelImpl._originalType = expressionModelImpl._type;
-
 		expressionModelImpl._originalRuleId = expressionModelImpl._ruleId;
 
 		expressionModelImpl._setOriginalRuleId = false;
+
+		expressionModelImpl._originalType = expressionModelImpl._type;
 
 		expressionModelImpl._columnBitmask = 0;
 	}
@@ -486,6 +486,8 @@ public class ExpressionModelImpl
 		ExpressionCacheModel expressionCacheModel = new ExpressionCacheModel();
 
 		expressionCacheModel.expressionId = getExpressionId();
+
+		expressionCacheModel.ruleId = getRuleId();
 
 		expressionCacheModel.type = getType();
 
@@ -518,8 +520,6 @@ public class ExpressionModelImpl
 		if ((value != null) && (value.length() == 0)) {
 			expressionCacheModel.value = null;
 		}
-
-		expressionCacheModel.ruleId = getRuleId();
 
 		return expressionCacheModel;
 	}
@@ -598,14 +598,14 @@ public class ExpressionModelImpl
 	private static boolean _finderCacheEnabled;
 
 	private long _expressionId;
+	private long _ruleId;
+	private long _originalRuleId;
+	private boolean _setOriginalRuleId;
 	private String _type;
 	private String _originalType;
 	private String _field;
 	private String _operation;
 	private String _value;
-	private long _ruleId;
-	private long _originalRuleId;
-	private boolean _setOriginalRuleId;
 	private long _columnBitmask;
 	private Expression _escapedModel;
 

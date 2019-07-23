@@ -66,6 +66,8 @@ public class ExpressionCacheModel
 
 		sb.append("{expressionId=");
 		sb.append(expressionId);
+		sb.append(", ruleId=");
+		sb.append(ruleId);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", field=");
@@ -74,8 +76,6 @@ public class ExpressionCacheModel
 		sb.append(operation);
 		sb.append(", value=");
 		sb.append(value);
-		sb.append(", ruleId=");
-		sb.append(ruleId);
 		sb.append("}");
 
 		return sb.toString();
@@ -86,6 +86,7 @@ public class ExpressionCacheModel
 		ExpressionImpl expressionImpl = new ExpressionImpl();
 
 		expressionImpl.setExpressionId(expressionId);
+		expressionImpl.setRuleId(ruleId);
 
 		if (type == null) {
 			expressionImpl.setType("");
@@ -115,8 +116,6 @@ public class ExpressionCacheModel
 			expressionImpl.setValue(value);
 		}
 
-		expressionImpl.setRuleId(ruleId);
-
 		expressionImpl.resetOriginalValues();
 
 		return expressionImpl;
@@ -125,17 +124,19 @@ public class ExpressionCacheModel
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		expressionId = objectInput.readLong();
+
+		ruleId = objectInput.readLong();
 		type = objectInput.readUTF();
 		field = objectInput.readUTF();
 		operation = objectInput.readUTF();
 		value = objectInput.readUTF();
-
-		ruleId = objectInput.readLong();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(expressionId);
+
+		objectOutput.writeLong(ruleId);
 
 		if (type == null) {
 			objectOutput.writeUTF("");
@@ -164,15 +165,13 @@ public class ExpressionCacheModel
 		else {
 			objectOutput.writeUTF(value);
 		}
-
-		objectOutput.writeLong(ruleId);
 	}
 
 	public long expressionId;
+	public long ruleId;
 	public String type;
 	public String field;
 	public String operation;
 	public String value;
-	public long ruleId;
 
 }
