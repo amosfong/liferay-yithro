@@ -41,10 +41,10 @@ public class ExpressionLocalServiceImpl extends ExpressionLocalServiceBaseImpl {
 
 		Expression expression = expressionPersistence.create(expressionId);
 
-		expression.setField(field);
-		expression.setOperation(operation);
 		expression.setRuleId(ruleId);
 		expression.setType(type);
+		expression.setField(field);
+		expression.setOperation(operation);
 		expression.setValue(value);
 
 		return expressionPersistence.update(expression);
