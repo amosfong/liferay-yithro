@@ -44,6 +44,7 @@ import com.liferay.yithro.ticket.service.persistence.TicketCommentTemplatePersis
 import com.liferay.yithro.ticket.service.persistence.TicketCommunicationPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketEntryPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldDataPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketFieldOptionPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFlagPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketLinkPersistence;
@@ -415,6 +416,9 @@ public abstract class TicketCommentLocalServiceBaseImpl
 
 	@Reference
 	protected TicketFieldDataPersistence ticketFieldDataPersistence;
+
+	@Reference
+	protected TicketFieldOptionPersistence ticketFieldOptionPersistence;
 
 	@Reference
 	protected TicketFlagPersistence ticketFlagPersistence;

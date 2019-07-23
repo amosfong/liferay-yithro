@@ -26,8 +26,7 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -46,7 +45,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -1691,9 +1689,7 @@ public class TicketLinkPersistenceImpl
 			visibilities = new int[0];
 		}
 		else if (visibilities.length > 1) {
-			visibilities = ArrayUtil.unique(visibilities);
-
-			Arrays.sort(visibilities);
+			visibilities = ArrayUtil.sortedUnique(visibilities);
 		}
 
 		if (visibilities.length == 1) {
@@ -1901,9 +1897,7 @@ public class TicketLinkPersistenceImpl
 			visibilities = new int[0];
 		}
 		else if (visibilities.length > 1) {
-			visibilities = ArrayUtil.unique(visibilities);
-
-			Arrays.sort(visibilities);
+			visibilities = ArrayUtil.sortedUnique(visibilities);
 		}
 
 		Object[] finderArgs = new Object[] {
@@ -2082,7 +2076,7 @@ public class TicketLinkPersistenceImpl
 		ticketLink.setNew(true);
 		ticketLink.setPrimaryKey(ticketLinkId);
 
-		ticketLink.setCompanyId(companyProvider.getCompanyId());
+		ticketLink.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return ticketLink;
 	}
@@ -2731,9 +2725,6 @@ public class TicketLinkPersistenceImpl
 	}
 
 	private boolean _columnBitmaskEnabled;
-
-	@Reference(service = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 
 	@Reference
 	protected EntityCache entityCache;

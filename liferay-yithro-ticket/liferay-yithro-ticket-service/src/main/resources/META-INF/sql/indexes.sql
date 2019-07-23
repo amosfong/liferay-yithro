@@ -19,6 +19,8 @@ create index IX_ADCCA57C on Yithro_TicketField (status);
 
 create index IX_D0BF7A48 on Yithro_TicketFieldData (ticketEntryId, ticketFieldId);
 
+create index IX_5A9AFE2E on Yithro_TicketFieldOption (ticketFieldId);
+
 create index IX_7826A201 on Yithro_TicketFlag (ticketEntryId, type_, value);
 create index IX_9C71469A on Yithro_TicketFlag (userId, ticketEntryId, type_);
 

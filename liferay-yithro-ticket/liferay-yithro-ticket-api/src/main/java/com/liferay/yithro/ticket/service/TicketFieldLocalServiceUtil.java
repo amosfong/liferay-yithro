@@ -42,11 +42,14 @@ public class TicketFieldLocalServiceUtil {
 	public static com.liferay.yithro.ticket.model.TicketField addTicketField(
 			long userId, java.util.Map<java.util.Locale, String> nameMap,
 			java.util.Map<java.util.Locale, String> descriptionMap, int type,
-			int visibility)
+			int visibility,
+			java.util.List<com.liferay.yithro.ticket.model.TicketFieldOption>
+				ticketFieldOptions)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketField(
-			userId, nameMap, descriptionMap, type, visibility);
+			userId, nameMap, descriptionMap, type, visibility,
+			ticketFieldOptions);
 	}
 
 	/**
@@ -289,11 +292,14 @@ public class TicketFieldLocalServiceUtil {
 	public static com.liferay.yithro.ticket.model.TicketField updateTicketField(
 			long ticketFieldId, java.util.Map<java.util.Locale, String> nameMap,
 			java.util.Map<java.util.Locale, String> descriptionMap, int type,
-			int visibility)
+			int visibility,
+			java.util.List<com.liferay.yithro.ticket.model.TicketFieldOption>
+				ticketFieldOptions)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTicketField(
-			ticketFieldId, nameMap, descriptionMap, type, visibility);
+			ticketFieldId, nameMap, descriptionMap, type, visibility,
+			ticketFieldOptions);
 	}
 
 	/**

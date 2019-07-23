@@ -9,6 +9,7 @@
 	<import class="com.liferay.yithro.ticket.model.TicketEntry" />
 	<import class="com.liferay.yithro.ticket.model.TicketField" />
 	<import class="com.liferay.yithro.ticket.model.TicketFieldData" />
+	<import class="com.liferay.yithro.ticket.model.TicketFieldOption" />
 	<import class="com.liferay.yithro.ticket.model.TicketFlag" />
 	<import class="com.liferay.yithro.ticket.model.TicketLink" />
 	<import class="com.liferay.yithro.ticket.model.TicketStatus" />
@@ -114,6 +115,19 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ticketEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ticketFieldId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="data_" name="data" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.yithro.ticket.model.impl.TicketFieldOptionImpl" table="Yithro_TicketFieldOption">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ticketFieldOptionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="createDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ticketFieldId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="visibility" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" column="order_" name="order" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.liferay.yithro.ticket.model.impl.TicketFlagImpl" table="Yithro_TicketFlag">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ticketFlagId" type="long">

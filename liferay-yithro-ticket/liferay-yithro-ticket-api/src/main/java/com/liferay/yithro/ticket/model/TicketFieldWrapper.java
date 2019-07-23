@@ -344,6 +344,11 @@ public class TicketFieldWrapper
 		return model.getTicketFieldId();
 	}
 
+	@Override
+	public java.util.List<TicketFieldOption> getTicketFieldOptions() {
+		return model.getTicketFieldOptions();
+	}
+
 	/**
 	 * Returns the type of this ticket field.
 	 *

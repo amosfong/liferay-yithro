@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.yithro.ticket.model.TicketField;
+import com.liferay.yithro.ticket.model.TicketFieldOption;
 
 import java.io.Serializable;
 
@@ -64,7 +65,8 @@ public interface TicketFieldLocalService
 	 */
 	public TicketField addTicketField(
 			long userId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, int type, int visibility)
+			Map<Locale, String> descriptionMap, int type, int visibility,
+			List<TicketFieldOption> ticketFieldOptions)
 		throws PortalException;
 
 	/**
@@ -243,7 +245,8 @@ public interface TicketFieldLocalService
 
 	public TicketField updateTicketField(
 			long ticketFieldId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, int type, int visibility)
+			Map<Locale, String> descriptionMap, int type, int visibility,
+			List<TicketFieldOption> ticketFieldOptions)
 		throws PortalException;
 
 	/**

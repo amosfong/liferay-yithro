@@ -103,6 +103,17 @@
 			<hint-collection name="TEXTAREA" />
 		</field>
 	</model>
+	<model name="com.liferay.yithro.ticket.model.TicketFieldOption">
+		<field name="ticketFieldOptionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="ticketFieldId" type="long" />
+		<field localized="true" name="name" type="String" />
+		<field name="visibility" type="int" />
+		<field name="order" type="int" />
+		<field name="status" type="int" />
+	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketFlag">
 		<field name="ticketFlagId" type="long" />
 		<field name="companyId" type="long" />

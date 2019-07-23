@@ -93,6 +93,18 @@ create table Yithro_TicketFieldData (
 	data_ STRING null
 );
 
+create table Yithro_TicketFieldOption (
+	ticketFieldOptionId LONG not null primary key,
+	companyId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	ticketFieldId LONG,
+	name STRING null,
+	visibility INTEGER,
+	order_ INTEGER,
+	status INTEGER
+);
+
 create table Yithro_TicketFlag (
 	ticketFlagId LONG not null primary key,
 	companyId LONG,

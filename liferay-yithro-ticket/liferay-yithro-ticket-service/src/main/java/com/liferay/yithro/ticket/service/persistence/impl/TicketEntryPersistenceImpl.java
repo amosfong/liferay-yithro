@@ -26,10 +26,9 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -49,7 +48,6 @@ import java.lang.reflect.InvocationHandler;
 
 import java.sql.Timestamp;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -1191,9 +1189,7 @@ public class TicketEntryPersistenceImpl
 			ticketStatusIds = new long[0];
 		}
 		else if (ticketStatusIds.length > 1) {
-			ticketStatusIds = ArrayUtil.unique(ticketStatusIds);
-
-			Arrays.sort(ticketStatusIds);
+			ticketStatusIds = ArrayUtil.sortedUnique(ticketStatusIds);
 		}
 
 		if (ticketStatusIds.length == 1) {
@@ -1401,9 +1397,7 @@ public class TicketEntryPersistenceImpl
 			ticketStatusIds = new long[0];
 		}
 		else if (ticketStatusIds.length > 1) {
-			ticketStatusIds = ArrayUtil.unique(ticketStatusIds);
-
-			Arrays.sort(ticketStatusIds);
+			ticketStatusIds = ArrayUtil.sortedUnique(ticketStatusIds);
 		}
 
 		Object[] finderArgs = new Object[] {
@@ -1576,7 +1570,7 @@ public class TicketEntryPersistenceImpl
 		ticketEntry.setNew(true);
 		ticketEntry.setPrimaryKey(ticketEntryId);
 
-		ticketEntry.setCompanyId(companyProvider.getCompanyId());
+		ticketEntry.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return ticketEntry;
 	}
@@ -2155,9 +2149,6 @@ public class TicketEntryPersistenceImpl
 	}
 
 	private boolean _columnBitmaskEnabled;
-
-	@Reference(service = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 
 	@Reference
 	protected EntityCache entityCache;
