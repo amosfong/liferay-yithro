@@ -120,7 +120,7 @@ public class TicketEntryModelDocumentContributor
 		document.addTextSortable("assignee", assignee);
 
 		document.addDateSortable("createDate", ticketEntry.getCreateDate());
-		document.addDateSortable("ducDate", ticketEntry.getDueDate());
+		document.addDateSortable("dueDate", ticketEntry.getDueDate());
 		document.addDateSortable("modifiedDate", ticketEntry.getModifiedDate());
 		document.addTextSortable("subject", ticketEntry.getSubject());
 
