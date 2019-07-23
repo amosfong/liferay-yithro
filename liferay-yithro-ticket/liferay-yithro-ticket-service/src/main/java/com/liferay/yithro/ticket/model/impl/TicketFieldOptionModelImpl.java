@@ -118,9 +118,11 @@ public class TicketFieldOptionModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final long TICKETFIELDID_COLUMN_BITMASK = 1L;
+	public static final long STATUS_COLUMN_BITMASK = 1L;
 
-	public static final long ORDER_COLUMN_BITMASK = 2L;
+	public static final long TICKETFIELDID_COLUMN_BITMASK = 2L;
+
+	public static final long ORDER_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -572,7 +574,19 @@ public class TicketFieldOptionModelImpl
 
 	@Override
 	public void setStatus(int status) {
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
+
+		if (!_setOriginalStatus) {
+			_setOriginalStatus = true;
+
+			_originalStatus = _status;
+		}
+
 		_status = status;
+	}
+
+	public int getOriginalStatus() {
+		return _originalStatus;
 	}
 
 	public long getColumnBitmask() {
@@ -762,6 +776,11 @@ public class TicketFieldOptionModelImpl
 
 		ticketFieldOptionModelImpl._setOriginalTicketFieldId = false;
 
+		ticketFieldOptionModelImpl._originalStatus =
+			ticketFieldOptionModelImpl._status;
+
+		ticketFieldOptionModelImpl._setOriginalStatus = false;
+
 		ticketFieldOptionModelImpl._columnBitmask = 0;
 	}
 
@@ -898,6 +917,8 @@ public class TicketFieldOptionModelImpl
 	private int _visibility;
 	private int _order;
 	private int _status;
+	private int _originalStatus;
+	private boolean _setOriginalStatus;
 	private long _columnBitmask;
 	private TicketFieldOption _escapedModel;
 

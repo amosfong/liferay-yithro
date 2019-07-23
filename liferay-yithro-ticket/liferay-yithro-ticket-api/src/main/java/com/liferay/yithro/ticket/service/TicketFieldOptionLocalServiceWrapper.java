@@ -296,6 +296,14 @@ public class TicketFieldOptionLocalServiceWrapper
 			ticketFieldId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.ticket.model.TicketFieldOption>
+		getTicketFieldOptions(long ticketFieldId, int status) {
+
+		return _ticketFieldOptionLocalService.getTicketFieldOptions(
+			ticketFieldId, status);
+	}
+
 	/**
 	 * Returns the number of ticket field options.
 	 *

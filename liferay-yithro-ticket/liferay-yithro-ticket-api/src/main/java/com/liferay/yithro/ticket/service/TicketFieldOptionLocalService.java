@@ -229,6 +229,10 @@ public interface TicketFieldOptionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TicketFieldOption> getTicketFieldOptions(long ticketFieldId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TicketFieldOption> getTicketFieldOptions(
+		long ticketFieldId, int status);
+
 	/**
 	 * Returns the number of ticket field options.
 	 *
