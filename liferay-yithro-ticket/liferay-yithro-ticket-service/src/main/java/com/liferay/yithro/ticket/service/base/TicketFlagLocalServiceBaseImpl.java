@@ -49,6 +49,7 @@ import com.liferay.yithro.ticket.service.persistence.TicketFieldPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketFlagPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketLinkPersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketStatusPersistence;
+import com.liferay.yithro.ticket.service.persistence.TicketStructurePersistence;
 import com.liferay.yithro.ticket.service.persistence.TicketWorkerPersistence;
 
 import java.io.Serializable;
@@ -426,6 +427,9 @@ public abstract class TicketFlagLocalServiceBaseImpl
 
 	@Reference
 	protected TicketStatusPersistence ticketStatusPersistence;
+
+	@Reference
+	protected TicketStructurePersistence ticketStructurePersistence;
 
 	@Reference
 	protected TicketWorkerPersistence ticketWorkerPersistence;

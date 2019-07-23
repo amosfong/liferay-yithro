@@ -40,6 +40,7 @@ public class TicketEntrySoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setTicketStructureId(model.getTicketStructureId());
 		soapModel.setTicketStatusId(model.getTicketStatusId());
 		soapModel.setLanguageId(model.getLanguageId());
 		soapModel.setTicketNumber(model.getTicketNumber());
@@ -150,6 +151,14 @@ public class TicketEntrySoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public long getTicketStructureId() {
+		return _ticketStructureId;
+	}
+
+	public void setTicketStructureId(long ticketStructureId) {
+		_ticketStructureId = ticketStructureId;
+	}
+
 	public long getTicketStatusId() {
 		return _ticketStatusId;
 	}
@@ -228,6 +237,7 @@ public class TicketEntrySoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private long _ticketStructureId;
 	private long _ticketStatusId;
 	private String _languageId;
 	private long _ticketNumber;

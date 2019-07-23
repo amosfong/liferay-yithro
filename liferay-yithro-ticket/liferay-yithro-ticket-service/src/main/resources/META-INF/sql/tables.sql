@@ -59,6 +59,7 @@ create table Yithro_TicketEntry (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	ticketStructureId LONG,
 	ticketStatusId LONG,
 	languageId VARCHAR(75) null,
 	ticketNumber LONG,
@@ -156,6 +157,18 @@ create table Yithro_TicketStatus (
 	order_ INTEGER,
 	terminal BOOLEAN,
 	status INTEGER
+);
+
+create table Yithro_TicketStructure (
+	ticketStructureId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	structure VARCHAR(75) null
 );
 
 create table Yithro_TicketWorker (

@@ -78,11 +78,11 @@ public class TicketEntryModelImpl
 		{"ticketEntryId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"ticketStatusId", Types.BIGINT}, {"languageId", Types.VARCHAR},
-		{"ticketNumber", Types.BIGINT}, {"subject", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"weight", Types.INTEGER},
-		{"holdDate", Types.TIMESTAMP}, {"closedDate", Types.TIMESTAMP},
-		{"dueDate", Types.TIMESTAMP}
+		{"ticketStructureId", Types.BIGINT}, {"ticketStatusId", Types.BIGINT},
+		{"languageId", Types.VARCHAR}, {"ticketNumber", Types.BIGINT},
+		{"subject", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"weight", Types.INTEGER}, {"holdDate", Types.TIMESTAMP},
+		{"closedDate", Types.TIMESTAMP}, {"dueDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -95,6 +95,7 @@ public class TicketEntryModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("ticketStructureId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("ticketStatusId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("languageId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ticketNumber", Types.BIGINT);
@@ -107,7 +108,7 @@ public class TicketEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketStatusId LONG,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
+		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketStructureId LONG,ticketStatusId LONG,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketEntry";
 
@@ -156,6 +157,7 @@ public class TicketEntryModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setTicketStructureId(soapModel.getTicketStructureId());
 		model.setTicketStatusId(soapModel.getTicketStatusId());
 		model.setLanguageId(soapModel.getLanguageId());
 		model.setTicketNumber(soapModel.getTicketNumber());
@@ -341,6 +343,11 @@ public class TicketEntryModelImpl
 			"modifiedDate",
 			(BiConsumer<TicketEntry, Date>)TicketEntry::setModifiedDate);
 		attributeGetterFunctions.put(
+			"ticketStructureId", TicketEntry::getTicketStructureId);
+		attributeSetterBiConsumers.put(
+			"ticketStructureId",
+			(BiConsumer<TicketEntry, Long>)TicketEntry::setTicketStructureId);
+		attributeGetterFunctions.put(
 			"ticketStatusId", TicketEntry::getTicketStatusId);
 		attributeSetterBiConsumers.put(
 			"ticketStatusId",
@@ -497,6 +504,17 @@ public class TicketEntryModelImpl
 
 	public Date getOriginalModifiedDate() {
 		return _originalModifiedDate;
+	}
+
+	@JSON
+	@Override
+	public long getTicketStructureId() {
+		return _ticketStructureId;
+	}
+
+	@Override
+	public void setTicketStructureId(long ticketStructureId) {
+		_ticketStructureId = ticketStructureId;
 	}
 
 	@JSON
@@ -667,6 +685,7 @@ public class TicketEntryModelImpl
 		ticketEntryImpl.setUserName(getUserName());
 		ticketEntryImpl.setCreateDate(getCreateDate());
 		ticketEntryImpl.setModifiedDate(getModifiedDate());
+		ticketEntryImpl.setTicketStructureId(getTicketStructureId());
 		ticketEntryImpl.setTicketStatusId(getTicketStatusId());
 		ticketEntryImpl.setLanguageId(getLanguageId());
 		ticketEntryImpl.setTicketNumber(getTicketNumber());
@@ -792,6 +811,8 @@ public class TicketEntryModelImpl
 		else {
 			ticketEntryCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
+
+		ticketEntryCacheModel.ticketStructureId = getTicketStructureId();
 
 		ticketEntryCacheModel.ticketStatusId = getTicketStatusId();
 
@@ -936,6 +957,7 @@ public class TicketEntryModelImpl
 	private Date _modifiedDate;
 	private Date _originalModifiedDate;
 	private boolean _setModifiedDate;
+	private long _ticketStructureId;
 	private long _ticketStatusId;
 	private long _originalTicketStatusId;
 	private boolean _setOriginalTicketStatusId;

@@ -170,6 +170,20 @@ public interface TicketEntryModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the ticket structure ID of this ticket entry.
+	 *
+	 * @return the ticket structure ID of this ticket entry
+	 */
+	public long getTicketStructureId();
+
+	/**
+	 * Sets the ticket structure ID of this ticket entry.
+	 *
+	 * @param ticketStructureId the ticket structure ID of this ticket entry
+	 */
+	public void setTicketStructureId(long ticketStructureId);
+
+	/**
 	 * Returns the ticket status ID of this ticket entry.
 	 *
 	 * @return the ticket status ID of this ticket entry

@@ -51,6 +51,7 @@ public class TicketEntryWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("ticketStructureId", getTicketStructureId());
 		attributes.put("ticketStatusId", getTicketStatusId());
 		attributes.put("languageId", getLanguageId());
 		attributes.put("ticketNumber", getTicketNumber());
@@ -100,6 +101,12 @@ public class TicketEntryWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long ticketStructureId = (Long)attributes.get("ticketStructureId");
+
+		if (ticketStructureId != null) {
+			setTicketStructureId(ticketStructureId);
 		}
 
 		Long ticketStatusId = (Long)attributes.get("ticketStatusId");
@@ -295,6 +302,16 @@ public class TicketEntryWrapper
 	}
 
 	/**
+	 * Returns the ticket structure ID of this ticket entry.
+	 *
+	 * @return the ticket structure ID of this ticket entry
+	 */
+	@Override
+	public long getTicketStructureId() {
+		return model.getTicketStructureId();
+	}
+
+	/**
 	 * Returns the user ID of this ticket entry.
 	 *
 	 * @return the user ID of this ticket entry
@@ -474,6 +491,16 @@ public class TicketEntryWrapper
 	@Override
 	public void setTicketStatusId(long ticketStatusId) {
 		model.setTicketStatusId(ticketStatusId);
+	}
+
+	/**
+	 * Sets the ticket structure ID of this ticket entry.
+	 *
+	 * @param ticketStructureId the ticket structure ID of this ticket entry
+	 */
+	@Override
+	public void setTicketStructureId(long ticketStructureId) {
+		model.setTicketStructureId(ticketStructureId);
 	}
 
 	/**
