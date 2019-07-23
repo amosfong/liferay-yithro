@@ -70,6 +70,12 @@ public class TicketFieldOptionLocalServiceImpl
 		return ticketFieldOptionPersistence.findByTicketFieldId(ticketFieldId);
 	}
 
+	public List<TicketFieldOption> getTicketFieldOptions(
+		long ticketFieldId, int status) {
+
+		return ticketFieldOptionPersistence.findByTFI_S(ticketFieldId, status);
+	}
+
 	public TicketFieldOption updateTicketFieldOption(
 			long ticketFieldOptionId, Map<Locale, String> nameMap,
 			int visibility, int order)

@@ -326,6 +326,10 @@
 		<finder name="TicketFieldId" return-type="Collection">
 			<finder-column name="ticketFieldId" />
 		</finder>
+		<finder name="TFI_S" return-type="Collection">
+			<finder-column name="ticketFieldId" />
+			<finder-column name="status" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="TicketFlag" remote-service="true">
 

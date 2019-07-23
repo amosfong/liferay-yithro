@@ -45,13 +45,30 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 		<div class="form-group">
 
 			<%
+			String data = null;
+
 			TicketFieldData ticketFieldData = TicketFieldDataLocalServiceUtil.fetchTicketFieldData(ticketEntry.getTicketEntryId(), ticketFieldId);
+
+			if (ticketFieldData != null) {
+				if (ticketField.getType() == TicketFieldType.SELECT) {
+					long ticketFieldOptionId = GetterUtil.getLong(ticketFieldData.getData());
+
+					if (ticketFieldOptionId > 0) {
+						TicketFieldOption ticketFieldOption = TicketFieldOptionLocalServiceUtil.fetchTicketFieldOption(ticketFieldOptionId);
+
+						data = ticketFieldOption.getName(locale);
+					}
+				}
+				else {
+					data = ticketFieldData.getData();
+				}
+			}
 			%>
 
 			<div class="text-secondary" id="<portlet:namespace />ticketFieldDisplay_<%= ticketFieldId %>">
 				<c:choose>
-					<c:when test="<%= ticketFieldData != null %>">
-						<%= HtmlUtil.escape(ticketFieldData.getData()) %>
+					<c:when test="<%= Validator.isNotNull(data) %>">
+						<%= HtmlUtil.escape(data) %>
 					</c:when>
 					<c:otherwise>
 						N/A
@@ -60,7 +77,28 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 			</div>
 
 			<div class="hide" id="<portlet:namespace />ticketFieldEdit_<%= ticketFieldId %>">
-				<aui:input inlineField="<%= true %>" label="" name='<%= "ticketFieldIdData_" + ticketFieldId %>' value="<%= (ticketFieldData != null) ? ticketFieldData.getData() : StringPool.BLANK %>" />
+				<c:choose>
+					<c:when test="<%= ticketField.getType() == TicketFieldType.SELECT %>">
+						<aui:select inlineField="<%= true %>" label="" name='<%= "ticketFieldIdData_" + ticketFieldId %>'>
+
+							<%
+							long ticketFieldOptionId = GetterUtil.getLong(ticketFieldData.getData());
+
+							for (TicketFieldOption ticketFieldOption : ticketField.getTicketFieldOptions(WorkflowConstants.STATUS_APPROVED)) {
+							%>
+
+								<aui:option label="<%= ticketFieldOption.getName(locale) %>" selected="<%= ticketFieldOptionId == ticketFieldOption.getTicketFieldOptionId() %>" value="<%= ticketFieldOption.getTicketFieldOptionId() %>" />
+
+							<%
+							}
+							%>
+
+						</aui:select>
+					</c:when>
+					<c:otherwise>
+						<aui:input inlineField="<%= true %>" label="" name='<%= "ticketFieldIdData_" + ticketFieldId %>' value="<%= (ticketFieldData != null) ? ticketFieldData.getData() : StringPool.BLANK %>" />
+					</c:otherwise>
+				</c:choose>
 
 				<a href="javascript:;" onClick="<portlet:namespace />saveTicketField('<%= ticketFieldId %>');">
 					<aui:icon
@@ -116,7 +154,16 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 				),
 				on: {
 					success: function(event, id, obj) {
-						A.one('#<portlet:namespace />ticketFieldDisplay_' + ticketFieldId).html(ticketFieldDataElement.val());
+						var value;
+
+						if (ticketFieldDataElement.get('type') == 'select-one') {
+							value = ticketFieldDataElement.get('selectedOptions').item(0).get('text');
+						}
+						else {
+							value = ticketFieldDataElement.val();
+						}
+
+						A.one('#<portlet:namespace />ticketFieldDisplay_' + ticketFieldId).html(value);
 
 						<portlet:namespace />cancelEditTicketField(ticketFieldId);
 					}

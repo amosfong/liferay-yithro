@@ -42,6 +42,15 @@ public class TicketFieldImpl extends TicketFieldBaseImpl {
 		return Collections.emptyList();
 	}
 
+	public List<TicketFieldOption> getTicketFieldOptions(int status) {
+		if (getType() == TicketFieldType.SELECT) {
+			return TicketFieldOptionLocalServiceUtil.getTicketFieldOptions(
+				getTicketFieldId(), status);
+		}
+
+		return Collections.emptyList();
+	}
+
 	public String getTypeLabel() {
 		return TicketFieldType.getLabel(getType());
 	}
