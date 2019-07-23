@@ -44,7 +44,7 @@ renderResponse.setTitle((ticketField == null) ? LanguageUtil.get(request, "new-t
 
 			<aui:input name="description" />
 
-			<aui:select name="type">
+			<aui:select name="type" onChange='<%= renderResponse.getNamespace() + "toggleFieldOptions(this.value);" %>'>
 
 				<%
 				for (int curType : TicketFieldType.VALUES) {
@@ -72,6 +72,70 @@ renderResponse.setTitle((ticketField == null) ? LanguageUtil.get(request, "new-t
 
 			</aui:select>
 		</aui:fieldset>
+
+		<div class="form-group <%= (ticketField == null) || (ticketField.getType() != TicketFieldType.SELECT) ? "hide" : "" %>" id="<portlet:namespace />fieldOptions">
+			<h3 class="sheet-subtitle"><liferay-ui:message key="field-options" /></h3>
+
+			<aui:fieldset id='<%= renderResponse.getNamespace() + "ticketFieldOptions" %>'>
+
+				<%
+				List<TicketFieldOption> ticketFieldOptions = new ArrayList<>();
+
+				if (ticketField != null) {
+					ticketFieldOptions.addAll(ticketField.getTicketFieldOptions());
+				}
+
+				if (ticketFieldOptions.isEmpty()) {
+					ticketFieldOptions.add(TicketFieldOptionLocalServiceUtil.createTicketFieldOption(0));
+				}
+
+				int[] ticketFieldOptionIndexes = new int[ticketFieldOptions.size()];
+
+				for (int i = 0; i < ticketFieldOptions.size(); i++) {
+					TicketFieldOption ticketFieldOption = ticketFieldOptions.get(i);
+
+					ticketFieldOptionIndexes[i] = i;
+				%>
+
+					<div class="lfr-form-row lfr-form-row-inline">
+						<div class="row-fields">
+							<aui:row>
+								<aui:input label="name" name='<%= "ticketFieldOptionId_" + i %>' type="hidden" value="<%= ticketFieldOption.getTicketFieldOptionId() %>" />
+
+								<aui:col md="5">
+									<aui:input label="name" name='<%= "ticketFieldOptionName_" + i + "_en_US" %>' type="text" value='<%= ticketFieldOption.getName("en_US") %>' />
+								</aui:col>
+
+								<aui:col md="3">
+									<aui:select label="visibility" name='<%= "ticketFieldOptionVisibility_" + i %>'>
+
+										<%
+										for (int curVisibility : Visibilities.VALUES) {
+										%>
+
+											<aui:option label="<%= Visibilities.getLabel(curVisibility) %>" selected="<%= curVisibility == ticketFieldOption.getVisibility() %>" value="<%= curVisibility %>" />
+
+										<%
+										}
+										%>
+
+									</aui:select>
+								</aui:col>
+
+								<aui:col md="2">
+									<aui:input label="order" name='<%= "ticketFieldOptionOrder_" + i %>' type="text" value="<%= ticketFieldOption.getOrder() %>" />
+								</aui:col>
+							</aui:row>
+						</div>
+					</div>
+
+				<%
+				}
+				%>
+
+				<aui:input name="ticketFieldOptionIndexes" type="hidden" value="<%= StringUtil.merge(ticketFieldOptionIndexes) %>" />
+			</aui:fieldset>
+		</div>
 	</aui:fieldset-group>
 
 	<aui:button-row>
@@ -80,3 +144,31 @@ renderResponse.setTitle((ticketField == null) ? LanguageUtil.get(request, "new-t
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script use="liferay-auto-fields">
+	Liferay.provide(
+		window,
+		'<portlet:namespace />toggleFieldOptions',
+		function(type) {
+			var A = AUI();
+
+			var fieldOptionsElement = A.one('#<portlet:namespace />fieldOptions');
+
+			if (type == '<%= TicketFieldType.SELECT %>') {
+				fieldOptionsElement.show();
+			}
+			else {
+				fieldOptionsElement.hide();
+			}
+		},
+		['aui-base']
+	);
+
+	var autoFields = new Liferay.AutoFields(
+		{
+			contentBox: 'fieldset#<portlet:namespace />ticketFieldOptions',
+			fieldIndexes: '<portlet:namespace />ticketFieldOptionIndexes',
+			namespace: '<portlet:namespace />'
+		}
+	).render();
+</aui:script>

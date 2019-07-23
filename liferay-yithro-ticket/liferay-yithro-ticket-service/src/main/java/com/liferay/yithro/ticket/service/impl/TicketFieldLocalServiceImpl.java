@@ -22,14 +22,19 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.yithro.ticket.exception.TicketFieldNameException;
 import com.liferay.yithro.ticket.model.TicketField;
+import com.liferay.yithro.ticket.model.TicketFieldOption;
+import com.liferay.yithro.ticket.service.TicketFieldOptionLocalService;
 import com.liferay.yithro.ticket.service.base.TicketFieldLocalServiceBaseImpl;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
@@ -43,7 +48,8 @@ public class TicketFieldLocalServiceImpl
 
 	public TicketField addTicketField(
 			long userId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, int type, int visibility)
+			Map<Locale, String> descriptionMap, int type, int visibility,
+			List<TicketFieldOption> ticketFieldOptions)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -64,6 +70,14 @@ public class TicketFieldLocalServiceImpl
 		ticketField.setType(type);
 		ticketField.setVisibility(visibility);
 		ticketField.setStatus(WorkflowConstants.STATUS_APPROVED);
+
+		for (TicketFieldOption ticketFieldOption : ticketFieldOptions) {
+			_ticketFieldOptionLocalService.addTicketFieldOption(
+				user.getCompanyId(), ticketFieldId,
+				ticketFieldOption.getNameMap(),
+				ticketFieldOption.getVisibility(), ticketFieldOption.getOrder(),
+				WorkflowConstants.STATUS_APPROVED);
+		}
 
 		return ticketFieldPersistence.update(ticketField);
 	}
@@ -89,7 +103,8 @@ public class TicketFieldLocalServiceImpl
 
 	public TicketField updateTicketField(
 			long ticketFieldId, Map<Locale, String> nameMap,
-			Map<Locale, String> descriptionMap, int type, int visibility)
+			Map<Locale, String> descriptionMap, int type, int visibility,
+			List<TicketFieldOption> ticketFieldOptions)
 		throws PortalException {
 
 		validate(nameMap);
@@ -102,6 +117,43 @@ public class TicketFieldLocalServiceImpl
 		ticketField.setDescriptionMap(descriptionMap);
 		ticketField.setType(type);
 		ticketField.setVisibility(visibility);
+
+		Set<Long> ticketFieldOptionIds = new HashSet<>();
+
+		for (TicketFieldOption ticketFieldOption : ticketFieldOptions) {
+			if (ticketFieldOption.getTicketFieldOptionId() == 0) {
+				ticketFieldOption =
+					_ticketFieldOptionLocalService.addTicketFieldOption(
+						ticketField.getCompanyId(), ticketFieldId,
+						ticketFieldOption.getNameMap(),
+						ticketFieldOption.getVisibility(),
+						ticketFieldOption.getOrder(),
+						WorkflowConstants.STATUS_APPROVED);
+			}
+			else {
+				ticketFieldOption =
+					_ticketFieldOptionLocalService.updateTicketFieldOption(
+						ticketFieldOption.getTicketFieldOptionId(),
+						ticketFieldOption.getNameMap(),
+						ticketFieldOption.getVisibility(),
+						ticketFieldOption.getOrder());
+			}
+
+			ticketFieldOptionIds.add(
+				ticketFieldOption.getTicketFieldOptionId());
+		}
+
+		List<TicketFieldOption> curTicketFieldOptions =
+			_ticketFieldOptionLocalService.getTicketFieldOptions(ticketFieldId);
+
+		for (TicketFieldOption ticketFieldOption : curTicketFieldOptions) {
+			if (!ticketFieldOptionIds.contains(
+					ticketFieldOption.getTicketFieldOptionId())) {
+
+				_ticketFieldOptionLocalService.deleteTicketFieldOption(
+					ticketFieldOption.getTicketFieldOptionId());
+			}
+		}
 
 		return ticketFieldPersistence.update(ticketField);
 	}
@@ -118,5 +170,8 @@ public class TicketFieldLocalServiceImpl
 				"Name is null for locale " + defaultLocale.getDisplayName());
 		}
 	}
+
+	@Reference
+	private TicketFieldOptionLocalService _ticketFieldOptionLocalService;
 
 }

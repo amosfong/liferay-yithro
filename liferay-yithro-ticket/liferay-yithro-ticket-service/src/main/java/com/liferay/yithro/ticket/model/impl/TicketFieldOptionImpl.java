@@ -12,36 +12,17 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.model.impl;
 
-import com.liferay.portal.kernel.util.StringPool;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class TicketFieldType {
+@ProviderType
+public class TicketFieldOptionImpl extends TicketFieldOptionBaseImpl {
 
-	public static final int NUMBER = 1;
-
-	public static final int SELECT = 2;
-
-	public static final int TEXT = 3;
-
-	public static final int[] VALUES = {NUMBER, SELECT, TEXT};
-
-	public static String getLabel(int type) {
-		if (type == NUMBER) {
-			return "number";
-		}
-		else if (type == SELECT) {
-			return "select";
-		}
-		else if (type == TEXT) {
-			return "text";
-		}
-		else {
-			return StringPool.BLANK;
-		}
+	public TicketFieldOptionImpl() {
 	}
 
 }

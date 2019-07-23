@@ -78,6 +78,7 @@ page import="com.liferay.yithro.ticket.model.TicketCommunication" %><%@
 page import="com.liferay.yithro.ticket.model.TicketEntry" %><%@
 page import="com.liferay.yithro.ticket.model.TicketField" %><%@
 page import="com.liferay.yithro.ticket.model.TicketFieldData" %><%@
+page import="com.liferay.yithro.ticket.model.TicketFieldOption" %><%@
 page import="com.liferay.yithro.ticket.model.TicketLink" %><%@
 page import="com.liferay.yithro.ticket.model.TicketStatus" %><%@
 page import="com.liferay.yithro.ticket.service.TicketAttachmentLocalServiceUtil" %><%@
@@ -85,6 +86,7 @@ page import="com.liferay.yithro.ticket.service.TicketCommunicationLocalServiceUt
 page import="com.liferay.yithro.ticket.service.TicketEntryLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketFieldDataLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketFieldLocalServiceUtil" %><%@
+page import="com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketLinkLocalServiceUtil" %><%@
 page import="com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil" %>
 

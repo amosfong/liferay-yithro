@@ -18,6 +18,11 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.yithro.constants.Visibilities;
 import com.liferay.yithro.ticket.constants.TicketFieldType;
+import com.liferay.yithro.ticket.model.TicketFieldOption;
+import com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Amos Fong
@@ -26,6 +31,15 @@ import com.liferay.yithro.ticket.constants.TicketFieldType;
 public class TicketFieldImpl extends TicketFieldBaseImpl {
 
 	public TicketFieldImpl() {
+	}
+
+	public List<TicketFieldOption> getTicketFieldOptions() {
+		if (getType() == TicketFieldType.SELECT) {
+			return TicketFieldOptionLocalServiceUtil.getTicketFieldOptions(
+				getTicketFieldId());
+		}
+
+		return Collections.emptyList();
 	}
 
 	public String getTypeLabel() {

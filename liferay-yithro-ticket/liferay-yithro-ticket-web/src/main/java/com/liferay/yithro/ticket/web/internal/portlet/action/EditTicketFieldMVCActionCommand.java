@@ -22,14 +22,22 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.yithro.ticket.constants.TicketFieldType;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.exception.TicketFieldNameException;
+import com.liferay.yithro.ticket.model.TicketFieldOption;
 import com.liferay.yithro.ticket.service.TicketFieldLocalService;
+import com.liferay.yithro.ticket.service.TicketFieldOptionLocalService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -110,14 +118,60 @@ public class EditTicketFieldMVCActionCommand extends BaseMVCActionCommand {
 		int type = ParamUtil.getInteger(actionRequest, "type");
 		int visibility = ParamUtil.getInteger(actionRequest, "visibility");
 
+		List<TicketFieldOption> ticketFieldOptions = new ArrayList<>();
+
+		if (type == TicketFieldType.SELECT) {
+			int[] ticketFieldOptionIndexes = StringUtil.split(
+				ParamUtil.getString(actionRequest, "ticketFieldOptionIndexes"),
+				0);
+
+			for (int ticketFieldOptionIndex : ticketFieldOptionIndexes) {
+				long ticketFieldOptionId = ParamUtil.getLong(
+					actionRequest,
+					"ticketFieldOptionId_" + ticketFieldOptionIndex);
+
+				Map<Locale, String> ticketFieldOptionNameMap =
+					LocalizationUtil.getLocalizationMap(
+						actionRequest,
+						"ticketFieldOptionName_" + ticketFieldOptionIndex);
+
+				String defaultName = ticketFieldOptionNameMap.get(
+					LocaleUtil.getDefault());
+
+				if ((ticketFieldOptionId <= 0) &&
+					Validator.isNull(defaultName)) {
+
+					continue;
+				}
+
+				int ticketFieldOptionVisibility = ParamUtil.getInteger(
+					actionRequest,
+					"ticketFieldOptionVisibility_" + ticketFieldOptionIndex);
+				int ticketFieldOptionOrder = ParamUtil.getInteger(
+					actionRequest,
+					"ticketFieldOptionOrder_" + ticketFieldOptionIndex);
+
+				TicketFieldOption ticketFieldOption =
+					_ticketFieldOptionLocalService.createTicketFieldOption(0);
+
+				ticketFieldOption.setTicketFieldOptionId(ticketFieldOptionId);
+				ticketFieldOption.setNameMap(ticketFieldOptionNameMap);
+				ticketFieldOption.setVisibility(ticketFieldOptionVisibility);
+				ticketFieldOption.setOrder(ticketFieldOptionOrder);
+
+				ticketFieldOptions.add(ticketFieldOption);
+			}
+		}
+
 		if (ticketFieldId <= 0) {
 			_ticketFieldLocalService.addTicketField(
 				themeDisplay.getUserId(), nameMap, descriptionMap, type,
-				visibility);
+				visibility, ticketFieldOptions);
 		}
 		else {
 			_ticketFieldLocalService.updateTicketField(
-				ticketFieldId, nameMap, descriptionMap, type, visibility);
+				ticketFieldId, nameMap, descriptionMap, type, visibility,
+				ticketFieldOptions);
 		}
 	}
 
@@ -126,5 +180,8 @@ public class EditTicketFieldMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private TicketFieldLocalService _ticketFieldLocalService;
+
+	@Reference
+	private TicketFieldOptionLocalService _ticketFieldOptionLocalService;
 
 }

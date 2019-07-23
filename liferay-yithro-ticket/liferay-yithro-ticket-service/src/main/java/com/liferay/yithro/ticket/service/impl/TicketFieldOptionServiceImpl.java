@@ -12,36 +12,23 @@
  * details.
  */
 
-package com.liferay.yithro.ticket.constants;
+package com.liferay.yithro.ticket.service.impl;
 
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.aop.AopService;
+import com.liferay.yithro.ticket.service.base.TicketFieldOptionServiceBaseImpl;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Amos Fong
+ * @author Brian Wing Shun Chan
  */
-public class TicketFieldType {
-
-	public static final int NUMBER = 1;
-
-	public static final int SELECT = 2;
-
-	public static final int TEXT = 3;
-
-	public static final int[] VALUES = {NUMBER, SELECT, TEXT};
-
-	public static String getLabel(int type) {
-		if (type == NUMBER) {
-			return "number";
-		}
-		else if (type == SELECT) {
-			return "select";
-		}
-		else if (type == TEXT) {
-			return "text";
-		}
-		else {
-			return StringPool.BLANK;
-		}
-	}
-
+@Component(
+	property = {
+		"json.web.service.context.name=yithro",
+		"json.web.service.context.path=TicketFieldOption"
+	},
+	service = AopService.class
+)
+public class TicketFieldOptionServiceImpl
+	extends TicketFieldOptionServiceBaseImpl {
 }

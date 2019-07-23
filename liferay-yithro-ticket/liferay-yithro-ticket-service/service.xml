@@ -295,6 +295,38 @@
 			<finder-column name="ticketFieldId" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="TicketFieldOption" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="ticketFieldOptionId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="ticketFieldId" type="long" />
+		<column localized="true" name="name" type="String" />
+		<column name="visibility" type="int" />
+		<column name="order" type="int" />
+		<column name="status" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="TicketFieldId" return-type="Collection">
+			<finder-column name="ticketFieldId" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="TicketFlag" remote-service="true">
 
 		<!-- PK fields -->
@@ -469,6 +501,7 @@
 		<exception>TicketEntryDescription</exception>
 		<exception>TicketEntrySubject</exception>
 		<exception>TicketFieldName</exception>
+		<exception>TicketFieldOptionName</exception>
 		<exception>TicketLinkType</exception>
 		<exception>TicketLinkURL</exception>
 		<exception>TicketLinkVisibility</exception>
