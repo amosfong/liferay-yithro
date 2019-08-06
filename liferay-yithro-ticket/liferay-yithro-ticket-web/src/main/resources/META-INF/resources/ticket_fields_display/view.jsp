@@ -82,7 +82,11 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 						<aui:select inlineField="<%= true %>" label="" name='<%= "ticketFieldIdData_" + ticketFieldId %>'>
 
 							<%
-							long ticketFieldOptionId = GetterUtil.getLong(ticketFieldData.getData());
+							long ticketFieldOptionId = 0;
+
+							if (ticketFieldData != null) {
+								ticketFieldOptionId = GetterUtil.getLong(ticketFieldData.getData());
+							}
 
 							for (TicketFieldOption ticketFieldOption : ticketField.getTicketFieldOptions(WorkflowConstants.STATUS_APPROVED)) {
 							%>

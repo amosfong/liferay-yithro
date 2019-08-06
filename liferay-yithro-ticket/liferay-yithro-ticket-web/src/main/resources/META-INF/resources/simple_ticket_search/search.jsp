@@ -56,8 +56,8 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
-			name="subject"
-			value='<%= document.get("subject") %>'
+			name="summary"
+			value='<%= document.get("summary") %>'
 		/>
 
 		<liferay-ui:search-container-column-text

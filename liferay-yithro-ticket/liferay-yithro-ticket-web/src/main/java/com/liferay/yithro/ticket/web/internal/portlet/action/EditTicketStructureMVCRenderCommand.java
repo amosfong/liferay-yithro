@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
-import com.liferay.yithro.ticket.model.TicketStructure;
 import com.liferay.yithro.ticket.service.TicketStructureLocalService;
 
 import javax.portlet.PortletException;
@@ -51,12 +50,10 @@ public class EditTicketStructureMVCRenderCommand implements MVCRenderCommand {
 				renderRequest, "ticketStructureId");
 
 			if (ticketStructureId > 0) {
-				TicketStructure ticketStructure =
-					_ticketStructureLocalService.getTicketStructure(
-						ticketStructureId);
-
 				renderRequest.setAttribute(
-					TicketWebKeys.TICKET_STRUCTURE, ticketStructure);
+					TicketWebKeys.TICKET_STRUCTURE,
+					_ticketStructureLocalService.getTicketStructure(
+						ticketStructureId));
 			}
 
 			return "/ticket_configuration/edit_ticket_structure.jsp";

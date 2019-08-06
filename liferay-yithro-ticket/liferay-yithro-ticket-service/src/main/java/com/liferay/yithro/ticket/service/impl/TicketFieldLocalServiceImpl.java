@@ -71,15 +71,22 @@ public class TicketFieldLocalServiceImpl
 		ticketField.setVisibility(visibility);
 		ticketField.setStatus(WorkflowConstants.STATUS_APPROVED);
 
-		for (TicketFieldOption ticketFieldOption : ticketFieldOptions) {
-			_ticketFieldOptionLocalService.addTicketFieldOption(
-				user.getCompanyId(), ticketFieldId,
-				ticketFieldOption.getNameMap(),
-				ticketFieldOption.getVisibility(), ticketFieldOption.getOrder(),
-				WorkflowConstants.STATUS_APPROVED);
+		if (ticketFieldOptions != null) {
+			for (TicketFieldOption ticketFieldOption : ticketFieldOptions) {
+				_ticketFieldOptionLocalService.addTicketFieldOption(
+					user.getCompanyId(), ticketFieldId,
+					ticketFieldOption.getNameMap(),
+					ticketFieldOption.getVisibility(),
+					ticketFieldOption.getOrder(),
+					WorkflowConstants.STATUS_APPROVED);
+			}
 		}
 
 		return ticketFieldPersistence.update(ticketField);
+	}
+
+	public TicketField fetchTicketField(String systemKey) {
+		return ticketFieldPersistence.fetchBySystemKey(systemKey);
 	}
 
 	public List<TicketField> getTicketFields(int status, int start, int end) {

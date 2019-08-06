@@ -37,7 +37,7 @@ public class Fields {
 
 	public static final String STATUS = "status";
 
-	public static final String SUBJECT = "subject";
+	public static final String SUMMARY = "summary";
 
 	public static final String URL = "url";
 

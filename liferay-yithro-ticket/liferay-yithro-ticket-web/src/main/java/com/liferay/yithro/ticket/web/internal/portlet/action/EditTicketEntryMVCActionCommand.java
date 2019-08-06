@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.model.TicketStatus;
@@ -28,6 +29,8 @@ import com.liferay.yithro.ticket.service.TicketEntryService;
 import com.liferay.yithro.ticket.service.TicketStatusLocalService;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -81,21 +84,35 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 
 		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
 
-		String subject = ParamUtil.getString(actionRequest, "subject");
+		long ticketStructureId = ParamUtil.getLong(
+			actionRequest, "ticketStructureId");
+		String summary = ParamUtil.getString(actionRequest, "summary");
 		String description = ParamUtil.getString(actionRequest, "description");
+
+		long[] ticketFieldIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "ticketFieldIds"), 0L);
+
+		Map<Long, String> ticketFieldsMap = new HashMap<>();
+
+		for (long ticketFieldId : ticketFieldIds) {
+			String ticketFieldData = ParamUtil.getString(
+				actionRequest, "ticketFieldIdData_" + ticketFieldId);
+
+			ticketFieldsMap.put(ticketFieldId, ticketFieldData);
+		}
 
 		if (ticketEntryId > 0) {
 			_ticketEntryService.updateTicketEntry(
-				ticketEntryId, subject, description);
+				ticketEntryId, summary, description);
 		}
 		else {
 			TicketStatus ticketStatus =
 				_ticketStatusLocalService.getInitialTicketStatus();
 
 			_ticketEntryService.addTicketEntry(
-				ticketStatus.getTicketStatusId(), themeDisplay.getLanguageId(),
-				subject, description, 0, Collections.emptyMap(),
-				Collections.emptyList());
+				ticketStructureId, ticketStatus.getTicketStatusId(),
+				themeDisplay.getLanguageId(), summary, description, 0,
+				ticketFieldsMap, Collections.emptyList());
 		}
 	}
 

@@ -14,15 +14,83 @@
 
 package com.liferay.yithro.ticket.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.yithro.ticket.model.TicketField;
+import com.liferay.yithro.ticket.model.TicketFormField;
+import com.liferay.yithro.ticket.service.TicketFieldLocalServiceUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Amos Fong
  */
 @ProviderType
 public class TicketStructureImpl extends TicketStructureBaseImpl {
 
 	public TicketStructureImpl() {
 	}
+
+	public JSONObject getStructureJSONObject() {
+		if (_jsonObject != null) {
+			return _jsonObject;
+		}
+
+		try {
+			_jsonObject = JSONFactoryUtil.createJSONObject(getStructure());
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
+
+		return _jsonObject;
+	}
+
+	public List<TicketFormField> getTicketFormFields() throws PortalException {
+		if (_ticketFormFields != null) {
+			return _ticketFormFields;
+		}
+
+		_ticketFormFields = new ArrayList<>();
+
+		JSONObject jsonObject = getStructureJSONObject();
+
+		JSONArray jsonArray = jsonObject.getJSONArray("ticketFields");
+
+		if (jsonArray != null) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject ticketFieldJSONObject = jsonArray.getJSONObject(i);
+
+				long ticketFieldId = ticketFieldJSONObject.getLong(
+					"ticketFieldId");
+
+				TicketField ticketField =
+					TicketFieldLocalServiceUtil.getTicketField(ticketFieldId);
+
+				TicketFormField ticketFormField = new TicketFormField();
+
+				ticketFormField.setDisplayRules(
+					ticketFieldJSONObject.getString("displayRules"));
+				ticketFormField.setTicketField(ticketField);
+
+				_ticketFormFields.add(ticketFormField);
+			}
+		}
+
+		return _ticketFormFields;
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		TicketStructureImpl.class);
+
+	private JSONObject _jsonObject;
+	private List<TicketFormField> _ticketFormFields;
 
 }

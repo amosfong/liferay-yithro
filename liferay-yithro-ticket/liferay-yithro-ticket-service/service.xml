@@ -210,7 +210,7 @@
 		<column name="ticketStatusId" type="long" />
 		<column name="languageId" type="String" />
 		<column name="ticketNumber" type="long" />
-		<column name="subject" type="String" />
+		<column name="summary" type="String" />
 		<column name="description" type="String" />
 		<column name="weight" type="int" />
 		<column name="holdDate" type="Date" />
@@ -260,10 +260,14 @@
 		<column localized="true" name="description" type="String" />
 		<column name="type" type="int" />
 		<column name="visibility" type="int" />
+		<column name="systemKey" type="String" />
 		<column name="status" type="int" />
 
 		<!-- Finder methods -->
 
+		<finder name="SystemKey" return-type="TicketField" unique="true">
+			<finder-column name="systemKey" />
+		</finder>
 		<finder name="Status" return-type="Collection">
 			<finder-column name="status" />
 		</finder>
@@ -530,7 +534,7 @@
 		<exception>TicketCommentVisibility</exception>
 		<exception>TicketEntryClosed</exception>
 		<exception>TicketEntryDescription</exception>
-		<exception>TicketEntrySubject</exception>
+		<exception>TicketEntrySummary</exception>
 		<exception>TicketFieldName</exception>
 		<exception>TicketFieldOptionName</exception>
 		<exception>TicketLinkType</exception>

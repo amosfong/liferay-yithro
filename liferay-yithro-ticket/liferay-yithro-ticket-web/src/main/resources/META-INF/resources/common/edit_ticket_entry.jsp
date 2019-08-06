@@ -27,7 +27,7 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 	<aui:input name="ticketEntryId" type="hidden" value="<%= ticketEntry.getTicketEntryId() %>" />
 
 	<aui:fieldset>
-		<aui:input label="summary" name="subject" required="<%= true %>" value="<%= ticketEntry.getSubject() %>" />
+		<aui:input name="summary" required="<%= true %>" value="<%= ticketEntry.getSummary() %>" />
 
 		<aui:input name="description" type="textarea" value="<%= ticketEntry.getDescription() %>" wrapperCssClass="lfr-textarea-container" />
 	</aui:fieldset>

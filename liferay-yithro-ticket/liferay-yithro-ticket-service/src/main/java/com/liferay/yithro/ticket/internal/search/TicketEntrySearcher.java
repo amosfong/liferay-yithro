@@ -32,7 +32,7 @@ public class TicketEntrySearcher extends BaseSearcher {
 	public static final String CLASS_NAME = TicketEntry.class.getName();
 
 	public TicketEntrySearcher() {
-		setDefaultSelectedFieldNames("description", "status", "subject");
+		setDefaultSelectedFieldNames("description", "status", "summary");
 		setFilterSearch(true);
 		setPermissionAware(true);
 	}

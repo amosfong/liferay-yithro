@@ -40,18 +40,19 @@ import org.osgi.service.component.annotations.Component;
 public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 
 	public TicketEntry addTicketEntry(
-			long ticketStatusId, String languageId, String subject,
-			String description, int weight, Map<Long, String> ticketFieldsMap,
+			long ticketStructureId, long ticketStatusId, String languageId,
+			String summary, String description, int weight,
+			Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
 
 		return ticketEntryLocalService.addTicketEntry(
-			getUserId(), ticketStatusId, languageId, subject, description,
-			weight, ticketFieldsMap, ticketAttachments);
+			getUserId(), ticketStructureId, ticketStatusId, languageId, summary,
+			description, weight, ticketFieldsMap, ticketAttachments);
 	}
 
 	public TicketEntry updateTicketEntry(
-			long ticketEntryId, String subject, String description)
+			long ticketEntryId, String summary, String description)
 		throws PortalException {
 
 		TicketEntry ticketEntry = ticketEntryLocalService.getTicketEntry(
@@ -60,7 +61,7 @@ public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 		return ticketEntryLocalService.updateTicketEntry(
 			getUserId(), ticketEntryId, ticketEntry.getUserId(),
 			ticketEntry.getTicketStatusId(), ticketEntry.getLanguageId(),
-			subject, description, ticketEntry.getWeight(),
+			summary, description, ticketEntry.getWeight(),
 			ticketEntry.getDueDate(), Collections.emptyMap(),
 			new ServiceContext());
 	}

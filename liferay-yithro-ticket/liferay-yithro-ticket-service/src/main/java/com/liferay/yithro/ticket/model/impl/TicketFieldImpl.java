@@ -59,4 +59,24 @@ public class TicketFieldImpl extends TicketFieldBaseImpl {
 		return Visibilities.getLabel(getVisibility());
 	}
 
+	public boolean isDescription() {
+		String systemKey = getSystemKey();
+
+		if (systemKey.equals("description")) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean isSummary() {
+		String systemKey = getSystemKey();
+
+		if (systemKey.equals("summary")) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

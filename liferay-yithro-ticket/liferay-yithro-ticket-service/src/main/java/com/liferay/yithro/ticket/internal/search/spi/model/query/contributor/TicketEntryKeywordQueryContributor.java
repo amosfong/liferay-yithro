@@ -45,7 +45,7 @@ public class TicketEntryKeywordQueryContributor
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "description", false);
 		queryHelper.addSearchTerm(
-			booleanQuery, searchContext, "subject", false);
+			booleanQuery, searchContext, "summary", false);
 	}
 
 	@Reference

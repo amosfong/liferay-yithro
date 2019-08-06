@@ -38,7 +38,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 	<div class="autofit-row">
 		<div class="autofit-col autofit-col-expand">
 			<h1>
-				<%= HtmlUtil.escape(ticketEntry.getSubject()) %>
+				<%= HtmlUtil.escape(ticketEntry.getSummary()) %>
 			</h1>
 		</div>
 

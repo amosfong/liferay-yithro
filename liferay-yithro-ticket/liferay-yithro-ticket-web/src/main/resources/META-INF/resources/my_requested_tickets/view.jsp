@@ -46,7 +46,7 @@ portletURL.setParameter("tabs1", tabs1);
 
 	<liferay-ui:search-container
 		emptyResultsMessage="no-tickets-were-found"
-		headerNames="subject,description,status"
+		headerNames="summary,description,status"
 		iteratorURL="<%= renderResponse.createRenderURL() %>"
 		total="<%= TicketEntryLocalServiceUtil.getTicketEntriesCount(themeDisplay.getUserId(), ticketStatusIds) %>"
 	>
@@ -74,8 +74,8 @@ portletURL.setParameter("tabs1", tabs1);
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
-				name="subject"
-				value="<%= ticketEntry.getSubject() %>"
+				name="summary"
+				value="<%= ticketEntry.getSummary() %>"
 			/>
 
 			<liferay-ui:search-container-column-text

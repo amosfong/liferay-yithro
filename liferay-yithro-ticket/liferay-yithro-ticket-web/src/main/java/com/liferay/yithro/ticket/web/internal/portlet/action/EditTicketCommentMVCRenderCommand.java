@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
-import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.service.TicketCommentLocalService;
 
 import javax.portlet.PortletException;
@@ -52,12 +51,10 @@ public class EditTicketCommentMVCRenderCommand implements MVCRenderCommand {
 				renderRequest, "ticketCommentId");
 
 			if (ticketCommentId > 0) {
-				TicketComment ticketComment =
-					_ticketCommentLocalService.getTicketComment(
-						ticketCommentId);
-
 				renderRequest.setAttribute(
-					TicketWebKeys.TICKET_COMMENT, ticketComment);
+					TicketWebKeys.TICKET_COMMENT,
+					_ticketCommentLocalService.getTicketComment(
+						ticketCommentId));
 			}
 
 			return "/common/ticket_communication/edit_ticket_comment.jsp";

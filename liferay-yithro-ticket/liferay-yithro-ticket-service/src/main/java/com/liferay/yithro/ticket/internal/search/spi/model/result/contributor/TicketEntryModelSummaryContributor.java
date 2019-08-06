@@ -37,10 +37,8 @@ public class TicketEntryModelSummaryContributor
 	public Summary getSummary(
 		Document document, Locale locale, String snippet) {
 
-		String description = document.get("description");
-		String subject = document.get("subject");
-
-		Summary summary = new Summary(subject, description);
+		Summary summary = new Summary(
+			document.get("summary"), document.get("description"));
 
 		summary.setMaxContentLength(200);
 

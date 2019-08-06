@@ -22,20 +22,20 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Brian Wing Shun Chan
  */
 @ProviderType
-public class TicketEntrySubjectException extends PortalException {
+public class TicketEntrySummaryException extends PortalException {
 
-	public TicketEntrySubjectException() {
+	public TicketEntrySummaryException() {
 	}
 
-	public TicketEntrySubjectException(String msg) {
+	public TicketEntrySummaryException(String msg) {
 		super(msg);
 	}
 
-	public TicketEntrySubjectException(String msg, Throwable cause) {
+	public TicketEntrySummaryException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public TicketEntrySubjectException(Throwable cause) {
+	public TicketEntrySummaryException(Throwable cause) {
 		super(cause);
 	}
 

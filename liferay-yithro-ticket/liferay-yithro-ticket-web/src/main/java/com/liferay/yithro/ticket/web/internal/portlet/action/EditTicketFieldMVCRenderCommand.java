@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
-import com.liferay.yithro.ticket.model.TicketField;
 import com.liferay.yithro.ticket.service.TicketFieldLocalService;
 
 import javax.portlet.PortletException;
@@ -51,11 +50,9 @@ public class EditTicketFieldMVCRenderCommand implements MVCRenderCommand {
 				renderRequest, "ticketFieldId");
 
 			if (ticketFieldId > 0) {
-				TicketField ticketField =
-					_ticketFieldLocalService.getTicketField(ticketFieldId);
-
 				renderRequest.setAttribute(
-					TicketWebKeys.TICKET_FIELD, ticketField);
+					TicketWebKeys.TICKET_FIELD,
+					_ticketFieldLocalService.getTicketField(ticketFieldId));
 			}
 
 			return "/ticket_configuration/edit_ticket_field.jsp";

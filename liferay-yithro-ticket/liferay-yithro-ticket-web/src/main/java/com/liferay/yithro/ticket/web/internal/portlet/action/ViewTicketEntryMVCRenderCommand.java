@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
-import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 
 import javax.portlet.PortletException;
@@ -52,11 +51,9 @@ public class ViewTicketEntryMVCRenderCommand implements MVCRenderCommand {
 				renderRequest, "ticketEntryId");
 
 			if (ticketEntryId > 0) {
-				TicketEntry ticketEntry =
-					_ticketEntryLocalService.getTicketEntry(ticketEntryId);
-
 				renderRequest.setAttribute(
-					TicketWebKeys.TICKET_ENTRY, ticketEntry);
+					TicketWebKeys.TICKET_ENTRY,
+					_ticketEntryLocalService.getTicketEntry(ticketEntryId));
 			}
 
 			return "/common/view_ticket_entry.jsp";

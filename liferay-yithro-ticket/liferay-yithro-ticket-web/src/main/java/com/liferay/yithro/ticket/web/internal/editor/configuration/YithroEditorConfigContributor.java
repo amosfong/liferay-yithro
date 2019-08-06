@@ -129,9 +129,9 @@ public class YithroEditorConfigContributor extends BaseEditorConfigContributor {
 					getStyleFormatsJSONObject(locale), "bold", "italic",
 					"underline", "ol", "ul", "linkBrowse", "quote")
 			).put(
-				"test", "AlloyEditor.SelectionTest.text"
-			).put(
 				"name", "text"
+			).put(
+				"test", "AlloyEditor.SelectionTest.text"
 			));
 	}
 

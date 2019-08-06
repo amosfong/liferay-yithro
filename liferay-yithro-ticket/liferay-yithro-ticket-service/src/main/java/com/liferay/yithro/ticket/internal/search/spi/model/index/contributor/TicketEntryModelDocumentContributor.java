@@ -84,7 +84,7 @@ public class TicketEntryModelDocumentContributor
 				"primaryTicketWorker", primaryTicketWorker.getUserId());
 		}
 
-		document.addText("subject", ticketEntry.getSubject());
+		document.addText("summary", ticketEntry.getSummary());
 
 		List<Subscription> subscriptions =
 			subscriptionLocalService.getSubscriptions(
@@ -122,7 +122,7 @@ public class TicketEntryModelDocumentContributor
 		document.addDateSortable("createDate", ticketEntry.getCreateDate());
 		document.addDateSortable("dueDate", ticketEntry.getDueDate());
 		document.addDateSortable("modifiedDate", ticketEntry.getModifiedDate());
-		document.addTextSortable("subject", ticketEntry.getSubject());
+		document.addTextSortable("summary", ticketEntry.getSummary());
 
 		contributeTicketAttachments(document, ticketEntry.getTicketEntryId());
 		contributeTicketComments(document, ticketEntry.getTicketEntryId());

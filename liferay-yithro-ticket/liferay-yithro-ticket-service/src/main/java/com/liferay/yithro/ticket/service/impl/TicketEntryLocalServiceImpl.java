@@ -15,7 +15,6 @@
 package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
@@ -40,15 +39,16 @@ import com.liferay.yithro.audit.service.AuditEntryLocalService;
 import com.liferay.yithro.constants.Visibilities;
 import com.liferay.yithro.ticket.constants.TicketFlagType;
 import com.liferay.yithro.ticket.constants.TicketFlagValue;
-import com.liferay.yithro.ticket.exception.TicketEntryDescriptionException;
-import com.liferay.yithro.ticket.exception.TicketEntrySubjectException;
+import com.liferay.yithro.ticket.exception.TicketEntrySummaryException;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketComment;
 import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.yithro.ticket.model.TicketField;
 import com.liferay.yithro.ticket.model.TicketFlag;
 import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
 import com.liferay.yithro.ticket.service.TicketFieldDataLocalService;
+import com.liferay.yithro.ticket.service.TicketFieldLocalService;
 import com.liferay.yithro.ticket.service.TicketFlagLocalService;
 import com.liferay.yithro.ticket.service.base.TicketEntryLocalServiceBaseImpl;
 
@@ -78,8 +78,9 @@ public class TicketEntryLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, long ticketStatusId, String languageId, String subject,
-			String description, int weight, Map<Long, String> ticketFieldsMap,
+			long userId, long ticketStructureId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
+			Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
 
@@ -88,7 +89,29 @@ public class TicketEntryLocalServiceImpl
 		User user = userLocalService.getUser(userId);
 		Date now = new Date();
 
-		validate(subject, description);
+		if (Validator.isNull(summary)) {
+			for (Map.Entry<Long, String> entry : ticketFieldsMap.entrySet()) {
+				TicketField ticketField =
+					ticketFieldLocalService.getTicketField(entry.getKey());
+
+				if (ticketField.isSummary()) {
+					summary = entry.getValue();
+				}
+			}
+		}
+
+		if (Validator.isNull(description)) {
+			for (Map.Entry<Long, String> entry : ticketFieldsMap.entrySet()) {
+				TicketField ticketField =
+					ticketFieldLocalService.getTicketField(entry.getKey());
+
+				if (ticketField.isDescription()) {
+					description = entry.getValue();
+				}
+			}
+		}
+
+		validate(summary);
 
 		long ticketEntryId = counterLocalService.increment();
 
@@ -98,10 +121,11 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setUserName(user.getFullName());
 		ticketEntry.setCreateDate(now);
 		ticketEntry.setModifiedDate(now);
+		ticketEntry.setTicketStructureId(ticketStructureId);
 		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setTicketNumber(getTicketNumber(userId));
-		ticketEntry.setSubject(subject);
+		ticketEntry.setSummary(summary);
 		ticketEntry.setDescription(description);
 		ticketEntry.setWeight(weight);
 
@@ -226,7 +250,7 @@ public class TicketEntryLocalServiceImpl
 			Map<String, Serializable> attributes = new HashMap<>();
 
 			attributes.put("description", keywords);
-			attributes.put("subject", keywords);
+			attributes.put("summary", keywords);
 
 			searchContext.setAttributes(attributes);
 
@@ -273,7 +297,7 @@ public class TicketEntryLocalServiceImpl
 
 	public TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			long ticketStatusId, String languageId, String subject,
+			long ticketStatusId, String languageId, String summary,
 			String description, int weight, Date dueDate,
 			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
 		throws PortalException {
@@ -283,7 +307,7 @@ public class TicketEntryLocalServiceImpl
 		User user = userLocalService.getUser(userId);
 		Date now = new Date();
 
-		validate(subject, description);
+		validate(summary);
 
 		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
 			ticketEntryId);
@@ -300,7 +324,7 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setModifiedDate(now);
 		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);
-		ticketEntry.setSubject(subject);
+		ticketEntry.setSummary(summary);
 		ticketEntry.setDescription(description);
 		ticketEntry.setWeight(weight);
 
@@ -368,14 +392,14 @@ public class TicketEntryLocalServiceImpl
 				StringPool.BLANK);
 		}
 
-		String oldSubject = oldTicketEntry.getSubject();
+		String oldSummary = oldTicketEntry.getSummary();
 
-		if (!oldSubject.equals(ticketEntry.getSubject())) {
+		if (!oldSummary.equals(ticketEntry.getSummary())) {
 			auditEntryLocalService.addAuditEntry(
 				userId, createDate, TicketEntry.class, ticketEntryId,
 				auditSetId, TicketEntry.class, ticketEntryId, Actions.UPDATE,
-				Fields.SUBJECT, Visibilities.PUBLIC, StringPool.BLANK,
-				oldSubject, StringPool.BLANK, ticketEntry.getSubject(),
+				Fields.SUMMARY, Visibilities.PUBLIC, StringPool.BLANK,
+				oldSummary, StringPool.BLANK, ticketEntry.getSummary(),
 				StringPool.BLANK);
 		}
 
@@ -494,28 +518,25 @@ public class TicketEntryLocalServiceImpl
 		reindexTicketEntry(ticketEntry.getTicketEntryId());
 	}
 
-	protected void validate(String subject, String description)
-		throws PortalException {
-
-		if (Validator.isNull(subject)) {
-			throw new TicketEntrySubjectException();
-		}
-
-		if (Validator.isNull(description)) {
-			throw new TicketEntryDescriptionException();
+	protected void validate(String summary) throws PortalException {
+		if (Validator.isNull(summary)) {
+			throw new TicketEntrySummaryException();
 		}
 	}
 
 	@Reference
 	protected AuditEntryLocalService auditEntryLocalService;
 
-	@BeanReference(type = TicketAttachmentLocalService.class)
+	@Reference
 	protected TicketAttachmentLocalService ticketAttachmentLocalService;
 
 	@Reference
 	protected TicketFieldDataLocalService ticketFieldDataLocalService;
 
-	@BeanReference(type = TicketFlagLocalService.class)
+	@Reference
+	protected TicketFieldLocalService ticketFieldLocalService;
+
+	@Reference
 	protected TicketFlagLocalService ticketFlagLocalService;
 
 }

@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
-import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketStatusLocalService;
 
 import javax.portlet.PortletException;
@@ -51,11 +50,9 @@ public class EditTicketStatusMVCRenderCommand implements MVCRenderCommand {
 				renderRequest, "ticketStatusId");
 
 			if (ticketStatusId > 0) {
-				TicketStatus ticketStatus =
-					_ticketStatusLocalService.getTicketStatus(ticketStatusId);
-
 				renderRequest.setAttribute(
-					TicketWebKeys.TICKET_STATUS, ticketStatus);
+					TicketWebKeys.TICKET_STATUS,
+					_ticketStatusLocalService.getTicketStatus(ticketStatusId));
 			}
 
 			return "/ticket_configuration/edit_ticket_status.jsp";
