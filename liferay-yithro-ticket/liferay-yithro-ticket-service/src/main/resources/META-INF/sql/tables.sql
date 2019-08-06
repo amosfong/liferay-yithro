@@ -63,7 +63,7 @@ create table Yithro_TicketEntry (
 	ticketStatusId LONG,
 	languageId VARCHAR(75) null,
 	ticketNumber LONG,
-	subject VARCHAR(255) null,
+	summary VARCHAR(255) null,
 	description STRING null,
 	weight INTEGER,
 	holdDate DATE null,
@@ -81,6 +81,7 @@ create table Yithro_TicketField (
 	description STRING null,
 	type_ INTEGER,
 	visibility INTEGER,
+	systemKey VARCHAR(75) null,
 	status INTEGER
 );
 
@@ -167,8 +168,8 @@ create table Yithro_TicketStructure (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
-	description VARCHAR(75) null,
-	structure VARCHAR(75) null
+	description TEXT null,
+	structure TEXT null
 );
 
 create table Yithro_TicketWorker (

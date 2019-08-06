@@ -159,14 +159,14 @@ public class TicketFlagPersistenceImpl
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
 	public List<TicketFlag> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -176,10 +176,13 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTicketEntryId;
-			finderArgs = new Object[] {ticketEntryId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByTicketEntryId;
+				finderArgs = new Object[] {ticketEntryId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByTicketEntryId;
 			finderArgs = new Object[] {
 				ticketEntryId, start, end, orderByComparator
@@ -188,7 +191,7 @@ public class TicketFlagPersistenceImpl
 
 		List<TicketFlag> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -254,10 +257,14 @@ public class TicketFlagPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -673,14 +680,14 @@ public class TicketFlagPersistenceImpl
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
 	public List<TicketFlag> findByTEI_T(
 		long ticketEntryId, int type, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -690,10 +697,13 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTEI_T;
-			finderArgs = new Object[] {ticketEntryId, type};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByTEI_T;
+				finderArgs = new Object[] {ticketEntryId, type};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByTEI_T;
 			finderArgs = new Object[] {
 				ticketEntryId, type, start, end, orderByComparator
@@ -702,7 +712,7 @@ public class TicketFlagPersistenceImpl
 
 		List<TicketFlag> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -774,10 +784,14 @@ public class TicketFlagPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1216,18 +1230,22 @@ public class TicketFlagPersistenceImpl
 	 * @param userId the user ID
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
 	@Override
 	public TicketFlag fetchByU_TEI_T(
-		long userId, long ticketEntryId, int type, boolean retrieveFromCache) {
+		long userId, long ticketEntryId, int type, boolean useFinderCache) {
 
-		Object[] finderArgs = new Object[] {userId, ticketEntryId, type};
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId, ticketEntryId, type};
+		}
 
 		Object result = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByU_TEI_T, finderArgs, this);
 		}
@@ -1274,14 +1292,22 @@ public class TicketFlagPersistenceImpl
 				List<TicketFlag> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByU_TEI_T, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByU_TEI_T, finderArgs, list);
+					}
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									userId, ticketEntryId, type
+								};
+							}
+
 							_log.warn(
 								"TicketFlagPersistenceImpl.fetchByU_TEI_T(long, long, int, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -1297,7 +1323,10 @@ public class TicketFlagPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByU_TEI_T, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByU_TEI_T, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1481,14 +1510,14 @@ public class TicketFlagPersistenceImpl
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
 	public List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1498,10 +1527,13 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTEI_T_V;
-			finderArgs = new Object[] {ticketEntryId, type, value};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByTEI_T_V;
+				finderArgs = new Object[] {ticketEntryId, type, value};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByTEI_T_V;
 			finderArgs = new Object[] {
 				ticketEntryId, type, value, start, end, orderByComparator
@@ -1510,7 +1542,7 @@ public class TicketFlagPersistenceImpl
 
 		List<TicketFlag> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -1587,10 +1619,14 @@ public class TicketFlagPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1980,14 +2016,14 @@ public class TicketFlagPersistenceImpl
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	@Override
 	public List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		if (types == null) {
 			types = new int[0];
@@ -2008,11 +2044,14 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderArgs = new Object[] {
-				ticketEntryId, StringUtil.merge(types), value
-			};
+
+			if (useFinderCache) {
+				finderArgs = new Object[] {
+					ticketEntryId, StringUtil.merge(types), value
+				};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderArgs = new Object[] {
 				ticketEntryId, StringUtil.merge(types), value, start, end,
 				orderByComparator
@@ -2021,7 +2060,7 @@ public class TicketFlagPersistenceImpl
 
 		List<TicketFlag> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
 				_finderPathWithPaginationFindByTEI_T_V, finderArgs, this);
 
@@ -2104,12 +2143,17 @@ public class TicketFlagPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(
-					_finderPathWithPaginationFindByTEI_T_V, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(
+						_finderPathWithPaginationFindByTEI_T_V, finderArgs,
+						list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathWithPaginationFindByTEI_T_V, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathWithPaginationFindByTEI_T_V, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2813,13 +2857,13 @@ public class TicketFlagPersistenceImpl
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket flags
 	 */
 	@Override
 	public List<TicketFlag> findAll(
 		int start, int end, OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -2829,17 +2873,20 @@ public class TicketFlagPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<TicketFlag> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFlag>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -2889,10 +2936,14 @@ public class TicketFlagPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}

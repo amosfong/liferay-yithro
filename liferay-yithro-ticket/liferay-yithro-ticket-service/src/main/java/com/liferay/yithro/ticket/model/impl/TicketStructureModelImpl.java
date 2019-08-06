@@ -97,7 +97,7 @@ public class TicketStructureModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketStructure (ticketStructureId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description VARCHAR(75) null,structure VARCHAR(75) null)";
+		"create table Yithro_TicketStructure (ticketStructureId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description TEXT null,structure TEXT null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketStructure";

@@ -54,6 +54,7 @@ public class TicketFieldWrapper
 		attributes.put("description", getDescription());
 		attributes.put("type", getType());
 		attributes.put("visibility", getVisibility());
+		attributes.put("systemKey", getSystemKey());
 		attributes.put("status", getStatus());
 
 		return attributes;
@@ -113,6 +114,12 @@ public class TicketFieldWrapper
 
 		if (visibility != null) {
 			setVisibility(visibility);
+		}
+
+		String systemKey = (String)attributes.get("systemKey");
+
+		if (systemKey != null) {
+			setSystemKey(systemKey);
 		}
 
 		Integer status = (Integer)attributes.get("status");
@@ -335,6 +342,16 @@ public class TicketFieldWrapper
 	}
 
 	/**
+	 * Returns the system key of this ticket field.
+	 *
+	 * @return the system key of this ticket field
+	 */
+	@Override
+	public String getSystemKey() {
+		return model.getSystemKey();
+	}
+
+	/**
 	 * Returns the ticket field ID of this ticket field.
 	 *
 	 * @return the ticket field ID of this ticket field
@@ -402,6 +419,16 @@ public class TicketFieldWrapper
 	@Override
 	public String getVisibilityLabel() {
 		return model.getVisibilityLabel();
+	}
+
+	@Override
+	public boolean isDescription() {
+		return model.isDescription();
+	}
+
+	@Override
+	public boolean isSummary() {
+		return model.isSummary();
 	}
 
 	@Override
@@ -602,6 +629,16 @@ public class TicketFieldWrapper
 	@Override
 	public void setStatus(int status) {
 		model.setStatus(status);
+	}
+
+	/**
+	 * Sets the system key of this ticket field.
+	 *
+	 * @param systemKey the system key of this ticket field
+	 */
+	@Override
+	public void setSystemKey(String systemKey) {
+		model.setSystemKey(systemKey);
 	}
 
 	/**

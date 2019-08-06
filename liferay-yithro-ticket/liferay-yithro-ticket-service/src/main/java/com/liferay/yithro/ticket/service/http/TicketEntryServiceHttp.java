@@ -55,8 +55,9 @@ import org.osgi.annotation.versioning.ProviderType;
 public class TicketEntryServiceHttp {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			HttpPrincipal httpPrincipal, long ticketStatusId, String languageId,
-			String subject, String description, int weight,
+			HttpPrincipal httpPrincipal, long ticketStructureId,
+			long ticketStatusId, String languageId, String summary,
+			String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
@@ -68,8 +69,9 @@ public class TicketEntryServiceHttp {
 				_addTicketEntryParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, ticketStatusId, languageId, subject, description,
-				weight, ticketFieldsMap, ticketAttachments);
+				methodKey, ticketStructureId, ticketStatusId, languageId,
+				summary, description, weight, ticketFieldsMap,
+				ticketAttachments);
 
 			Object returnObj = null;
 
@@ -98,7 +100,7 @@ public class TicketEntryServiceHttp {
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
-			HttpPrincipal httpPrincipal, long ticketEntryId, String subject,
+			HttpPrincipal httpPrincipal, long ticketEntryId, String summary,
 			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -108,7 +110,7 @@ public class TicketEntryServiceHttp {
 				_updateTicketEntryParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, ticketEntryId, subject, description);
+				methodKey, ticketEntryId, summary, description);
 
 			Object returnObj = null;
 
@@ -181,8 +183,8 @@ public class TicketEntryServiceHttp {
 
 	private static final Class<?>[] _addTicketEntryParameterTypes0 =
 		new Class[] {
-			long.class, String.class, String.class, String.class, int.class,
-			java.util.Map.class, java.util.List.class
+			long.class, long.class, String.class, String.class, String.class,
+			int.class, java.util.Map.class, java.util.List.class
 		};
 	private static final Class<?>[] _updateTicketEntryParameterTypes1 =
 		new Class[] {long.class, String.class, String.class};

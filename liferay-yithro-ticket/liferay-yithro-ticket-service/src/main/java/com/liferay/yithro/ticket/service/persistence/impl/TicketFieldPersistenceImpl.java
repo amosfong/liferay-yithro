@@ -50,6 +50,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -92,6 +93,240 @@ public class TicketFieldPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathFetchBySystemKey;
+	private FinderPath _finderPathCountBySystemKey;
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or throws a <code>NoSuchTicketFieldException</code> if it could not be found.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field
+	 * @throws NoSuchTicketFieldException if a matching ticket field could not be found
+	 */
+	@Override
+	public TicketField findBySystemKey(String systemKey)
+		throws NoSuchTicketFieldException {
+
+		TicketField ticketField = fetchBySystemKey(systemKey);
+
+		if (ticketField == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("systemKey=");
+			msg.append(systemKey);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchTicketFieldException(msg.toString());
+		}
+
+		return ticketField;
+	}
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	@Override
+	public TicketField fetchBySystemKey(String systemKey) {
+		return fetchBySystemKey(systemKey, true);
+	}
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	@Override
+	public TicketField fetchBySystemKey(
+		String systemKey, boolean useFinderCache) {
+
+		systemKey = Objects.toString(systemKey, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {systemKey};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchBySystemKey, finderArgs, this);
+		}
+
+		if (result instanceof TicketField) {
+			TicketField ticketField = (TicketField)result;
+
+			if (!Objects.equals(systemKey, ticketField.getSystemKey())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_TICKETFIELD_WHERE);
+
+			boolean bindSystemKey = false;
+
+			if (systemKey.isEmpty()) {
+				query.append(_FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_3);
+			}
+			else {
+				bindSystemKey = true;
+
+				query.append(_FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSystemKey) {
+					qPos.add(systemKey);
+				}
+
+				List<TicketField> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchBySystemKey, finderArgs, list);
+					}
+				}
+				else {
+					TicketField ticketField = list.get(0);
+
+					result = ticketField;
+
+					cacheResult(ticketField);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchBySystemKey, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (TicketField)result;
+		}
+	}
+
+	/**
+	 * Removes the ticket field where systemKey = &#63; from the database.
+	 *
+	 * @param systemKey the system key
+	 * @return the ticket field that was removed
+	 */
+	@Override
+	public TicketField removeBySystemKey(String systemKey)
+		throws NoSuchTicketFieldException {
+
+		TicketField ticketField = findBySystemKey(systemKey);
+
+		return remove(ticketField);
+	}
+
+	/**
+	 * Returns the number of ticket fields where systemKey = &#63;.
+	 *
+	 * @param systemKey the system key
+	 * @return the number of matching ticket fields
+	 */
+	@Override
+	public int countBySystemKey(String systemKey) {
+		systemKey = Objects.toString(systemKey, "");
+
+		FinderPath finderPath = _finderPathCountBySystemKey;
+
+		Object[] finderArgs = new Object[] {systemKey};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_TICKETFIELD_WHERE);
+
+			boolean bindSystemKey = false;
+
+			if (systemKey.isEmpty()) {
+				query.append(_FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_3);
+			}
+			else {
+				bindSystemKey = true;
+
+				query.append(_FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSystemKey) {
+					qPos.add(systemKey);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_2 =
+		"ticketField.systemKey = ?";
+
+	private static final String _FINDER_COLUMN_SYSTEMKEY_SYSTEMKEY_3 =
+		"(ticketField.systemKey IS NULL OR ticketField.systemKey = '')";
+
 	private FinderPath _finderPathWithPaginationFindByStatus;
 	private FinderPath _finderPathWithoutPaginationFindByStatus;
 	private FinderPath _finderPathCountByStatus;
@@ -156,14 +391,14 @@ public class TicketFieldPersistenceImpl
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket fields
 	 */
 	@Override
 	public List<TicketField> findByStatus(
 		int status, int start, int end,
 		OrderByComparator<TicketField> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -173,17 +408,20 @@ public class TicketFieldPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByStatus;
-			finderArgs = new Object[] {status};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByStatus;
+				finderArgs = new Object[] {status};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByStatus;
 			finderArgs = new Object[] {status, start, end, orderByComparator};
 		}
 
 		List<TicketField> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketField>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -249,10 +487,14 @@ public class TicketFieldPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -617,6 +859,10 @@ public class TicketFieldPersistenceImpl
 			entityCacheEnabled, TicketFieldImpl.class,
 			ticketField.getPrimaryKey(), ticketField);
 
+		finderCache.putResult(
+			_finderPathFetchBySystemKey,
+			new Object[] {ticketField.getSystemKey()}, ticketField);
+
 		ticketField.resetOriginalValues();
 	}
 
@@ -671,6 +917,8 @@ public class TicketFieldPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((TicketFieldModelImpl)ticketField, true);
 	}
 
 	@Override
@@ -682,6 +930,41 @@ public class TicketFieldPersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, TicketFieldImpl.class,
 				ticketField.getPrimaryKey());
+
+			clearUniqueFindersCache((TicketFieldModelImpl)ticketField, true);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		TicketFieldModelImpl ticketFieldModelImpl) {
+
+		Object[] args = new Object[] {ticketFieldModelImpl.getSystemKey()};
+
+		finderCache.putResult(
+			_finderPathCountBySystemKey, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchBySystemKey, args, ticketFieldModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		TicketFieldModelImpl ticketFieldModelImpl, boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {ticketFieldModelImpl.getSystemKey()};
+
+			finderCache.removeResult(_finderPathCountBySystemKey, args);
+			finderCache.removeResult(_finderPathFetchBySystemKey, args);
+		}
+
+		if ((ticketFieldModelImpl.getColumnBitmask() &
+			 _finderPathFetchBySystemKey.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				ticketFieldModelImpl.getOriginalSystemKey()
+			};
+
+			finderCache.removeResult(_finderPathCountBySystemKey, args);
+			finderCache.removeResult(_finderPathFetchBySystemKey, args);
 		}
 	}
 
@@ -897,6 +1180,9 @@ public class TicketFieldPersistenceImpl
 			entityCacheEnabled, TicketFieldImpl.class,
 			ticketField.getPrimaryKey(), ticketField, false);
 
+		clearUniqueFindersCache(ticketFieldModelImpl, false);
+		cacheUniqueFindersCache(ticketFieldModelImpl);
+
 		ticketField.resetOriginalValues();
 
 		return ticketField;
@@ -1007,13 +1293,13 @@ public class TicketFieldPersistenceImpl
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket fields
 	 */
 	@Override
 	public List<TicketField> findAll(
 		int start, int end, OrderByComparator<TicketField> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1023,17 +1309,20 @@ public class TicketFieldPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<TicketField> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketField>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -1083,10 +1372,14 @@ public class TicketFieldPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1192,6 +1485,17 @@ public class TicketFieldPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
+
+		_finderPathFetchBySystemKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketFieldImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchBySystemKey",
+			new String[] {String.class.getName()},
+			TicketFieldModelImpl.SYSTEMKEY_COLUMN_BITMASK);
+
+		_finderPathCountBySystemKey = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySystemKey",
+			new String[] {String.class.getName()});
 
 		_finderPathWithPaginationFindByStatus = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TicketFieldImpl.class,

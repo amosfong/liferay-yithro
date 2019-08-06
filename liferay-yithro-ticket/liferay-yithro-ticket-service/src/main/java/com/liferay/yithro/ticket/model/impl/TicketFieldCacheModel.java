@@ -65,7 +65,7 @@ public class TicketFieldCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{ticketFieldId=");
 		sb.append(ticketFieldId);
@@ -85,6 +85,8 @@ public class TicketFieldCacheModel
 		sb.append(type);
 		sb.append(", visibility=");
 		sb.append(visibility);
+		sb.append(", systemKey=");
+		sb.append(systemKey);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append("}");
@@ -130,6 +132,14 @@ public class TicketFieldCacheModel
 
 		ticketFieldImpl.setType(type);
 		ticketFieldImpl.setVisibility(visibility);
+
+		if (systemKey == null) {
+			ticketFieldImpl.setSystemKey("");
+		}
+		else {
+			ticketFieldImpl.setSystemKey(systemKey);
+		}
+
 		ticketFieldImpl.setStatus(status);
 
 		ticketFieldImpl.resetOriginalValues();
@@ -152,6 +162,7 @@ public class TicketFieldCacheModel
 		type = objectInput.readInt();
 
 		visibility = objectInput.readInt();
+		systemKey = objectInput.readUTF();
 
 		status = objectInput.readInt();
 	}
@@ -184,6 +195,13 @@ public class TicketFieldCacheModel
 
 		objectOutput.writeInt(visibility);
 
+		if (systemKey == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(systemKey);
+		}
+
 		objectOutput.writeInt(status);
 	}
 
@@ -196,6 +214,7 @@ public class TicketFieldCacheModel
 	public String description;
 	public int type;
 	public int visibility;
+	public String systemKey;
 	public int status;
 
 }

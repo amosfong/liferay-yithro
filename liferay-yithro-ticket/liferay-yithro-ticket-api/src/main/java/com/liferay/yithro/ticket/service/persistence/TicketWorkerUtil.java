@@ -185,16 +185,16 @@ public class TicketWorkerUtil {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public static List<TicketWorker> findByUserId(
 		long userId, int start, int end,
 		OrderByComparator<TicketWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByUserId(
-			userId, start, end, orderByComparator, retrieveFromCache);
+			userId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -350,16 +350,16 @@ public class TicketWorkerUtil {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public static List<TicketWorker> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -491,14 +491,14 @@ public class TicketWorkerUtil {
 	 *
 	 * @param userId the user ID
 	 * @param ticketEntryId the ticket entry ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket worker, or <code>null</code> if a matching ticket worker could not be found
 	 */
 	public static TicketWorker fetchByU_TEI(
-		long userId, long ticketEntryId, boolean retrieveFromCache) {
+		long userId, long ticketEntryId, boolean useFinderCache) {
 
 		return getPersistence().fetchByU_TEI(
-			userId, ticketEntryId, retrieveFromCache);
+			userId, ticketEntryId, useFinderCache);
 	}
 
 	/**
@@ -557,14 +557,14 @@ public class TicketWorkerUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param primary the primary
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket worker, or <code>null</code> if a matching ticket worker could not be found
 	 */
 	public static TicketWorker fetchByTEI_P(
-		long ticketEntryId, boolean primary, boolean retrieveFromCache) {
+		long ticketEntryId, boolean primary, boolean useFinderCache) {
 
 		return getPersistence().fetchByTEI_P(
-			ticketEntryId, primary, retrieveFromCache);
+			ticketEntryId, primary, useFinderCache);
 	}
 
 	/**
@@ -660,17 +660,17 @@ public class TicketWorkerUtil {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public static List<TicketWorker> findBySCNI_SCPK(
 		long sourceClassNameId, long sourceClassPK, int start, int end,
 		OrderByComparator<TicketWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findBySCNI_SCPK(
 			sourceClassNameId, sourceClassPK, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -907,15 +907,15 @@ public class TicketWorkerUtil {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket workers
 	 */
 	public static List<TicketWorker> findAll(
 		int start, int end, OrderByComparator<TicketWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

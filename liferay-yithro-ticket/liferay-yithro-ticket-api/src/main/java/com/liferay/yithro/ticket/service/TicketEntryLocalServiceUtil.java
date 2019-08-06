@@ -40,16 +40,16 @@ public class TicketEntryLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			long userId, long ticketStatusId, String languageId, String subject,
-			String description, int weight,
+			long userId, long ticketStructureId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketEntry(
-			userId, ticketStatusId, languageId, subject, description, weight,
-			ticketFieldsMap, ticketAttachments);
+			userId, ticketStructureId, ticketStatusId, languageId, summary,
+			description, weight, ticketFieldsMap, ticketAttachments);
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class TicketEntryLocalServiceUtil {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
 			long userId, long ticketEntryId, long reportedByUserId,
-			long ticketStatusId, String languageId, String subject,
+			long ticketStatusId, String languageId, String summary,
 			String description, int weight, java.util.Date dueDate,
 			java.util.Map<Long, String> ticketFieldsMap,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -340,7 +340,7 @@ public class TicketEntryLocalServiceUtil {
 
 		return getService().updateTicketEntry(
 			userId, ticketEntryId, reportedByUserId, ticketStatusId, languageId,
-			subject, description, weight, dueDate, ticketFieldsMap,
+			summary, description, weight, dueDate, ticketFieldsMap,
 			serviceContext);
 	}
 

@@ -92,14 +92,14 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public java.util.List<TicketLink> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket link in the ordered set where ticketEntryId = &#63;.
@@ -236,14 +236,14 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public java.util.List<TicketLink> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket link in the ordered set where ticketCommunicationId = &#63;.
@@ -384,14 +384,14 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public java.util.List<TicketLink> findByTEI_V(
 		long ticketEntryId, int visibility, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket link in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
@@ -526,14 +526,14 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public java.util.List<TicketLink> findByTEI_V(
 		long ticketEntryId, int[] visibilities, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket links where ticketEntryId = &#63; and visibility = &#63; from the database.
@@ -660,14 +660,14 @@ public interface TicketLinkPersistence extends BasePersistence<TicketLink> {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket links
 	 */
 	public java.util.List<TicketLink> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketLink>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket links from the database.

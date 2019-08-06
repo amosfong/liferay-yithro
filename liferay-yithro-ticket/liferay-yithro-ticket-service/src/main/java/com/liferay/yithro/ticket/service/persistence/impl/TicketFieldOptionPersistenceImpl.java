@@ -161,14 +161,14 @@ public class TicketFieldOptionPersistenceImpl
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	@Override
 	public List<TicketFieldOption> findByTicketFieldId(
 		long ticketFieldId, int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -178,10 +178,13 @@ public class TicketFieldOptionPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTicketFieldId;
-			finderArgs = new Object[] {ticketFieldId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByTicketFieldId;
+				finderArgs = new Object[] {ticketFieldId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByTicketFieldId;
 			finderArgs = new Object[] {
 				ticketFieldId, start, end, orderByComparator
@@ -190,7 +193,7 @@ public class TicketFieldOptionPersistenceImpl
 
 		List<TicketFieldOption> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFieldOption>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -258,10 +261,14 @@ public class TicketFieldOptionPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -687,14 +694,14 @@ public class TicketFieldOptionPersistenceImpl
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	@Override
 	public List<TicketFieldOption> findByTFI_S(
 		long ticketFieldId, int status, int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -704,10 +711,13 @@ public class TicketFieldOptionPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByTFI_S;
-			finderArgs = new Object[] {ticketFieldId, status};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByTFI_S;
+				finderArgs = new Object[] {ticketFieldId, status};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByTFI_S;
 			finderArgs = new Object[] {
 				ticketFieldId, status, start, end, orderByComparator
@@ -716,7 +726,7 @@ public class TicketFieldOptionPersistenceImpl
 
 		List<TicketFieldOption> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFieldOption>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -789,10 +799,14 @@ public class TicketFieldOptionPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1628,14 +1642,14 @@ public class TicketFieldOptionPersistenceImpl
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket field options
 	 */
 	@Override
 	public List<TicketFieldOption> findAll(
 		int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1645,17 +1659,20 @@ public class TicketFieldOptionPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<TicketFieldOption> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<TicketFieldOption>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -1705,10 +1722,14 @@ public class TicketFieldOptionPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}

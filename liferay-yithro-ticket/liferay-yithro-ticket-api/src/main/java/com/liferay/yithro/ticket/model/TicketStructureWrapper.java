@@ -185,6 +185,18 @@ public class TicketStructureWrapper
 		return model.getStructure();
 	}
 
+	@Override
+	public com.liferay.portal.kernel.json.JSONObject getStructureJSONObject() {
+		return model.getStructureJSONObject();
+	}
+
+	@Override
+	public java.util.List<TicketFormField> getTicketFormFields()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTicketFormFields();
+	}
+
 	/**
 	 * Returns the ticket structure ID of this ticket structure.
 	 *

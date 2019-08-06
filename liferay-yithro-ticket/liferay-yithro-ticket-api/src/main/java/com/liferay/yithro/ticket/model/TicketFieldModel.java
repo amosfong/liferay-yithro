@@ -376,6 +376,21 @@ public interface TicketFieldModel
 	public void setVisibility(int visibility);
 
 	/**
+	 * Returns the system key of this ticket field.
+	 *
+	 * @return the system key of this ticket field
+	 */
+	@AutoEscape
+	public String getSystemKey();
+
+	/**
+	 * Sets the system key of this ticket field.
+	 *
+	 * @param systemKey the system key of this ticket field
+	 */
+	public void setSystemKey(String systemKey);
+
+	/**
 	 * Returns the status of this ticket field.
 	 *
 	 * @return the status of this ticket field

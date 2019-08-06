@@ -94,14 +94,14 @@ public interface TicketEntryPersistence extends BasePersistence<TicketEntry> {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public java.util.List<TicketEntry> findByGtModifiedDate(
 		Date modifiedDate, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket entry in the ordered set where modifiedDate &ge; &#63;.
@@ -242,14 +242,14 @@ public interface TicketEntryPersistence extends BasePersistence<TicketEntry> {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public java.util.List<TicketEntry> findByU_TSI(
 		long userId, long ticketStatusId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket entry in the ordered set where userId = &#63; and ticketStatusId = &#63;.
@@ -384,14 +384,14 @@ public interface TicketEntryPersistence extends BasePersistence<TicketEntry> {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public java.util.List<TicketEntry> findByU_TSI(
 		long userId, long[] ticketStatusIds, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket entries where userId = &#63; and ticketStatusId = &#63; from the database.
@@ -518,14 +518,14 @@ public interface TicketEntryPersistence extends BasePersistence<TicketEntry> {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket entries
 	 */
 	public java.util.List<TicketEntry> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketEntry>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket entries from the database.

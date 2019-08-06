@@ -184,6 +184,9 @@ public interface TicketFieldLocalService
 	public TicketField fetchTicketField(long ticketFieldId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketField fetchTicketField(String systemKey);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

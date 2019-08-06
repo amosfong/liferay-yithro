@@ -186,16 +186,16 @@ public class TicketEntryUtil {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public static List<TicketEntry> findByGtModifiedDate(
 		Date modifiedDate, int start, int end,
 		OrderByComparator<TicketEntry> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByGtModifiedDate(
-			modifiedDate, start, end, orderByComparator, retrieveFromCache);
+			modifiedDate, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -361,17 +361,17 @@ public class TicketEntryUtil {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public static List<TicketEntry> findByU_TSI(
 		long userId, long ticketStatusId, int start, int end,
 		OrderByComparator<TicketEntry> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TSI(
 			userId, ticketStatusId, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -532,17 +532,17 @@ public class TicketEntryUtil {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket entries
 	 */
 	public static List<TicketEntry> findByU_TSI(
 		long userId, long[] ticketStatusIds, int start, int end,
 		OrderByComparator<TicketEntry> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TSI(
 			userId, ticketStatusIds, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -697,15 +697,15 @@ public class TicketEntryUtil {
 	 * @param start the lower bound of the range of ticket entries
 	 * @param end the upper bound of the range of ticket entries (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket entries
 	 */
 	public static List<TicketEntry> findAll(
 		int start, int end, OrderByComparator<TicketEntry> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

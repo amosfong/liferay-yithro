@@ -187,16 +187,16 @@ public class TicketFieldDataUtil {
 	 * @param start the lower bound of the range of ticket field datas
 	 * @param end the upper bound of the range of ticket field datas (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field datas
 	 */
 	public static List<TicketFieldData> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketFieldData> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -337,14 +337,14 @@ public class TicketFieldDataUtil {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param ticketFieldId the ticket field ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket field data, or <code>null</code> if a matching ticket field data could not be found
 	 */
 	public static TicketFieldData fetchByTEI_TFI(
-		long ticketEntryId, long ticketFieldId, boolean retrieveFromCache) {
+		long ticketEntryId, long ticketFieldId, boolean useFinderCache) {
 
 		return getPersistence().fetchByTEI_TFI(
-			ticketEntryId, ticketFieldId, retrieveFromCache);
+			ticketEntryId, ticketFieldId, useFinderCache);
 	}
 
 	/**
@@ -496,16 +496,16 @@ public class TicketFieldDataUtil {
 	 * @param start the lower bound of the range of ticket field datas
 	 * @param end the upper bound of the range of ticket field datas (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket field datas
 	 */
 	public static List<TicketFieldData> findAll(
 		int start, int end,
 		OrderByComparator<TicketFieldData> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

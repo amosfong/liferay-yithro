@@ -126,6 +126,64 @@ public class TicketFieldUtil {
 	}
 
 	/**
+	 * Returns the ticket field where systemKey = &#63; or throws a <code>NoSuchTicketFieldException</code> if it could not be found.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field
+	 * @throws NoSuchTicketFieldException if a matching ticket field could not be found
+	 */
+	public static TicketField findBySystemKey(String systemKey)
+		throws com.liferay.yithro.ticket.exception.NoSuchTicketFieldException {
+
+		return getPersistence().findBySystemKey(systemKey);
+	}
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	public static TicketField fetchBySystemKey(String systemKey) {
+		return getPersistence().fetchBySystemKey(systemKey);
+	}
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	public static TicketField fetchBySystemKey(
+		String systemKey, boolean useFinderCache) {
+
+		return getPersistence().fetchBySystemKey(systemKey, useFinderCache);
+	}
+
+	/**
+	 * Removes the ticket field where systemKey = &#63; from the database.
+	 *
+	 * @param systemKey the system key
+	 * @return the ticket field that was removed
+	 */
+	public static TicketField removeBySystemKey(String systemKey)
+		throws com.liferay.yithro.ticket.exception.NoSuchTicketFieldException {
+
+		return getPersistence().removeBySystemKey(systemKey);
+	}
+
+	/**
+	 * Returns the number of ticket fields where systemKey = &#63;.
+	 *
+	 * @param systemKey the system key
+	 * @return the number of matching ticket fields
+	 */
+	public static int countBySystemKey(String systemKey) {
+		return getPersistence().countBySystemKey(systemKey);
+	}
+
+	/**
 	 * Returns all the ticket fields where status = &#63;.
 	 *
 	 * @param status the status
@@ -185,16 +243,16 @@ public class TicketFieldUtil {
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket fields
 	 */
 	public static List<TicketField> findByStatus(
 		int status, int start, int end,
 		OrderByComparator<TicketField> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByStatus(
-			status, start, end, orderByComparator, retrieveFromCache);
+			status, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -410,15 +468,15 @@ public class TicketFieldUtil {
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket fields
 	 */
 	public static List<TicketField> findAll(
 		int start, int end, OrderByComparator<TicketField> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

@@ -189,16 +189,16 @@ public class TicketFieldOptionUtil {
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	public static List<TicketFieldOption> findByTicketFieldId(
 		long ticketFieldId, int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketFieldId(
-			ticketFieldId, start, end, orderByComparator, retrieveFromCache);
+			ticketFieldId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -371,17 +371,17 @@ public class TicketFieldOptionUtil {
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	public static List<TicketFieldOption> findByTFI_S(
 		long ticketFieldId, int status, int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTFI_S(
 			ticketFieldId, status, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -622,16 +622,16 @@ public class TicketFieldOptionUtil {
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket field options
 	 */
 	public static List<TicketFieldOption> findAll(
 		int start, int end,
 		OrderByComparator<TicketFieldOption> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

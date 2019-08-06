@@ -182,16 +182,16 @@ public class TicketStatusUtil {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket statuses
 	 */
 	public static List<TicketStatus> findByS(
 		int status, int start, int end,
 		OrderByComparator<TicketStatus> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByS(
-			status, start, end, orderByComparator, retrieveFromCache);
+			status, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -351,16 +351,16 @@ public class TicketStatusUtil {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket statuses
 	 */
 	public static List<TicketStatus> findByT_S(
 		boolean terminal, int status, int start, int end,
 		OrderByComparator<TicketStatus> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByT_S(
-			terminal, status, start, end, orderByComparator, retrieveFromCache);
+			terminal, status, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -591,15 +591,15 @@ public class TicketStatusUtil {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket statuses
 	 */
 	public static List<TicketStatus> findAll(
 		int start, int end, OrderByComparator<TicketStatus> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

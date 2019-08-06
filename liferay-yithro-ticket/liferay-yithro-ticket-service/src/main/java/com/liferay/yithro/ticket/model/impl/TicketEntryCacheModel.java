@@ -87,8 +87,8 @@ public class TicketEntryCacheModel
 		sb.append(languageId);
 		sb.append(", ticketNumber=");
 		sb.append(ticketNumber);
-		sb.append(", subject=");
-		sb.append(subject);
+		sb.append(", summary=");
+		sb.append(summary);
 		sb.append(", description=");
 		sb.append(description);
 		sb.append(", weight=");
@@ -145,11 +145,11 @@ public class TicketEntryCacheModel
 
 		ticketEntryImpl.setTicketNumber(ticketNumber);
 
-		if (subject == null) {
-			ticketEntryImpl.setSubject("");
+		if (summary == null) {
+			ticketEntryImpl.setSummary("");
 		}
 		else {
-			ticketEntryImpl.setSubject(subject);
+			ticketEntryImpl.setSummary(summary);
 		}
 
 		if (description == null) {
@@ -204,7 +204,7 @@ public class TicketEntryCacheModel
 		languageId = objectInput.readUTF();
 
 		ticketNumber = objectInput.readLong();
-		subject = objectInput.readUTF();
+		summary = objectInput.readUTF();
 		description = objectInput.readUTF();
 
 		weight = objectInput.readInt();
@@ -244,11 +244,11 @@ public class TicketEntryCacheModel
 
 		objectOutput.writeLong(ticketNumber);
 
-		if (subject == null) {
+		if (summary == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(subject);
+			objectOutput.writeUTF(summary);
 		}
 
 		if (description == null) {
@@ -274,7 +274,7 @@ public class TicketEntryCacheModel
 	public long ticketStatusId;
 	public String languageId;
 	public long ticketNumber;
-	public String subject;
+	public String summary;
 	public String description;
 	public int weight;
 	public long holdDate;

@@ -92,14 +92,14 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public java.util.List<TicketFlag> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFlag>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63;.
@@ -239,14 +239,14 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public java.util.List<TicketFlag> findByTEI_T(
 		long ticketEntryId, int type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFlag>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63;.
@@ -365,11 +365,11 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param userId the user ID
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
 	public TicketFlag fetchByU_TEI_T(
-		long userId, long ticketEntryId, int type, boolean retrieveFromCache);
+		long userId, long ticketEntryId, int type, boolean useFinderCache);
 
 	/**
 	 * Removes the ticket flag where userId = &#63; and ticketEntryId = &#63; and type = &#63; from the database.
@@ -453,14 +453,14 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public java.util.List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int type, int value, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFlag>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket flag in the ordered set where ticketEntryId = &#63; and type = &#63; and value = &#63;.
@@ -604,14 +604,14 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public java.util.List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int[] types, int value, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFlag>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket flags where ticketEntryId = &#63; and type = &#63; and value = &#63; from the database.
@@ -741,14 +741,14 @@ public interface TicketFlagPersistence extends BasePersistence<TicketFlag> {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket flags
 	 */
 	public java.util.List<TicketFlag> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFlag>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket flags from the database.

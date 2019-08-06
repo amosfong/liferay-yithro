@@ -44,7 +44,7 @@ public class TicketEntrySoap implements Serializable {
 		soapModel.setTicketStatusId(model.getTicketStatusId());
 		soapModel.setLanguageId(model.getLanguageId());
 		soapModel.setTicketNumber(model.getTicketNumber());
-		soapModel.setSubject(model.getSubject());
+		soapModel.setSummary(model.getSummary());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setWeight(model.getWeight());
 		soapModel.setHoldDate(model.getHoldDate());
@@ -183,12 +183,12 @@ public class TicketEntrySoap implements Serializable {
 		_ticketNumber = ticketNumber;
 	}
 
-	public String getSubject() {
-		return _subject;
+	public String getSummary() {
+		return _summary;
 	}
 
-	public void setSubject(String subject) {
-		_subject = subject;
+	public void setSummary(String summary) {
+		_summary = summary;
 	}
 
 	public String getDescription() {
@@ -241,7 +241,7 @@ public class TicketEntrySoap implements Serializable {
 	private long _ticketStatusId;
 	private String _languageId;
 	private long _ticketNumber;
-	private String _subject;
+	private String _summary;
 	private String _description;
 	private int _weight;
 	private Date _holdDate;

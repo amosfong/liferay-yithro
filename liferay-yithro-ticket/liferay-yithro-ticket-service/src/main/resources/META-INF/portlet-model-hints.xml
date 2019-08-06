@@ -67,7 +67,7 @@
 		<field name="ticketStatusId" type="long" />
 		<field name="languageId" type="String" />
 		<field name="ticketNumber" type="long" />
-		<field name="subject" type="String">
+		<field name="summary" type="String">
 			<hint name="display-width">750</hint>
 			<hint name="max-length">255</hint>
 		</field>
@@ -91,6 +91,7 @@
 		<field localized="true" name="description" type="String" />
 		<field name="type" type="int" />
 		<field name="visibility" type="int" />
+		<field name="systemKey" type="String" />
 		<field name="status" type="int" />
 	</model>
 	<model name="com.liferay.yithro.ticket.model.TicketFieldData">

@@ -96,14 +96,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63;.
@@ -240,14 +240,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where ticketCommunicationId = &#63;.
@@ -388,14 +388,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByCD_TEI(
 		Date createDate, long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where createDate &lt; &#63; and ticketEntryId = &#63;.
@@ -543,14 +543,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByTEI_S(
 		long ticketEntryId, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and status = &#63;.
@@ -702,14 +702,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByTEI_V_S(
 		long ticketEntryId, int visibility, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
@@ -854,14 +854,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByTEI_V_S(
 		long ticketEntryId, int[] visibilities, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket attachments where ticketEntryId = &#63; and visibility = &#63; and status = &#63; from the database.
@@ -960,7 +960,7 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findByU_TEI_V_S(
@@ -968,7 +968,7 @@ public interface TicketAttachmentPersistence
 		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket attachment in the ordered set where userId = &#63; and ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
@@ -1109,12 +1109,12 @@ public interface TicketAttachmentPersistence
 	 * @param fileName the file name
 	 * @param visibility the visibility
 	 * @param status the status
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
 	 */
 	public TicketAttachment fetchByTEI_FN_V_S(
 		long ticketEntryId, String fileName, int visibility, int status,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes the ticket attachment where ticketEntryId = &#63; and fileName = &#63; and visibility = &#63; and status = &#63; from the database.
@@ -1240,14 +1240,14 @@ public interface TicketAttachmentPersistence
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket attachments
 	 */
 	public java.util.List<TicketAttachment> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketAttachment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket attachments from the database.

@@ -213,6 +213,13 @@ public class TicketFieldLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.yithro.ticket.model.TicketField fetchTicketField(
+		String systemKey) {
+
+		return _ticketFieldLocalService.fetchTicketField(systemKey);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

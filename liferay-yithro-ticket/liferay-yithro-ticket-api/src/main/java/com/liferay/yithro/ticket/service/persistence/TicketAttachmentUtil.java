@@ -188,16 +188,16 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -368,17 +368,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketCommunicationId(
 			ticketCommunicationId, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -555,17 +555,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByCD_TEI(
 		Date createDate, long ticketEntryId, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByCD_TEI(
 			createDate, ticketEntryId, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -745,17 +745,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByTEI_S(
 		long ticketEntryId, int status, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_S(
 			ticketEntryId, status, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -941,17 +941,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByTEI_V_S(
 		long ticketEntryId, int visibility, int status, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V_S(
 			ticketEntryId, visibility, status, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -1127,17 +1127,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByTEI_V_S(
 		long ticketEntryId, int[] visibilities, int status, int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V_S(
 			ticketEntryId, visibilities, status, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -1261,17 +1261,17 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket attachments
 	 */
 	public static List<TicketAttachment> findByU_TEI_V_S(
 		long userId, long ticketEntryId, int visibility, int status, int start,
 		int end, OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TEI_V_S(
 			userId, ticketEntryId, visibility, status, start, end,
-			orderByComparator, retrieveFromCache);
+			orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -1449,15 +1449,15 @@ public class TicketAttachmentUtil {
 	 * @param fileName the file name
 	 * @param visibility the visibility
 	 * @param status the status
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
 	 */
 	public static TicketAttachment fetchByTEI_FN_V_S(
 		long ticketEntryId, String fileName, int visibility, int status,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().fetchByTEI_FN_V_S(
-			ticketEntryId, fileName, visibility, status, retrieveFromCache);
+			ticketEntryId, fileName, visibility, status, useFinderCache);
 	}
 
 	/**
@@ -1619,16 +1619,16 @@ public class TicketAttachmentUtil {
 	 * @param start the lower bound of the range of ticket attachments
 	 * @param end the upper bound of the range of ticket attachments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket attachments
 	 */
 	public static List<TicketAttachment> findAll(
 		int start, int end,
 		OrderByComparator<TicketAttachment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

@@ -185,16 +185,16 @@ public class TicketFlagUtil {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public static List<TicketFlag> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -358,17 +358,16 @@ public class TicketFlagUtil {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public static List<TicketFlag> findByTEI_T(
 		long ticketEntryId, int type, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_T(
-			ticketEntryId, type, start, end, orderByComparator,
-			retrieveFromCache);
+			ticketEntryId, type, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -515,14 +514,14 @@ public class TicketFlagUtil {
 	 * @param userId the user ID
 	 * @param ticketEntryId the ticket entry ID
 	 * @param type the type
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket flag, or <code>null</code> if a matching ticket flag could not be found
 	 */
 	public static TicketFlag fetchByU_TEI_T(
-		long userId, long ticketEntryId, int type, boolean retrieveFromCache) {
+		long userId, long ticketEntryId, int type, boolean useFinderCache) {
 
 		return getPersistence().fetchByU_TEI_T(
-			userId, ticketEntryId, type, retrieveFromCache);
+			userId, ticketEntryId, type, useFinderCache);
 	}
 
 	/**
@@ -625,17 +624,17 @@ public class TicketFlagUtil {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public static List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int type, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_T_V(
 			ticketEntryId, type, value, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -805,17 +804,17 @@ public class TicketFlagUtil {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket flags
 	 */
 	public static List<TicketFlag> findByTEI_T_V(
 		long ticketEntryId, int[] types, int value, int start, int end,
 		OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_T_V(
 			ticketEntryId, types, value, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -977,15 +976,15 @@ public class TicketFlagUtil {
 	 * @param start the lower bound of the range of ticket flags
 	 * @param end the upper bound of the range of ticket flags (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket flags
 	 */
 	public static List<TicketFlag> findAll(
 		int start, int end, OrderByComparator<TicketFlag> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

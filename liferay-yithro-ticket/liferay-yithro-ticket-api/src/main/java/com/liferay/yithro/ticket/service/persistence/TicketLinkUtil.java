@@ -185,16 +185,16 @@ public class TicketLinkUtil {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public static List<TicketLink> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketLink> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -358,17 +358,17 @@ public class TicketLinkUtil {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public static List<TicketLink> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		OrderByComparator<TicketLink> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketCommunicationId(
 			ticketCommunicationId, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -542,17 +542,17 @@ public class TicketLinkUtil {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public static List<TicketLink> findByTEI_V(
 		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketLink> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V(
 			ticketEntryId, visibility, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -713,17 +713,17 @@ public class TicketLinkUtil {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket links
 	 */
 	public static List<TicketLink> findByTEI_V(
 		long ticketEntryId, int[] visibilities, int start, int end,
 		OrderByComparator<TicketLink> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V(
 			ticketEntryId, visibilities, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -878,15 +878,15 @@ public class TicketLinkUtil {
 	 * @param start the lower bound of the range of ticket links
 	 * @param end the upper bound of the range of ticket links (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket links
 	 */
 	public static List<TicketLink> findAll(
 		int start, int end, OrderByComparator<TicketLink> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

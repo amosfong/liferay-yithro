@@ -140,14 +140,14 @@ public interface TicketStructurePersistence
 	 * @param start the lower bound of the range of ticket structures
 	 * @param end the upper bound of the range of ticket structures (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket structures
 	 */
 	public java.util.List<TicketStructure> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketStructure>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket structures from the database.

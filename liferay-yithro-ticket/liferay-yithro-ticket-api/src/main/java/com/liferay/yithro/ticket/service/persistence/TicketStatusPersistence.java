@@ -91,14 +91,14 @@ public interface TicketStatusPersistence extends BasePersistence<TicketStatus> {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket statuses
 	 */
 	public java.util.List<TicketStatus> findByS(
 		int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketStatus>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket status in the ordered set where status = &#63;.
@@ -238,14 +238,14 @@ public interface TicketStatusPersistence extends BasePersistence<TicketStatus> {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket statuses
 	 */
 	public java.util.List<TicketStatus> findByT_S(
 		boolean terminal, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketStatus>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket status in the ordered set where terminal = &#63; and status = &#63;.
@@ -435,14 +435,14 @@ public interface TicketStatusPersistence extends BasePersistence<TicketStatus> {
 	 * @param start the lower bound of the range of ticket statuses
 	 * @param end the upper bound of the range of ticket statuses (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket statuses
 	 */
 	public java.util.List<TicketStatus> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketStatus>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket statuses from the database.

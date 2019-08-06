@@ -94,14 +94,14 @@ public interface TicketFieldDataPersistence
 	 * @param start the lower bound of the range of ticket field datas
 	 * @param end the upper bound of the range of ticket field datas (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field datas
 	 */
 	public java.util.List<TicketFieldData> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFieldData>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket field data in the ordered set where ticketEntryId = &#63;.
@@ -211,11 +211,11 @@ public interface TicketFieldDataPersistence
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param ticketFieldId the ticket field ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket field data, or <code>null</code> if a matching ticket field data could not be found
 	 */
 	public TicketFieldData fetchByTEI_TFI(
-		long ticketEntryId, long ticketFieldId, boolean retrieveFromCache);
+		long ticketEntryId, long ticketFieldId, boolean useFinderCache);
 
 	/**
 	 * Removes the ticket field data where ticketEntryId = &#63; and ticketFieldId = &#63; from the database.
@@ -336,14 +336,14 @@ public interface TicketFieldDataPersistence
 	 * @param start the lower bound of the range of ticket field datas
 	 * @param end the upper bound of the range of ticket field datas (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket field datas
 	 */
 	public java.util.List<TicketFieldData> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFieldData>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket field datas from the database.

@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -85,7 +86,8 @@ public class TicketFieldModelImpl
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
 		{"description", Types.VARCHAR}, {"type_", Types.INTEGER},
-		{"visibility", Types.INTEGER}, {"status", Types.INTEGER}
+		{"visibility", Types.INTEGER}, {"systemKey", Types.VARCHAR},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,11 +103,12 @@ public class TicketFieldModelImpl
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("visibility", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("systemKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketField (ticketFieldId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null,description STRING null,type_ INTEGER,visibility INTEGER,status INTEGER)";
+		"create table Yithro_TicketField (ticketFieldId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,name STRING null,description STRING null,type_ INTEGER,visibility INTEGER,systemKey VARCHAR(75) null,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketField";
 
@@ -123,7 +126,9 @@ public class TicketFieldModelImpl
 
 	public static final long STATUS_COLUMN_BITMASK = 1L;
 
-	public static final long TICKETFIELDID_COLUMN_BITMASK = 2L;
+	public static final long SYSTEMKEY_COLUMN_BITMASK = 2L;
+
+	public static final long TICKETFIELDID_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -155,6 +160,7 @@ public class TicketFieldModelImpl
 		model.setDescription(soapModel.getDescription());
 		model.setType(soapModel.getType());
 		model.setVisibility(soapModel.getVisibility());
+		model.setSystemKey(soapModel.getSystemKey());
 		model.setStatus(soapModel.getStatus());
 
 		return model;
@@ -342,6 +348,10 @@ public class TicketFieldModelImpl
 		attributeSetterBiConsumers.put(
 			"visibility",
 			(BiConsumer<TicketField, Integer>)TicketField::setVisibility);
+		attributeGetterFunctions.put("systemKey", TicketField::getSystemKey);
+		attributeSetterBiConsumers.put(
+			"systemKey",
+			(BiConsumer<TicketField, String>)TicketField::setSystemKey);
 		attributeGetterFunctions.put("status", TicketField::getStatus);
 		attributeSetterBiConsumers.put(
 			"status", (BiConsumer<TicketField, Integer>)TicketField::setStatus);
@@ -664,6 +674,32 @@ public class TicketFieldModelImpl
 
 	@JSON
 	@Override
+	public String getSystemKey() {
+		if (_systemKey == null) {
+			return "";
+		}
+		else {
+			return _systemKey;
+		}
+	}
+
+	@Override
+	public void setSystemKey(String systemKey) {
+		_columnBitmask |= SYSTEMKEY_COLUMN_BITMASK;
+
+		if (_originalSystemKey == null) {
+			_originalSystemKey = _systemKey;
+		}
+
+		_systemKey = systemKey;
+	}
+
+	public String getOriginalSystemKey() {
+		return GetterUtil.getString(_originalSystemKey);
+	}
+
+	@JSON
+	@Override
 	public int getStatus() {
 		return _status;
 	}
@@ -818,6 +854,7 @@ public class TicketFieldModelImpl
 		ticketFieldImpl.setDescription(getDescription());
 		ticketFieldImpl.setType(getType());
 		ticketFieldImpl.setVisibility(getVisibility());
+		ticketFieldImpl.setSystemKey(getSystemKey());
 		ticketFieldImpl.setStatus(getStatus());
 
 		ticketFieldImpl.resetOriginalValues();
@@ -883,6 +920,9 @@ public class TicketFieldModelImpl
 
 		ticketFieldModelImpl._setModifiedDate = false;
 
+		ticketFieldModelImpl._originalSystemKey =
+			ticketFieldModelImpl._systemKey;
+
 		ticketFieldModelImpl._originalStatus = ticketFieldModelImpl._status;
 
 		ticketFieldModelImpl._setOriginalStatus = false;
@@ -938,6 +978,14 @@ public class TicketFieldModelImpl
 		ticketFieldCacheModel.type = getType();
 
 		ticketFieldCacheModel.visibility = getVisibility();
+
+		ticketFieldCacheModel.systemKey = getSystemKey();
+
+		String systemKey = ticketFieldCacheModel.systemKey;
+
+		if ((systemKey != null) && (systemKey.length() == 0)) {
+			ticketFieldCacheModel.systemKey = null;
+		}
 
 		ticketFieldCacheModel.status = getStatus();
 
@@ -1029,6 +1077,8 @@ public class TicketFieldModelImpl
 	private String _descriptionCurrentLanguageId;
 	private int _type;
 	private int _visibility;
+	private String _systemKey;
+	private String _originalSystemKey;
 	private int _status;
 	private int _originalStatus;
 	private boolean _setOriginalStatus;

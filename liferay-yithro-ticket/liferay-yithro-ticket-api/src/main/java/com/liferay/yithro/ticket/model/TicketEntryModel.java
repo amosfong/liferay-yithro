@@ -227,19 +227,19 @@ public interface TicketEntryModel
 	public void setTicketNumber(long ticketNumber);
 
 	/**
-	 * Returns the subject of this ticket entry.
+	 * Returns the summary of this ticket entry.
 	 *
-	 * @return the subject of this ticket entry
+	 * @return the summary of this ticket entry
 	 */
 	@AutoEscape
-	public String getSubject();
+	public String getSummary();
 
 	/**
-	 * Sets the subject of this ticket entry.
+	 * Sets the summary of this ticket entry.
 	 *
-	 * @param subject the subject of this ticket entry
+	 * @param summary the summary of this ticket entry
 	 */
-	public void setSubject(String subject);
+	public void setSummary(String summary);
 
 	/**
 	 * Returns the description of this ticket entry.

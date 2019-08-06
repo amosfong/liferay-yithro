@@ -94,14 +94,14 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where ticketEntryId = &#63;.
@@ -238,14 +238,14 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where ticketCommunicationId = &#63;.
@@ -386,14 +386,14 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByTEI_T(
 		long ticketEntryId, int type, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where ticketEntryId = &#63; and type = &#63;.
@@ -545,14 +545,14 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByTEI_V_S(
 		long ticketEntryId, int visibility, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
@@ -699,7 +699,7 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByTEI_V_S(
@@ -707,7 +707,7 @@ public interface TicketCommentPersistence
 		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket comments where ticketEntryId = &#63; and visibility = &#63; and status = &#63; from the database.
@@ -806,7 +806,7 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByU_TEI_V_S(
@@ -814,7 +814,7 @@ public interface TicketCommentPersistence
 		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where userId = &#63; and ticketEntryId = &#63; and visibility = &#63; and status = &#63;.
@@ -970,7 +970,7 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByU_TEI_V_S(
@@ -978,7 +978,7 @@ public interface TicketCommentPersistence
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket comments where userId = &#63; and ticketEntryId = &#63; and visibility = &#63; and status = &#63; from the database.
@@ -1086,7 +1086,7 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public java.util.List<TicketComment> findByU_TEI_V_S_T(
@@ -1094,7 +1094,7 @@ public interface TicketCommentPersistence
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket comment in the ordered set where userId = &#63; and ticketEntryId = &#63; and visibility = &#63; and status = &#63; and type = &#63;.
@@ -1310,14 +1310,14 @@ public interface TicketCommentPersistence
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket comments
 	 */
 	public java.util.List<TicketComment> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketComment>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket comments from the database.

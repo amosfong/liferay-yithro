@@ -53,8 +53,9 @@ public interface TicketEntryService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link TicketEntryServiceUtil} to access the ticket entry remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketEntry addTicketEntry(
-			long ticketStatusId, String languageId, String subject,
-			String description, int weight, Map<Long, String> ticketFieldsMap,
+			long ticketStructureId, long ticketStatusId, String languageId,
+			String summary, String description, int weight,
+			Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException;
 
@@ -66,7 +67,7 @@ public interface TicketEntryService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public TicketEntry updateTicketEntry(
-			long ticketEntryId, String subject, String description)
+			long ticketEntryId, String summary, String description)
 		throws PortalException;
 
 	public TicketEntry updateTicketStatus(

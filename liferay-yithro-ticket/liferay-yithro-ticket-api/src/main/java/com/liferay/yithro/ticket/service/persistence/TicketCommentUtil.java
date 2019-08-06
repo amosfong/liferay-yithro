@@ -185,16 +185,16 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketEntryId(
-			ticketEntryId, start, end, orderByComparator, retrieveFromCache);
+			ticketEntryId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -365,17 +365,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByTicketCommunicationId(
 		long ticketCommunicationId, int start, int end,
 		OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTicketCommunicationId(
 			ticketCommunicationId, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -551,17 +551,16 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByTEI_T(
 		long ticketEntryId, int type, int start, int end,
 		OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_T(
-			ticketEntryId, type, start, end, orderByComparator,
-			retrieveFromCache);
+			ticketEntryId, type, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -747,17 +746,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByTEI_V_S(
 		long ticketEntryId, int visibility, int status, int start, int end,
 		OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V_S(
 			ticketEntryId, visibility, status, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -934,17 +933,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByTEI_V_S(
 		long ticketEntryId, int[] visibilities, int[] statuses, int start,
 		int end, OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V_S(
 			ticketEntryId, visibilities, statuses, start, end,
-			orderByComparator, retrieveFromCache);
+			orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -1068,17 +1067,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByU_TEI_V_S(
 		long userId, long ticketEntryId, int visibility, int status, int start,
 		int end, OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TEI_V_S(
 			userId, ticketEntryId, visibility, status, start, end,
-			orderByComparator, retrieveFromCache);
+			orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -1266,17 +1265,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByU_TEI_V_S(
 		long userId, long ticketEntryId, int[] visibilities, int[] statuses,
 		int start, int end, OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TEI_V_S(
 			userId, ticketEntryId, visibilities, statuses, start, end,
-			orderByComparator, retrieveFromCache);
+			orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -1409,17 +1408,17 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket comments
 	 */
 	public static List<TicketComment> findByU_TEI_V_S_T(
 		long userId, long ticketEntryId, int visibility, int status, int type,
 		int start, int end, OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_TEI_V_S_T(
 			userId, ticketEntryId, visibility, status, type, start, end,
-			orderByComparator, retrieveFromCache);
+			orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -1685,15 +1684,15 @@ public class TicketCommentUtil {
 	 * @param start the lower bound of the range of ticket comments
 	 * @param end the upper bound of the range of ticket comments (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket comments
 	 */
 	public static List<TicketComment> findAll(
 		int start, int end, OrderByComparator<TicketComment> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

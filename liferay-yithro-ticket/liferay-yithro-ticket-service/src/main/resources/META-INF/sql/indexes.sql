@@ -16,6 +16,7 @@ create index IX_D62A2FD9 on Yithro_TicketEntry (modifiedDate);
 create index IX_957CF755 on Yithro_TicketEntry (userId, ticketStatusId);
 
 create index IX_ADCCA57C on Yithro_TicketField (status);
+create unique index IX_157FD70A on Yithro_TicketField (systemKey[$COLUMN_LENGTH:75$]);
 
 create index IX_D0BF7A48 on Yithro_TicketFieldData (ticketEntryId, ticketFieldId);
 

@@ -41,6 +41,51 @@ public interface TicketFieldPersistence extends BasePersistence<TicketField> {
 	 */
 
 	/**
+	 * Returns the ticket field where systemKey = &#63; or throws a <code>NoSuchTicketFieldException</code> if it could not be found.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field
+	 * @throws NoSuchTicketFieldException if a matching ticket field could not be found
+	 */
+	public TicketField findBySystemKey(String systemKey)
+		throws NoSuchTicketFieldException;
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	public TicketField fetchBySystemKey(String systemKey);
+
+	/**
+	 * Returns the ticket field where systemKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param systemKey the system key
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching ticket field, or <code>null</code> if a matching ticket field could not be found
+	 */
+	public TicketField fetchBySystemKey(
+		String systemKey, boolean useFinderCache);
+
+	/**
+	 * Removes the ticket field where systemKey = &#63; from the database.
+	 *
+	 * @param systemKey the system key
+	 * @return the ticket field that was removed
+	 */
+	public TicketField removeBySystemKey(String systemKey)
+		throws NoSuchTicketFieldException;
+
+	/**
+	 * Returns the number of ticket fields where systemKey = &#63;.
+	 *
+	 * @param systemKey the system key
+	 * @return the number of matching ticket fields
+	 */
+	public int countBySystemKey(String systemKey);
+
+	/**
 	 * Returns all the ticket fields where status = &#63;.
 	 *
 	 * @param status the status
@@ -92,14 +137,14 @@ public interface TicketFieldPersistence extends BasePersistence<TicketField> {
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket fields
 	 */
 	public java.util.List<TicketField> findByStatus(
 		int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketField>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket field in the ordered set where status = &#63;.
@@ -282,14 +327,14 @@ public interface TicketFieldPersistence extends BasePersistence<TicketField> {
 	 * @param start the lower bound of the range of ticket fields
 	 * @param end the upper bound of the range of ticket fields (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket fields
 	 */
 	public java.util.List<TicketField> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketField>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket fields from the database.

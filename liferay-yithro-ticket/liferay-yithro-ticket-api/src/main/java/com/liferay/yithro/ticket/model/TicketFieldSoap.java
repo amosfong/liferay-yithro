@@ -43,6 +43,7 @@ public class TicketFieldSoap implements Serializable {
 		soapModel.setDescription(model.getDescription());
 		soapModel.setType(model.getType());
 		soapModel.setVisibility(model.getVisibility());
+		soapModel.setSystemKey(model.getSystemKey());
 		soapModel.setStatus(model.getStatus());
 
 		return soapModel;
@@ -169,6 +170,14 @@ public class TicketFieldSoap implements Serializable {
 		_visibility = visibility;
 	}
 
+	public String getSystemKey() {
+		return _systemKey;
+	}
+
+	public void setSystemKey(String systemKey) {
+		_systemKey = systemKey;
+	}
+
 	public int getStatus() {
 		return _status;
 	}
@@ -186,6 +195,7 @@ public class TicketFieldSoap implements Serializable {
 	private String _description;
 	private int _type;
 	private int _visibility;
+	private String _systemKey;
 	private int _status;
 
 }

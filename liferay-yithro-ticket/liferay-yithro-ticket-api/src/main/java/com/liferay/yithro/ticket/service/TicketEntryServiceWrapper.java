@@ -35,16 +35,16 @@ public class TicketEntryServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			long ticketStatusId, String languageId, String subject,
-			String description, int weight,
+			long ticketStructureId, long ticketStatusId, String languageId,
+			String summary, String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryService.addTicketEntry(
-			ticketStatusId, languageId, subject, description, weight,
-			ticketFieldsMap, ticketAttachments);
+			ticketStructureId, ticketStatusId, languageId, summary, description,
+			weight, ticketFieldsMap, ticketAttachments);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class TicketEntryServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
-			long ticketEntryId, String subject, String description)
+			long ticketEntryId, String summary, String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryService.updateTicketEntry(
-			ticketEntryId, subject, description);
+			ticketEntryId, summary, description);
 	}
 
 	@Override

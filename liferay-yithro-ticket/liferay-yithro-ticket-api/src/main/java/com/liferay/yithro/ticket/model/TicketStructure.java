@@ -58,4 +58,9 @@ public interface TicketStructure extends PersistedModel, TicketStructureModel {
 
 		};
 
+	public com.liferay.portal.kernel.json.JSONObject getStructureJSONObject();
+
+	public java.util.List<TicketFormField> getTicketFormFields()
+		throws com.liferay.portal.kernel.exception.PortalException;
+
 }

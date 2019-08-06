@@ -92,14 +92,14 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public java.util.List<TicketWorker> findByUserId(
 		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket worker in the ordered set where userId = &#63;.
@@ -235,14 +235,14 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public java.util.List<TicketWorker> findByTicketEntryId(
 		long ticketEntryId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket worker in the ordered set where ticketEntryId = &#63;.
@@ -351,11 +351,11 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 *
 	 * @param userId the user ID
 	 * @param ticketEntryId the ticket entry ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket worker, or <code>null</code> if a matching ticket worker could not be found
 	 */
 	public TicketWorker fetchByU_TEI(
-		long userId, long ticketEntryId, boolean retrieveFromCache);
+		long userId, long ticketEntryId, boolean useFinderCache);
 
 	/**
 	 * Removes the ticket worker where userId = &#63; and ticketEntryId = &#63; from the database.
@@ -401,11 +401,11 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 *
 	 * @param ticketEntryId the ticket entry ID
 	 * @param primary the primary
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching ticket worker, or <code>null</code> if a matching ticket worker could not be found
 	 */
 	public TicketWorker fetchByTEI_P(
-		long ticketEntryId, boolean primary, boolean retrieveFromCache);
+		long ticketEntryId, boolean primary, boolean useFinderCache);
 
 	/**
 	 * Removes the ticket worker where ticketEntryId = &#63; and primary = &#63; from the database.
@@ -483,14 +483,14 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket workers
 	 */
 	public java.util.List<TicketWorker> findBySCNI_SCPK(
 		long sourceClassNameId, long sourceClassPK, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket worker in the ordered set where sourceClassNameId = &#63; and sourceClassPK = &#63;.
@@ -680,14 +680,14 @@ public interface TicketWorkerPersistence extends BasePersistence<TicketWorker> {
 	 * @param start the lower bound of the range of ticket workers
 	 * @param end the upper bound of the range of ticket workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket workers
 	 */
 	public java.util.List<TicketWorker> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket workers from the database.

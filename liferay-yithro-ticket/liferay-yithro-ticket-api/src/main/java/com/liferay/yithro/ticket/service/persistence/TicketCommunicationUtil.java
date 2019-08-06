@@ -195,17 +195,17 @@ public class TicketCommunicationUtil {
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket communications
 	 */
 	public static List<TicketCommunication> findByTEI_V(
 		long ticketEntryId, int visibility, int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByTEI_V(
 			ticketEntryId, visibility, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -450,16 +450,16 @@ public class TicketCommunicationUtil {
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket communications
 	 */
 	public static List<TicketCommunication> findAll(
 		int start, int end,
 		OrderByComparator<TicketCommunication> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

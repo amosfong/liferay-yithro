@@ -94,14 +94,14 @@ public interface TicketFieldOptionPersistence
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	public java.util.List<TicketFieldOption> findByTicketFieldId(
 		long ticketFieldId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFieldOption>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket field option in the ordered set where ticketFieldId = &#63;.
@@ -242,14 +242,14 @@ public interface TicketFieldOptionPersistence
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket field options
 	 */
 	public java.util.List<TicketFieldOption> findByTFI_S(
 		long ticketFieldId, int status, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFieldOption>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket field option in the ordered set where ticketFieldId = &#63; and status = &#63;.
@@ -440,14 +440,14 @@ public interface TicketFieldOptionPersistence
 	 * @param start the lower bound of the range of ticket field options
 	 * @param end the upper bound of the range of ticket field options (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket field options
 	 */
 	public java.util.List<TicketFieldOption> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketFieldOption>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket field options from the database.

@@ -98,14 +98,14 @@ public interface TicketCommunicationPersistence
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching ticket communications
 	 */
 	public java.util.List<TicketCommunication> findByTEI_V(
 		long ticketEntryId, int visibility, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketCommunication>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first ticket communication in the ordered set where ticketEntryId = &#63; and visibility = &#63;.
@@ -297,14 +297,14 @@ public interface TicketCommunicationPersistence
 	 * @param start the lower bound of the range of ticket communications
 	 * @param end the upper bound of the range of ticket communications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket communications
 	 */
 	public java.util.List<TicketCommunication> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketCommunication>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket communications from the database.

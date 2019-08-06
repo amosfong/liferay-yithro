@@ -55,7 +55,7 @@ public class TicketEntryWrapper
 		attributes.put("ticketStatusId", getTicketStatusId());
 		attributes.put("languageId", getLanguageId());
 		attributes.put("ticketNumber", getTicketNumber());
-		attributes.put("subject", getSubject());
+		attributes.put("summary", getSummary());
 		attributes.put("description", getDescription());
 		attributes.put("weight", getWeight());
 		attributes.put("holdDate", getHoldDate());
@@ -127,10 +127,10 @@ public class TicketEntryWrapper
 			setTicketNumber(ticketNumber);
 		}
 
-		String subject = (String)attributes.get("subject");
+		String summary = (String)attributes.get("summary");
 
-		if (subject != null) {
-			setSubject(subject);
+		if (summary != null) {
+			setSummary(summary);
 		}
 
 		String description = (String)attributes.get("description");
@@ -255,13 +255,13 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Returns the subject of this ticket entry.
+	 * Returns the summary of this ticket entry.
 	 *
-	 * @return the subject of this ticket entry
+	 * @return the summary of this ticket entry
 	 */
 	@Override
-	public String getSubject() {
-		return model.getSubject();
+	public String getSummary() {
+		return model.getSummary();
 	}
 
 	/**
@@ -454,13 +454,13 @@ public class TicketEntryWrapper
 	}
 
 	/**
-	 * Sets the subject of this ticket entry.
+	 * Sets the summary of this ticket entry.
 	 *
-	 * @param subject the subject of this ticket entry
+	 * @param summary the summary of this ticket entry
 	 */
 	@Override
-	public void setSubject(String subject) {
-		model.setSubject(subject);
+	public void setSummary(String summary) {
+		model.setSummary(summary);
 	}
 
 	/**

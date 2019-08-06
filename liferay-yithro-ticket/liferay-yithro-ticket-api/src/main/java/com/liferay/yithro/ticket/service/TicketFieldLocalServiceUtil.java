@@ -204,6 +204,12 @@ public class TicketFieldLocalServiceUtil {
 		return getService().fetchTicketField(ticketFieldId);
 	}
 
+	public static com.liferay.yithro.ticket.model.TicketField fetchTicketField(
+		String systemKey) {
+
+		return getService().fetchTicketField(systemKey);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

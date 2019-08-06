@@ -143,14 +143,14 @@ public interface TicketCommentTemplatePersistence
 	 * @param start the lower bound of the range of ticket comment templates
 	 * @param end the upper bound of the range of ticket comment templates (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of ticket comment templates
 	 */
 	public java.util.List<TicketCommentTemplate> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<TicketCommentTemplate>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the ticket comment templates from the database.

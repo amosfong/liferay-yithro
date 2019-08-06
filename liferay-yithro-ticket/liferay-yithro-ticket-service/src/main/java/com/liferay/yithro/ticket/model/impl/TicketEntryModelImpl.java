@@ -80,7 +80,7 @@ public class TicketEntryModelImpl
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"ticketStructureId", Types.BIGINT}, {"ticketStatusId", Types.BIGINT},
 		{"languageId", Types.VARCHAR}, {"ticketNumber", Types.BIGINT},
-		{"subject", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"summary", Types.VARCHAR}, {"description", Types.VARCHAR},
 		{"weight", Types.INTEGER}, {"holdDate", Types.TIMESTAMP},
 		{"closedDate", Types.TIMESTAMP}, {"dueDate", Types.TIMESTAMP}
 	};
@@ -99,7 +99,7 @@ public class TicketEntryModelImpl
 		TABLE_COLUMNS_MAP.put("ticketStatusId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("languageId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ticketNumber", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("subject", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("summary", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("weight", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("holdDate", Types.TIMESTAMP);
@@ -108,7 +108,7 @@ public class TicketEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketStructureId LONG,ticketStatusId LONG,languageId VARCHAR(75) null,ticketNumber LONG,subject VARCHAR(255) null,description STRING null,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
+		"create table Yithro_TicketEntry (ticketEntryId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ticketStructureId LONG,ticketStatusId LONG,languageId VARCHAR(75) null,ticketNumber LONG,summary VARCHAR(255) null,description STRING null,weight INTEGER,holdDate DATE null,closedDate DATE null,dueDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_TicketEntry";
 
@@ -161,7 +161,7 @@ public class TicketEntryModelImpl
 		model.setTicketStatusId(soapModel.getTicketStatusId());
 		model.setLanguageId(soapModel.getLanguageId());
 		model.setTicketNumber(soapModel.getTicketNumber());
-		model.setSubject(soapModel.getSubject());
+		model.setSummary(soapModel.getSummary());
 		model.setDescription(soapModel.getDescription());
 		model.setWeight(soapModel.getWeight());
 		model.setHoldDate(soapModel.getHoldDate());
@@ -361,10 +361,10 @@ public class TicketEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"ticketNumber",
 			(BiConsumer<TicketEntry, Long>)TicketEntry::setTicketNumber);
-		attributeGetterFunctions.put("subject", TicketEntry::getSubject);
+		attributeGetterFunctions.put("summary", TicketEntry::getSummary);
 		attributeSetterBiConsumers.put(
-			"subject",
-			(BiConsumer<TicketEntry, String>)TicketEntry::setSubject);
+			"summary",
+			(BiConsumer<TicketEntry, String>)TicketEntry::setSummary);
 		attributeGetterFunctions.put(
 			"description", TicketEntry::getDescription);
 		attributeSetterBiConsumers.put(
@@ -569,18 +569,18 @@ public class TicketEntryModelImpl
 
 	@JSON
 	@Override
-	public String getSubject() {
-		if (_subject == null) {
+	public String getSummary() {
+		if (_summary == null) {
 			return "";
 		}
 		else {
-			return _subject;
+			return _summary;
 		}
 	}
 
 	@Override
-	public void setSubject(String subject) {
-		_subject = subject;
+	public void setSummary(String summary) {
+		_summary = summary;
 	}
 
 	@JSON
@@ -689,7 +689,7 @@ public class TicketEntryModelImpl
 		ticketEntryImpl.setTicketStatusId(getTicketStatusId());
 		ticketEntryImpl.setLanguageId(getLanguageId());
 		ticketEntryImpl.setTicketNumber(getTicketNumber());
-		ticketEntryImpl.setSubject(getSubject());
+		ticketEntryImpl.setSummary(getSummary());
 		ticketEntryImpl.setDescription(getDescription());
 		ticketEntryImpl.setWeight(getWeight());
 		ticketEntryImpl.setHoldDate(getHoldDate());
@@ -826,12 +826,12 @@ public class TicketEntryModelImpl
 
 		ticketEntryCacheModel.ticketNumber = getTicketNumber();
 
-		ticketEntryCacheModel.subject = getSubject();
+		ticketEntryCacheModel.summary = getSummary();
 
-		String subject = ticketEntryCacheModel.subject;
+		String summary = ticketEntryCacheModel.summary;
 
-		if ((subject != null) && (subject.length() == 0)) {
-			ticketEntryCacheModel.subject = null;
+		if ((summary != null) && (summary.length() == 0)) {
+			ticketEntryCacheModel.summary = null;
 		}
 
 		ticketEntryCacheModel.description = getDescription();
@@ -963,7 +963,7 @@ public class TicketEntryModelImpl
 	private boolean _setOriginalTicketStatusId;
 	private String _languageId;
 	private long _ticketNumber;
-	private String _subject;
+	private String _summary;
 	private String _description;
 	private int _weight;
 	private Date _holdDate;
