@@ -46,10 +46,10 @@ String description = ParamUtil.getString(request, "description");
 				ticketFieldIds.add(ticketField.getTicketFieldId());
 			%>
 
-				<c:if test="<%= Validator.isNull(ticketFormField.getDisplayRules()) %>">
+				<aui:fieldset cssClass='<%= Validator.isNotNull(ticketFormField.getDisplayRules()) ? "hide" : "" %>' id='<%= renderResponse.getNamespace() + "ticketFieldId_" + ticketField.getTicketFieldId() %>'>
 					<c:choose>
 						<c:when test="<%= ticketField.getType() == TicketFieldType.SELECT %>">
-							<aui:select label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>'>
+							<aui:select label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>' onChange="Liferay.fire('checkDependentTicketFields');">
 								<aui:option label="" />
 
 								<%
@@ -65,9 +65,27 @@ String description = ParamUtil.getString(request, "description");
 							</aui:select>
 						</c:when>
 						<c:otherwise>
-							<aui:input label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>' />
+							<aui:input label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>' onInput="Liferay.fire('checkDependentTicketFields');" />
 						</c:otherwise>
 					</c:choose>
+				</aui:fieldset>
+
+				<c:if test="<%= Validator.isNotNull(ticketFormField.getDisplayRules()) %>">
+					<aui:script>
+						Liferay.on(
+							'checkDependentTicketFields',
+							function() {
+								var A = AUI();
+
+								if (<%= ticketFormField.getJavascriptDisplayRules(renderResponse) %>) {
+									A.one('#<portlet:namespace />ticketFieldId_<%= ticketFormField.getTicketFieldId() %>').show();
+								}
+								else {
+									A.one('#<portlet:namespace />ticketFieldId_<%= ticketFormField.getTicketFieldId() %>').hide();
+								}
+							}
+						);
+					</aui:script>
 				</c:if>
 
 			<%

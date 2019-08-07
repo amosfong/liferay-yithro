@@ -14,6 +14,15 @@
 
 package com.liferay.yithro.ticket.model;
 
+import com.liferay.portal.kernel.util.StringUtil;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.portlet.RenderResponse;
+
 /**
  * @author Amos Fong
  */
@@ -23,8 +32,33 @@ public class TicketFormField {
 		return _displayRules;
 	}
 
+	public String getJavascriptDisplayRules(RenderResponse renderResponse) {
+		Set<String> ticketFieldIds = new HashSet<>();
+
+		Matcher matcher = _pattern.matcher(_displayRules);
+
+		while (matcher.find()) {
+			ticketFieldIds.add(matcher.group(1));
+		}
+
+		String javascriptDisplayRules = _displayRules;
+
+		for (String ticketFieldId : ticketFieldIds) {
+			javascriptDisplayRules = StringUtil.replace(
+				javascriptDisplayRules, "${" + ticketFieldId + "}",
+				"A.one('#" + renderResponse.getNamespace() +
+					"ticketFieldIdData_" + ticketFieldId + "').val()");
+		}
+
+		return javascriptDisplayRules;
+	}
+
 	public TicketField getTicketField() {
 		return _ticketField;
+	}
+
+	public long getTicketFieldId() {
+		return _ticketField.getTicketFieldId();
 	}
 
 	public void setDisplayRules(String displayRules) {
@@ -34,6 +68,9 @@ public class TicketFormField {
 	public void setTicketField(TicketField ticketField) {
 		_ticketField = ticketField;
 	}
+
+	private static final Pattern _pattern = Pattern.compile(
+		"\\$\\{([0-9]+)\\}");
 
 	private String _displayRules;
 	private TicketField _ticketField;
