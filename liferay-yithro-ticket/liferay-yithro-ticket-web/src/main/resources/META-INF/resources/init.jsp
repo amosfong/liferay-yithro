@@ -81,6 +81,7 @@ page import="com.liferay.yithro.ticket.model.TicketField" %><%@
 page import="com.liferay.yithro.ticket.model.TicketFieldData" %><%@
 page import="com.liferay.yithro.ticket.model.TicketFieldOption" %><%@
 page import="com.liferay.yithro.ticket.model.TicketFormField" %><%@
+page import="com.liferay.yithro.ticket.model.TicketFormFieldOption" %><%@
 page import="com.liferay.yithro.ticket.model.TicketLink" %><%@
 page import="com.liferay.yithro.ticket.model.TicketStatus" %><%@
 page import="com.liferay.yithro.ticket.model.TicketStructure" %><%@

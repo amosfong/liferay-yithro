@@ -16,9 +16,7 @@ package com.liferay.yithro.ticket.model;
 
 import com.liferay.portal.kernel.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,13 +26,7 @@ import javax.portlet.RenderResponse;
 /**
  * @author Amos Fong
  */
-public class TicketFormField {
-
-	public void addTicketFormFieldOption(
-		TicketFormFieldOption ticketFormFieldOption) {
-
-		_ticketFormFieldOptions.add(ticketFormFieldOption);
-	}
+public class TicketFormFieldOption {
 
 	public String getDisplayRules() {
 		return _displayRules;
@@ -61,28 +53,22 @@ public class TicketFormField {
 		return javascriptDisplayRules;
 	}
 
-	public TicketField getTicketField() {
-		return _ticketField;
-	}
-
-	public List<TicketFormFieldOption> getTicketFormFieldOptions() {
-		return _ticketFormFieldOptions;
+	public TicketFieldOption getTicketFieldOption() {
+		return _ticketFieldOption;
 	}
 
 	public void setDisplayRules(String displayRules) {
 		_displayRules = displayRules;
 	}
 
-	public void setTicketField(TicketField ticketField) {
-		_ticketField = ticketField;
+	public void setTicketFieldOption(TicketFieldOption ticketFieldOption) {
+		_ticketFieldOption = ticketFieldOption;
 	}
 
 	private static final Pattern _pattern = Pattern.compile(
 		"\\$\\{([0-9]+)\\}");
 
 	private String _displayRules;
-	private TicketField _ticketField;
-	private List<TicketFormFieldOption> _ticketFormFieldOptions =
-		new ArrayList<>();
+	private TicketFieldOption _ticketFieldOption;
 
 }

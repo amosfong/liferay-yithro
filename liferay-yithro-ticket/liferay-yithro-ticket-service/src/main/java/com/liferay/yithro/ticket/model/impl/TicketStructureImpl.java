@@ -21,8 +21,11 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.yithro.ticket.model.TicketField;
+import com.liferay.yithro.ticket.model.TicketFieldOption;
 import com.liferay.yithro.ticket.model.TicketFormField;
+import com.liferay.yithro.ticket.model.TicketFormFieldOption;
 import com.liferay.yithro.ticket.service.TicketFieldLocalServiceUtil;
+import com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,38 @@ public class TicketStructureImpl extends TicketStructureBaseImpl {
 				ticketFormField.setDisplayRules(
 					ticketFieldJSONObject.getString("displayRules"));
 				ticketFormField.setTicketField(ticketField);
+
+				JSONArray ticketFieldOptionsJSONArray =
+					ticketFieldJSONObject.getJSONArray("ticketFieldOptions");
+
+				if (ticketFieldOptionsJSONArray != null) {
+					for (int j = 0; j < ticketFieldOptionsJSONArray.length();
+						 j++) {
+
+						JSONObject ticketFieldOptionJSONObject =
+							ticketFieldOptionsJSONArray.getJSONObject(j);
+
+						long ticketFieldOptionId =
+							ticketFieldOptionJSONObject.getLong(
+								"ticketFieldOptionId");
+
+						TicketFieldOption ticketFieldOption =
+							TicketFieldOptionLocalServiceUtil.
+								getTicketFieldOption(ticketFieldOptionId);
+
+						TicketFormFieldOption ticketFormFieldOption =
+							new TicketFormFieldOption();
+
+						ticketFormFieldOption.setDisplayRules(
+							ticketFieldOptionJSONObject.getString(
+								"displayRules"));
+						ticketFormFieldOption.setTicketFieldOption(
+							ticketFieldOption);
+
+						ticketFormField.addTicketFormFieldOption(
+							ticketFormFieldOption);
+					}
+				}
 
 				_ticketFormFields.add(ticketFormField);
 			}
