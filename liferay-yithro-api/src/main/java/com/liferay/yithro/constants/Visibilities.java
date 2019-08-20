@@ -49,9 +49,8 @@ public class Visibilities {
 		if (ArrayUtil.contains(VALUES, visibility)) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 }

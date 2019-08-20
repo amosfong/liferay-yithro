@@ -38,6 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
 		"javax.portlet.name=" + TicketPortletKeys.SIMPLE_TICKET_SEARCH,
+		"javax.portlet.name=" + TicketPortletKeys.TICKET_FIELDS_DISPLAY,
 		"mvc.command.name=/download_ticket_attachment"
 	},
 	service = MVCResourceCommand.class

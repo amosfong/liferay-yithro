@@ -21,16 +21,21 @@ import com.liferay.portal.kernel.util.StringPool;
  */
 public class TicketFieldType {
 
-	public static final int NUMBER = 1;
+	public static final int ATTACHMENT = 1;
 
-	public static final int SELECT = 2;
+	public static final int NUMBER = 2;
 
-	public static final int TEXT = 3;
+	public static final int SELECT = 3;
 
-	public static final int[] VALUES = {NUMBER, SELECT, TEXT};
+	public static final int TEXT = 4;
+
+	public static final int[] VALUES = {ATTACHMENT, NUMBER, SELECT, TEXT};
 
 	public static String getLabel(int type) {
-		if (type == NUMBER) {
+		if (type == ATTACHMENT) {
+			return "attachment";
+		}
+		else if (type == NUMBER) {
 			return "number";
 		}
 		else if (type == SELECT) {

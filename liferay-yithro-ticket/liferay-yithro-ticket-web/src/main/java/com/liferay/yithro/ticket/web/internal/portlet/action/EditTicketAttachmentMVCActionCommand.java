@@ -85,8 +85,8 @@ public class EditTicketAttachmentMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		_ticketAttachmentLocalService.addTicketAttachments(
-			themeDisplay.getUserId(), ticketEntryId, fileNames, files,
-			visibility, WorkflowConstants.STATUS_APPROVED,
+			themeDisplay.getUserId(), ticketEntryId, new long[files.length],
+			fileNames, files, visibility, WorkflowConstants.STATUS_APPROVED,
 			new ServiceContext());
 	}
 

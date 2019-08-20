@@ -26,7 +26,7 @@ String description = ParamUtil.getString(request, "description");
 
 <portlet:actionURL name="/edit_ticket_entry" var="editTicketEntryURL" />
 
-<aui:form action="<%= editTicketEntryURL %>" method="post" name="fm">
+<aui:form action="<%= editTicketEntryURL %>" enctype="multipart/form-data" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 
 	<c:choose>
@@ -48,6 +48,9 @@ String description = ParamUtil.getString(request, "description");
 
 				<aui:fieldset cssClass='<%= Validator.isNotNull(ticketFormField.getDisplayRules()) ? "hide" : "" %>' id='<%= renderResponse.getNamespace() + "ticketFieldId_" + ticketField.getTicketFieldId() %>'>
 					<c:choose>
+						<c:when test="<%= ticketField.getType() == TicketFieldType.ATTACHMENT %>">
+							<aui:input label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>' onInput="Liferay.fire('checkDisplayRules');" type="file" />
+						</c:when>
 						<c:when test="<%= ticketField.getType() == TicketFieldType.SELECT %>">
 							<aui:select label="<%= ticketField.getName(locale) %>" name='<%= "ticketFieldIdData_" + ticketField.getTicketFieldId() %>' onChange="Liferay.fire('checkDisplayRules');">
 								<aui:option label="" />

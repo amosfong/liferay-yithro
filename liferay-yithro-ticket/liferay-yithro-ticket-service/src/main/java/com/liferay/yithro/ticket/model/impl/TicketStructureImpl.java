@@ -20,14 +20,16 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.yithro.ticket.constants.TicketFieldType;
 import com.liferay.yithro.ticket.model.TicketField;
 import com.liferay.yithro.ticket.model.TicketFieldOption;
 import com.liferay.yithro.ticket.model.TicketFormField;
 import com.liferay.yithro.ticket.model.TicketFormFieldOption;
 import com.liferay.yithro.ticket.service.TicketFieldLocalServiceUtil;
-import com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -83,43 +85,61 @@ public class TicketStructureImpl extends TicketStructureBaseImpl {
 					ticketFieldJSONObject.getString("displayRules"));
 				ticketFormField.setTicketField(ticketField);
 
-				JSONArray ticketFieldOptionsJSONArray =
-					ticketFieldJSONObject.getJSONArray("ticketFieldOptions");
+				List<TicketFormFieldOption> ticketFormFieldOptions =
+					_getTicketFormFieldOptions(
+						ticketField,
+						ticketFieldJSONObject.getJSONObject(
+							"ticketFieldOptions"));
 
-				if (ticketFieldOptionsJSONArray != null) {
-					for (int j = 0; j < ticketFieldOptionsJSONArray.length();
-						 j++) {
-
-						JSONObject ticketFieldOptionJSONObject =
-							ticketFieldOptionsJSONArray.getJSONObject(j);
-
-						long ticketFieldOptionId =
-							ticketFieldOptionJSONObject.getLong(
-								"ticketFieldOptionId");
-
-						TicketFieldOption ticketFieldOption =
-							TicketFieldOptionLocalServiceUtil.
-								getTicketFieldOption(ticketFieldOptionId);
-
-						TicketFormFieldOption ticketFormFieldOption =
-							new TicketFormFieldOption();
-
-						ticketFormFieldOption.setDisplayRules(
-							ticketFieldOptionJSONObject.getString(
-								"displayRules"));
-						ticketFormFieldOption.setTicketFieldOption(
-							ticketFieldOption);
-
-						ticketFormField.addTicketFormFieldOption(
-							ticketFormFieldOption);
-					}
-				}
+				ticketFormField.setTicketFormFieldOptions(
+					ticketFormFieldOptions);
 
 				_ticketFormFields.add(ticketFormField);
 			}
 		}
 
 		return _ticketFormFields;
+	}
+
+	private List<TicketFormFieldOption> _getTicketFormFieldOptions(
+		TicketField ticketField, JSONObject ticketFieldOptionsJSONObject) {
+
+		if (ticketField.getType() != TicketFieldType.SELECT) {
+			return Collections.emptyList();
+		}
+
+		List<TicketFormFieldOption> ticketFormFieldOptions = new ArrayList<>();
+
+		List<TicketFieldOption> ticketFieldOptions =
+			ticketField.getTicketFieldOptions(
+				WorkflowConstants.STATUS_APPROVED);
+
+		for (TicketFieldOption ticketFieldOption : ticketFieldOptions) {
+			TicketFormFieldOption ticketFormFieldOption =
+				new TicketFormFieldOption();
+
+			ticketFormFieldOption.setTicketFieldOption(ticketFieldOption);
+
+			if (ticketFieldOptionsJSONObject != null) {
+				JSONObject ticketFieldOptionJSONObject =
+					ticketFieldOptionsJSONObject.getJSONObject(
+						String.valueOf(
+							ticketFieldOption.getTicketFieldOptionId()));
+
+				if (ticketFieldOptionJSONObject != null) {
+					String displayRules = ticketFieldOptionJSONObject.getString(
+						"displayRules");
+
+					if (!displayRules.equals("never")) {
+						ticketFormFieldOption.setDisplayRules(displayRules);
+					}
+				}
+			}
+
+			ticketFormFieldOptions.add(ticketFormFieldOption);
+		}
+
+		return ticketFormFieldOptions;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

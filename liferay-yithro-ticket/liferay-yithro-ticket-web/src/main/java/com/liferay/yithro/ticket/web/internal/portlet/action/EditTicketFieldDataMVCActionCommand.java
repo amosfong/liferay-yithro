@@ -20,10 +20,21 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.yithro.constants.Visibilities;
+import com.liferay.yithro.ticket.constants.TicketFieldType;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
+import com.liferay.yithro.ticket.model.TicketField;
+import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
 import com.liferay.yithro.ticket.service.TicketFieldDataLocalService;
+import com.liferay.yithro.ticket.service.TicketFieldLocalService;
+
+import java.io.File;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +65,6 @@ public class EditTicketFieldDataMVCActionCommand extends BaseMVCActionCommand {
 
 		try {
 			updateTicketFieldData(actionRequest);
-
-			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -67,19 +76,47 @@ public class EditTicketFieldDataMVCActionCommand extends BaseMVCActionCommand {
 	protected void updateTicketFieldData(ActionRequest actionRequest)
 		throws Exception {
 
+		UploadPortletRequest uploadPortletRequest =
+			_portal.getUploadPortletRequest(actionRequest);
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
+		long ticketEntryId = ParamUtil.getLong(
+			uploadPortletRequest, "ticketEntryId");
 
-		long ticketFieldId = ParamUtil.getLong(actionRequest, "ticketFieldId");
-		String data = ParamUtil.getString(actionRequest, "data");
+		long ticketFieldId = ParamUtil.getLong(
+			uploadPortletRequest, "ticketFieldId");
 
-		Map<Long, String> ticketFieldsMap = new HashMap<Long, String>() {
-			{
-				put(ticketFieldId, data);
+		TicketField ticketField = _ticketFieldLocalService.getTicketField(
+			ticketFieldId);
+
+		Map<Long, String> ticketFieldsMap = new HashMap<>();
+
+		if (ticketField.getType() == TicketFieldType.ATTACHMENT) {
+			String fileName = uploadPortletRequest.getFileName(
+				"ticketFieldIdData_" + ticketFieldId);
+			File file = uploadPortletRequest.getFile(
+				"ticketFieldIdData_" + ticketFieldId);
+
+			if ((file == null) || Validator.isNull(fileName)) {
+				return;
 			}
-		};
+
+			_ticketAttachmentLocalService.addTicketAttachments(
+				themeDisplay.getUserId(), ticketEntryId,
+				new long[] {ticketFieldId}, new String[] {fileName},
+				new File[] {file}, Visibilities.PUBLIC,
+				WorkflowConstants.STATUS_APPROVED, new ServiceContext());
+
+			ticketFieldsMap.put(ticketFieldId, fileName);
+		}
+		else {
+			String ticketFieldData = ParamUtil.getString(
+				uploadPortletRequest, "ticketFieldIdData_" + ticketFieldId);
+
+			ticketFieldsMap.put(ticketFieldId, ticketFieldData);
+		}
 
 		_ticketFieldDataLocalService.updateTicketFieldData(
 			themeDisplay.getUserId(), ticketEntryId, ticketFieldsMap,
@@ -90,6 +127,15 @@ public class EditTicketFieldDataMVCActionCommand extends BaseMVCActionCommand {
 		EditTicketCommentMVCActionCommand.class);
 
 	@Reference
+	private Portal _portal;
+
+	@Reference
+	private TicketAttachmentLocalService _ticketAttachmentLocalService;
+
+	@Reference
 	private TicketFieldDataLocalService _ticketFieldDataLocalService;
+
+	@Reference
+	private TicketFieldLocalService _ticketFieldLocalService;
 
 }

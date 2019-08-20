@@ -62,8 +62,9 @@ public class TicketAttachmentLocalServiceImpl
 	extends TicketAttachmentLocalServiceBaseImpl {
 
 	public void addTicketAttachments(
-			long userId, long ticketEntryId, String[] fileNames, File[] files,
-			int visibility, int status, ServiceContext serviceContext)
+			long userId, long ticketEntryId, long[] ticketFieldIds,
+			String[] fileNames, File[] files, int visibility, int status,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -79,19 +80,31 @@ public class TicketAttachmentLocalServiceImpl
 		List<TicketAttachment> ticketAttachments = new ArrayList<>();
 
 		for (int i = 0; i < files.length; i++) {
+			long ticketFieldId = ticketFieldIds[i];
 			String fileName = fileNames[i];
 			File file = files[i];
 
+			TicketAttachment ticketAttachment =
+				ticketAttachmentPersistence.fetchByTEI_TFI(
+					ticketEntryId, ticketFieldId);
+
+			if (ticketAttachment != null) {
+				ticketAttachment.setTicketFieldId(0);
+
+				ticketAttachmentPersistence.update(ticketAttachment);
+			}
+
 			long ticketAttachmentId = counterLocalService.increment();
 
-			TicketAttachment ticketAttachment =
-				ticketAttachmentPersistence.create(ticketAttachmentId);
+			ticketAttachment = ticketAttachmentPersistence.create(
+				ticketAttachmentId);
 
 			ticketAttachment.setUserId(user.getUserId());
 			ticketAttachment.setUserName(user.getFullName());
 			ticketAttachment.setCompanyId(user.getCompanyId());
 			ticketAttachment.setCreateDate(now);
 			ticketAttachment.setTicketEntryId(ticketEntryId);
+			ticketAttachment.setTicketFieldId(ticketFieldId);
 			ticketAttachment.setFileName(fileName);
 			ticketAttachment.setFileSize(file.length());
 			ticketAttachment.setVisibility(visibility);
@@ -201,6 +214,13 @@ public class TicketAttachmentLocalServiceImpl
 		for (long ticketAttachmentId : ticketAttachmentIds) {
 			deleteTicketAttachment(ticketAttachmentId);
 		}
+	}
+
+	public TicketAttachment fetchTicketAttachment(
+		long ticketEntryId, long ticketFieldId) {
+
+		return ticketAttachmentPersistence.fetchByTEI_TFI(
+			ticketEntryId, ticketFieldId);
 	}
 
 	public TicketAttachment fetchTicketAttachment(

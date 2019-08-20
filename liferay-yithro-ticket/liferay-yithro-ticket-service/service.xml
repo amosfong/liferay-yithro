@@ -19,6 +19,7 @@
 		<!-- Other fields -->
 
 		<column name="ticketEntryId" type="long" />
+		<column name="ticketFieldId" type="long" />
 		<column name="ticketCommunicationId" type="long" />
 		<column name="fileName" type="String" />
 		<column name="fileSize" type="long" />
@@ -42,6 +43,10 @@
 		<finder name="CD_TEI" return-type="Collection">
 			<finder-column comparator="&lt;" name="createDate" />
 			<finder-column name="ticketEntryId" />
+		</finder>
+		<finder name="TEI_TFI" return-type="TicketAttachment">
+			<finder-column name="ticketEntryId" />
+			<finder-column name="ticketFieldId" />
 		</finder>
 		<finder name="TEI_S" return-type="Collection">
 			<finder-column name="ticketEntryId" />

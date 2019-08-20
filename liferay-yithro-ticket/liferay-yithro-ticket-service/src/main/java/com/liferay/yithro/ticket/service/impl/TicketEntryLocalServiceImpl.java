@@ -94,7 +94,7 @@ public class TicketEntryLocalServiceImpl
 				TicketField ticketField =
 					ticketFieldLocalService.getTicketField(entry.getKey());
 
-				if (ticketField.isSummary()) {
+				if (ticketField.isSummaryField()) {
 					summary = entry.getValue();
 				}
 			}
@@ -105,7 +105,7 @@ public class TicketEntryLocalServiceImpl
 				TicketField ticketField =
 					ticketFieldLocalService.getTicketField(entry.getKey());
 
-				if (ticketField.isDescription()) {
+				if (ticketField.isDescriptionField()) {
 					description = entry.getValue();
 				}
 			}
@@ -138,6 +138,7 @@ public class TicketEntryLocalServiceImpl
 
 		// Ticket attachments
 
+		long[] ticketFieldIds = new long[0];
 		String[] fileNames = new String[0];
 		File[] files = new File[0];
 
@@ -148,6 +149,8 @@ public class TicketEntryLocalServiceImpl
 					ticketEntry.getTicketEntryId());
 			}
 			else {
+				ticketFieldIds = ArrayUtil.append(
+					ticketFieldIds, ticketAttachment.getTicketFieldId());
 				fileNames = ArrayUtil.append(
 					fileNames, ticketAttachment.getFileName());
 				files = ArrayUtil.append(files, ticketAttachment.getFile());
@@ -156,9 +159,9 @@ public class TicketEntryLocalServiceImpl
 
 		if (!ArrayUtil.isEmpty(files)) {
 			ticketAttachmentLocalService.addTicketAttachments(
-				userId, ticketEntry.getTicketEntryId(), fileNames, files,
-				Visibilities.PUBLIC, WorkflowConstants.STATUS_APPROVED,
-				new ServiceContext());
+				userId, ticketEntry.getTicketEntryId(), ticketFieldIds,
+				fileNames, files, Visibilities.PUBLIC,
+				WorkflowConstants.STATUS_APPROVED, new ServiceContext());
 		}
 
 		return ticketEntry;

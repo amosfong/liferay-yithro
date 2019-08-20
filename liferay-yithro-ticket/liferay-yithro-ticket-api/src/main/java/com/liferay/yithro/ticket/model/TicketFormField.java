@@ -30,12 +30,6 @@ import javax.portlet.RenderResponse;
  */
 public class TicketFormField {
 
-	public void addTicketFormFieldOption(
-		TicketFormFieldOption ticketFormFieldOption) {
-
-		_ticketFormFieldOptions.add(ticketFormFieldOption);
-	}
-
 	public String getDisplayRules() {
 		return _displayRules;
 	}
@@ -75,6 +69,12 @@ public class TicketFormField {
 
 	public void setTicketField(TicketField ticketField) {
 		_ticketField = ticketField;
+	}
+
+	public void setTicketFormFieldOptions(
+		List<TicketFormFieldOption> ticketFormFieldOptions) {
+
+		_ticketFormFieldOptions = ticketFormFieldOptions;
 	}
 
 	private static final Pattern _pattern = Pattern.compile(

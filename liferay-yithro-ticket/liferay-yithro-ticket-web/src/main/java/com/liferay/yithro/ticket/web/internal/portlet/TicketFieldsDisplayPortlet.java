@@ -15,9 +15,11 @@
 package com.liferay.yithro.ticket.web.internal.portlet;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.constants.TicketWebKeys;
 import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
@@ -56,9 +59,25 @@ public class TicketFieldsDisplayPortlet extends MVCPortlet {
 		TicketEntry ticketEntry = (TicketEntry)renderRequest.getAttribute(
 			TicketWebKeys.TICKET_ENTRY);
 
+		if (ticketEntry == null) {
+			long ticketEntryId = ParamUtil.getLong(
+				renderRequest, "ticketEntryId");
+
+			if (ticketEntryId > 0) {
+				ticketEntry = _ticketEntryLocalService.fetchTicketEntry(
+					ticketEntryId);
+
+				renderRequest.setAttribute(
+					TicketWebKeys.TICKET_ENTRY, ticketEntry);
+			}
+		}
+
 		if (ticketEntry != null) {
 			super.render(renderRequest, renderResponse);
 		}
 	}
+
+	@Reference
+	private TicketEntryLocalService _ticketEntryLocalService;
 
 }
