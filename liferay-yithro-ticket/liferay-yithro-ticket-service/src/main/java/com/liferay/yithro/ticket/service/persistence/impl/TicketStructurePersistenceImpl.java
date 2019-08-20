@@ -726,4 +726,13 @@ public class TicketStructurePersistenceImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		TicketStructurePersistenceImpl.class);
 
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

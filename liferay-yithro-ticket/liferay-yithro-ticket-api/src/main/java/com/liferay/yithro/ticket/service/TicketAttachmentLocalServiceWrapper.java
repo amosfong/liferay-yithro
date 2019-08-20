@@ -52,14 +52,15 @@ public class TicketAttachmentLocalServiceWrapper
 
 	@Override
 	public void addTicketAttachments(
-			long userId, long ticketEntryId, String[] fileNames,
-			java.io.File[] files, int visibility, int status,
+			long userId, long ticketEntryId, long[] ticketFieldIds,
+			String[] fileNames, java.io.File[] files, int visibility,
+			int status,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_ticketAttachmentLocalService.addTicketAttachments(
-			userId, ticketEntryId, fileNames, files, visibility, status,
-			serviceContext);
+			userId, ticketEntryId, ticketFieldIds, fileNames, files, visibility,
+			status, serviceContext);
 	}
 
 	/**
@@ -234,6 +235,14 @@ public class TicketAttachmentLocalServiceWrapper
 
 		return _ticketAttachmentLocalService.fetchTicketAttachment(
 			ticketAttachmentId);
+	}
+
+	@Override
+	public com.liferay.yithro.ticket.model.TicketAttachment
+		fetchTicketAttachment(long ticketEntryId, long ticketFieldId) {
+
+		return _ticketAttachmentLocalService.fetchTicketAttachment(
+			ticketEntryId, ticketFieldId);
 	}
 
 	@Override

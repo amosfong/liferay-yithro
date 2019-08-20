@@ -51,6 +51,7 @@ public class TicketAttachmentWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("ticketEntryId", getTicketEntryId());
+		attributes.put("ticketFieldId", getTicketFieldId());
 		attributes.put("ticketCommunicationId", getTicketCommunicationId());
 		attributes.put("fileName", getFileName());
 		attributes.put("fileSize", getFileSize());
@@ -96,6 +97,12 @@ public class TicketAttachmentWrapper
 
 		if (ticketEntryId != null) {
 			setTicketEntryId(ticketEntryId);
+		}
+
+		Long ticketFieldId = (Long)attributes.get("ticketFieldId");
+
+		if (ticketFieldId != null) {
+			setTicketFieldId(ticketFieldId);
 		}
 
 		Long ticketCommunicationId = (Long)attributes.get(
@@ -241,6 +248,16 @@ public class TicketAttachmentWrapper
 	}
 
 	/**
+	 * Returns the ticket field ID of this ticket attachment.
+	 *
+	 * @return the ticket field ID of this ticket attachment
+	 */
+	@Override
+	public long getTicketFieldId() {
+		return model.getTicketFieldId();
+	}
+
+	/**
 	 * Returns the user ID of this ticket attachment.
 	 *
 	 * @return the user ID of this ticket attachment
@@ -383,6 +400,16 @@ public class TicketAttachmentWrapper
 	@Override
 	public void setTicketEntryId(long ticketEntryId) {
 		model.setTicketEntryId(ticketEntryId);
+	}
+
+	/**
+	 * Sets the ticket field ID of this ticket attachment.
+	 *
+	 * @param ticketFieldId the ticket field ID of this ticket attachment
+	 */
+	@Override
+	public void setTicketFieldId(long ticketFieldId) {
+		model.setTicketFieldId(ticketFieldId);
 	}
 
 	/**

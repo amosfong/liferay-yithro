@@ -1953,4 +1953,13 @@ public class TicketFieldOptionPersistenceImpl
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"order"});
 
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

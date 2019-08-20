@@ -3066,4 +3066,13 @@ public class TicketWorkerPersistenceImpl
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"role", "primary"});
 
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

@@ -1385,4 +1385,13 @@ public class TicketCommunicationPersistenceImpl
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"data"});
 
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
+
 }

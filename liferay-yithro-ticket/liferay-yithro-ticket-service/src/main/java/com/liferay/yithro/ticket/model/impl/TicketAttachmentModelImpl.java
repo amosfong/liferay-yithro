@@ -79,6 +79,7 @@ public class TicketAttachmentModelImpl
 		{"ticketAttachmentId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"ticketEntryId", Types.BIGINT},
+		{"ticketFieldId", Types.BIGINT},
 		{"ticketCommunicationId", Types.BIGINT}, {"fileName", Types.VARCHAR},
 		{"fileSize", Types.BIGINT}, {"visibility", Types.INTEGER},
 		{"status", Types.INTEGER}
@@ -94,6 +95,7 @@ public class TicketAttachmentModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("ticketEntryId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ticketFieldId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("ticketCommunicationId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("fileName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fileSize", Types.BIGINT);
@@ -102,7 +104,7 @@ public class TicketAttachmentModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketCommunicationId LONG,fileName VARCHAR(255) null,fileSize LONG,visibility INTEGER,status INTEGER)";
+		"create table Yithro_TicketAttachment (ticketAttachmentId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,ticketEntryId LONG,ticketFieldId LONG,ticketCommunicationId LONG,fileName VARCHAR(255) null,fileSize LONG,visibility INTEGER,status INTEGER)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Yithro_TicketAttachment";
@@ -129,9 +131,11 @@ public class TicketAttachmentModelImpl
 
 	public static final long TICKETENTRYID_COLUMN_BITMASK = 16L;
 
-	public static final long USERID_COLUMN_BITMASK = 32L;
+	public static final long TICKETFIELDID_COLUMN_BITMASK = 32L;
 
-	public static final long VISIBILITY_COLUMN_BITMASK = 64L;
+	public static final long USERID_COLUMN_BITMASK = 64L;
+
+	public static final long VISIBILITY_COLUMN_BITMASK = 128L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -160,6 +164,7 @@ public class TicketAttachmentModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setTicketEntryId(soapModel.getTicketEntryId());
+		model.setTicketFieldId(soapModel.getTicketFieldId());
 		model.setTicketCommunicationId(soapModel.getTicketCommunicationId());
 		model.setFileName(soapModel.getFileName());
 		model.setFileSize(soapModel.getFileSize());
@@ -352,6 +357,12 @@ public class TicketAttachmentModelImpl
 			(BiConsumer<TicketAttachment, Long>)
 				TicketAttachment::setTicketEntryId);
 		attributeGetterFunctions.put(
+			"ticketFieldId", TicketAttachment::getTicketFieldId);
+		attributeSetterBiConsumers.put(
+			"ticketFieldId",
+			(BiConsumer<TicketAttachment, Long>)
+				TicketAttachment::setTicketFieldId);
+		attributeGetterFunctions.put(
 			"ticketCommunicationId",
 			TicketAttachment::getTicketCommunicationId);
 		attributeSetterBiConsumers.put(
@@ -507,6 +518,29 @@ public class TicketAttachmentModelImpl
 
 	@JSON
 	@Override
+	public long getTicketFieldId() {
+		return _ticketFieldId;
+	}
+
+	@Override
+	public void setTicketFieldId(long ticketFieldId) {
+		_columnBitmask |= TICKETFIELDID_COLUMN_BITMASK;
+
+		if (!_setOriginalTicketFieldId) {
+			_setOriginalTicketFieldId = true;
+
+			_originalTicketFieldId = _ticketFieldId;
+		}
+
+		_ticketFieldId = ticketFieldId;
+	}
+
+	public long getOriginalTicketFieldId() {
+		return _originalTicketFieldId;
+	}
+
+	@JSON
+	@Override
 	public long getTicketCommunicationId() {
 		return _ticketCommunicationId;
 	}
@@ -653,6 +687,7 @@ public class TicketAttachmentModelImpl
 		ticketAttachmentImpl.setUserName(getUserName());
 		ticketAttachmentImpl.setCreateDate(getCreateDate());
 		ticketAttachmentImpl.setTicketEntryId(getTicketEntryId());
+		ticketAttachmentImpl.setTicketFieldId(getTicketFieldId());
 		ticketAttachmentImpl.setTicketCommunicationId(
 			getTicketCommunicationId());
 		ticketAttachmentImpl.setFileName(getFileName());
@@ -733,6 +768,11 @@ public class TicketAttachmentModelImpl
 
 		ticketAttachmentModelImpl._setOriginalTicketEntryId = false;
 
+		ticketAttachmentModelImpl._originalTicketFieldId =
+			ticketAttachmentModelImpl._ticketFieldId;
+
+		ticketAttachmentModelImpl._setOriginalTicketFieldId = false;
+
 		ticketAttachmentModelImpl._originalTicketCommunicationId =
 			ticketAttachmentModelImpl._ticketCommunicationId;
 
@@ -783,6 +823,8 @@ public class TicketAttachmentModelImpl
 		}
 
 		ticketAttachmentCacheModel.ticketEntryId = getTicketEntryId();
+
+		ticketAttachmentCacheModel.ticketFieldId = getTicketFieldId();
 
 		ticketAttachmentCacheModel.ticketCommunicationId =
 			getTicketCommunicationId();
@@ -888,6 +930,9 @@ public class TicketAttachmentModelImpl
 	private long _ticketEntryId;
 	private long _originalTicketEntryId;
 	private boolean _setOriginalTicketEntryId;
+	private long _ticketFieldId;
+	private long _originalTicketFieldId;
+	private boolean _setOriginalTicketFieldId;
 	private long _ticketCommunicationId;
 	private long _originalTicketCommunicationId;
 	private boolean _setOriginalTicketCommunicationId;

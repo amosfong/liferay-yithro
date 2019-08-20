@@ -75,8 +75,9 @@ public interface TicketAttachmentLocalService
 		TicketAttachment ticketAttachment);
 
 	public void addTicketAttachments(
-			long userId, long ticketEntryId, String[] fileNames, File[] files,
-			int visibility, int status, ServiceContext serviceContext)
+			long userId, long ticketEntryId, long[] ticketFieldIds,
+			String[] fileNames, File[] files, int visibility, int status,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -191,6 +192,10 @@ public interface TicketAttachmentLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketAttachment fetchTicketAttachment(long ticketAttachmentId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TicketAttachment fetchTicketAttachment(
+		long ticketEntryId, long ticketFieldId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TicketAttachment fetchTicketAttachment(

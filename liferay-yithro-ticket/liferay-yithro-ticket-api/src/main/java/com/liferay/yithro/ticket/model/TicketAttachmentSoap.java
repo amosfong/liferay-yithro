@@ -40,6 +40,7 @@ public class TicketAttachmentSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setTicketEntryId(model.getTicketEntryId());
+		soapModel.setTicketFieldId(model.getTicketFieldId());
 		soapModel.setTicketCommunicationId(model.getTicketCommunicationId());
 		soapModel.setFileName(model.getFileName());
 		soapModel.setFileSize(model.getFileSize());
@@ -154,6 +155,14 @@ public class TicketAttachmentSoap implements Serializable {
 		_ticketEntryId = ticketEntryId;
 	}
 
+	public long getTicketFieldId() {
+		return _ticketFieldId;
+	}
+
+	public void setTicketFieldId(long ticketFieldId) {
+		_ticketFieldId = ticketFieldId;
+	}
+
 	public long getTicketCommunicationId() {
 		return _ticketCommunicationId;
 	}
@@ -200,6 +209,7 @@ public class TicketAttachmentSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private long _ticketEntryId;
+	private long _ticketFieldId;
 	private long _ticketCommunicationId;
 	private String _fileName;
 	private long _fileSize;

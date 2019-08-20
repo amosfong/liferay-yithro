@@ -487,6 +487,59 @@ public interface TicketAttachmentPersistence
 	public int countByCD_TEI(Date createDate, long ticketEntryId);
 
 	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or throws a <code>NoSuchTicketAttachmentException</code> if it could not be found.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the matching ticket attachment
+	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
+	 */
+	public TicketAttachment findByTEI_TFI(
+			long ticketEntryId, long ticketFieldId)
+		throws NoSuchTicketAttachmentException;
+
+	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	public TicketAttachment fetchByTEI_TFI(
+		long ticketEntryId, long ticketFieldId);
+
+	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	public TicketAttachment fetchByTEI_TFI(
+		long ticketEntryId, long ticketFieldId, boolean useFinderCache);
+
+	/**
+	 * Removes the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; from the database.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the ticket attachment that was removed
+	 */
+	public TicketAttachment removeByTEI_TFI(
+			long ticketEntryId, long ticketFieldId)
+		throws NoSuchTicketAttachmentException;
+
+	/**
+	 * Returns the number of ticket attachments where ticketEntryId = &#63; and ticketFieldId = &#63;.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the number of matching ticket attachments
+	 */
+	public int countByTEI_TFI(long ticketEntryId, long ticketFieldId);
+
+	/**
 	 * Returns all the ticket attachments where ticketEntryId = &#63; and status = &#63;.
 	 *
 	 * @param ticketEntryId the ticket entry ID

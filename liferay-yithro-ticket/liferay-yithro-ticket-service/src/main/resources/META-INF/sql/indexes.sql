@@ -2,6 +2,7 @@ create index IX_C5CE2300 on Yithro_TicketAttachment (createDate, ticketEntryId);
 create index IX_28F55762 on Yithro_TicketAttachment (ticketCommunicationId);
 create index IX_C4AF0A45 on Yithro_TicketAttachment (ticketEntryId, fileName[$COLUMN_LENGTH:255$], visibility, status);
 create index IX_215491E4 on Yithro_TicketAttachment (ticketEntryId, status);
+create index IX_7D36C8BB on Yithro_TicketAttachment (ticketEntryId, ticketFieldId);
 create index IX_ACD37EA on Yithro_TicketAttachment (ticketEntryId, visibility, status);
 create index IX_C67DC870 on Yithro_TicketAttachment (userId, ticketEntryId, visibility, status);
 

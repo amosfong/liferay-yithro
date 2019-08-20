@@ -64,8 +64,8 @@ public interface TicketField extends PersistedModel, TicketFieldModel {
 
 	public String getVisibilityLabel();
 
-	public boolean isDescription();
+	public boolean isDescriptionField();
 
-	public boolean isSummary();
+	public boolean isSummaryField();
 
 }

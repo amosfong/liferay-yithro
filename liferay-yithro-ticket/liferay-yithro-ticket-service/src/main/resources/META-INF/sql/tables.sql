@@ -5,6 +5,7 @@ create table Yithro_TicketAttachment (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	ticketEntryId LONG,
+	ticketFieldId LONG,
 	ticketCommunicationId LONG,
 	fileName VARCHAR(255) null,
 	fileSize LONG,

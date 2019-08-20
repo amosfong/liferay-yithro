@@ -1749,6 +1749,255 @@ public class TicketAttachmentPersistenceImpl
 	private static final String _FINDER_COLUMN_CD_TEI_TICKETENTRYID_2 =
 		"ticketAttachment.ticketEntryId = ?";
 
+	private FinderPath _finderPathFetchByTEI_TFI;
+	private FinderPath _finderPathCountByTEI_TFI;
+
+	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or throws a <code>NoSuchTicketAttachmentException</code> if it could not be found.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the matching ticket attachment
+	 * @throws NoSuchTicketAttachmentException if a matching ticket attachment could not be found
+	 */
+	@Override
+	public TicketAttachment findByTEI_TFI(
+			long ticketEntryId, long ticketFieldId)
+		throws NoSuchTicketAttachmentException {
+
+		TicketAttachment ticketAttachment = fetchByTEI_TFI(
+			ticketEntryId, ticketFieldId);
+
+		if (ticketAttachment == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("ticketEntryId=");
+			msg.append(ticketEntryId);
+
+			msg.append(", ticketFieldId=");
+			msg.append(ticketFieldId);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchTicketAttachmentException(msg.toString());
+		}
+
+		return ticketAttachment;
+	}
+
+	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	@Override
+	public TicketAttachment fetchByTEI_TFI(
+		long ticketEntryId, long ticketFieldId) {
+
+		return fetchByTEI_TFI(ticketEntryId, ticketFieldId, true);
+	}
+
+	/**
+	 * Returns the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching ticket attachment, or <code>null</code> if a matching ticket attachment could not be found
+	 */
+	@Override
+	public TicketAttachment fetchByTEI_TFI(
+		long ticketEntryId, long ticketFieldId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {ticketEntryId, ticketFieldId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByTEI_TFI, finderArgs, this);
+		}
+
+		if (result instanceof TicketAttachment) {
+			TicketAttachment ticketAttachment = (TicketAttachment)result;
+
+			if ((ticketEntryId != ticketAttachment.getTicketEntryId()) ||
+				(ticketFieldId != ticketAttachment.getTicketFieldId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_TICKETATTACHMENT_WHERE);
+
+			query.append(_FINDER_COLUMN_TEI_TFI_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_TEI_TFI_TICKETFIELDID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketEntryId);
+
+				qPos.add(ticketFieldId);
+
+				List<TicketAttachment> list = q.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByTEI_TFI, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {
+									ticketEntryId, ticketFieldId
+								};
+							}
+
+							_log.warn(
+								"TicketAttachmentPersistenceImpl.fetchByTEI_TFI(long, long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					TicketAttachment ticketAttachment = list.get(0);
+
+					result = ticketAttachment;
+
+					cacheResult(ticketAttachment);
+				}
+			}
+			catch (Exception e) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByTEI_TFI, finderArgs);
+				}
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (TicketAttachment)result;
+		}
+	}
+
+	/**
+	 * Removes the ticket attachment where ticketEntryId = &#63; and ticketFieldId = &#63; from the database.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the ticket attachment that was removed
+	 */
+	@Override
+	public TicketAttachment removeByTEI_TFI(
+			long ticketEntryId, long ticketFieldId)
+		throws NoSuchTicketAttachmentException {
+
+		TicketAttachment ticketAttachment = findByTEI_TFI(
+			ticketEntryId, ticketFieldId);
+
+		return remove(ticketAttachment);
+	}
+
+	/**
+	 * Returns the number of ticket attachments where ticketEntryId = &#63; and ticketFieldId = &#63;.
+	 *
+	 * @param ticketEntryId the ticket entry ID
+	 * @param ticketFieldId the ticket field ID
+	 * @return the number of matching ticket attachments
+	 */
+	@Override
+	public int countByTEI_TFI(long ticketEntryId, long ticketFieldId) {
+		FinderPath finderPath = _finderPathCountByTEI_TFI;
+
+		Object[] finderArgs = new Object[] {ticketEntryId, ticketFieldId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TICKETATTACHMENT_WHERE);
+
+			query.append(_FINDER_COLUMN_TEI_TFI_TICKETENTRYID_2);
+
+			query.append(_FINDER_COLUMN_TEI_TFI_TICKETFIELDID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(ticketEntryId);
+
+				qPos.add(ticketFieldId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_TEI_TFI_TICKETENTRYID_2 =
+		"ticketAttachment.ticketEntryId = ? AND ";
+
+	private static final String _FINDER_COLUMN_TEI_TFI_TICKETFIELDID_2 =
+		"ticketAttachment.ticketFieldId = ?";
+
 	private FinderPath _finderPathWithPaginationFindByTEI_S;
 	private FinderPath _finderPathWithoutPaginationFindByTEI_S;
 	private FinderPath _finderPathCountByTEI_S;
@@ -4228,6 +4477,14 @@ public class TicketAttachmentPersistenceImpl
 			ticketAttachment.getPrimaryKey(), ticketAttachment);
 
 		finderCache.putResult(
+			_finderPathFetchByTEI_TFI,
+			new Object[] {
+				ticketAttachment.getTicketEntryId(),
+				ticketAttachment.getTicketFieldId()
+			},
+			ticketAttachment);
+
+		finderCache.putResult(
 			_finderPathFetchByTEI_FN_V_S,
 			new Object[] {
 				ticketAttachment.getTicketEntryId(),
@@ -4315,6 +4572,16 @@ public class TicketAttachmentPersistenceImpl
 
 		Object[] args = new Object[] {
 			ticketAttachmentModelImpl.getTicketEntryId(),
+			ticketAttachmentModelImpl.getTicketFieldId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByTEI_TFI, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByTEI_TFI, args, ticketAttachmentModelImpl, false);
+
+		args = new Object[] {
+			ticketAttachmentModelImpl.getTicketEntryId(),
 			ticketAttachmentModelImpl.getFileName(),
 			ticketAttachmentModelImpl.getVisibility(),
 			ticketAttachmentModelImpl.getStatus()
@@ -4330,6 +4597,28 @@ public class TicketAttachmentPersistenceImpl
 	protected void clearUniqueFindersCache(
 		TicketAttachmentModelImpl ticketAttachmentModelImpl,
 		boolean clearCurrent) {
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+				ticketAttachmentModelImpl.getTicketEntryId(),
+				ticketAttachmentModelImpl.getTicketFieldId()
+			};
+
+			finderCache.removeResult(_finderPathCountByTEI_TFI, args);
+			finderCache.removeResult(_finderPathFetchByTEI_TFI, args);
+		}
+
+		if ((ticketAttachmentModelImpl.getColumnBitmask() &
+			 _finderPathFetchByTEI_TFI.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {
+				ticketAttachmentModelImpl.getOriginalTicketEntryId(),
+				ticketAttachmentModelImpl.getOriginalTicketFieldId()
+			};
+
+			finderCache.removeResult(_finderPathCountByTEI_TFI, args);
+			finderCache.removeResult(_finderPathFetchByTEI_TFI, args);
+		}
 
 		if (clearCurrent) {
 			Object[] args = new Object[] {
@@ -5054,6 +5343,18 @@ public class TicketAttachmentPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByCD_TEI",
 			new String[] {Date.class.getName(), Long.class.getName()});
 
+		_finderPathFetchByTEI_TFI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, TicketAttachmentImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByTEI_TFI",
+			new String[] {Long.class.getName(), Long.class.getName()},
+			TicketAttachmentModelImpl.TICKETENTRYID_COLUMN_BITMASK |
+			TicketAttachmentModelImpl.TICKETFIELDID_COLUMN_BITMASK);
+
+		_finderPathCountByTEI_TFI = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTEI_TFI",
+			new String[] {Long.class.getName(), Long.class.getName()});
+
 		_finderPathWithPaginationFindByTEI_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, TicketAttachmentImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTEI_S",
@@ -5243,5 +5544,14 @@ public class TicketAttachmentPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		TicketAttachmentPersistenceImpl.class);
+
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

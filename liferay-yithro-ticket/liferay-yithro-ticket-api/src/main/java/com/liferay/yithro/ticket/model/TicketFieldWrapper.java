@@ -422,13 +422,13 @@ public class TicketFieldWrapper
 	}
 
 	@Override
-	public boolean isDescription() {
-		return model.isDescription();
+	public boolean isDescriptionField() {
+		return model.isDescriptionField();
 	}
 
 	@Override
-	public boolean isSummary() {
-		return model.isSummary();
+	public boolean isSummaryField() {
+		return model.isSummaryField();
 	}
 
 	@Override

@@ -8,6 +8,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="ticketEntryId" type="long" />
+		<field name="ticketFieldId" type="long" />
 		<field name="ticketCommunicationId" type="long" />
 		<field name="fileName" type="String">
 			<hint name="max-length">255</hint>
