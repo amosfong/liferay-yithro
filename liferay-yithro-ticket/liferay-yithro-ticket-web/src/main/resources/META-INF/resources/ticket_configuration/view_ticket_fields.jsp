@@ -27,14 +27,14 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "active");
 				add(
 					navigationItem -> {
 						navigationItem.setActive(tabs2.equals("active"));
-						navigationItem.setHref(renderResponse.createRenderURL(), "tabs2", "active");
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-fields", "tabs2", "active");
 						navigationItem.setLabel(LanguageUtil.get(request, "active"));
 					});
 
 				add(
 					navigationItem -> {
 						navigationItem.setActive(tabs2.equals("inactive"));
-						navigationItem.setHref(renderResponse.createRenderURL(), "tabs2", "inactive");
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "ticket-fields", "tabs2", "inactive");
 						navigationItem.setLabel(LanguageUtil.get(request, "inactive"));
 					});
 			}
