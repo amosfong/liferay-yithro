@@ -68,10 +68,6 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 
 	<div class="widget-metadata">
 		<div class="text-secondary">
-			<label><liferay-ui:message key="created" />:</label>
-
-			<%= fullDateFormatDateTime.format(ticketEntry.getCreateDate()) %>
-
 			<label><liferay-ui:message key="status" />:</label>
 
 			<span class="<%= Validator.isNotNull(ticketStatus.getDescription(locale)) ? "lfr-portal-tooltip" : "" %>" data-title="<%= HtmlUtil.escape(ticketStatus.getDescription(locale)) %>">

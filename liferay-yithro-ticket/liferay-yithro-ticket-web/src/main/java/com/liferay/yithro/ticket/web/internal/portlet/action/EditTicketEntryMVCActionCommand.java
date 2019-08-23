@@ -29,9 +29,11 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.yithro.ticket.constants.TicketFieldType;
 import com.liferay.yithro.ticket.constants.TicketPortletKeys;
 import com.liferay.yithro.ticket.model.TicketAttachment;
+import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.model.TicketField;
 import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketAttachmentLocalService;
+import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 import com.liferay.yithro.ticket.service.TicketEntryService;
 import com.liferay.yithro.ticket.service.TicketFieldLocalService;
 import com.liferay.yithro.ticket.service.TicketStatusLocalService;
@@ -57,6 +59,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		"javax.portlet.name=" + TicketPortletKeys.ADD_TICKET_FORM,
 		"javax.portlet.name=" + TicketPortletKeys.MY_REQUESTED_TICKETS,
+		"javax.portlet.name=" + TicketPortletKeys.TICKET_DETAILS_DISPLAY,
 		"mvc.command.name=/edit_ticket_entry"
 	},
 	service = MVCActionCommand.class
@@ -71,7 +74,10 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
-			if (cmd.equals("update_ticket_status")) {
+			if (cmd.equals("update_ticket_entry_reporter")) {
+				updateTicketEntryReporter(actionRequest);
+			}
+			else if (cmd.equals("update_ticket_status")) {
 				updateTicketStatus(actionRequest);
 			}
 			else {
@@ -145,8 +151,11 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		if (ticketEntryId > 0) {
+			TicketEntry ticketEntry = _ticketEntryLocalService.getTicketEntry(
+				ticketEntryId);
+
 			_ticketEntryService.updateTicketEntry(
-				ticketEntryId, summary, description);
+				ticketEntryId, ticketEntry.getUserId(), summary, description);
 		}
 		else {
 			TicketStatus ticketStatus =
@@ -157,6 +166,22 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 				themeDisplay.getLanguageId(), summary, description, 0,
 				ticketFieldsMap, ticketAttachments);
 		}
+	}
+
+	protected void updateTicketEntryReporter(ActionRequest actionRequest)
+		throws Exception {
+
+		long ticketEntryId = ParamUtil.getLong(actionRequest, "ticketEntryId");
+
+		long reporterUserId = ParamUtil.getLong(
+			actionRequest, "reporterUserId");
+
+		TicketEntry ticketEntry = _ticketEntryLocalService.getTicketEntry(
+			ticketEntryId);
+
+		_ticketEntryService.updateTicketEntry(
+			ticketEntryId, reporterUserId, ticketEntry.getSummary(),
+			ticketEntry.getDescription());
 	}
 
 	protected void updateTicketStatus(ActionRequest actionRequest)
@@ -178,6 +203,9 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private TicketAttachmentLocalService _ticketAttachmentLocalService;
+
+	@Reference
+	private TicketEntryLocalService _ticketEntryLocalService;
 
 	@Reference
 	private TicketEntryService _ticketEntryService;

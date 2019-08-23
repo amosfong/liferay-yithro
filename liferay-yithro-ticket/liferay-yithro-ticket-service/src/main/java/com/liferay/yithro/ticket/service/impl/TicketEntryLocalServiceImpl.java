@@ -299,23 +299,17 @@ public class TicketEntryLocalServiceImpl
 	}
 
 	public TicketEntry updateTicketEntry(
-			long userId, long ticketEntryId, long reportedByUserId,
-			long ticketStatusId, String languageId, String summary,
-			String description, int weight, Date dueDate,
-			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
+			long ticketEntryId, long reportedByUserId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
+			Date dueDate)
 		throws PortalException {
 
 		// Ticket entry
-
-		User user = userLocalService.getUser(userId);
-		Date now = new Date();
 
 		validate(summary);
 
 		TicketEntry ticketEntry = ticketEntryPersistence.findByPrimaryKey(
 			ticketEntryId);
-
-		TicketEntry oldTicketEntry = (TicketEntry)ticketEntry.clone();
 
 		if (ticketEntry.getUserId() != reportedByUserId) {
 			User reportedByUser = userLocalService.getUser(reportedByUserId);
@@ -324,7 +318,7 @@ public class TicketEntryLocalServiceImpl
 			ticketEntry.setUserName(reportedByUser.getFullName());
 		}
 
-		ticketEntry.setModifiedDate(now);
+		ticketEntry.setModifiedDate(new Date());
 		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);
 		ticketEntry.setSummary(summary);
@@ -339,26 +333,7 @@ public class TicketEntryLocalServiceImpl
 			ticketEntry.setDueDate(dueDate);
 		}
 
-		ticketEntryPersistence.update(ticketEntry);
-
-		long auditSetId = auditEntryLocalService.getNextAuditSetId(
-			TicketEntry.class.getName(), ticketEntryId);
-
-		serviceContext.setAttribute("auditSetId", auditSetId);
-
-		serviceContext.setCreateDate(now);
-
-		// Ticket information
-
-		ticketFieldDataLocalService.updateTicketFieldData(
-			userId, ticketEntryId, ticketFieldsMap, serviceContext);
-
-		// Audit entry
-
-		updateAuditEntry(
-			user.getUserId(), now, auditSetId, oldTicketEntry, ticketEntry);
-
-		return ticketEntry;
+		return ticketEntryPersistence.update(ticketEntry);
 	}
 
 	public TicketEntry updateTicketStatus(
