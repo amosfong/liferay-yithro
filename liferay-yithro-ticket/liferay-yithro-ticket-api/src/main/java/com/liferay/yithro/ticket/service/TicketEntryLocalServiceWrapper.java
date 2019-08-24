@@ -357,17 +357,14 @@ public class TicketEntryLocalServiceWrapper
 
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
-			long userId, long ticketEntryId, long reportedByUserId,
-			long ticketStatusId, String languageId, String summary,
-			String description, int weight, java.util.Date dueDate,
-			java.util.Map<Long, String> ticketFieldsMap,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			long ticketEntryId, long reportedByUserId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
+			java.util.Date dueDate)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryLocalService.updateTicketEntry(
-			userId, ticketEntryId, reportedByUserId, ticketStatusId, languageId,
-			summary, description, weight, dueDate, ticketFieldsMap,
-			serviceContext);
+			ticketEntryId, reportedByUserId, ticketStatusId, languageId,
+			summary, description, weight, dueDate);
 	}
 
 	/**

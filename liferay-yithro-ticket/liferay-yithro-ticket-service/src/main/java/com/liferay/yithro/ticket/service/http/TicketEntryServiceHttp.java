@@ -100,8 +100,8 @@ public class TicketEntryServiceHttp {
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
-			HttpPrincipal httpPrincipal, long ticketEntryId, String summary,
-			String description)
+			HttpPrincipal httpPrincipal, long ticketEntryId,
+			long reporterUserId, String summary, String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -110,7 +110,7 @@ public class TicketEntryServiceHttp {
 				_updateTicketEntryParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, ticketEntryId, summary, description);
+				methodKey, ticketEntryId, reporterUserId, summary, description);
 
 			Object returnObj = null;
 
@@ -187,7 +187,7 @@ public class TicketEntryServiceHttp {
 			int.class, java.util.Map.class, java.util.List.class
 		};
 	private static final Class<?>[] _updateTicketEntryParameterTypes1 =
-		new Class[] {long.class, String.class, String.class};
+		new Class[] {long.class, long.class, String.class, String.class};
 	private static final Class<?>[] _updateTicketStatusParameterTypes2 =
 		new Class[] {long.class, long.class};
 

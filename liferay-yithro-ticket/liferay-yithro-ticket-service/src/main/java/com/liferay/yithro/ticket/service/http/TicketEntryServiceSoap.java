@@ -66,13 +66,14 @@ public class TicketEntryServiceSoap {
 
 	public static com.liferay.yithro.ticket.model.TicketEntrySoap
 			updateTicketEntry(
-				long ticketEntryId, String summary, String description)
+				long ticketEntryId, long reporterUserId, String summary,
+				String description)
 		throws RemoteException {
 
 		try {
 			com.liferay.yithro.ticket.model.TicketEntry returnValue =
 				TicketEntryServiceUtil.updateTicketEntry(
-					ticketEntryId, summary, description);
+					ticketEntryId, reporterUserId, summary, description);
 
 			return com.liferay.yithro.ticket.model.TicketEntrySoap.toSoapModel(
 				returnValue);

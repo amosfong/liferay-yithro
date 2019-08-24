@@ -67,7 +67,8 @@ public interface TicketEntryService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public TicketEntry updateTicketEntry(
-			long ticketEntryId, String summary, String description)
+			long ticketEntryId, long reporterUserId, String summary,
+			String description)
 		throws PortalException;
 
 	public TicketEntry updateTicketStatus(

@@ -62,11 +62,12 @@ public class TicketEntryServiceUtil {
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketEntry updateTicketEntry(
-			long ticketEntryId, String summary, String description)
+			long ticketEntryId, long reporterUserId, String summary,
+			String description)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTicketEntry(
-			ticketEntryId, summary, description);
+			ticketEntryId, reporterUserId, summary, description);
 	}
 
 	public static com.liferay.yithro.ticket.model.TicketEntry

@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -275,10 +274,9 @@ public interface TicketEntryLocalService
 		throws PortalException;
 
 	public TicketEntry updateTicketEntry(
-			long userId, long ticketEntryId, long reportedByUserId,
-			long ticketStatusId, String languageId, String summary,
-			String description, int weight, Date dueDate,
-			Map<Long, String> ticketFieldsMap, ServiceContext serviceContext)
+			long ticketEntryId, long reportedByUserId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
+			Date dueDate)
 		throws PortalException;
 
 	/**
