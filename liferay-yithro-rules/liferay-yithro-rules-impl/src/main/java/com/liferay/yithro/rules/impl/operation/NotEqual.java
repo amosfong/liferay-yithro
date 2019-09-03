@@ -23,15 +23,15 @@ import org.osgi.service.component.annotations.Component;
  * @author Kyle Bischof
  */
 @Component(immediate = true, service = Operation.class)
-public class Equals extends Operation {
+public class NotEqual extends Operation {
 
-	public Equals() {
-		super(StringPool.EQUAL);
+	public NotEqual() {
+		super(StringPool.NOT_EQUAL);
 	}
 
 	@Override
 	public String getSymbol() {
-		return StringPool.EQUAL;
+		return StringPool.NOT_EQUAL;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class Equals extends Operation {
 			return false;
 		}
 
-		if (expressionValue.equals(objectValue)) {
+		if (!expressionValue.equals(objectValue)) {
 			return true;
 		}
 
