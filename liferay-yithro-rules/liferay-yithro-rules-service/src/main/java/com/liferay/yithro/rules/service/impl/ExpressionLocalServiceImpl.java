@@ -54,8 +54,4 @@ public class ExpressionLocalServiceImpl extends ExpressionLocalServiceBaseImpl {
 		return expressionPersistence.findByR_T(ruleId, type);
 	}
 
-	public List<Expression> getExpressions(long ruleId) {
-		return expressionPersistence.findByRuleId(ruleId);
-	}
-
 }
