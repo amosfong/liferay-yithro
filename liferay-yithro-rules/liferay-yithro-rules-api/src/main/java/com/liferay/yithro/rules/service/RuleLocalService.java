@@ -177,6 +177,8 @@ public interface RuleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Rule fetchRule(long ruleId);
 
+	public List<Rule> findByTA_TO(String triggerAction, String triggerObject);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

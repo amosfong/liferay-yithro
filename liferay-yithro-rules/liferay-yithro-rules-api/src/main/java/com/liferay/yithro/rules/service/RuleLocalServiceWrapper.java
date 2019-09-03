@@ -198,6 +198,13 @@ public class RuleLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.yithro.rules.model.Rule> findByTA_TO(
+		String triggerAction, String triggerObject) {
+
+		return _ruleLocalService.findByTA_TO(triggerAction, triggerObject);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

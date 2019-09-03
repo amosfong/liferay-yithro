@@ -209,9 +209,6 @@ public interface ExpressionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Expression> getExpressions(int start, int end);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Expression> getExpressions(long ruleId);
-
 	/**
 	 * Returns the number of expressions.
 	 *

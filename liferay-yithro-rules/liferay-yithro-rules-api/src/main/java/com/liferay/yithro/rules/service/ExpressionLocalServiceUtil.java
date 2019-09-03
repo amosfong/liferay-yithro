@@ -244,12 +244,6 @@ public class ExpressionLocalServiceUtil {
 		return getService().getExpressions(start, end);
 	}
 
-	public static java.util.List<com.liferay.yithro.rules.model.Expression>
-		getExpressions(long ruleId) {
-
-		return getService().getExpressions(ruleId);
-	}
-
 	/**
 	 * Returns the number of expressions.
 	 *

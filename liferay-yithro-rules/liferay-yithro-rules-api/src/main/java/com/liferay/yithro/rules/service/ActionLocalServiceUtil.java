@@ -52,6 +52,13 @@ public class ActionLocalServiceUtil {
 		return getService().addAction(action);
 	}
 
+	public static com.liferay.yithro.rules.model.Action addAction(
+			String name, String value)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addAction(name, value);
+	}
+
 	/**
 	 * Creates a new action with the primary key. Does not add the action to the database.
 	 *
@@ -226,6 +233,12 @@ public class ActionLocalServiceUtil {
 		getActions(int start, int end) {
 
 		return getService().getActions(start, end);
+	}
+
+	public static java.util.List<com.liferay.yithro.rules.model.Action>
+		getActions(long ruleId) {
+
+		return getService().getActions(ruleId);
 	}
 
 	/**

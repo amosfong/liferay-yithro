@@ -122,6 +122,195 @@ public class RuleUtil {
 	}
 
 	/**
+	 * Returns all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @return the matching rules
+	 */
+	public static List<Rule> findByTA_TO(
+		String triggerAction, String triggerObject) {
+
+		return getPersistence().findByTA_TO(triggerAction, triggerObject);
+	}
+
+	/**
+	 * Returns a range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param start the lower bound of the range of rules
+	 * @param end the upper bound of the range of rules (not inclusive)
+	 * @return the range of matching rules
+	 */
+	public static List<Rule> findByTA_TO(
+		String triggerAction, String triggerObject, int start, int end) {
+
+		return getPersistence().findByTA_TO(
+			triggerAction, triggerObject, start, end);
+	}
+
+	/**
+	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param start the lower bound of the range of rules
+	 * @param end the upper bound of the range of rules (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching rules
+	 */
+	public static List<Rule> findByTA_TO(
+		String triggerAction, String triggerObject, int start, int end,
+		OrderByComparator<Rule> orderByComparator) {
+
+		return getPersistence().findByTA_TO(
+			triggerAction, triggerObject, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param start the lower bound of the range of rules
+	 * @param end the upper bound of the range of rules (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching rules
+	 */
+	public static List<Rule> findByTA_TO(
+		String triggerAction, String triggerObject, int start, int end,
+		OrderByComparator<Rule> orderByComparator, boolean useFinderCache) {
+
+		return getPersistence().findByTA_TO(
+			triggerAction, triggerObject, start, end, orderByComparator,
+			useFinderCache);
+	}
+
+	/**
+	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching rule
+	 * @throws NoSuchRuleException if a matching rule could not be found
+	 */
+	public static Rule findByTA_TO_First(
+			String triggerAction, String triggerObject,
+			OrderByComparator<Rule> orderByComparator)
+		throws com.liferay.yithro.rules.exception.NoSuchRuleException {
+
+		return getPersistence().findByTA_TO_First(
+			triggerAction, triggerObject, orderByComparator);
+	}
+
+	/**
+	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching rule, or <code>null</code> if a matching rule could not be found
+	 */
+	public static Rule fetchByTA_TO_First(
+		String triggerAction, String triggerObject,
+		OrderByComparator<Rule> orderByComparator) {
+
+		return getPersistence().fetchByTA_TO_First(
+			triggerAction, triggerObject, orderByComparator);
+	}
+
+	/**
+	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching rule
+	 * @throws NoSuchRuleException if a matching rule could not be found
+	 */
+	public static Rule findByTA_TO_Last(
+			String triggerAction, String triggerObject,
+			OrderByComparator<Rule> orderByComparator)
+		throws com.liferay.yithro.rules.exception.NoSuchRuleException {
+
+		return getPersistence().findByTA_TO_Last(
+			triggerAction, triggerObject, orderByComparator);
+	}
+
+	/**
+	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching rule, or <code>null</code> if a matching rule could not be found
+	 */
+	public static Rule fetchByTA_TO_Last(
+		String triggerAction, String triggerObject,
+		OrderByComparator<Rule> orderByComparator) {
+
+		return getPersistence().fetchByTA_TO_Last(
+			triggerAction, triggerObject, orderByComparator);
+	}
+
+	/**
+	 * Returns the rules before and after the current rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param ruleId the primary key of the current rule
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next rule
+	 * @throws NoSuchRuleException if a rule with the primary key could not be found
+	 */
+	public static Rule[] findByTA_TO_PrevAndNext(
+			long ruleId, String triggerAction, String triggerObject,
+			OrderByComparator<Rule> orderByComparator)
+		throws com.liferay.yithro.rules.exception.NoSuchRuleException {
+
+		return getPersistence().findByTA_TO_PrevAndNext(
+			ruleId, triggerAction, triggerObject, orderByComparator);
+	}
+
+	/**
+	 * Removes all the rules where triggerAction = &#63; and triggerObject = &#63; from the database.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 */
+	public static void removeByTA_TO(
+		String triggerAction, String triggerObject) {
+
+		getPersistence().removeByTA_TO(triggerAction, triggerObject);
+	}
+
+	/**
+	 * Returns the number of rules where triggerAction = &#63; and triggerObject = &#63;.
+	 *
+	 * @param triggerAction the trigger action
+	 * @param triggerObject the trigger object
+	 * @return the number of matching rules
+	 */
+	public static int countByTA_TO(String triggerAction, String triggerObject) {
+		return getPersistence().countByTA_TO(triggerAction, triggerObject);
+	}
+
+	/**
 	 * Caches the rule in the entity cache if it is enabled.
 	 *
 	 * @param rule the rule
@@ -241,15 +430,15 @@ public class RuleUtil {
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of rules
 	 */
 	public static List<Rule> findAll(
 		int start, int end, OrderByComparator<Rule> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

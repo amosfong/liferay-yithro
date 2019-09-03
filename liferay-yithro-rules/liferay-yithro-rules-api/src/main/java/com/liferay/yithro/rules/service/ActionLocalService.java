@@ -70,6 +70,8 @@ public interface ActionLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Action addAction(Action action);
 
+	public Action addAction(String name, String value) throws PortalException;
+
 	/**
 	 * Creates a new action with the primary key. Does not add the action to the database.
 	 *
@@ -200,6 +202,9 @@ public interface ActionLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Action> getActions(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Action> getActions(long ruleId);
 
 	/**
 	 * Returns the number of actions.

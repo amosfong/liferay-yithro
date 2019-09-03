@@ -61,12 +61,14 @@ public class ActionCacheModel implements CacheModel<Action>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{actionId=");
 		sb.append(actionId);
 		sb.append(", ruleId=");
 		sb.append(ruleId);
+		sb.append(", entity=");
+		sb.append(entity);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", value=");
@@ -82,6 +84,13 @@ public class ActionCacheModel implements CacheModel<Action>, Externalizable {
 
 		actionImpl.setActionId(actionId);
 		actionImpl.setRuleId(ruleId);
+
+		if (entity == null) {
+			actionImpl.setEntity("");
+		}
+		else {
+			actionImpl.setEntity(entity);
+		}
 
 		if (name == null) {
 			actionImpl.setName("");
@@ -107,6 +116,7 @@ public class ActionCacheModel implements CacheModel<Action>, Externalizable {
 		actionId = objectInput.readLong();
 
 		ruleId = objectInput.readLong();
+		entity = objectInput.readUTF();
 		name = objectInput.readUTF();
 		value = objectInput.readUTF();
 	}
@@ -116,6 +126,13 @@ public class ActionCacheModel implements CacheModel<Action>, Externalizable {
 		objectOutput.writeLong(actionId);
 
 		objectOutput.writeLong(ruleId);
+
+		if (entity == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(entity);
+		}
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -134,6 +151,7 @@ public class ActionCacheModel implements CacheModel<Action>, Externalizable {
 
 	public long actionId;
 	public long ruleId;
+	public String entity;
 	public String name;
 	public String value;
 

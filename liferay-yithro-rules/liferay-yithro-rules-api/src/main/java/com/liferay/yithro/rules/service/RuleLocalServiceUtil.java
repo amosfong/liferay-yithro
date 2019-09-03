@@ -194,6 +194,12 @@ public class RuleLocalServiceUtil {
 		return getService().fetchRule(ruleId);
 	}
 
+	public static java.util.List<com.liferay.yithro.rules.model.Rule>
+		findByTA_TO(String triggerAction, String triggerObject) {
+
+		return getService().findByTA_TO(triggerAction, triggerObject);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

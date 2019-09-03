@@ -35,6 +35,7 @@ public class ActionSoap implements Serializable {
 
 		soapModel.setActionId(model.getActionId());
 		soapModel.setRuleId(model.getRuleId());
+		soapModel.setEntity(model.getEntity());
 		soapModel.setName(model.getName());
 		soapModel.setValue(model.getValue());
 
@@ -105,6 +106,14 @@ public class ActionSoap implements Serializable {
 		_ruleId = ruleId;
 	}
 
+	public String getEntity() {
+		return _entity;
+	}
+
+	public void setEntity(String entity) {
+		_entity = entity;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -123,6 +132,7 @@ public class ActionSoap implements Serializable {
 
 	private long _actionId;
 	private long _ruleId;
+	private String _entity;
 	private String _name;
 	private String _value;
 

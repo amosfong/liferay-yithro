@@ -66,7 +66,8 @@ public class ActionModelImpl
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"actionId", Types.BIGINT}, {"ruleId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"value", Types.VARCHAR}
+		{"entity", Types.VARCHAR}, {"name", Types.VARCHAR},
+		{"value", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -75,12 +76,13 @@ public class ActionModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("actionId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("ruleId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("entity", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("value", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_Action (actionId LONG not null primary key,ruleId LONG,name VARCHAR(75) null,value VARCHAR(75) null)";
+		"create table Yithro_Action (actionId LONG not null primary key,ruleId LONG,entity VARCHAR(75) null,name VARCHAR(75) null,value VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_Action";
 
@@ -94,6 +96,10 @@ public class ActionModelImpl
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
+
+	public static final long RULEID_COLUMN_BITMASK = 1L;
+
+	public static final long ACTIONID_COLUMN_BITMASK = 2L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -229,6 +235,9 @@ public class ActionModelImpl
 		attributeGetterFunctions.put("ruleId", Action::getRuleId);
 		attributeSetterBiConsumers.put(
 			"ruleId", (BiConsumer<Action, Long>)Action::setRuleId);
+		attributeGetterFunctions.put("entity", Action::getEntity);
+		attributeSetterBiConsumers.put(
+			"entity", (BiConsumer<Action, String>)Action::setEntity);
 		attributeGetterFunctions.put("name", Action::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Action, String>)Action::setName);
@@ -259,7 +268,34 @@ public class ActionModelImpl
 
 	@Override
 	public void setRuleId(long ruleId) {
+		_columnBitmask |= RULEID_COLUMN_BITMASK;
+
+		if (!_setOriginalRuleId) {
+			_setOriginalRuleId = true;
+
+			_originalRuleId = _ruleId;
+		}
+
 		_ruleId = ruleId;
+	}
+
+	public long getOriginalRuleId() {
+		return _originalRuleId;
+	}
+
+	@Override
+	public String getEntity() {
+		if (_entity == null) {
+			return "";
+		}
+		else {
+			return _entity;
+		}
+	}
+
+	@Override
+	public void setEntity(String entity) {
+		_entity = entity;
 	}
 
 	@Override
@@ -290,6 +326,10 @@ public class ActionModelImpl
 	@Override
 	public void setValue(String value) {
 		_value = value;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -326,6 +366,7 @@ public class ActionModelImpl
 
 		actionImpl.setActionId(getActionId());
 		actionImpl.setRuleId(getRuleId());
+		actionImpl.setEntity(getEntity());
 		actionImpl.setName(getName());
 		actionImpl.setValue(getValue());
 
@@ -388,6 +429,13 @@ public class ActionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
+		ActionModelImpl actionModelImpl = this;
+
+		actionModelImpl._originalRuleId = actionModelImpl._ruleId;
+
+		actionModelImpl._setOriginalRuleId = false;
+
+		actionModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -397,6 +445,14 @@ public class ActionModelImpl
 		actionCacheModel.actionId = getActionId();
 
 		actionCacheModel.ruleId = getRuleId();
+
+		actionCacheModel.entity = getEntity();
+
+		String entity = actionCacheModel.entity;
+
+		if ((entity != null) && (entity.length() == 0)) {
+			actionCacheModel.entity = null;
+		}
 
 		actionCacheModel.name = getName();
 
@@ -490,8 +546,12 @@ public class ActionModelImpl
 
 	private long _actionId;
 	private long _ruleId;
+	private long _originalRuleId;
+	private boolean _setOriginalRuleId;
+	private String _entity;
 	private String _name;
 	private String _value;
+	private long _columnBitmask;
 	private Action _escapedModel;
 
 }

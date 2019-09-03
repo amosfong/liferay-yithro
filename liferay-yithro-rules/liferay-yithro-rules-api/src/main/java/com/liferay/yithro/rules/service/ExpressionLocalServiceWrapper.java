@@ -254,13 +254,6 @@ public class ExpressionLocalServiceWrapper
 		return _expressionLocalService.getExpressions(start, end);
 	}
 
-	@Override
-	public java.util.List<com.liferay.yithro.rules.model.Expression>
-		getExpressions(long ruleId) {
-
-		return _expressionLocalService.getExpressions(ruleId);
-	}
-
 	/**
 	 * Returns the number of expressions.
 	 *
