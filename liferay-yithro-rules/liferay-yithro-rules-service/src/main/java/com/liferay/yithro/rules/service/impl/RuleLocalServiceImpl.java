@@ -21,6 +21,8 @@ import com.liferay.yithro.rules.exception.RuleNameException;
 import com.liferay.yithro.rules.model.Rule;
 import com.liferay.yithro.rules.service.base.RuleLocalServiceBaseImpl;
 
+import java.util.List;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -46,6 +48,10 @@ public class RuleLocalServiceImpl extends RuleLocalServiceBaseImpl {
 		rule.setTriggerObject(triggerObject);
 
 		return rulePersistence.update(rule);
+	}
+
+	public List<Rule> findByTA_TO(String triggerAction, String triggerObject) {
+		return rulePersistence.findByTA_TO(triggerAction, triggerObject);
 	}
 
 	protected void validate(String name) throws RuleNameException {
