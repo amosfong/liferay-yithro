@@ -4,6 +4,7 @@
 <service-builder package-path="com.liferay.yithro.rules">
 	<namespace>Yithro</namespace>
 	<entity local-service="true" name="Action" remote-service="false">
+
 		<!-- PK fields -->
 
 		<column name="actionId" primary="true" type="long" />
@@ -11,8 +12,15 @@
 		<!-- Other fields -->
 
 		<column name="ruleId" type="long" />
+		<column name="entity" type="String" />
 		<column name="name" type="String" />
 		<column name="value" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="RuleId" return-type="Collection">
+			<finder-column name="ruleId" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="Expression" remote-service="false">
 
@@ -30,9 +38,6 @@
 
 		<!-- Finder methods -->
 
-		<finder name="RuleId" return-type="Collection">
-			<finder-column name="ruleId" />
-		</finder>
 		<finder name="R_T" return-type="Collection">
 			<finder-column name="ruleId" />
 			<finder-column name="type" />
@@ -49,6 +54,13 @@
 		<column name="name" type="String" />
 		<column name="triggerAction" type="String" />
 		<column name="triggerObject" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="TA_TO" return-type="Collection">
+			<finder-column name="triggerAction" />
+			<finder-column name="triggerObject" />
+		</finder>
 	</entity>
 	<exceptions>
 		<exception>RuleName</exception>
