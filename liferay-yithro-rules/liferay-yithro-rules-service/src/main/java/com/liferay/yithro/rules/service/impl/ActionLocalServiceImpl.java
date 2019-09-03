@@ -15,7 +15,11 @@
 package com.liferay.yithro.rules.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.yithro.rules.model.Action;
 import com.liferay.yithro.rules.service.base.ActionLocalServiceBaseImpl;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -27,4 +31,20 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class ActionLocalServiceImpl extends ActionLocalServiceBaseImpl {
+
+	public Action addAction(String name, String value) throws PortalException {
+		long actionId = counterLocalService.increment();
+
+		Action action = actionPersistence.create(actionId);
+
+		action.setName(name);
+		action.setValue(value);
+
+		return action;
+	}
+
+	public List<Action> getActions(long ruleId) {
+		return actionPersistence.findByRuleId(ruleId);
+	}
+
 }
