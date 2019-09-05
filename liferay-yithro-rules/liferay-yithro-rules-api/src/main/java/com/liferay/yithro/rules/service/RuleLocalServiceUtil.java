@@ -253,6 +253,12 @@ public class RuleLocalServiceUtil {
 		return getService().getRules(start, end);
 	}
 
+	public static java.util.List<com.liferay.yithro.rules.model.Rule> getRules(
+		String triggerAction, String triggerObject) {
+
+		return getService().getRules(triggerAction, triggerObject);
+	}
+
 	/**
 	 * Returns the number of rules.
 	 *

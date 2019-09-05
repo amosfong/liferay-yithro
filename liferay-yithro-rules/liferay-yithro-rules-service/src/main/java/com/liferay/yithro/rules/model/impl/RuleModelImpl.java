@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.yithro.rules.model.Rule;
 import com.liferay.yithro.rules.model.RuleModel;
@@ -93,6 +94,12 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
+
+	public static final long TRIGGERACTION_COLUMN_BITMASK = 1L;
+
+	public static final long TRIGGEROBJECT_COLUMN_BITMASK = 2L;
+
+	public static final long RULEID_COLUMN_BITMASK = 4L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -277,7 +284,17 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	@Override
 	public void setTriggerAction(String triggerAction) {
+		_columnBitmask |= TRIGGERACTION_COLUMN_BITMASK;
+
+		if (_originalTriggerAction == null) {
+			_originalTriggerAction = _triggerAction;
+		}
+
 		_triggerAction = triggerAction;
+	}
+
+	public String getOriginalTriggerAction() {
+		return GetterUtil.getString(_originalTriggerAction);
 	}
 
 	@Override
@@ -292,7 +309,21 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	@Override
 	public void setTriggerObject(String triggerObject) {
+		_columnBitmask |= TRIGGEROBJECT_COLUMN_BITMASK;
+
+		if (_originalTriggerObject == null) {
+			_originalTriggerObject = _triggerObject;
+		}
+
 		_triggerObject = triggerObject;
+	}
+
+	public String getOriginalTriggerObject() {
+		return GetterUtil.getString(_originalTriggerObject);
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -391,6 +422,13 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	@Override
 	public void resetOriginalValues() {
+		RuleModelImpl ruleModelImpl = this;
+
+		ruleModelImpl._originalTriggerAction = ruleModelImpl._triggerAction;
+
+		ruleModelImpl._originalTriggerObject = ruleModelImpl._triggerObject;
+
+		ruleModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -500,7 +538,10 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 	private long _ruleId;
 	private String _name;
 	private String _triggerAction;
+	private String _originalTriggerAction;
 	private String _triggerObject;
+	private String _originalTriggerObject;
+	private long _columnBitmask;
 	private Rule _escapedModel;
 
 }

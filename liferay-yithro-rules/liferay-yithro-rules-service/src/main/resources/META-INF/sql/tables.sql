@@ -1,6 +1,7 @@
 create table Yithro_Action (
 	actionId LONG not null primary key,
 	ruleId LONG,
+	entity VARCHAR(75) null,
 	name VARCHAR(75) null,
 	value VARCHAR(75) null
 );

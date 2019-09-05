@@ -45,6 +45,7 @@ public class ActionWrapper
 
 		attributes.put("actionId", getActionId());
 		attributes.put("ruleId", getRuleId());
+		attributes.put("entity", getEntity());
 		attributes.put("name", getName());
 		attributes.put("value", getValue());
 
@@ -63,6 +64,12 @@ public class ActionWrapper
 
 		if (ruleId != null) {
 			setRuleId(ruleId);
+		}
+
+		String entity = (String)attributes.get("entity");
+
+		if (entity != null) {
+			setEntity(entity);
 		}
 
 		String name = (String)attributes.get("name");
@@ -86,6 +93,16 @@ public class ActionWrapper
 	@Override
 	public long getActionId() {
 		return model.getActionId();
+	}
+
+	/**
+	 * Returns the entity of this action.
+	 *
+	 * @return the entity of this action
+	 */
+	@Override
+	public String getEntity() {
+		return model.getEntity();
 	}
 
 	/**
@@ -141,6 +158,16 @@ public class ActionWrapper
 	@Override
 	public void setActionId(long actionId) {
 		model.setActionId(actionId);
+	}
+
+	/**
+	 * Sets the entity of this action.
+	 *
+	 * @param entity the entity of this action
+	 */
+	@Override
+	public void setEntity(String entity) {
+		model.setEntity(entity);
 	}
 
 	/**

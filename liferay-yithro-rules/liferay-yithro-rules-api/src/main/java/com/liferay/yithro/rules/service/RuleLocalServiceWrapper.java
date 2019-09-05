@@ -261,6 +261,13 @@ public class RuleLocalServiceWrapper
 		return _ruleLocalService.getRules(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.yithro.rules.model.Rule> getRules(
+		String triggerAction, String triggerObject) {
+
+		return _ruleLocalService.getRules(triggerAction, triggerObject);
+	}
+
 	/**
 	 * Returns the number of rules.
 	 *

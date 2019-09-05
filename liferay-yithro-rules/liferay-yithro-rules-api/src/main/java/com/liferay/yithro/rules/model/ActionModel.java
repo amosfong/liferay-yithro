@@ -82,6 +82,21 @@ public interface ActionModel extends BaseModel<Action> {
 	public void setRuleId(long ruleId);
 
 	/**
+	 * Returns the entity of this action.
+	 *
+	 * @return the entity of this action
+	 */
+	@AutoEscape
+	public String getEntity();
+
+	/**
+	 * Sets the entity of this action.
+	 *
+	 * @param entity the entity of this action
+	 */
+	public void setEntity(String entity);
+
+	/**
 	 * Returns the name of this action.
 	 *
 	 * @return the name of this action

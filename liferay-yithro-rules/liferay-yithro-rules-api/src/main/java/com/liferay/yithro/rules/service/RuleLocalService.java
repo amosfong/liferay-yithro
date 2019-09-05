@@ -219,6 +219,9 @@ public interface RuleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Rule> getRules(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Rule> getRules(String triggerAction, String triggerObject);
+
 	/**
 	 * Returns the number of rules.
 	 *

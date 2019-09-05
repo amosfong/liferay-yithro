@@ -4,6 +4,7 @@
 	<model name="com.liferay.yithro.rules.model.Action">
 		<field name="actionId" type="long" />
 		<field name="ruleId" type="long" />
+		<field name="entity" type="String" />
 		<field name="name" type="String" />
 		<field name="value" type="String" />
 	</model>
