@@ -50,7 +50,7 @@ public class RuleLocalServiceImpl extends RuleLocalServiceBaseImpl {
 		return rulePersistence.update(rule);
 	}
 
-	public List<Rule> findByTA_TO(String triggerAction, String triggerObject) {
+	public List<Rule> getRules(String triggerAction, String triggerObject) {
 		return rulePersistence.findByTA_TO(triggerAction, triggerObject);
 	}
 

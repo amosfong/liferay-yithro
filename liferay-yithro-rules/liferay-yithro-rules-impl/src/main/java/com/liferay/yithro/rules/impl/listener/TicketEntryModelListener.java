@@ -44,7 +44,7 @@ public class TicketEntryModelListener extends BaseModelListener<TicketEntry> {
 
 		Map<String, ?> map = ticketEntry.getModelAttributes();
 
-		List<Rule> rules = _ruleLocalService.findByTA_TO(
+		List<Rule> rules = _ruleLocalService.getRules(
 			"create", "TicketEntry");
 
 		for (Rule rule : rules) {
@@ -74,7 +74,7 @@ public class TicketEntryModelListener extends BaseModelListener<TicketEntry> {
 
 		Map<String, ?> map = ticketEntry.getModelAttributes();
 
-		List<Rule> rules = _ruleLocalService.findByTA_TO(
+		List<Rule> rules = _ruleLocalService.getRules(
 			"update", "TicketEntry");
 
 		for (Rule rule : rules) {
