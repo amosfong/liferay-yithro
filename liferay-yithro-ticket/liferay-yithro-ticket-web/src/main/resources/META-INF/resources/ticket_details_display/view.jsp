@@ -81,6 +81,8 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 				%>
 
 				<div class="text-secondary" id="<portlet:namespace />ticketEntryReporterDisplay">
+					<aui:icon image="user" markupView="lexicon" />
+
 					<%= HtmlUtil.escape(reporterUser.getFullName()) %>
 				</div>
 
@@ -156,6 +158,8 @@ TicketEntry ticketEntry = (TicketEntry)request.getAttribute(TicketWebKeys.TICKET
 							%>
 
 								<div class="text-secondary ticker-worker-display">
+									<aui:icon image="user" markupView="lexicon" />
+
 									<span class="lfr-portal-tooltip user-name" data-title="<%= LanguageUtil.get(request, TicketWorkerRoles.getLabel(ticketWorker.getRole())) %>"><%= HtmlUtil.escape(curUser.getFullName()) %></span>
 
 									<c:if test="<%= ticketWorker.isPrimary() %>">
