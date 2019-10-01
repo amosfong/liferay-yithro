@@ -31,7 +31,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TicketFlag extends PersistedModel, TicketFlagModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.yithro.ticket.model.impl.TicketFlagImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

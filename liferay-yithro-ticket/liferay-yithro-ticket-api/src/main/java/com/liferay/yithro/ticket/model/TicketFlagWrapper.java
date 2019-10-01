@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketFlag}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketFlag
  * @generated
  */
-@ProviderType
 public class TicketFlagWrapper
 	extends BaseModelWrapper<TicketFlag>
 	implements TicketFlag, ModelWrapper<TicketFlag> {
@@ -196,6 +193,11 @@ public class TicketFlagWrapper
 		return model.getValue();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket flag model instance should use the <code>TicketFlag</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

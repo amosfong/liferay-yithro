@@ -42,7 +42,7 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface TicketFlagService extends BaseService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketFlagServiceUtil} to access the ticket flag remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFlagServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

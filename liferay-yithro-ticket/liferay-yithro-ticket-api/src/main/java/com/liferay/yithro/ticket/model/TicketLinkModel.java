@@ -36,7 +36,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TicketLinkModel extends BaseModel<TicketLink>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket link model instance should use the {@link TicketLink} interface instead.

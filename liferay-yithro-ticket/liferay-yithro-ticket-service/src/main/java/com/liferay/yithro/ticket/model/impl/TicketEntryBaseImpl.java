@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketEntry;
 import com.liferay.yithro.ticket.service.TicketEntryLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketEntry service. Represents a row in the &quot;Yithro_TicketEntry&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketEntry
  * @generated
  */
-@ProviderType
 public abstract class TicketEntryBaseImpl
 	extends TicketEntryModelImpl implements TicketEntry {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket entry model instance should use the <code>TicketEntry</code> interface instead.

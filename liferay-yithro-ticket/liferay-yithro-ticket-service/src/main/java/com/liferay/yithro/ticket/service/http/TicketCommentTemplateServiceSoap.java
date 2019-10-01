@@ -14,7 +14,6 @@
 
 package com.liferay.yithro.ticket.service.http;
 
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Provides the SOAP utility for the
@@ -55,6 +54,5 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketCommentTemplateServiceHttp
  * @generated
  */
-@ProviderType
 public class TicketCommentTemplateServiceSoap {
 }

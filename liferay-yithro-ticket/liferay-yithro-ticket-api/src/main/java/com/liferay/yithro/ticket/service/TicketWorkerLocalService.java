@@ -55,15 +55,14 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketWorkerLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketWorkerLocalServiceUtil} to access the ticket worker local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketWorkerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public TicketWorker addTicketWorker(
-			long userId, long workerUserId, long ticketEntryId,
-			long sourceClassNameId, long sourceClassPK, int role,
-			boolean primary)
+			long workerUserId, long ticketEntryId, long sourceClassNameId,
+			long sourceClassPK, int role, boolean primary)
 		throws PortalException;
 
 	/**
@@ -100,9 +99,6 @@ public interface TicketWorkerLocalService
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public TicketWorker deleteTicketWorker(long ticketWorkerId)
-		throws PortalException;
-
-	public void deleteTicketWorker(long userId, long ticketWorkerId)
 		throws PortalException;
 
 	/**
@@ -265,8 +261,12 @@ public interface TicketWorkerLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean hasTicketWorker(long userId, long ticketEntryId);
 
+	public void setTicketWorkers(
+			long ticketEntryId, long[] userIds, int[] roles, long primaryUserId)
+		throws PortalException;
+
 	public TicketWorker updateTicketWorker(
-			long userId, long ticketWorkerId, int role, boolean primary)
+			long ticketWorkerId, int role, boolean primary)
 		throws PortalException;
 
 	/**

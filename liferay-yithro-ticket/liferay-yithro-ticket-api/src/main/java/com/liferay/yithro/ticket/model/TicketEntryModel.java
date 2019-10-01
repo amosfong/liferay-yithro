@@ -38,7 +38,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketEntryModel
 	extends AuditedModel, BaseModel<TicketEntry>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket entry model instance should use the {@link TicketEntry} interface instead.

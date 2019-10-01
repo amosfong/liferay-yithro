@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketFieldOptionLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketFieldOptionLocalService
  * @generated
  */
-@ProviderType
 public class TicketFieldOptionLocalServiceWrapper
 	implements TicketFieldOptionLocalService,
 			   ServiceWrapper<TicketFieldOptionLocalService> {
@@ -36,6 +33,11 @@ public class TicketFieldOptionLocalServiceWrapper
 		_ticketFieldOptionLocalService = ticketFieldOptionLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketFieldOptionLocalServiceUtil} to access the ticket field option local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldOptionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketFieldOption
 			addTicketFieldOption(

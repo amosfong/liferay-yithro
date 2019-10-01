@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketCommunication}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketCommunication
  * @generated
  */
-@ProviderType
 public class TicketCommunicationWrapper
 	extends BaseModelWrapper<TicketCommunication>
 	implements TicketCommunication, ModelWrapper<TicketCommunication> {
@@ -240,6 +237,11 @@ public class TicketCommunicationWrapper
 		return model.getVisibility();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket communication model instance should use the <code>TicketCommunication</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

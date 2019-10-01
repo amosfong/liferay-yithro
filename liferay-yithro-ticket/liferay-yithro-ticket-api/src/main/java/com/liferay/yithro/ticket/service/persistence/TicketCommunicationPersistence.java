@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommunicationPersistence
 	extends BasePersistence<TicketCommunication> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommunicationUtil} to access the ticket communication persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

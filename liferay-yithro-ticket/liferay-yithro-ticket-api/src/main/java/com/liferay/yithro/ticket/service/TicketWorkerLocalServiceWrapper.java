@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketWorkerLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketWorkerLocalService
  * @generated
  */
-@ProviderType
 public class TicketWorkerLocalServiceWrapper
 	implements TicketWorkerLocalService,
 			   ServiceWrapper<TicketWorkerLocalService> {
@@ -36,16 +33,20 @@ public class TicketWorkerLocalServiceWrapper
 		_ticketWorkerLocalService = ticketWorkerLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketWorkerLocalServiceUtil} to access the ticket worker local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketWorkerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketWorker addTicketWorker(
-			long userId, long workerUserId, long ticketEntryId,
-			long sourceClassNameId, long sourceClassPK, int role,
-			boolean primary)
+			long workerUserId, long ticketEntryId, long sourceClassNameId,
+			long sourceClassPK, int role, boolean primary)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketWorkerLocalService.addTicketWorker(
-			userId, workerUserId, ticketEntryId, sourceClassNameId,
-			sourceClassPK, role, primary);
+			workerUserId, ticketEntryId, sourceClassNameId, sourceClassPK, role,
+			primary);
 	}
 
 	/**
@@ -98,13 +99,6 @@ public class TicketWorkerLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketWorkerLocalService.deleteTicketWorker(ticketWorkerId);
-	}
-
-	@Override
-	public void deleteTicketWorker(long userId, long ticketWorkerId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_ticketWorkerLocalService.deleteTicketWorker(userId, ticketWorkerId);
 	}
 
 	/**
@@ -363,12 +357,21 @@ public class TicketWorkerLocalServiceWrapper
 	}
 
 	@Override
+	public void setTicketWorkers(
+			long ticketEntryId, long[] userIds, int[] roles, long primaryUserId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_ticketWorkerLocalService.setTicketWorkers(
+			ticketEntryId, userIds, roles, primaryUserId);
+	}
+
+	@Override
 	public com.liferay.yithro.ticket.model.TicketWorker updateTicketWorker(
-			long userId, long ticketWorkerId, int role, boolean primary)
+			long ticketWorkerId, int role, boolean primary)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketWorkerLocalService.updateTicketWorker(
-			userId, ticketWorkerId, role, primary);
+			ticketWorkerId, role, primary);
 	}
 
 	/**

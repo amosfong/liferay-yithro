@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketStructurePersistence
 	extends BasePersistence<TicketStructure> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketStructureUtil} to access the ticket structure persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

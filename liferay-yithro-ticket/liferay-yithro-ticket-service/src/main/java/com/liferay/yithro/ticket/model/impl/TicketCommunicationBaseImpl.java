@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketCommunication;
 import com.liferay.yithro.ticket.service.TicketCommunicationLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketCommunication service. Represents a row in the &quot;Yithro_TicketCommunication&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketCommunication
  * @generated
  */
-@ProviderType
 public abstract class TicketCommunicationBaseImpl
 	extends TicketCommunicationModelImpl implements TicketCommunication {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket communication model instance should use the <code>TicketCommunication</code> interface instead.

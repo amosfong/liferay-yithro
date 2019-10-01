@@ -56,7 +56,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommunicationLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommunicationLocalServiceUtil} to access the ticket communication local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommunicationLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

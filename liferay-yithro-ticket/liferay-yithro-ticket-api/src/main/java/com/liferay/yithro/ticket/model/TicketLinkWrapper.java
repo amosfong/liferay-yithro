@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketLink}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketLink
  * @generated
  */
-@ProviderType
 public class TicketLinkWrapper
 	extends BaseModelWrapper<TicketLink>
 	implements TicketLink, ModelWrapper<TicketLink> {
@@ -248,6 +245,11 @@ public class TicketLinkWrapper
 		return model.getVisibilityLabel();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket link model instance should use the <code>TicketLink</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

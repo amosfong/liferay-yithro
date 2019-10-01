@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketComment}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketComment
  * @generated
  */
-@ProviderType
 public class TicketCommentWrapper
 	extends BaseModelWrapper<TicketComment>
 	implements TicketComment, ModelWrapper<TicketComment> {
@@ -323,6 +320,11 @@ public class TicketCommentWrapper
 		return model.getVisibility();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket comment model instance should use the <code>TicketComment</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

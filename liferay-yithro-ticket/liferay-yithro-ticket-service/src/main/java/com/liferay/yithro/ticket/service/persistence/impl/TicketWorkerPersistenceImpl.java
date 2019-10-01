@@ -52,7 +52,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -69,12 +68,11 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = TicketWorkerPersistence.class)
-@ProviderType
 public class TicketWorkerPersistenceImpl
 	extends BasePersistenceImpl<TicketWorker>
 	implements TicketWorkerPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TicketWorkerUtil</code> to access the ticket worker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -3002,7 +3000,7 @@ public class TicketWorkerPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {

@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketStatusLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketStatusLocalService
  * @generated
  */
-@ProviderType
 public class TicketStatusLocalServiceWrapper
 	implements TicketStatusLocalService,
 			   ServiceWrapper<TicketStatusLocalService> {
@@ -36,6 +33,11 @@ public class TicketStatusLocalServiceWrapper
 		_ticketStatusLocalService = ticketStatusLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketStatusLocalServiceUtil} to access the ticket status local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketStatusLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketStatus addTicketStatus(
 			long userId, java.util.Map<java.util.Locale, String> nameMap,

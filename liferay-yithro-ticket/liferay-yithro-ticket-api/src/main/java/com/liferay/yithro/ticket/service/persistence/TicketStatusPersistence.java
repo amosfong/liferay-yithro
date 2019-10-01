@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TicketStatusPersistence extends BasePersistence<TicketStatus> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketStatusUtil} to access the ticket status persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

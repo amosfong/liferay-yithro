@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketFieldDataPersistence
 	extends BasePersistence<TicketFieldData> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketFieldDataUtil} to access the ticket field data persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

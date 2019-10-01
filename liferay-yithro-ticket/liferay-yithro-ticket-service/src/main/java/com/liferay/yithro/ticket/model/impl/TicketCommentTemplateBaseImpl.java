@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketCommentTemplate;
 import com.liferay.yithro.ticket.service.TicketCommentTemplateLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketCommentTemplate service. Represents a row in the &quot;Yithro_TicketCommentTemplate&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketCommentTemplate
  * @generated
  */
-@ProviderType
 public abstract class TicketCommentTemplateBaseImpl
 	extends TicketCommentTemplateModelImpl implements TicketCommentTemplate {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket comment template model instance should use the <code>TicketCommentTemplate</code> interface instead.

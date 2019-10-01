@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketStatus;
 import com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketStatus service. Represents a row in the &quot;Yithro_TicketStatus&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketStatus
  * @generated
  */
-@ProviderType
 public abstract class TicketStatusBaseImpl
 	extends TicketStatusModelImpl implements TicketStatus {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket status model instance should use the <code>TicketStatus</code> interface instead.

@@ -58,7 +58,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketAttachmentLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketAttachmentLocalServiceUtil} to access the ticket attachment local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketAttachmentLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

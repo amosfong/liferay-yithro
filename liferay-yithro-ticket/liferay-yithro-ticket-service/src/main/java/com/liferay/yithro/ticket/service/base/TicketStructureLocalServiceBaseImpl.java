@@ -58,7 +58,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -72,13 +71,12 @@ import org.osgi.service.component.annotations.Reference;
  * @see com.liferay.yithro.ticket.service.impl.TicketStructureLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class TicketStructureLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements TicketStructureLocalService, AopService,
 			   IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketStructureLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketStructureLocalServiceUtil</code>.

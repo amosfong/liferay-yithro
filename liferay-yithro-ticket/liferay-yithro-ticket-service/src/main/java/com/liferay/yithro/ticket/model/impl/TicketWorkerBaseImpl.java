@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketWorker;
 import com.liferay.yithro.ticket.service.TicketWorkerLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketWorker service. Represents a row in the &quot;Yithro_TicketWorker&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketWorker
  * @generated
  */
-@ProviderType
 public abstract class TicketWorkerBaseImpl
 	extends TicketWorkerModelImpl implements TicketWorker {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket worker model instance should use the <code>TicketWorker</code> interface instead.

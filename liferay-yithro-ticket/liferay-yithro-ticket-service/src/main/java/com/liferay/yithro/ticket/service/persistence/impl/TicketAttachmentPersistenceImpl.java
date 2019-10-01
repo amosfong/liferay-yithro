@@ -54,7 +54,6 @@ import java.util.Objects;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -71,12 +70,11 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = TicketAttachmentPersistence.class)
-@ProviderType
 public class TicketAttachmentPersistenceImpl
 	extends BasePersistenceImpl<TicketAttachment>
 	implements TicketAttachmentPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TicketAttachmentUtil</code> to access the ticket attachment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -1382,7 +1380,7 @@ public class TicketAttachmentPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("createDate=");
+		msg.append("createDate<");
 		msg.append(createDate);
 
 		msg.append(", ticketEntryId=");
@@ -1442,7 +1440,7 @@ public class TicketAttachmentPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("createDate=");
+		msg.append("createDate<");
 		msg.append(createDate);
 
 		msg.append(", ticketEntryId=");
@@ -5476,7 +5474,7 @@ public class TicketAttachmentPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {

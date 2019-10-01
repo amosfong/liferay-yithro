@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketFieldOption;
 import com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketFieldOption service. Represents a row in the &quot;Yithro_TicketFieldOption&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketFieldOption
  * @generated
  */
-@ProviderType
 public abstract class TicketFieldOptionBaseImpl
 	extends TicketFieldOptionModelImpl implements TicketFieldOption {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket field option model instance should use the <code>TicketFieldOption</code> interface instead.

@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommunication
 	extends PersistedModel, TicketCommunicationModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.yithro.ticket.model.impl.TicketCommunicationImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

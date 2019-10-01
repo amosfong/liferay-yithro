@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommentTemplateLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommentTemplateLocalServiceUtil} to access the ticket comment template local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

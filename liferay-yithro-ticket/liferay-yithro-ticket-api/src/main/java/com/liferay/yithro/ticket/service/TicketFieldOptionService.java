@@ -42,7 +42,7 @@ import org.osgi.annotation.versioning.ProviderType;
 )
 public interface TicketFieldOptionService extends BaseService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketFieldOptionServiceUtil} to access the ticket field option remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketFieldOptionServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketEntryService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketEntryService
  * @generated
  */
-@ProviderType
 public class TicketEntryServiceWrapper
 	implements TicketEntryService, ServiceWrapper<TicketEntryService> {
 
@@ -33,6 +30,11 @@ public class TicketEntryServiceWrapper
 		_ticketEntryService = ticketEntryService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketEntryServiceUtil} to access the ticket entry remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
 			long ticketStructureId, long ticketStatusId, String languageId,

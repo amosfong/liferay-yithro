@@ -58,7 +58,7 @@ public abstract class TicketFieldServiceBaseImpl
 	extends BaseServiceImpl
 	implements TicketFieldService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketFieldService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketFieldServiceUtil</code>.

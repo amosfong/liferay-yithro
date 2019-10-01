@@ -22,8 +22,6 @@ import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides the HTTP utility for the
  * <code>TicketEntryServiceUtil</code> service
@@ -51,7 +49,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketEntryServiceSoap
  * @generated
  */
-@ProviderType
 public class TicketEntryServiceHttp {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(

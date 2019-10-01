@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketStructureLocalService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketStructureLocalService
  * @generated
  */
-@ProviderType
 public class TicketStructureLocalServiceWrapper
 	implements TicketStructureLocalService,
 			   ServiceWrapper<TicketStructureLocalService> {
@@ -36,6 +33,11 @@ public class TicketStructureLocalServiceWrapper
 		_ticketStructureLocalService = ticketStructureLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketStructureLocalServiceUtil} to access the ticket structure local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketStructureLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketStructure addTicketStructure(
 			long userId, String name, String description, String structure)

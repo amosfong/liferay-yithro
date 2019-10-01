@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketStatus}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketStatus
  * @generated
  */
-@ProviderType
 public class TicketStatusWrapper
 	extends BaseModelWrapper<TicketStatus>
 	implements TicketStatus, ModelWrapper<TicketStatus> {
@@ -394,6 +391,11 @@ public class TicketStatusWrapper
 		return model.isTerminal();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket status model instance should use the <code>TicketStatus</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

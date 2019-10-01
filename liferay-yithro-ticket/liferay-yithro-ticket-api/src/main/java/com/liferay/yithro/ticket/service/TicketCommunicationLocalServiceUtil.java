@@ -14,7 +14,6 @@
 
 package com.liferay.yithro.ticket.service;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -31,13 +30,18 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see TicketCommunicationLocalService
  * @generated
  */
-@ProviderType
 public class TicketCommunicationLocalServiceUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommunicationLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketCommunicationLocalServiceUtil} to access the ticket communication local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommunicationLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketCommunication
 			addTicketCommunication(

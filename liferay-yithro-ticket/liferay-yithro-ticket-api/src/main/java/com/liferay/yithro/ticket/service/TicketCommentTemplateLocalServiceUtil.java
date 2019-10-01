@@ -14,7 +14,6 @@
 
 package com.liferay.yithro.ticket.service;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -31,13 +30,18 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see TicketCommentTemplateLocalService
  * @generated
  */
-@ProviderType
 public class TicketCommentTemplateLocalServiceUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentTemplateLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketCommentTemplateLocalServiceUtil} to access the ticket comment template local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketCommentTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public static com.liferay.yithro.ticket.model.TicketCommentTemplate
 			addTicketCommentTemplate(

@@ -37,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketAttachmentModel
 	extends BaseModel<TicketAttachment>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket attachment model instance should use the {@link TicketAttachment} interface instead.

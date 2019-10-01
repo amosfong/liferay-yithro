@@ -55,7 +55,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -72,11 +71,10 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = TicketEntryPersistence.class)
-@ProviderType
 public class TicketEntryPersistenceImpl
 	extends BasePersistenceImpl<TicketEntry> implements TicketEntryPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TicketEntryUtil</code> to access the ticket entry persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -302,7 +300,7 @@ public class TicketEntryPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("modifiedDate=");
+		msg.append("modifiedDate>=");
 		msg.append(modifiedDate);
 
 		msg.append("}");
@@ -355,7 +353,7 @@ public class TicketEntryPersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("modifiedDate=");
+		msg.append("modifiedDate>=");
 		msg.append(modifiedDate);
 
 		msg.append("}");
@@ -2143,7 +2141,7 @@ public class TicketEntryPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {

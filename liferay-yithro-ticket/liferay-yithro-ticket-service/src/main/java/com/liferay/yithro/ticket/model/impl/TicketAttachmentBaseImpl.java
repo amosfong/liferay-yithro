@@ -17,8 +17,6 @@ package com.liferay.yithro.ticket.model.impl;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.service.TicketAttachmentLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the TicketAttachment service. Represents a row in the &quot;Yithro_TicketAttachment&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketAttachment
  * @generated
  */
-@ProviderType
 public abstract class TicketAttachmentBaseImpl
 	extends TicketAttachmentModelImpl implements TicketAttachment {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket attachment model instance should use the <code>TicketAttachment</code> interface instead.

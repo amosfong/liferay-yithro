@@ -58,7 +58,7 @@ public abstract class TicketCommentServiceBaseImpl
 	extends BaseServiceImpl
 	implements TicketCommentService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketCommentService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketCommentServiceUtil</code>.

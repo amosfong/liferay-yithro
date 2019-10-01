@@ -20,8 +20,6 @@ import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
 
 import java.rmi.RemoteException;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides the SOAP utility for the
  * <code>TicketEntryServiceUtil</code> service
@@ -61,7 +59,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketEntryServiceHttp
  * @generated
  */
-@ProviderType
 public class TicketEntryServiceSoap {
 
 	public static com.liferay.yithro.ticket.model.TicketEntrySoap

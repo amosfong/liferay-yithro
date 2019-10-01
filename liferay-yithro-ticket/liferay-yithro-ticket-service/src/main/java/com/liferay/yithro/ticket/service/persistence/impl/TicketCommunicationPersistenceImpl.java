@@ -54,7 +54,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -71,12 +70,11 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = TicketCommunicationPersistence.class)
-@ProviderType
 public class TicketCommunicationPersistenceImpl
 	extends BasePersistenceImpl<TicketCommunication>
 	implements TicketCommunicationPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>TicketCommunicationUtil</code> to access the ticket communication persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -1321,7 +1319,7 @@ public class TicketCommunicationPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {

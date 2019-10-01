@@ -58,7 +58,7 @@ public abstract class TicketStatusServiceBaseImpl
 	extends BaseServiceImpl
 	implements TicketStatusService, AopService, IdentifiableOSGiService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketStatusService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketStatusServiceUtil</code>.

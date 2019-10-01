@@ -21,8 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link TicketEntry}.
@@ -32,7 +30,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketEntry
  * @generated
  */
-@ProviderType
 public class TicketEntryWrapper
 	extends BaseModelWrapper<TicketEntry>
 	implements TicketEntry, ModelWrapper<TicketEntry> {
@@ -358,6 +355,11 @@ public class TicketEntryWrapper
 		return model.isClosed();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a ticket entry model instance should use the <code>TicketEntry</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

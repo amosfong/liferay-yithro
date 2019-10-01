@@ -16,8 +16,6 @@ package com.liferay.yithro.ticket.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link TicketFieldDataService}.
  *
@@ -25,7 +23,6 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see TicketFieldDataService
  * @generated
  */
-@ProviderType
 public class TicketFieldDataServiceWrapper
 	implements TicketFieldDataService, ServiceWrapper<TicketFieldDataService> {
 

@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommentPersistence
 	extends BasePersistence<TicketComment> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TicketCommentUtil} to access the ticket comment persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.

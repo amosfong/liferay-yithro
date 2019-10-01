@@ -14,7 +14,6 @@
 
 package com.liferay.yithro.ticket.service;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -31,23 +30,27 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see TicketWorkerLocalService
  * @generated
  */
-@ProviderType
 public class TicketWorkerLocalServiceUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketWorkerLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link TicketWorkerLocalServiceUtil} to access the ticket worker local service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketWorkerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	public static com.liferay.yithro.ticket.model.TicketWorker addTicketWorker(
-			long userId, long workerUserId, long ticketEntryId,
-			long sourceClassNameId, long sourceClassPK, int role,
-			boolean primary)
+			long workerUserId, long ticketEntryId, long sourceClassNameId,
+			long sourceClassPK, int role, boolean primary)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addTicketWorker(
-			userId, workerUserId, ticketEntryId, sourceClassNameId,
-			sourceClassPK, role, primary);
+			workerUserId, ticketEntryId, sourceClassNameId, sourceClassPK, role,
+			primary);
 	}
 
 	/**
@@ -97,12 +100,6 @@ public class TicketWorkerLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteTicketWorker(ticketWorkerId);
-	}
-
-	public static void deleteTicketWorker(long userId, long ticketWorkerId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		getService().deleteTicketWorker(userId, ticketWorkerId);
 	}
 
 	/**
@@ -335,13 +332,19 @@ public class TicketWorkerLocalServiceUtil {
 		return getService().hasTicketWorker(userId, ticketEntryId);
 	}
 
-	public static com.liferay.yithro.ticket.model.TicketWorker
-			updateTicketWorker(
-				long userId, long ticketWorkerId, int role, boolean primary)
+	public static void setTicketWorkers(
+			long ticketEntryId, long[] userIds, int[] roles, long primaryUserId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return getService().updateTicketWorker(
-			userId, ticketWorkerId, role, primary);
+		getService().setTicketWorkers(
+			ticketEntryId, userIds, roles, primaryUserId);
+	}
+
+	public static com.liferay.yithro.ticket.model.TicketWorker
+			updateTicketWorker(long ticketWorkerId, int role, boolean primary)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTicketWorker(ticketWorkerId, role, primary);
 	}
 
 	/**
