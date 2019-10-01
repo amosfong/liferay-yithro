@@ -35,7 +35,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface SupportWorkerPersistence
 	extends BasePersistence<SupportWorker> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportWorkerUtil} to access the support worker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
@@ -93,14 +93,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public java.util.List<SupportWorker> findByUserId(
 		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support worker in the ordered set where userId = &#63;.
@@ -237,14 +237,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public java.util.List<SupportWorker> findBySupportTeamId(
 		long supportTeamId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support worker in the ordered set where supportTeamId = &#63;.
@@ -381,14 +381,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public java.util.List<SupportWorker> findBySupportLaborId(
 		long supportLaborId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support worker in the ordered set where supportLaborId = &#63;.
@@ -497,11 +497,11 @@ public interface SupportWorkerPersistence
 	 *
 	 * @param userId the user ID
 	 * @param supportTeamId the support team ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching support worker, or <code>null</code> if a matching support worker could not be found
 	 */
 	public SupportWorker fetchByU_STI(
-		long userId, long supportTeamId, boolean retrieveFromCache);
+		long userId, long supportTeamId, boolean useFinderCache);
 
 	/**
 	 * Removes the support worker where userId = &#63; and supportTeamId = &#63; from the database.
@@ -583,14 +583,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public java.util.List<SupportWorker> findByU_MW_R(
 		long userId, double maxWork, int role, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support worker in the ordered set where userId = &#63; and maxWork &ne; &#63; and role = &#63;.
@@ -734,14 +734,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public java.util.List<SupportWorker> findByU_MW_R(
 		long[] userIds, double maxWork, int[] roles, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the support workers where userId = &#63; and maxWork &ne; &#63; and role = &#63; from the database.
@@ -871,14 +871,14 @@ public interface SupportWorkerPersistence
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support workers
 	 */
 	public java.util.List<SupportWorker> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportWorker>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the support workers from the database.

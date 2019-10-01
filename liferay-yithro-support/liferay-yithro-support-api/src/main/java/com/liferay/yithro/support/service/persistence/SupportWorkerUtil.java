@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -41,10 +40,9 @@ import org.osgi.util.tracker.ServiceTracker;
  * @see SupportWorkerPersistence
  * @generated
  */
-@ProviderType
 public class SupportWorkerUtil {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this class directly. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -185,16 +183,16 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public static List<SupportWorker> findByUserId(
 		long userId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByUserId(
-			userId, start, end, orderByComparator, retrieveFromCache);
+			userId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -353,16 +351,16 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public static List<SupportWorker> findBySupportTeamId(
 		long supportTeamId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findBySupportTeamId(
-			supportTeamId, start, end, orderByComparator, retrieveFromCache);
+			supportTeamId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -532,16 +530,16 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public static List<SupportWorker> findBySupportLaborId(
 		long supportLaborId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findBySupportLaborId(
-			supportLaborId, start, end, orderByComparator, retrieveFromCache);
+			supportLaborId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
@@ -679,14 +677,14 @@ public class SupportWorkerUtil {
 	 *
 	 * @param userId the user ID
 	 * @param supportTeamId the support team ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching support worker, or <code>null</code> if a matching support worker could not be found
 	 */
 	public static SupportWorker fetchByU_STI(
-		long userId, long supportTeamId, boolean retrieveFromCache) {
+		long userId, long supportTeamId, boolean useFinderCache) {
 
 		return getPersistence().fetchByU_STI(
-			userId, supportTeamId, retrieveFromCache);
+			userId, supportTeamId, useFinderCache);
 	}
 
 	/**
@@ -784,17 +782,17 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public static List<SupportWorker> findByU_MW_R(
 		long userId, double maxWork, int role, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_MW_R(
 			userId, maxWork, role, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -967,17 +965,17 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	public static List<SupportWorker> findByU_MW_R(
 		long[] userIds, double maxWork, int[] roles, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findByU_MW_R(
 			userIds, maxWork, roles, start, end, orderByComparator,
-			retrieveFromCache);
+			useFinderCache);
 	}
 
 	/**
@@ -1140,15 +1138,15 @@ public class SupportWorkerUtil {
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support workers
 	 */
 	public static List<SupportWorker> findAll(
 		int start, int end, OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		return getPersistence().findAll(
-			start, end, orderByComparator, retrieveFromCache);
+			start, end, orderByComparator, useFinderCache);
 	}
 
 	/**

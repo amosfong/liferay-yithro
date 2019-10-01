@@ -26,10 +26,9 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -54,7 +53,6 @@ import java.util.Objects;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -71,11 +69,10 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = SupportTeamPersistence.class)
-@ProviderType
 public class SupportTeamPersistenceImpl
 	extends BasePersistenceImpl<SupportTeam> implements SupportTeamPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SupportTeamUtil</code> to access the support team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -162,14 +159,14 @@ public class SupportTeamPersistenceImpl
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support teams
 	 */
 	@Override
 	public List<SupportTeam> findByParentSupportTeamId(
 		long parentSupportTeamId, int start, int end,
 		OrderByComparator<SupportTeam> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -179,10 +176,14 @@ public class SupportTeamPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByParentSupportTeamId;
-			finderArgs = new Object[] {parentSupportTeamId};
+
+			if (useFinderCache) {
+				finderPath =
+					_finderPathWithoutPaginationFindByParentSupportTeamId;
+				finderArgs = new Object[] {parentSupportTeamId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByParentSupportTeamId;
 			finderArgs = new Object[] {
 				parentSupportTeamId, start, end, orderByComparator
@@ -191,14 +192,14 @@ public class SupportTeamPersistenceImpl
 
 		List<SupportTeam> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportTeam>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SupportTeam supportTeam : list) {
-					if ((parentSupportTeamId !=
-							supportTeam.getParentSupportTeamId())) {
+					if (parentSupportTeamId !=
+							supportTeam.getParentSupportTeamId()) {
 
 						list = null;
 
@@ -260,10 +261,14 @@ public class SupportTeamPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -683,14 +688,14 @@ public class SupportTeamPersistenceImpl
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support teams
 	 */
 	@Override
 	public List<SupportTeam> findBySupportLaborId(
 		long supportLaborId, int start, int end,
 		OrderByComparator<SupportTeam> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -700,10 +705,13 @@ public class SupportTeamPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindBySupportLaborId;
-			finderArgs = new Object[] {supportLaborId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindBySupportLaborId;
+				finderArgs = new Object[] {supportLaborId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindBySupportLaborId;
 			finderArgs = new Object[] {
 				supportLaborId, start, end, orderByComparator
@@ -712,13 +720,13 @@ public class SupportTeamPersistenceImpl
 
 		List<SupportTeam> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportTeam>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SupportTeam supportTeam : list) {
-					if ((supportLaborId != supportTeam.getSupportLaborId())) {
+					if (supportLaborId != supportTeam.getSupportLaborId()) {
 						list = null;
 
 						break;
@@ -778,10 +786,14 @@ public class SupportTeamPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1178,18 +1190,22 @@ public class SupportTeamPersistenceImpl
 	 * Returns the support team where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param name the name
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching support team, or <code>null</code> if a matching support team could not be found
 	 */
 	@Override
-	public SupportTeam fetchByName(String name, boolean retrieveFromCache) {
+	public SupportTeam fetchByName(String name, boolean useFinderCache) {
 		name = Objects.toString(name, "");
 
-		Object[] finderArgs = new Object[] {name};
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {name};
+		}
 
 		Object result = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByName, finderArgs, this);
 		}
@@ -1236,14 +1252,20 @@ public class SupportTeamPersistenceImpl
 				List<SupportTeam> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByName, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByName, finderArgs, list);
+					}
 				}
 				else {
 					if (list.size() > 1) {
 						Collections.sort(list, Collections.reverseOrder());
 
 						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {name};
+							}
+
 							_log.warn(
 								"SupportTeamPersistenceImpl.fetchByName(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
@@ -1259,7 +1281,10 @@ public class SupportTeamPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByName, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByName, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1501,7 +1526,7 @@ public class SupportTeamPersistenceImpl
 		supportTeam.setNew(true);
 		supportTeam.setPrimaryKey(supportTeamId);
 
-		supportTeam.setCompanyId(companyProvider.getCompanyId());
+		supportTeam.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return supportTeam;
 	}
@@ -1849,13 +1874,13 @@ public class SupportTeamPersistenceImpl
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support teams
 	 */
 	@Override
 	public List<SupportTeam> findAll(
 		int start, int end, OrderByComparator<SupportTeam> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1865,17 +1890,20 @@ public class SupportTeamPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SupportTeam> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportTeam>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -1925,10 +1953,14 @@ public class SupportTeamPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2092,7 +2124,7 @@ public class SupportTeamPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
@@ -2124,9 +2156,6 @@ public class SupportTeamPersistenceImpl
 
 	private boolean _columnBitmaskEnabled;
 
-	@Reference(service = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
-
 	@Reference
 	protected EntityCache entityCache;
 
@@ -2155,5 +2184,14 @@ public class SupportTeamPersistenceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		SupportTeamPersistenceImpl.class);
+
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

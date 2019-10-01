@@ -17,8 +17,6 @@ package com.liferay.yithro.support.model.impl;
 import com.liferay.yithro.support.model.SupportWorker;
 import com.liferay.yithro.support.service.SupportWorkerLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the SupportWorker service. Represents a row in the &quot;Yithro_SupportWorker&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportWorker
  * @generated
  */
-@ProviderType
 public abstract class SupportWorkerBaseImpl
 	extends SupportWorkerModelImpl implements SupportWorker {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a support worker model instance should use the <code>SupportWorker</code> interface instead.

@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.yithro.support.model.SupportWorker;
 import com.liferay.yithro.support.service.SupportWorkerService;
 import com.liferay.yithro.support.service.persistence.SupportLaborPersistence;
+import com.liferay.yithro.support.service.persistence.SupportLevelAgreementPersistence;
 import com.liferay.yithro.support.service.persistence.SupportTeamPersistence;
 import com.liferay.yithro.support.service.persistence.SupportWorkerPersistence;
 
@@ -46,9 +47,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class SupportWorkerServiceBaseImpl
 	extends BaseServiceImpl
-	implements SupportWorkerService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, SupportWorkerService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>SupportWorkerService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.support.service.SupportWorkerServiceUtil</code>.
@@ -109,6 +110,9 @@ public abstract class SupportWorkerServiceBaseImpl
 
 	@Reference
 	protected SupportLaborPersistence supportLaborPersistence;
+
+	@Reference
+	protected SupportLevelAgreementPersistence supportLevelAgreementPersistence;
 
 	@Reference
 	protected SupportTeamPersistence supportTeamPersistence;

@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link SupportWorker}.
@@ -31,10 +29,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportWorker
  * @generated
  */
-@ProviderType
 public class SupportWorkerWrapper
 	extends BaseModelWrapper<SupportWorker>
-	implements SupportWorker, ModelWrapper<SupportWorker> {
+	implements ModelWrapper<SupportWorker>, SupportWorker {
 
 	public SupportWorkerWrapper(SupportWorker supportWorker) {
 		super(supportWorker);
@@ -247,6 +244,11 @@ public class SupportWorkerWrapper
 		return model.isAvailable();
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. All methods that expect a support worker model instance should use the <code>SupportWorker</code> interface instead.
+	 */
 	@Override
 	public void persist() {
 		model.persist();

@@ -16,8 +16,6 @@ package com.liferay.yithro.support.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link SupportLaborLocalService}.
  *
@@ -25,10 +23,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportLaborLocalService
  * @generated
  */
-@ProviderType
 public class SupportLaborLocalServiceWrapper
-	implements SupportLaborLocalService,
-			   ServiceWrapper<SupportLaborLocalService> {
+	implements ServiceWrapper<SupportLaborLocalService>,
+			   SupportLaborLocalService {
 
 	public SupportLaborLocalServiceWrapper(
 		SupportLaborLocalService supportLaborLocalService) {
@@ -36,6 +33,11 @@ public class SupportLaborLocalServiceWrapper
 		_supportLaborLocalService = supportLaborLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link SupportLaborLocalServiceUtil} to access the support labor local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.support.model.SupportLabor addSupportLabor(
 			long userId, String name, String description, String timeZoneId,

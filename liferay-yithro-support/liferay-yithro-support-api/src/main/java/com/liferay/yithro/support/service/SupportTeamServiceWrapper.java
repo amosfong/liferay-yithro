@@ -16,8 +16,6 @@ package com.liferay.yithro.support.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link SupportTeamService}.
  *
@@ -25,9 +23,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportTeamService
  * @generated
  */
-@ProviderType
 public class SupportTeamServiceWrapper
-	implements SupportTeamService, ServiceWrapper<SupportTeamService> {
+	implements ServiceWrapper<SupportTeamService>, SupportTeamService {
 
 	public SupportTeamServiceWrapper(SupportTeamService supportTeamService) {
 		_supportTeamService = supportTeamService;

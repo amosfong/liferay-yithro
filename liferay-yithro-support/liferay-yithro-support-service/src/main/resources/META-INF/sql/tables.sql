@@ -22,6 +22,16 @@ create table Yithro_SupportLabor (
 	satClose INTEGER
 );
 
+create table Yithro_SupportLevelAgreement (
+	supportLevelAgreementId LONG not null primary key,
+	companyId LONG,
+	userId LONG,
+	createDate DATE null,
+	modifiedDate DATE null,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null
+);
+
 create table Yithro_SupportTeam (
 	supportTeamId LONG not null primary key,
 	companyId LONG,

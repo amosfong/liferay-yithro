@@ -33,6 +33,9 @@ import com.liferay.yithro.support.model.SupportWorkerSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -43,8 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SupportWorker service. Represents a row in the &quot;Yithro_SupportWorker&quot; database table, with each column mapped to a property of this class.
@@ -58,11 +59,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @JSON(strict = true)
-@ProviderType
 public class SupportWorkerModelImpl
 	extends BaseModelImpl<SupportWorker> implements SupportWorkerModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a support worker model instance should use the <code>SupportWorker</code> interface instead.
@@ -260,6 +260,32 @@ public class SupportWorkerModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, SupportWorker>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			SupportWorker.class.getClassLoader(), SupportWorker.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<SupportWorker> constructor =
+				(Constructor<SupportWorker>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<SupportWorker, Object>>
@@ -499,8 +525,12 @@ public class SupportWorkerModelImpl
 	@Override
 	public SupportWorker toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (SupportWorker)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			Function<InvocationHandler, SupportWorker>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -694,11 +724,13 @@ public class SupportWorkerModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		SupportWorker.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		SupportWorker.class, ModelWrapper.class
-	};
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SupportWorker>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
+
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

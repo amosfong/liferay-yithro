@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SupportLaborPersistence extends BasePersistence<SupportLabor> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportLaborUtil} to access the support labor persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
@@ -139,14 +139,14 @@ public interface SupportLaborPersistence extends BasePersistence<SupportLabor> {
 	 * @param start the lower bound of the range of support labors
 	 * @param end the upper bound of the range of support labors (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support labors
 	 */
 	public java.util.List<SupportLabor> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportLabor>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the support labors from the database.

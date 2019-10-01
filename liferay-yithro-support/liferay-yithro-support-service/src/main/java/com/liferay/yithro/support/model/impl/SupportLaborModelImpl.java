@@ -33,6 +33,9 @@ import com.liferay.yithro.support.model.SupportLaborSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -43,8 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SupportLabor service. Represents a row in the &quot;Yithro_SupportLabor&quot; database table, with each column mapped to a property of this class.
@@ -58,11 +59,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @JSON(strict = true)
-@ProviderType
 public class SupportLaborModelImpl
 	extends BaseModelImpl<SupportLabor> implements SupportLaborModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a support labor model instance should use the <code>SupportLabor</code> interface instead.
@@ -281,6 +281,32 @@ public class SupportLaborModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, SupportLabor>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			SupportLabor.class.getClassLoader(), SupportLabor.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<SupportLabor> constructor =
+				(Constructor<SupportLabor>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<SupportLabor, Object>>
@@ -668,8 +694,12 @@ public class SupportLaborModelImpl
 	@Override
 	public SupportLabor toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (SupportLabor)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			Function<InvocationHandler, SupportLabor>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -898,11 +928,13 @@ public class SupportLaborModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		SupportLabor.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		SupportLabor.class, ModelWrapper.class
-	};
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SupportLabor>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
+
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 

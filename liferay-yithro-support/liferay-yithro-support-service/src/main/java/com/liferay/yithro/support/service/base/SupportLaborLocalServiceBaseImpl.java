@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.yithro.support.model.SupportLabor;
 import com.liferay.yithro.support.service.SupportLaborLocalService;
 import com.liferay.yithro.support.service.persistence.SupportLaborPersistence;
+import com.liferay.yithro.support.service.persistence.SupportLevelAgreementPersistence;
 import com.liferay.yithro.support.service.persistence.SupportTeamPersistence;
 import com.liferay.yithro.support.service.persistence.SupportWorkerPersistence;
 
@@ -48,7 +49,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -62,12 +62,11 @@ import org.osgi.service.component.annotations.Reference;
  * @see com.liferay.yithro.support.service.impl.SupportLaborLocalServiceImpl
  * @generated
  */
-@ProviderType
 public abstract class SupportLaborLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
-	implements SupportLaborLocalService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, SupportLaborLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>SupportLaborLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.support.service.SupportLaborLocalServiceUtil</code>.
@@ -389,6 +388,9 @@ public abstract class SupportLaborLocalServiceBaseImpl
 
 	@Reference
 	protected SupportLaborPersistence supportLaborPersistence;
+
+	@Reference
+	protected SupportLevelAgreementPersistence supportLevelAgreementPersistence;
 
 	@Reference
 	protected SupportTeamPersistence supportTeamPersistence;

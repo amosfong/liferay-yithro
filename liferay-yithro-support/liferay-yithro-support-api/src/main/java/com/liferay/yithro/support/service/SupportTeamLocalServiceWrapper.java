@@ -16,8 +16,6 @@ package com.liferay.yithro.support.service;
 
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides a wrapper for {@link SupportTeamLocalService}.
  *
@@ -25,10 +23,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportTeamLocalService
  * @generated
  */
-@ProviderType
 public class SupportTeamLocalServiceWrapper
-	implements SupportTeamLocalService,
-			   ServiceWrapper<SupportTeamLocalService> {
+	implements ServiceWrapper<SupportTeamLocalService>,
+			   SupportTeamLocalService {
 
 	public SupportTeamLocalServiceWrapper(
 		SupportTeamLocalService supportTeamLocalService) {
@@ -36,6 +33,11 @@ public class SupportTeamLocalServiceWrapper
 		_supportTeamLocalService = supportTeamLocalService;
 	}
 
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link SupportTeamLocalServiceUtil} to access the support team local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportTeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 */
 	@Override
 	public com.liferay.yithro.support.model.SupportTeam addSupportTeam(
 			long userId, long parentSupportTeamId, long supportLaborId,

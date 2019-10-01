@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SupportLabor extends PersistedModel, SupportLaborModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.yithro.support.model.impl.SupportLaborImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

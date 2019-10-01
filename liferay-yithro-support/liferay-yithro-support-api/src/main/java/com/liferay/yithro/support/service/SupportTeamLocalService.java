@@ -55,7 +55,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface SupportTeamLocalService
 	extends BaseLocalService, PersistedModelLocalService {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportTeamLocalServiceUtil} to access the support team local service. Add custom service methods to <code>com.liferay.yithro.support.service.impl.SupportTeamLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

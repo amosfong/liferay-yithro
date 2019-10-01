@@ -14,8 +14,6 @@
 
 package com.liferay.yithro.support.service.http;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * Provides the HTTP utility for the
  * <code>com.liferay.yithro.support.service.SupportWorkerServiceUtil</code> service
@@ -43,6 +41,5 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportWorkerServiceSoap
  * @generated
  */
-@ProviderType
 public class SupportWorkerServiceHttp {
 }

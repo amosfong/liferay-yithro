@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface SupportWorkerModel
 	extends BaseModel<SupportWorker>, ShardedModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a support worker model instance should use the {@link SupportWorker} interface instead.

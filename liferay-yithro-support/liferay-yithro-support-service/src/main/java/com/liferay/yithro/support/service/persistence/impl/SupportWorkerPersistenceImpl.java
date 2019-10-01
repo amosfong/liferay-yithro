@@ -26,8 +26,7 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.service.persistence.CompanyProvider;
-import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -46,7 +45,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +53,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -72,12 +69,11 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = SupportWorkerPersistence.class)
-@ProviderType
 public class SupportWorkerPersistenceImpl
 	extends BasePersistenceImpl<SupportWorker>
 	implements SupportWorkerPersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>SupportWorkerUtil</code> to access the support worker persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -158,14 +154,14 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	@Override
 	public List<SupportWorker> findByUserId(
 		long userId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -175,23 +171,26 @@ public class SupportWorkerPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindByUserId;
-			finderArgs = new Object[] {userId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByUserId;
+				finderArgs = new Object[] {userId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindByUserId;
 			finderArgs = new Object[] {userId, start, end, orderByComparator};
 		}
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SupportWorker supportWorker : list) {
-					if ((userId != supportWorker.getUserId())) {
+					if (userId != supportWorker.getUserId()) {
 						list = null;
 
 						break;
@@ -251,10 +250,14 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -666,14 +669,14 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	@Override
 	public List<SupportWorker> findBySupportTeamId(
 		long supportTeamId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -683,10 +686,13 @@ public class SupportWorkerPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindBySupportTeamId;
-			finderArgs = new Object[] {supportTeamId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindBySupportTeamId;
+				finderArgs = new Object[] {supportTeamId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindBySupportTeamId;
 			finderArgs = new Object[] {
 				supportTeamId, start, end, orderByComparator
@@ -695,13 +701,13 @@ public class SupportWorkerPersistenceImpl
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SupportWorker supportWorker : list) {
-					if ((supportTeamId != supportWorker.getSupportTeamId())) {
+					if (supportTeamId != supportWorker.getSupportTeamId()) {
 						list = null;
 
 						break;
@@ -761,10 +767,14 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1182,14 +1192,14 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	@Override
 	public List<SupportWorker> findBySupportLaborId(
 		long supportLaborId, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1199,10 +1209,13 @@ public class SupportWorkerPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindBySupportLaborId;
-			finderArgs = new Object[] {supportLaborId};
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindBySupportLaborId;
+				finderArgs = new Object[] {supportLaborId};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindBySupportLaborId;
 			finderArgs = new Object[] {
 				supportLaborId, start, end, orderByComparator
@@ -1211,13 +1224,13 @@ public class SupportWorkerPersistenceImpl
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SupportWorker supportWorker : list) {
-					if ((supportLaborId != supportWorker.getSupportLaborId())) {
+					if (supportLaborId != supportWorker.getSupportLaborId()) {
 						list = null;
 
 						break;
@@ -1277,10 +1290,14 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1688,18 +1705,22 @@ public class SupportWorkerPersistenceImpl
 	 *
 	 * @param userId the user ID
 	 * @param supportTeamId the support team ID
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching support worker, or <code>null</code> if a matching support worker could not be found
 	 */
 	@Override
 	public SupportWorker fetchByU_STI(
-		long userId, long supportTeamId, boolean retrieveFromCache) {
+		long userId, long supportTeamId, boolean useFinderCache) {
 
-		Object[] finderArgs = new Object[] {userId, supportTeamId};
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId, supportTeamId};
+		}
 
 		Object result = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			result = finderCache.getResult(
 				_finderPathFetchByU_STI, finderArgs, this);
 		}
@@ -1741,8 +1762,10 @@ public class SupportWorkerPersistenceImpl
 				List<SupportWorker> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(
-						_finderPathFetchByU_STI, finderArgs, list);
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByU_STI, finderArgs, list);
+					}
 				}
 				else {
 					SupportWorker supportWorker = list.get(0);
@@ -1753,7 +1776,10 @@ public class SupportWorkerPersistenceImpl
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(_finderPathFetchByU_STI, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByU_STI, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -1925,14 +1951,14 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	@Override
 	public List<SupportWorker> findByU_MW_R(
 		long userId, double maxWork, int role, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -1945,7 +1971,7 @@ public class SupportWorkerPersistenceImpl
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				finderPath, finderArgs, this);
 
@@ -2022,10 +2048,14 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2067,7 +2097,7 @@ public class SupportWorkerPersistenceImpl
 		msg.append("userId=");
 		msg.append(userId);
 
-		msg.append(", maxWork=");
+		msg.append(", maxWork!=");
 		msg.append(maxWork);
 
 		msg.append(", role=");
@@ -2132,7 +2162,7 @@ public class SupportWorkerPersistenceImpl
 		msg.append("userId=");
 		msg.append(userId);
 
-		msg.append(", maxWork=");
+		msg.append(", maxWork!=");
 		msg.append(maxWork);
 
 		msg.append(", role=");
@@ -2416,34 +2446,30 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support workers
 	 */
 	@Override
 	public List<SupportWorker> findByU_MW_R(
 		long[] userIds, double maxWork, int[] roles, int start, int end,
 		OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		if (userIds == null) {
 			userIds = new long[0];
 		}
 		else if (userIds.length > 1) {
-			userIds = ArrayUtil.unique(userIds);
-
-			Arrays.sort(userIds);
+			userIds = ArrayUtil.sortedUnique(userIds);
 		}
 
 		if (roles == null) {
 			roles = new int[0];
 		}
 		else if (roles.length > 1) {
-			roles = ArrayUtil.unique(roles);
-
-			Arrays.sort(roles);
+			roles = ArrayUtil.sortedUnique(roles);
 		}
 
-		if (userIds.length == 1 && roles.length == 1) {
+		if ((userIds.length == 1) && (roles.length == 1)) {
 			return findByU_MW_R(
 				userIds[0], maxWork, roles[0], start, end, orderByComparator);
 		}
@@ -2455,11 +2481,14 @@ public class SupportWorkerPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderArgs = new Object[] {
-				StringUtil.merge(userIds), maxWork, StringUtil.merge(roles)
-			};
+
+			if (useFinderCache) {
+				finderArgs = new Object[] {
+					StringUtil.merge(userIds), maxWork, StringUtil.merge(roles)
+				};
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderArgs = new Object[] {
 				StringUtil.merge(userIds), maxWork, StringUtil.merge(roles),
 				start, end, orderByComparator
@@ -2468,7 +2497,7 @@ public class SupportWorkerPersistenceImpl
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				_finderPathWithPaginationFindByU_MW_R, finderArgs, this);
 
@@ -2560,12 +2589,17 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(
-					_finderPathWithPaginationFindByU_MW_R, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(
+						_finderPathWithPaginationFindByU_MW_R, finderArgs,
+						list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(
-					_finderPathWithPaginationFindByU_MW_R, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathWithPaginationFindByU_MW_R, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -2670,18 +2704,14 @@ public class SupportWorkerPersistenceImpl
 			userIds = new long[0];
 		}
 		else if (userIds.length > 1) {
-			userIds = ArrayUtil.unique(userIds);
-
-			Arrays.sort(userIds);
+			userIds = ArrayUtil.sortedUnique(userIds);
 		}
 
 		if (roles == null) {
 			roles = new int[0];
 		}
 		else if (roles.length > 1) {
-			roles = ArrayUtil.unique(roles);
-
-			Arrays.sort(roles);
+			roles = ArrayUtil.sortedUnique(roles);
 		}
 
 		Object[] finderArgs = new Object[] {
@@ -2932,7 +2962,7 @@ public class SupportWorkerPersistenceImpl
 		supportWorker.setNew(true);
 		supportWorker.setPrimaryKey(supportWorkerId);
 
-		supportWorker.setCompanyId(companyProvider.getCompanyId());
+		supportWorker.setCompanyId(CompanyThreadLocal.getCompanyId());
 
 		return supportWorker;
 	}
@@ -3276,13 +3306,13 @@ public class SupportWorkerPersistenceImpl
 	 * @param start the lower bound of the range of support workers
 	 * @param end the upper bound of the range of support workers (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support workers
 	 */
 	@Override
 	public List<SupportWorker> findAll(
 		int start, int end, OrderByComparator<SupportWorker> orderByComparator,
-		boolean retrieveFromCache) {
+		boolean useFinderCache) {
 
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -3292,17 +3322,20 @@ public class SupportWorkerPersistenceImpl
 			(orderByComparator == null)) {
 
 			pagination = false;
-			finderPath = _finderPathWithoutPaginationFindAll;
-			finderArgs = FINDER_ARGS_EMPTY;
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
 		}
-		else {
+		else if (useFinderCache) {
 			finderPath = _finderPathWithPaginationFindAll;
 			finderArgs = new Object[] {start, end, orderByComparator};
 		}
 
 		List<SupportWorker> list = null;
 
-		if (retrieveFromCache) {
+		if (useFinderCache) {
 			list = (List<SupportWorker>)finderCache.getResult(
 				finderPath, finderArgs, this);
 		}
@@ -3352,10 +3385,14 @@ public class SupportWorkerPersistenceImpl
 
 				cacheResult(list);
 
-				finderCache.putResult(finderPath, finderArgs, list);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
+				if (useFinderCache) {
+					finderCache.removeResult(finderPath, finderArgs);
+				}
 
 				throw processException(e);
 			}
@@ -3559,7 +3596,7 @@ public class SupportWorkerPersistenceImpl
 
 	@Override
 	@Reference(
-		target = YithroPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		target = YithroPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
 		unbind = "-"
 	)
 	public void setConfiguration(Configuration configuration) {
@@ -3590,9 +3627,6 @@ public class SupportWorkerPersistenceImpl
 	}
 
 	private boolean _columnBitmaskEnabled;
-
-	@Reference(service = CompanyProviderWrapper.class)
-	protected CompanyProvider companyProvider;
 
 	@Reference
 	protected EntityCache entityCache;
@@ -3625,5 +3659,14 @@ public class SupportWorkerPersistenceImpl
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
 		new String[] {"role"});
+
+	static {
+		try {
+			Class.forName(YithroPersistenceConstants.class.getName());
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw new ExceptionInInitializerError(cnfe);
+		}
+	}
 
 }

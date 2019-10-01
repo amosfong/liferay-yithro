@@ -1,3 +1,5 @@
+create index IX_426FE59C on Yithro_SupportLevelAgreement (name[$COLUMN_LENGTH:75$]);
+
 create index IX_98526F53 on Yithro_SupportTeam (name[$COLUMN_LENGTH:75$]);
 create index IX_2A828559 on Yithro_SupportTeam (parentSupportTeamId);
 create index IX_C9477FA4 on Yithro_SupportTeam (supportLaborId);

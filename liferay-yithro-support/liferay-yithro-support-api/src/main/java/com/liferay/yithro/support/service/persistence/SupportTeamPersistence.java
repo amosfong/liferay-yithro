@@ -34,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface SupportTeamPersistence extends BasePersistence<SupportTeam> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SupportTeamUtil} to access the support team persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
@@ -93,14 +93,14 @@ public interface SupportTeamPersistence extends BasePersistence<SupportTeam> {
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support teams
 	 */
 	public java.util.List<SupportTeam> findByParentSupportTeamId(
 		long parentSupportTeamId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportTeam>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support team in the ordered set where parentSupportTeamId = &#63;.
@@ -237,14 +237,14 @@ public interface SupportTeamPersistence extends BasePersistence<SupportTeam> {
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching support teams
 	 */
 	public java.util.List<SupportTeam> findBySupportLaborId(
 		long supportLaborId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportTeam>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Returns the first support team in the ordered set where supportLaborId = &#63;.
@@ -350,10 +350,10 @@ public interface SupportTeamPersistence extends BasePersistence<SupportTeam> {
 	 * Returns the support team where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param name the name
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching support team, or <code>null</code> if a matching support team could not be found
 	 */
-	public SupportTeam fetchByName(String name, boolean retrieveFromCache);
+	public SupportTeam fetchByName(String name, boolean useFinderCache);
 
 	/**
 	 * Removes the support team where name = &#63; from the database.
@@ -471,14 +471,14 @@ public interface SupportTeamPersistence extends BasePersistence<SupportTeam> {
 	 * @param start the lower bound of the range of support teams
 	 * @param end the upper bound of the range of support teams (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of support teams
 	 */
 	public java.util.List<SupportTeam> findAll(
 		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<SupportTeam>
 			orderByComparator,
-		boolean retrieveFromCache);
+		boolean useFinderCache);
 
 	/**
 	 * Removes all the support teams from the database.

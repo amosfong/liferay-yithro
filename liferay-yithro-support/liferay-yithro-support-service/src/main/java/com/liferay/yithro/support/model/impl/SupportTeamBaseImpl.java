@@ -17,8 +17,6 @@ package com.liferay.yithro.support.model.impl;
 import com.liferay.yithro.support.model.SupportTeam;
 import com.liferay.yithro.support.service.SupportTeamLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the SupportTeam service. Represents a row in the &quot;Yithro_SupportTeam&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,11 +29,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see SupportTeam
  * @generated
  */
-@ProviderType
 public abstract class SupportTeamBaseImpl
 	extends SupportTeamModelImpl implements SupportTeam {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a support team model instance should use the <code>SupportTeam</code> interface instead.

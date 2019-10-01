@@ -34,6 +34,9 @@ import com.liferay.yithro.support.model.SupportTeamSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -45,8 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * The base model implementation for the SupportTeam service. Represents a row in the &quot;Yithro_SupportTeam&quot; database table, with each column mapped to a property of this class.
@@ -60,11 +61,10 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @JSON(strict = true)
-@ProviderType
 public class SupportTeamModelImpl
 	extends BaseModelImpl<SupportTeam> implements SupportTeamModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a support team model instance should use the <code>SupportTeam</code> interface instead.
@@ -264,6 +264,32 @@ public class SupportTeamModelImpl
 		getAttributeSetterBiConsumers() {
 
 		return _attributeSetterBiConsumers;
+	}
+
+	private static Function<InvocationHandler, SupportTeam>
+		_getProxyProviderFunction() {
+
+		Class<?> proxyClass = ProxyUtil.getProxyClass(
+			SupportTeam.class.getClassLoader(), SupportTeam.class,
+			ModelWrapper.class);
+
+		try {
+			Constructor<SupportTeam> constructor =
+				(Constructor<SupportTeam>)proxyClass.getConstructor(
+					InvocationHandler.class);
+
+			return invocationHandler -> {
+				try {
+					return constructor.newInstance(invocationHandler);
+				}
+				catch (ReflectiveOperationException roe) {
+					throw new InternalError(roe);
+				}
+			};
+		}
+		catch (NoSuchMethodException nsme) {
+			throw new InternalError(nsme);
+		}
 	}
 
 	private static final Map<String, Function<SupportTeam, Object>>
@@ -559,8 +585,12 @@ public class SupportTeamModelImpl
 	@Override
 	public SupportTeam toEscapedModel() {
 		if (_escapedModel == null) {
-			_escapedModel = (SupportTeam)ProxyUtil.newProxyInstance(
-				_classLoader, _escapedModelInterfaces,
+			Function<InvocationHandler, SupportTeam>
+				escapedModelProxyProviderFunction =
+					EscapedModelProxyProviderFunctionHolder.
+						_escapedModelProxyProviderFunction;
+
+			_escapedModel = escapedModelProxyProviderFunction.apply(
 				new AutoEscapeBeanHandler(this));
 		}
 
@@ -787,11 +817,13 @@ public class SupportTeamModelImpl
 		return sb.toString();
 	}
 
-	private static final ClassLoader _classLoader =
-		SupportTeam.class.getClassLoader();
-	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
-		SupportTeam.class, ModelWrapper.class
-	};
+	private static class EscapedModelProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SupportTeam>
+			_escapedModelProxyProviderFunction = _getProxyProviderFunction();
+
+	}
+
 	private static boolean _entityCacheEnabled;
 	private static boolean _finderCacheEnabled;
 
