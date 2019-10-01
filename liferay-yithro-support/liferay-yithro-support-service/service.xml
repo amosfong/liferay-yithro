@@ -41,6 +41,36 @@
 			<order-column name="name" />
 		</order>
 	</entity>
+	<entity local-service="true" name="SupportLevelAgreement" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="supportLevelAgreementId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="Name" return-type="SupportLevelAgreement">
+			<finder-column name="name" />
+		</finder>
+	</entity>
 	<entity local-service="true" name="SupportTeam" remote-service="true">
 
 		<!-- PK fields -->
@@ -123,10 +153,12 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>DuplicateSupportLevelAgreement</exception>
 		<exception>DuplicateSupportTeam</exception>
 		<exception>RequiredSupportTeam</exception>
 		<exception>SupportLaborHour</exception>
 		<exception>SupportLaborName</exception>
+		<exception>SupportLevelAgreementName</exception>
 		<exception>SupportTeamName</exception>
 		<exception>SupportTeamSupportLabor</exception>
 		<exception>SupportWorkerMaxWork</exception>

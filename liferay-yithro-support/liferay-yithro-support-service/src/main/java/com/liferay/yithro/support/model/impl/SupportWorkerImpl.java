@@ -161,9 +161,8 @@ public class SupportWorkerImpl extends SupportWorkerBaseImpl {
 				if (closeCal.after(now)) {
 					return 0L;
 				}
-				else {
-					continue;
-				}
+
+				continue;
 			}
 
 			if (hasHoliday(openCal.getTime())) {

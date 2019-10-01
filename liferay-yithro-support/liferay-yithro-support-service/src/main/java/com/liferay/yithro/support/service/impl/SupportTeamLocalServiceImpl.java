@@ -186,10 +186,10 @@ public class SupportTeamLocalServiceImpl
 
 		SupportTeam supportTeam = supportTeamPersistence.fetchByName(name);
 
-		if (supportTeam != null) {
-			if (supportTeam.getSupportTeamId() != supportTeamId) {
-				throw new DuplicateSupportTeamException();
-			}
+		if ((supportTeam != null) &&
+			(supportTeam.getSupportTeamId() != supportTeamId)) {
+
+			throw new DuplicateSupportTeamException();
 		}
 
 		if (parentSupportTeamId > 0) {
