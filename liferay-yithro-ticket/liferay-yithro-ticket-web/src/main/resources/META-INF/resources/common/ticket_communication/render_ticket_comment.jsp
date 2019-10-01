@@ -51,14 +51,14 @@ JSONObject dataJSONObject = ticketCommunication.getDataJSONObject();
 					cssClass="icon-monospaced"
 					image="link"
 					markupView="lexicon"
-					url='<%= "javascript:;" %>'
+					url="javascript:;"
 				/>
 			</span>
 		</div>
 
 		<div class="autofit-col">
 			<clay:dropdown-actions
-				dropdownItems="<%=
+				dropdownItems='<%=
 					new JSPDropdownItemList(pageContext) {
 						{
 							PortletURL editTicketCommentURL = renderResponse.createRenderURL();
@@ -89,7 +89,7 @@ JSONObject dataJSONObject = ticketCommunication.getDataJSONObject();
 								});
 						}
 					}
-				%>"
+				%>'
 			/>
 		</div>
 	</div>

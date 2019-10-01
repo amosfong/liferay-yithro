@@ -27,6 +27,10 @@ public class TicketWorkerRoles {
 
 	public static final int NONE = 0;
 
+	public static final int[] VALUES = {
+		DEVELOPER, ESCALATED_DEVELOPER, MANAGER
+	};
+
 	public static String getLabel(int role) {
 		if (role == DEVELOPER) {
 			return "developer";

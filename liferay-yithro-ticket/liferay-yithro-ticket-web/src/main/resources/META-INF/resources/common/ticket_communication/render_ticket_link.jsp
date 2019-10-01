@@ -53,7 +53,7 @@ JSONArray jsonArray = dataJSONObject.getJSONArray("ticketLinks");
 					cssClass="icon-monospaced"
 					image="link"
 					markupView="lexicon"
-					url='<%= "javascript:;" %>'
+					url="javascript:;"
 				/>
 			</span>
 		</div>
@@ -71,7 +71,7 @@ JSONArray jsonArray = dataJSONObject.getJSONArray("ticketLinks");
 			%>
 
 			<clay:dropdown-actions
-				dropdownItems="<%=
+				dropdownItems='<%=
 					new JSPDropdownItemList(pageContext) {
 						{
 							PortletURL deleteURL = renderResponse.createActionURL();
@@ -95,7 +95,7 @@ JSONArray jsonArray = dataJSONObject.getJSONArray("ticketLinks");
 								});
 						}
 					}
-				%>"
+				%>'
 			/>
 		</div>
 	</div>

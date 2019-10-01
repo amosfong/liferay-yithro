@@ -44,7 +44,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 
 		<div class="autofit-col">
 			<clay:dropdown-actions
-				dropdownItems="<%=
+				dropdownItems='<%=
 					new JSPDropdownItemList(pageContext) {
 						{
 							PortletURL editTicketEntryURL = renderResponse.createRenderURL();
@@ -61,7 +61,7 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 								});
 						}
 					}
-				%>"
+				%>'
 			/>
 		</div>
 	</div>

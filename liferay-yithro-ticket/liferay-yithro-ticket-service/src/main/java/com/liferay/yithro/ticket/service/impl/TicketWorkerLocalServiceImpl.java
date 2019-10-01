@@ -17,18 +17,11 @@ package com.liferay.yithro.ticket.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.yithro.audit.constants.Actions;
-import com.liferay.yithro.audit.constants.Fields;
-import com.liferay.yithro.audit.service.AuditEntryLocalService;
-import com.liferay.yithro.constants.Visibilities;
-import com.liferay.yithro.ticket.constants.TicketWorkerRoles;
-import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.yithro.ticket.model.TicketWorker;
 import com.liferay.yithro.ticket.service.TicketEntryLocalService;
 import com.liferay.yithro.ticket.service.base.TicketWorkerLocalServiceBaseImpl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -45,12 +38,10 @@ public class TicketWorkerLocalServiceImpl
 	extends TicketWorkerLocalServiceBaseImpl {
 
 	public TicketWorker addTicketWorker(
-			long userId, long workerUserId, long ticketEntryId,
-			long sourceClassNameId, long sourceClassPK, int role,
-			boolean primary)
+			long workerUserId, long ticketEntryId, long sourceClassNameId,
+			long sourceClassPK, int role, boolean primary)
 		throws PortalException {
 
-		User user = userLocalService.getUser(userId);
 		User workerUser = userLocalService.getUser(workerUserId);
 
 		TicketWorker ticketWorker = ticketWorkerPersistence.fetchByU_TEI(
@@ -58,16 +49,14 @@ public class TicketWorkerLocalServiceImpl
 
 		if (ticketWorker != null) {
 			return updateTicketWorker(
-				userId, ticketWorker.getTicketWorkerId(), role, primary);
+				ticketWorker.getTicketWorkerId(), role, primary);
 		}
-
-		Date now = new Date();
 
 		long ticketWorkerId = counterLocalService.increment();
 
 		ticketWorker = ticketWorkerPersistence.create(ticketWorkerId);
 
-		ticketWorker.setCompanyId(user.getCompanyId());
+		ticketWorker.setCompanyId(workerUser.getCompanyId());
 		ticketWorker.setUserId(workerUserId);
 		ticketWorker.setUserName(workerUser.getFullName());
 		ticketWorker.setTicketEntryId(ticketEntryId);
@@ -77,26 +66,8 @@ public class TicketWorkerLocalServiceImpl
 
 		ticketWorkerPersistence.update(ticketWorker);
 
-		// Audit entry
-
-		long auditSetId = auditEntryLocalService.getNextAuditSetId(
-			TicketEntry.class.getName(), ticketEntryId);
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
-			TicketWorker.class, ticketWorkerId, Actions.ASSIGN, Fields.USER,
-			Visibilities.PUBLIC, StringPool.BLANK, StringPool.BLANK,
-			workerUser.getFullName(), workerUserId, StringPool.BLANK);
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketEntryId, auditSetId,
-			TicketWorker.class, ticketWorkerId, Actions.ASSIGN, Fields.ROLE,
-			Visibilities.WORKER, StringPool.BLANK, StringPool.BLANK,
-			ticketWorker.getRoleLabel(), ticketWorker.getRole(),
-			StringPool.BLANK);
-
 		if (primary) {
-			setPrimaryTicketWorker(userId, now, ticketWorker, auditSetId);
+			setPrimaryTicketWorker(ticketWorker);
 		}
 
 		// Ticket entry
@@ -107,42 +78,21 @@ public class TicketWorkerLocalServiceImpl
 		return ticketWorker;
 	}
 
-	public void deleteTicketWorker(long userId, long ticketWorkerId)
+	@Override
+	public TicketWorker deleteTicketWorker(long ticketWorkerId)
 		throws PortalException {
-
-		Date now = new Date();
 
 		TicketWorker ticketWorker = ticketWorkerPersistence.findByPrimaryKey(
 			ticketWorkerId);
 
 		ticketWorkerPersistence.remove(ticketWorker);
 
-		// Audit entry
-
-		long auditSetId = auditEntryLocalService.getNextAuditSetId(
-			TicketEntry.class.getName(), ticketWorker.getTicketEntryId());
-
-		User ticketWorkerUser = userLocalService.getUser(
-			ticketWorker.getUserId());
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketWorker.getTicketEntryId(),
-			auditSetId, TicketWorker.class, ticketWorker.getTicketWorkerId(),
-			Actions.UNASSIGN, Fields.USER, Visibilities.PUBLIC,
-			ticketWorkerUser.getFullName(), ticketWorkerUser.getUserId(),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketWorker.getTicketEntryId(),
-			auditSetId, TicketWorker.class, ticketWorker.getTicketWorkerId(),
-			Actions.UNASSIGN, Fields.ROLE, Visibilities.WORKER,
-			ticketWorker.getRoleLabel(), String.valueOf(ticketWorker.getRole()),
-			StringPool.BLANK, StringPool.BLANK, StringPool.BLANK);
-
 		// Ticket entry
 
 		ticketEntryLocalService.reindexTicketEntry(
 			ticketWorker.getTicketEntryId());
+
+		return ticketWorker;
 	}
 
 	public void deleteTicketWorkers(long userId) throws PortalException {
@@ -206,41 +156,48 @@ public class TicketWorkerLocalServiceImpl
 		return true;
 	}
 
-	public TicketWorker updateTicketWorker(
-			long userId, long ticketWorkerId, int role, boolean primary)
+	public void setTicketWorkers(
+			long ticketEntryId, long[] userIds, int[] roles, long primaryUserId)
 		throws PortalException {
 
-		Date now = new Date();
+		List<TicketWorker> ticketWorkers =
+			ticketWorkerPersistence.findByTicketEntryId(ticketEntryId);
+
+		for (TicketWorker ticketWorker : ticketWorkers) {
+			if (!ArrayUtil.contains(userIds, ticketWorker.getUserId())) {
+				deleteTicketWorker(ticketWorker.getTicketWorkerId());
+			}
+		}
+
+		for (int i = 0; i < userIds.length; i++) {
+			long userId = userIds[i];
+			int role = roles[i];
+
+			boolean primary = false;
+
+			if (userId == primaryUserId) {
+				primary = true;
+			}
+
+			addTicketWorker(userId, ticketEntryId, 0, 0, role, primary);
+		}
+	}
+
+	public TicketWorker updateTicketWorker(
+			long ticketWorkerId, int role, boolean primary)
+		throws PortalException {
 
 		TicketWorker ticketWorker = ticketWorkerPersistence.findByPrimaryKey(
 			ticketWorkerId);
 
-		long auditSetId = auditEntryLocalService.getNextAuditSetId(
-			TicketEntry.class.getName(), ticketWorker.getTicketEntryId());
-
 		if (ticketWorker.getRole() != role) {
-
-			// Ticket worker
-
-			int oldRole = ticketWorker.getRole();
-
 			ticketWorker.setRole(role);
 
 			ticketWorkerPersistence.update(ticketWorker);
-
-			// Audit entry
-
-			auditEntryLocalService.addAuditEntry(
-				userId, now, TicketEntry.class, ticketWorker.getTicketEntryId(),
-				auditSetId, TicketWorker.class,
-				ticketWorker.getTicketWorkerId(), Actions.UPDATE, Fields.ROLE,
-				Visibilities.WORKER, TicketWorkerRoles.getLabel(oldRole),
-				oldRole, ticketWorker.getRoleLabel(), ticketWorker.getRole(),
-				StringPool.BLANK);
 		}
 
 		if (primary) {
-			setPrimaryTicketWorker(userId, now, ticketWorker, auditSetId);
+			setPrimaryTicketWorker(ticketWorker);
 		}
 
 		ticketEntryLocalService.reindexTicketEntry(
@@ -249,8 +206,7 @@ public class TicketWorkerLocalServiceImpl
 		return ticketWorker;
 	}
 
-	protected void setPrimaryTicketWorker(
-			long userId, Date now, TicketWorker ticketWorker, long auditSetId)
+	protected void setPrimaryTicketWorker(TicketWorker ticketWorker)
 		throws PortalException {
 
 		if (ticketWorker.isPrimary()) {
@@ -269,20 +225,7 @@ public class TicketWorkerLocalServiceImpl
 		ticketWorker.setPrimary(true);
 
 		ticketWorkerPersistence.update(ticketWorker);
-
-		// Audit entry
-
-		auditEntryLocalService.addAuditEntry(
-			userId, now, TicketEntry.class, ticketWorker.getTicketEntryId(),
-			auditSetId, TicketWorker.class, ticketWorker.getTicketWorkerId(),
-			Actions.ASSIGN, Fields.PRIMARY, Visibilities.WORKER,
-			oldTicketWorker.getUserName(), oldTicketWorker.getUserId(),
-			ticketWorker.getUserName(), ticketWorker.getUserId(),
-			StringPool.BLANK);
 	}
-
-	@Reference
-	protected AuditEntryLocalService auditEntryLocalService;
 
 	@Reference
 	protected TicketEntryLocalService ticketEntryLocalService;

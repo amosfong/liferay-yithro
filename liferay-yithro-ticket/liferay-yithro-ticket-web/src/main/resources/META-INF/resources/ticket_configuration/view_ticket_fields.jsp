@@ -21,7 +21,7 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "active");
 %>
 
 <clay:navigation-bar
-	navigationItems="<%=
+	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
 				add(
@@ -39,7 +39,7 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "active");
 					});
 			}
 		}
-	%>"
+	%>'
 />
 
 <clay:management-toolbar

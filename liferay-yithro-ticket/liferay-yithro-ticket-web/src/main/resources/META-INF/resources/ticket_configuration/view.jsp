@@ -22,7 +22,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-statuses");
 
 <clay:navigation-bar
 	inverted="<%= true %>"
-	navigationItems="<%=
+	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
 				add(
@@ -47,7 +47,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "ticket-statuses");
 					});
 			}
 		}
-	%>"
+	%>'
 />
 
 <c:choose>

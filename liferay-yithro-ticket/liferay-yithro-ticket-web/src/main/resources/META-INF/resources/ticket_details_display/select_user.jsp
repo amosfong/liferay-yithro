@@ -20,6 +20,7 @@
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("mvcPath", "/ticket_details_display/select_user.jsp");
+portletURL.setParameter("ticketEntryId", ParamUtil.getString(request, "ticketEntryId"));
 
 UserSearch userSearch = new UserSearch(renderRequest, portletURL);
 %>
@@ -63,6 +64,7 @@ UserSearch userSearch = new UserSearch(renderRequest, portletURL);
 				<%
 				Map<String, Object> data = new HashMap<String, Object>();
 
+				data.put("entityid", user2.getUserId());
 				data.put("userid", user2.getUserId());
 				data.put("username", user2.getFullName());
 				%>
