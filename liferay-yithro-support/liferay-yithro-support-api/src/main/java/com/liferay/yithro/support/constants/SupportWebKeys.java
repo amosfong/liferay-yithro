@@ -22,4 +22,6 @@ public class SupportWebKeys {
 	public static final String SUPPORT_LEVEL_AGREEMENT =
 		"SUPPORT_LEVEL_AGREEMENT";
 
+	public static final String SUPPORT_TEAM = "SUPPORT_TEAM";
+
 }

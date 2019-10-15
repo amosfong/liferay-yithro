@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1", "support-level-agreements");
+String tabs1 = ParamUtil.getString(request, "tabs1", "support-teams");
 %>
 
 <clay:navigation-bar
@@ -25,6 +25,13 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "support-level-agreements")
 	navigationItems='<%=
 		new JSPNavigationItemList(pageContext) {
 			{
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("support-teams"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "support-teams");
+						navigationItem.setLabel(LanguageUtil.get(request, "support-teams"));
+					});
+
 				add(
 					navigationItem -> {
 						navigationItem.setActive(tabs1.equals("support-level-agreements"));
@@ -37,9 +44,10 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "support-level-agreements")
 />
 
 <c:choose>
-	<c:when test='<%= tabs1.equals("support-teams") %>'>
+	<c:when test='<%= tabs1.equals("support-level-agreements") %>'>
+		<liferay-util:include page="/ticket_support/view_support_level_agreements.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
-		<liferay-util:include page="/ticket_support/view_support_level_agreements.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/ticket_support/view_support_teams.jsp" servletContext="<%= application %>" />
 	</c:otherwise>
 </c:choose>

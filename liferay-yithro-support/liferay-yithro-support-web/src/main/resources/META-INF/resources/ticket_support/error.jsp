@@ -27,6 +27,9 @@
 			<c:when test="<%= SessionErrors.contains(renderRequest, NoSuchSupportLevelAgreementException.class.getName()) %>">
 				<liferay-ui:message key="the-service-level-agreement-could-not-be-found" />
 			</c:when>
+			<c:when test="<%= SessionErrors.contains(renderRequest, NoSuchSupportTeamException.class.getName()) %>">
+				<liferay-ui:message key="the-support-team-could-not-be-found" />
+			</c:when>
 		</c:choose>
 	</div>
 </c:if>

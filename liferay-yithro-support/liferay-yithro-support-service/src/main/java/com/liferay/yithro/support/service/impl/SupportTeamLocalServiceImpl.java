@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.yithro.support.exception.DuplicateSupportTeamException;
 import com.liferay.yithro.support.exception.RequiredSupportTeamException;
 import com.liferay.yithro.support.exception.SupportTeamNameException;
-import com.liferay.yithro.support.exception.SupportTeamSupportLaborException;
 import com.liferay.yithro.support.model.SupportTeam;
 import com.liferay.yithro.support.service.base.SupportTeamLocalServiceBaseImpl;
 
@@ -46,7 +45,7 @@ public class SupportTeamLocalServiceImpl
 
 	public SupportTeam addSupportTeam(
 			long userId, long parentSupportTeamId, long supportLaborId,
-			String name, String description)
+			String name, String description, double maxWork)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -67,6 +66,7 @@ public class SupportTeamLocalServiceImpl
 		supportTeam.setSupportLaborId(supportLaborId);
 		supportTeam.setName(name);
 		supportTeam.setDescription(description);
+		supportTeam.setMaxWork(maxWork);
 
 		return supportTeamPersistence.update(supportTeam);
 	}
@@ -115,7 +115,7 @@ public class SupportTeamLocalServiceImpl
 
 	public SupportTeam updateSupportTeam(
 			long supportTeamId, long parentSupportTeamId, long supportLaborId,
-			String name, String description)
+			String name, String description, double maxWork)
 		throws PortalException {
 
 		validate(supportTeamId, parentSupportTeamId, name, supportLaborId);
@@ -128,6 +128,7 @@ public class SupportTeamLocalServiceImpl
 		supportTeam.setSupportLaborId(supportLaborId);
 		supportTeam.setName(name);
 		supportTeam.setDescription(description);
+		supportTeam.setMaxWork(maxWork);
 
 		return supportTeamPersistence.update(supportTeam);
 	}
@@ -200,8 +201,8 @@ public class SupportTeamLocalServiceImpl
 			throw new SupportTeamNameException();
 		}
 
-		if (supportLaborId <= 0) {
-			throw new SupportTeamSupportLaborException();
+		if (supportLaborId > 0) {
+			supportLaborPersistence.findByPrimaryKey(supportLaborId);
 		}
 	}
 
