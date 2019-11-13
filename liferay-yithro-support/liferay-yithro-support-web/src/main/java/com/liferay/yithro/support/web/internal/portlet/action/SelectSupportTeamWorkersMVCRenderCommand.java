@@ -12,15 +12,15 @@
  * details.
  */
 
-package com.liferay.yithro.support.web.internal.portlet;
+package com.liferay.yithro.support.web.internal.portlet.action;
 
-import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.yithro.support.constants.SupportPortletKeys;
+import com.liferay.yithro.support.constants.SupportWebKeys;
+import com.liferay.yithro.support.service.SupportTeamLocalService;
 
-import java.io.IOException;
-
-import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -32,34 +32,40 @@ import org.osgi.service.component.annotations.Reference;
  * @author Amos Fong
  */
 @Component(
-	immediate = true,
 	property = {
-		"com.liferay.portlet.css-class-wrapper=yithro-ticket-support-portlet",
-		"com.liferay.portlet.display-category=category.hidden",
-		"com.liferay.portlet.render-weight=0",
-		"javax.portlet.display-name=Ticket Support",
-		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.mvc-command-names-default-views=/view",
-		"javax.portlet.init-param.template-path=/META-INF/resources/",
 		"javax.portlet.name=" + SupportPortletKeys.TICKET_SUPPORT,
-		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=administrator,guest,power-user,user"
+		"mvc.command.name=/ticket_support/select_support_team_workers"
 	},
-	service = Portlet.class
+	service = MVCRenderCommand.class
 )
-public class TicketSupportPortlet extends MVCPortlet {
+public class SelectSupportTeamWorkersMVCRenderCommand
+	implements MVCRenderCommand {
 
 	@Override
-	public void render(
+	public String render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
-		throws IOException, PortletException {
+		throws PortletException {
 
-		renderRequest.setAttribute(CustomSQL.class.getName(), _customSQL);
+		try {
+			long supportTeamId = ParamUtil.getLong(
+				renderRequest, "supportTeamId");
 
-		super.render(renderRequest, renderResponse);
+			if (supportTeamId > 0) {
+				renderRequest.setAttribute(
+					SupportWebKeys.SUPPORT_TEAM,
+					_supportTeamLocalService.getSupportTeam(supportTeamId));
+			}
+
+			return "/ticket_support/select_support_team_workers.jsp";
+		}
+		catch (Exception e) {
+			SessionErrors.add(renderRequest, e.getClass());
+
+			return "/ticket_support/error.jsp";
+		}
 	}
 
 	@Reference
-	private CustomSQL _customSQL;
+	private SupportTeamLocalService _supportTeamLocalService;
 
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<custom-sql>
+	<sql id="com.liferay.portal.kernel.service.persistence.UserFinder.joinBySupportWorkerTeam">
+		<![CDATA[
+			INNER JOIN
+				Yithro_SupportWorker ON
+					Yithro_SupportWorker.userId = User_.userId
+			WHERE
+				(Yithro_SupportWorker.supportTeamId = ?)
+		]]>
+	</sql>
+</custom-sql>

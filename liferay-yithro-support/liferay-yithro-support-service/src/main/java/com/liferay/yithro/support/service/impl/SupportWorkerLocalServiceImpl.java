@@ -18,7 +18,6 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.yithro.support.exception.SupportWorkerMaxWorkException;
 import com.liferay.yithro.support.model.SupportTeam;
 import com.liferay.yithro.support.model.SupportWorker;
 import com.liferay.yithro.support.service.base.SupportWorkerLocalServiceBaseImpl;
@@ -52,8 +51,6 @@ public class SupportWorkerLocalServiceImpl
 			long userId = userIds[i];
 
 			double curMaxWork = maxWork[i];
-
-			validate(curMaxWork);
 
 			SupportWorker supportWorker = supportWorkerPersistence.fetchByU_STI(
 				userId, supportTeamId);
@@ -330,6 +327,19 @@ public class SupportWorkerLocalServiceImpl
 		return supportWorkerPersistence.findByUserId(userId);
 	}
 
+	public boolean hasSupportWorker(long userId, long supportTeamId)
+		throws PortalException {
+
+		SupportWorker supportWorker = supportWorkerPersistence.fetchByU_STI(
+			userId, supportTeamId);
+
+		if (supportWorker != null) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public void increaseAssignedWork(long userId, double work)
 		throws PortalException {
 
@@ -374,8 +384,6 @@ public class SupportWorkerLocalServiceImpl
 			long supportWorkerId, long supportTeamId, double maxWork)
 		throws PortalException {
 
-		validate(maxWork);
-
 		SupportTeam supportTeam = supportTeamPersistence.findByPrimaryKey(
 			supportTeamId);
 
@@ -410,12 +418,6 @@ public class SupportWorkerLocalServiceImpl
 		supportWorker.setMaxWork(maxWork);
 
 		return supportWorkerPersistence.update(supportWorker);
-	}
-
-	protected void validate(double maxWork) throws PortalException {
-		if (maxWork <= 0) {
-			throw new SupportWorkerMaxWorkException();
-		}
 	}
 
 	@Reference

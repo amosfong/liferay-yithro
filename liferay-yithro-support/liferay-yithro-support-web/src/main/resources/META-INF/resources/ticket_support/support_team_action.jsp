@@ -40,6 +40,17 @@ SupportTeam supportTeam = (SupportTeam)row.getObject();
 		url="<%= editURL %>"
 	/>
 
+	<portlet:renderURL var="assignWorkersURL">
+		<portlet:param name="mvcRenderCommandName" value="/ticket_support/edit_support_team_workers" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="supportTeamId" value="<%= String.valueOf(supportTeam.getSupportTeamId()) %>" />
+	</portlet:renderURL>
+
+	<liferay-ui:icon
+		message="assign-workers"
+		url="<%= assignWorkersURL %>"
+	/>
+
 	<portlet:actionURL name="/ticket_support/edit_support_team" var="deleteURL">
 		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />

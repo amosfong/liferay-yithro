@@ -51,6 +51,16 @@ renderResponse.setTitle((supportTeam == null) ? LanguageUtil.get(request, "new-s
 	<aui:button-row>
 		<aui:button type="submit" />
 
+		<c:if test="<%= supportTeam != null %>">
+			<portlet:renderURL var="assignWorkersURL">
+				<portlet:param name="mvcRenderCommandName" value="/ticket_support/edit_support_team_workers" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="supportTeamId" value="<%= String.valueOf(supportTeamId) %>" />
+			</portlet:renderURL>
+
+			<aui:button href="<%= assignWorkersURL %>" value="assign-workers" />
+		</c:if>
+
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
