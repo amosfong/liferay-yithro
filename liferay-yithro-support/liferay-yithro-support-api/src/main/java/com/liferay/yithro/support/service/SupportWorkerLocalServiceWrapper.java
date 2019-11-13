@@ -400,6 +400,14 @@ public class SupportWorkerLocalServiceWrapper
 	}
 
 	@Override
+	public boolean hasSupportWorker(long userId, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _supportWorkerLocalService.hasSupportWorker(
+			userId, supportTeamId);
+	}
+
+	@Override
 	public void increaseAssignedWork(long userId, double work)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

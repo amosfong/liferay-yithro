@@ -283,6 +283,10 @@ public interface SupportWorkerLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<SupportWorker> getUserSupportWorkers(long userId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasSupportWorker(long userId, long supportTeamId)
+		throws PortalException;
+
 	public void increaseAssignedWork(long userId, double work)
 		throws PortalException;
 

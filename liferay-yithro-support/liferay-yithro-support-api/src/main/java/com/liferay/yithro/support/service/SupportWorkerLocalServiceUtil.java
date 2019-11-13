@@ -370,6 +370,12 @@ public class SupportWorkerLocalServiceUtil {
 		return getService().getUserSupportWorkers(userId);
 	}
 
+	public static boolean hasSupportWorker(long userId, long supportTeamId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().hasSupportWorker(userId, supportTeamId);
+	}
+
 	public static void increaseAssignedWork(long userId, double work)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
