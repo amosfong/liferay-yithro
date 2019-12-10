@@ -31,7 +31,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface Rule extends PersistedModel, RuleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.yithro.rules.model.impl.RuleImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
@@ -55,7 +55,5 @@ public interface Rule extends PersistedModel, RuleModel {
 			}
 
 		};
-
-	public boolean evaluate(java.util.Map<String, ?> map);
 
 }

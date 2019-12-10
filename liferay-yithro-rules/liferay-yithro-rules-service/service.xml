@@ -3,18 +3,35 @@
 
 <service-builder package-path="com.liferay.yithro.rules">
 	<namespace>Yithro</namespace>
-	<entity local-service="true" name="Action" remote-service="false">
+	<entity local-service="true" name="Rule" remote-service="false">
 
 		<!-- PK fields -->
 
-		<column name="actionId" primary="true" type="long" />
+		<column name="ruleId" primary="true" type="long" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="objectName" type="String" />
+		<column name="objectEvent" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="ON_OE" return-type="Collection">
+			<finder-column name="objectName" />
+			<finder-column name="objectEvent" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="RuleAction" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="ruleActionId" primary="true" type="long" />
 
 		<!-- Other fields -->
 
 		<column name="ruleId" type="long" />
-		<column name="entity" type="String" />
-		<column name="name" type="String" />
-		<column name="value" type="String" />
+		<column name="actionClassName" type="String" />
 
 		<!-- Finder methods -->
 
@@ -22,11 +39,29 @@
 			<finder-column name="ruleId" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="Expression" remote-service="false">
+	<entity local-service="true" name="RuleActionData" remote-service="false">
 
 		<!-- PK fields -->
 
-		<column name="expressionId" primary="true" type="long" />
+		<column name="ruleActionDataId" primary="true" type="long" />
+
+		<!-- Other fields -->
+
+		<column name="ruleActionId" type="long" />
+		<column name="field" type="String" />
+		<column name="value" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="RuleActionId" return-type="Collection">
+			<finder-column name="ruleActionId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="RuleCondition" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="ruleConditionId" primary="true" type="long" />
 
 		<!-- Other fields -->
 
@@ -43,26 +78,7 @@
 			<finder-column name="type" />
 		</finder>
 	</entity>
-	<entity local-service="true" name="Rule" remote-service="false">
-
-		<!-- PK fields -->
-
-		<column name="ruleId" primary="true" type="long" />
-
-		<!-- Other fields -->
-
-		<column name="name" type="String" />
-		<column name="triggerAction" type="String" />
-		<column name="triggerObject" type="String" />
-
-		<!-- Finder methods -->
-
-		<finder name="TA_TO" return-type="Collection">
-			<finder-column name="triggerAction" />
-			<finder-column name="triggerObject" />
-		</finder>
-	</entity>
 	<exceptions>
-		<exception>RuleName</exception>
+		<exception>RuleObjectName</exception>
 	</exceptions>
 </service-builder>

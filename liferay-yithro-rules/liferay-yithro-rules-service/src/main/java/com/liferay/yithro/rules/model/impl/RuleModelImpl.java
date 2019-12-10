@@ -41,8 +41,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The base model implementation for the Rule service. Represents a row in the &quot;Yithro_Rule&quot; database table, with each column mapped to a property of this class.
  *
@@ -54,10 +52,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see RuleImpl
  * @generated
  */
-@ProviderType
 public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a rule model instance should use the <code>Rule</code> interface instead.
@@ -66,7 +63,7 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"ruleId", Types.BIGINT}, {"name", Types.VARCHAR},
-		{"triggerAction", Types.VARCHAR}, {"triggerObject", Types.VARCHAR}
+		{"objectName", Types.VARCHAR}, {"objectEvent", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -75,12 +72,12 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 	static {
 		TABLE_COLUMNS_MAP.put("ruleId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("triggerAction", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("triggerObject", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("objectName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("objectEvent", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Yithro_Rule (ruleId LONG not null primary key,name VARCHAR(75) null,triggerAction VARCHAR(75) null,triggerObject VARCHAR(75) null)";
+		"create table Yithro_Rule (ruleId LONG not null primary key,name VARCHAR(75) null,objectName VARCHAR(75) null,objectEvent VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Yithro_Rule";
 
@@ -95,9 +92,9 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
-	public static final long TRIGGERACTION_COLUMN_BITMASK = 1L;
+	public static final long OBJECTEVENT_COLUMN_BITMASK = 1L;
 
-	public static final long TRIGGEROBJECT_COLUMN_BITMASK = 2L;
+	public static final long OBJECTNAME_COLUMN_BITMASK = 2L;
 
 	public static final long RULEID_COLUMN_BITMASK = 4L;
 
@@ -234,12 +231,12 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 		attributeGetterFunctions.put("name", Rule::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Rule, String>)Rule::setName);
-		attributeGetterFunctions.put("triggerAction", Rule::getTriggerAction);
+		attributeGetterFunctions.put("objectName", Rule::getObjectName);
 		attributeSetterBiConsumers.put(
-			"triggerAction", (BiConsumer<Rule, String>)Rule::setTriggerAction);
-		attributeGetterFunctions.put("triggerObject", Rule::getTriggerObject);
+			"objectName", (BiConsumer<Rule, String>)Rule::setObjectName);
+		attributeGetterFunctions.put("objectEvent", Rule::getObjectEvent);
 		attributeSetterBiConsumers.put(
-			"triggerObject", (BiConsumer<Rule, String>)Rule::setTriggerObject);
+			"objectEvent", (BiConsumer<Rule, String>)Rule::setObjectEvent);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -273,53 +270,53 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 	}
 
 	@Override
-	public String getTriggerAction() {
-		if (_triggerAction == null) {
+	public String getObjectName() {
+		if (_objectName == null) {
 			return "";
 		}
 		else {
-			return _triggerAction;
+			return _objectName;
 		}
 	}
 
 	@Override
-	public void setTriggerAction(String triggerAction) {
-		_columnBitmask |= TRIGGERACTION_COLUMN_BITMASK;
+	public void setObjectName(String objectName) {
+		_columnBitmask |= OBJECTNAME_COLUMN_BITMASK;
 
-		if (_originalTriggerAction == null) {
-			_originalTriggerAction = _triggerAction;
+		if (_originalObjectName == null) {
+			_originalObjectName = _objectName;
 		}
 
-		_triggerAction = triggerAction;
+		_objectName = objectName;
 	}
 
-	public String getOriginalTriggerAction() {
-		return GetterUtil.getString(_originalTriggerAction);
+	public String getOriginalObjectName() {
+		return GetterUtil.getString(_originalObjectName);
 	}
 
 	@Override
-	public String getTriggerObject() {
-		if (_triggerObject == null) {
+	public String getObjectEvent() {
+		if (_objectEvent == null) {
 			return "";
 		}
 		else {
-			return _triggerObject;
+			return _objectEvent;
 		}
 	}
 
 	@Override
-	public void setTriggerObject(String triggerObject) {
-		_columnBitmask |= TRIGGEROBJECT_COLUMN_BITMASK;
+	public void setObjectEvent(String objectEvent) {
+		_columnBitmask |= OBJECTEVENT_COLUMN_BITMASK;
 
-		if (_originalTriggerObject == null) {
-			_originalTriggerObject = _triggerObject;
+		if (_originalObjectEvent == null) {
+			_originalObjectEvent = _objectEvent;
 		}
 
-		_triggerObject = triggerObject;
+		_objectEvent = objectEvent;
 	}
 
-	public String getOriginalTriggerObject() {
-		return GetterUtil.getString(_originalTriggerObject);
+	public String getOriginalObjectEvent() {
+		return GetterUtil.getString(_originalObjectEvent);
 	}
 
 	public long getColumnBitmask() {
@@ -360,8 +357,8 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 		ruleImpl.setRuleId(getRuleId());
 		ruleImpl.setName(getName());
-		ruleImpl.setTriggerAction(getTriggerAction());
-		ruleImpl.setTriggerObject(getTriggerObject());
+		ruleImpl.setObjectName(getObjectName());
+		ruleImpl.setObjectEvent(getObjectEvent());
 
 		ruleImpl.resetOriginalValues();
 
@@ -424,9 +421,9 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 	public void resetOriginalValues() {
 		RuleModelImpl ruleModelImpl = this;
 
-		ruleModelImpl._originalTriggerAction = ruleModelImpl._triggerAction;
+		ruleModelImpl._originalObjectName = ruleModelImpl._objectName;
 
-		ruleModelImpl._originalTriggerObject = ruleModelImpl._triggerObject;
+		ruleModelImpl._originalObjectEvent = ruleModelImpl._objectEvent;
 
 		ruleModelImpl._columnBitmask = 0;
 	}
@@ -445,20 +442,20 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 			ruleCacheModel.name = null;
 		}
 
-		ruleCacheModel.triggerAction = getTriggerAction();
+		ruleCacheModel.objectName = getObjectName();
 
-		String triggerAction = ruleCacheModel.triggerAction;
+		String objectName = ruleCacheModel.objectName;
 
-		if ((triggerAction != null) && (triggerAction.length() == 0)) {
-			ruleCacheModel.triggerAction = null;
+		if ((objectName != null) && (objectName.length() == 0)) {
+			ruleCacheModel.objectName = null;
 		}
 
-		ruleCacheModel.triggerObject = getTriggerObject();
+		ruleCacheModel.objectEvent = getObjectEvent();
 
-		String triggerObject = ruleCacheModel.triggerObject;
+		String objectEvent = ruleCacheModel.objectEvent;
 
-		if ((triggerObject != null) && (triggerObject.length() == 0)) {
-			ruleCacheModel.triggerObject = null;
+		if ((objectEvent != null) && (objectEvent.length() == 0)) {
+			ruleCacheModel.objectEvent = null;
 		}
 
 		return ruleCacheModel;
@@ -537,10 +534,10 @@ public class RuleModelImpl extends BaseModelImpl<Rule> implements RuleModel {
 
 	private long _ruleId;
 	private String _name;
-	private String _triggerAction;
-	private String _originalTriggerAction;
-	private String _triggerObject;
-	private String _originalTriggerObject;
+	private String _objectName;
+	private String _originalObjectName;
+	private String _objectEvent;
+	private String _originalObjectEvent;
 	private long _columnBitmask;
 	private Rule _escapedModel;
 

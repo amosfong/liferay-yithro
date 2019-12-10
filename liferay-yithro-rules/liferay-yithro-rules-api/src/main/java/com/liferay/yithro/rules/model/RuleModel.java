@@ -33,7 +33,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface RuleModel extends BaseModel<Rule> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a rule model instance should use the {@link Rule} interface instead.
@@ -83,33 +83,33 @@ public interface RuleModel extends BaseModel<Rule> {
 	public void setName(String name);
 
 	/**
-	 * Returns the trigger action of this rule.
+	 * Returns the object name of this rule.
 	 *
-	 * @return the trigger action of this rule
+	 * @return the object name of this rule
 	 */
 	@AutoEscape
-	public String getTriggerAction();
+	public String getObjectName();
 
 	/**
-	 * Sets the trigger action of this rule.
+	 * Sets the object name of this rule.
 	 *
-	 * @param triggerAction the trigger action of this rule
+	 * @param objectName the object name of this rule
 	 */
-	public void setTriggerAction(String triggerAction);
+	public void setObjectName(String objectName);
 
 	/**
-	 * Returns the trigger object of this rule.
+	 * Returns the object event of this rule.
 	 *
-	 * @return the trigger object of this rule
+	 * @return the object event of this rule
 	 */
 	@AutoEscape
-	public String getTriggerObject();
+	public String getObjectEvent();
 
 	/**
-	 * Sets the trigger object of this rule.
+	 * Sets the object event of this rule.
 	 *
-	 * @param triggerObject the trigger object of this rule
+	 * @param objectEvent the object event of this rule
 	 */
-	public void setTriggerObject(String triggerObject);
+	public void setObjectEvent(String objectEvent);
 
 }

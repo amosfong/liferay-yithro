@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.model.wrapper.BaseModelWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * <p>
  * This class is a wrapper for {@link Rule}.
@@ -31,9 +29,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see Rule
  * @generated
  */
-@ProviderType
 public class RuleWrapper
-	extends BaseModelWrapper<Rule> implements Rule, ModelWrapper<Rule> {
+	extends BaseModelWrapper<Rule> implements ModelWrapper<Rule>, Rule {
 
 	public RuleWrapper(Rule rule) {
 		super(rule);
@@ -45,8 +42,8 @@ public class RuleWrapper
 
 		attributes.put("ruleId", getRuleId());
 		attributes.put("name", getName());
-		attributes.put("triggerAction", getTriggerAction());
-		attributes.put("triggerObject", getTriggerObject());
+		attributes.put("objectName", getObjectName());
+		attributes.put("objectEvent", getObjectEvent());
 
 		return attributes;
 	}
@@ -65,22 +62,17 @@ public class RuleWrapper
 			setName(name);
 		}
 
-		String triggerAction = (String)attributes.get("triggerAction");
+		String objectName = (String)attributes.get("objectName");
 
-		if (triggerAction != null) {
-			setTriggerAction(triggerAction);
+		if (objectName != null) {
+			setObjectName(objectName);
 		}
 
-		String triggerObject = (String)attributes.get("triggerObject");
+		String objectEvent = (String)attributes.get("objectEvent");
 
-		if (triggerObject != null) {
-			setTriggerObject(triggerObject);
+		if (objectEvent != null) {
+			setObjectEvent(objectEvent);
 		}
-	}
-
-	@Override
-	public boolean evaluate(Map<String, ?> map) {
-		return model.evaluate(map);
 	}
 
 	/**
@@ -91,6 +83,26 @@ public class RuleWrapper
 	@Override
 	public String getName() {
 		return model.getName();
+	}
+
+	/**
+	 * Returns the object event of this rule.
+	 *
+	 * @return the object event of this rule
+	 */
+	@Override
+	public String getObjectEvent() {
+		return model.getObjectEvent();
+	}
+
+	/**
+	 * Returns the object name of this rule.
+	 *
+	 * @return the object name of this rule
+	 */
+	@Override
+	public String getObjectName() {
+		return model.getObjectName();
 	}
 
 	/**
@@ -114,25 +126,10 @@ public class RuleWrapper
 	}
 
 	/**
-	 * Returns the trigger action of this rule.
+	 * NOTE FOR DEVELOPERS:
 	 *
-	 * @return the trigger action of this rule
+	 * Never modify or reference this class directly. All methods that expect a rule model instance should use the <code>Rule</code> interface instead.
 	 */
-	@Override
-	public String getTriggerAction() {
-		return model.getTriggerAction();
-	}
-
-	/**
-	 * Returns the trigger object of this rule.
-	 *
-	 * @return the trigger object of this rule
-	 */
-	@Override
-	public String getTriggerObject() {
-		return model.getTriggerObject();
-	}
-
 	@Override
 	public void persist() {
 		model.persist();
@@ -146,6 +143,26 @@ public class RuleWrapper
 	@Override
 	public void setName(String name) {
 		model.setName(name);
+	}
+
+	/**
+	 * Sets the object event of this rule.
+	 *
+	 * @param objectEvent the object event of this rule
+	 */
+	@Override
+	public void setObjectEvent(String objectEvent) {
+		model.setObjectEvent(objectEvent);
+	}
+
+	/**
+	 * Sets the object name of this rule.
+	 *
+	 * @param objectName the object name of this rule
+	 */
+	@Override
+	public void setObjectName(String objectName) {
+		model.setObjectName(objectName);
 	}
 
 	/**
@@ -166,26 +183,6 @@ public class RuleWrapper
 	@Override
 	public void setRuleId(long ruleId) {
 		model.setRuleId(ruleId);
-	}
-
-	/**
-	 * Sets the trigger action of this rule.
-	 *
-	 * @param triggerAction the trigger action of this rule
-	 */
-	@Override
-	public void setTriggerAction(String triggerAction) {
-		model.setTriggerAction(triggerAction);
-	}
-
-	/**
-	 * Sets the trigger object of this rule.
-	 *
-	 * @param triggerObject the trigger object of this rule
-	 */
-	@Override
-	public void setTriggerObject(String triggerObject) {
-		model.setTriggerObject(triggerObject);
 	}
 
 	@Override

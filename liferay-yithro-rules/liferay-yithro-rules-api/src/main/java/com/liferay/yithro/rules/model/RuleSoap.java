@@ -19,15 +19,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * This class is used by SOAP remote services.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
-@ProviderType
 public class RuleSoap implements Serializable {
 
 	public static RuleSoap toSoapModel(Rule model) {
@@ -35,8 +32,8 @@ public class RuleSoap implements Serializable {
 
 		soapModel.setRuleId(model.getRuleId());
 		soapModel.setName(model.getName());
-		soapModel.setTriggerAction(model.getTriggerAction());
-		soapModel.setTriggerObject(model.getTriggerObject());
+		soapModel.setObjectName(model.getObjectName());
+		soapModel.setObjectEvent(model.getObjectEvent());
 
 		return soapModel;
 	}
@@ -105,25 +102,25 @@ public class RuleSoap implements Serializable {
 		_name = name;
 	}
 
-	public String getTriggerAction() {
-		return _triggerAction;
+	public String getObjectName() {
+		return _objectName;
 	}
 
-	public void setTriggerAction(String triggerAction) {
-		_triggerAction = triggerAction;
+	public void setObjectName(String objectName) {
+		_objectName = objectName;
 	}
 
-	public String getTriggerObject() {
-		return _triggerObject;
+	public String getObjectEvent() {
+		return _objectEvent;
 	}
 
-	public void setTriggerObject(String triggerObject) {
-		_triggerObject = triggerObject;
+	public void setObjectEvent(String objectEvent) {
+		_objectEvent = objectEvent;
 	}
 
 	private long _ruleId;
 	private String _name;
-	private String _triggerAction;
-	private String _triggerObject;
+	private String _objectName;
+	private String _objectEvent;
 
 }

@@ -17,7 +17,7 @@ package com.liferay.yithro.rules.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.yithro.rules.exception.RuleNameException;
+import com.liferay.yithro.rules.exception.RuleObjectNameException;
 import com.liferay.yithro.rules.model.Rule;
 import com.liferay.yithro.rules.service.base.RuleLocalServiceBaseImpl;
 
@@ -34,29 +34,29 @@ import org.osgi.service.component.annotations.Component;
 )
 public class RuleLocalServiceImpl extends RuleLocalServiceBaseImpl {
 
-	public Rule addRule(String name, String triggerAction, String triggerObject)
+	public Rule addRule(String name, String objectName, String objectEvent)
 		throws PortalException {
 
-		validate(name);
+		validate(objectName);
 
 		long ruleId = counterLocalService.increment();
 
 		Rule rule = rulePersistence.create(ruleId);
 
 		rule.setName(name);
-		rule.setTriggerAction(triggerAction);
-		rule.setTriggerObject(triggerObject);
+		rule.setObjectName(objectName);
+		rule.setObjectEvent(objectEvent);
 
 		return rulePersistence.update(rule);
 	}
 
-	public List<Rule> getRules(String triggerAction, String triggerObject) {
-		return rulePersistence.findByTA_TO(triggerAction, triggerObject);
+	public List<Rule> getRules(String objectName, String objectEvent) {
+		return rulePersistence.findByON_OE(objectName, objectEvent);
 	}
 
-	protected void validate(String name) throws RuleNameException {
-		if (Validator.isNull(name)) {
-			throw new RuleNameException();
+	protected void validate(String objectName) throws RuleObjectNameException {
+		if (Validator.isNull(objectName)) {
+			throw new RuleObjectNameException();
 		}
 	}
 

@@ -17,8 +17,6 @@ package com.liferay.yithro.rules.model.impl;
 import com.liferay.yithro.rules.model.Rule;
 import com.liferay.yithro.rules.service.RuleLocalServiceUtil;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The extended model base implementation for the Rule service. Represents a row in the &quot;Yithro_Rule&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,10 +29,9 @@ import org.osgi.annotation.versioning.ProviderType;
  * @see Rule
  * @generated
  */
-@ProviderType
 public abstract class RuleBaseImpl extends RuleModelImpl implements Rule {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a rule model instance should use the <code>Rule</code> interface instead.

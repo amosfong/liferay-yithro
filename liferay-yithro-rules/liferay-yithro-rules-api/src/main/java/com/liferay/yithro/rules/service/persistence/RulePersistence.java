@@ -34,166 +34,166 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface RulePersistence extends BasePersistence<Rule> {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. Always use {@link RuleUtil} to access the rule persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
 	 */
 
 	/**
-	 * Returns all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @return the matching rules
 	 */
-	public java.util.List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject);
+	public java.util.List<Rule> findByON_OE(
+		String objectName, String objectEvent);
 
 	/**
-	 * Returns a range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns a range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @return the range of matching rules
 	 */
-	public java.util.List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end);
+	public java.util.List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end);
 
 	/**
-	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns an ordered range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rules
 	 */
-	public java.util.List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end,
+	public java.util.List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Rule>
 			orderByComparator);
 
 	/**
-	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns an ordered range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching rules
 	 */
-	public java.util.List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end,
+	public java.util.List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Rule>
 			orderByComparator,
 		boolean useFinderCache);
 
 	/**
-	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the first rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching rule
 	 * @throws NoSuchRuleException if a matching rule could not be found
 	 */
-	public Rule findByTA_TO_First(
-			String triggerAction, String triggerObject,
+	public Rule findByON_OE_First(
+			String objectName, String objectEvent,
 			com.liferay.portal.kernel.util.OrderByComparator<Rule>
 				orderByComparator)
 		throws NoSuchRuleException;
 
 	/**
-	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the first rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching rule, or <code>null</code> if a matching rule could not be found
 	 */
-	public Rule fetchByTA_TO_First(
-		String triggerAction, String triggerObject,
+	public Rule fetchByON_OE_First(
+		String objectName, String objectEvent,
 		com.liferay.portal.kernel.util.OrderByComparator<Rule>
 			orderByComparator);
 
 	/**
-	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the last rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching rule
 	 * @throws NoSuchRuleException if a matching rule could not be found
 	 */
-	public Rule findByTA_TO_Last(
-			String triggerAction, String triggerObject,
+	public Rule findByON_OE_Last(
+			String objectName, String objectEvent,
 			com.liferay.portal.kernel.util.OrderByComparator<Rule>
 				orderByComparator)
 		throws NoSuchRuleException;
 
 	/**
-	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the last rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching rule, or <code>null</code> if a matching rule could not be found
 	 */
-	public Rule fetchByTA_TO_Last(
-		String triggerAction, String triggerObject,
+	public Rule fetchByON_OE_Last(
+		String objectName, String objectEvent,
 		com.liferay.portal.kernel.util.OrderByComparator<Rule>
 			orderByComparator);
 
 	/**
-	 * Returns the rules before and after the current rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the rules before and after the current rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * @param ruleId the primary key of the current rule
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next rule
 	 * @throws NoSuchRuleException if a rule with the primary key could not be found
 	 */
-	public Rule[] findByTA_TO_PrevAndNext(
-			long ruleId, String triggerAction, String triggerObject,
+	public Rule[] findByON_OE_PrevAndNext(
+			long ruleId, String objectName, String objectEvent,
 			com.liferay.portal.kernel.util.OrderByComparator<Rule>
 				orderByComparator)
 		throws NoSuchRuleException;
 
 	/**
-	 * Removes all the rules where triggerAction = &#63; and triggerObject = &#63; from the database.
+	 * Removes all the rules where objectName = &#63; and objectEvent = &#63; from the database.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 */
-	public void removeByTA_TO(String triggerAction, String triggerObject);
+	public void removeByON_OE(String objectName, String objectEvent);
 
 	/**
-	 * Returns the number of rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the number of rules where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @return the number of matching rules
 	 */
-	public int countByTA_TO(String triggerAction, String triggerObject);
+	public int countByON_OE(String objectName, String objectEvent);
 
 	/**
 	 * Caches the rule in the entity cache if it is enabled.
@@ -256,7 +256,7 @@ public interface RulePersistence extends BasePersistence<Rule> {
 	 * Returns a range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules
@@ -269,7 +269,7 @@ public interface RulePersistence extends BasePersistence<Rule> {
 	 * Returns an ordered range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules
@@ -286,7 +286,7 @@ public interface RulePersistence extends BasePersistence<Rule> {
 	 * Returns an ordered range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules

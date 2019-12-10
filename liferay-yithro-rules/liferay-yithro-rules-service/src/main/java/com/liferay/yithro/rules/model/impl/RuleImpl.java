@@ -14,43 +14,12 @@
 
 package com.liferay.yithro.rules.model.impl;
 
-import com.liferay.yithro.rules.model.Expression;
-import com.liferay.yithro.rules.service.ExpressionLocalServiceUtil;
-
-import java.util.List;
-import java.util.Map;
-
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
- * @author Kyle Bischof
+ * @author Brian Wing Shun Chan
  */
-@ProviderType
 public class RuleImpl extends RuleBaseImpl {
 
 	public RuleImpl() {
-	}
-
-	public boolean evaluate(Map<String, ?> map) {
-		List<Expression> andExpressions = ExpressionLocalServiceUtil.findByR_T(
-			getRuleId(), "AND");
-
-		for (Expression expression : andExpressions) {
-			if (!expression.evaluate(map)) {
-				return false;
-			}
-		}
-
-		List<Expression> orExpressions = ExpressionLocalServiceUtil.findByR_T(
-			getRuleId(), "OR");
-
-		for (Expression expression : orExpressions) {
-			if (expression.evaluate(map)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 }

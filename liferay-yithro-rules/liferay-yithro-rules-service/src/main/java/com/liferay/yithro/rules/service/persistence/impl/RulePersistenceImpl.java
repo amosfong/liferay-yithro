@@ -41,14 +41,13 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -65,11 +64,10 @@ import org.osgi.service.component.annotations.Reference;
  * @generated
  */
 @Component(service = RulePersistence.class)
-@ProviderType
 public class RulePersistenceImpl
 	extends BasePersistenceImpl<Rule> implements RulePersistence {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Always use <code>RuleUtil</code> to access the rule persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
@@ -86,76 +84,76 @@ public class RulePersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathWithPaginationFindByTA_TO;
-	private FinderPath _finderPathWithoutPaginationFindByTA_TO;
-	private FinderPath _finderPathCountByTA_TO;
+	private FinderPath _finderPathWithPaginationFindByON_OE;
+	private FinderPath _finderPathWithoutPaginationFindByON_OE;
+	private FinderPath _finderPathCountByON_OE;
 
 	/**
-	 * Returns all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @return the matching rules
 	 */
 	@Override
-	public List<Rule> findByTA_TO(String triggerAction, String triggerObject) {
-		return findByTA_TO(
-			triggerAction, triggerObject, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+	public List<Rule> findByON_OE(String objectName, String objectEvent) {
+		return findByON_OE(
+			objectName, objectEvent, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 			null);
 	}
 
 	/**
-	 * Returns a range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns a range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @return the range of matching rules
 	 */
 	@Override
-	public List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end) {
+	public List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end) {
 
-		return findByTA_TO(triggerAction, triggerObject, start, end, null);
+		return findByON_OE(objectName, objectEvent, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns an ordered range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rules
 	 */
 	@Override
-	public List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end,
+	public List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end,
 		OrderByComparator<Rule> orderByComparator) {
 
-		return findByTA_TO(
-			triggerAction, triggerObject, start, end, orderByComparator, true);
+		return findByON_OE(
+			objectName, objectEvent, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns an ordered range of all the rules where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param start the lower bound of the range of rules
 	 * @param end the upper bound of the range of rules (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -163,31 +161,28 @@ public class RulePersistenceImpl
 	 * @return the ordered range of matching rules
 	 */
 	@Override
-	public List<Rule> findByTA_TO(
-		String triggerAction, String triggerObject, int start, int end,
+	public List<Rule> findByON_OE(
+		String objectName, String objectEvent, int start, int end,
 		OrderByComparator<Rule> orderByComparator, boolean useFinderCache) {
 
-		triggerAction = Objects.toString(triggerAction, "");
-		triggerObject = Objects.toString(triggerObject, "");
+		objectName = Objects.toString(objectName, "");
+		objectEvent = Objects.toString(objectEvent, "");
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
 
-			pagination = false;
-
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByTA_TO;
-				finderArgs = new Object[] {triggerAction, triggerObject};
+				finderPath = _finderPathWithoutPaginationFindByON_OE;
+				finderArgs = new Object[] {objectName, objectEvent};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByTA_TO;
+			finderPath = _finderPathWithPaginationFindByON_OE;
 			finderArgs = new Object[] {
-				triggerAction, triggerObject, start, end, orderByComparator
+				objectName, objectEvent, start, end, orderByComparator
 			};
 		}
 
@@ -199,8 +194,8 @@ public class RulePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Rule rule : list) {
-					if (!triggerAction.equals(rule.getTriggerAction()) ||
-						!triggerObject.equals(rule.getTriggerObject())) {
+					if (!objectName.equals(rule.getObjectName()) ||
+						!objectEvent.equals(rule.getObjectEvent())) {
 
 						list = null;
 
@@ -223,33 +218,33 @@ public class RulePersistenceImpl
 
 			query.append(_SQL_SELECT_RULE_WHERE);
 
-			boolean bindTriggerAction = false;
+			boolean bindObjectName = false;
 
-			if (triggerAction.isEmpty()) {
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_3);
+			if (objectName.isEmpty()) {
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_3);
 			}
 			else {
-				bindTriggerAction = true;
+				bindObjectName = true;
 
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_2);
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_2);
 			}
 
-			boolean bindTriggerObject = false;
+			boolean bindObjectEvent = false;
 
-			if (triggerObject.isEmpty()) {
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_3);
+			if (objectEvent.isEmpty()) {
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_3);
 			}
 			else {
-				bindTriggerObject = true;
+				bindObjectEvent = true;
 
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_2);
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_2);
 			}
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
 					query, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
 			}
-			else if (pagination) {
+			else {
 				query.append(RuleModelImpl.ORDER_BY_JPQL);
 			}
 
@@ -264,26 +259,15 @@ public class RulePersistenceImpl
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindTriggerAction) {
-					qPos.add(triggerAction);
+				if (bindObjectName) {
+					qPos.add(objectName);
 				}
 
-				if (bindTriggerObject) {
-					qPos.add(triggerObject);
+				if (bindObjectEvent) {
+					qPos.add(objectEvent);
 				}
 
-				if (!pagination) {
-					list = (List<Rule>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Rule>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Rule>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -307,22 +291,22 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the first rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching rule
 	 * @throws NoSuchRuleException if a matching rule could not be found
 	 */
 	@Override
-	public Rule findByTA_TO_First(
-			String triggerAction, String triggerObject,
+	public Rule findByON_OE_First(
+			String objectName, String objectEvent,
 			OrderByComparator<Rule> orderByComparator)
 		throws NoSuchRuleException {
 
-		Rule rule = fetchByTA_TO_First(
-			triggerAction, triggerObject, orderByComparator);
+		Rule rule = fetchByON_OE_First(
+			objectName, objectEvent, orderByComparator);
 
 		if (rule != null) {
 			return rule;
@@ -332,11 +316,11 @@ public class RulePersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("triggerAction=");
-		msg.append(triggerAction);
+		msg.append("objectName=");
+		msg.append(objectName);
 
-		msg.append(", triggerObject=");
-		msg.append(triggerObject);
+		msg.append(", objectEvent=");
+		msg.append(objectEvent);
 
 		msg.append("}");
 
@@ -344,20 +328,20 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the first rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the first rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching rule, or <code>null</code> if a matching rule could not be found
 	 */
 	@Override
-	public Rule fetchByTA_TO_First(
-		String triggerAction, String triggerObject,
+	public Rule fetchByON_OE_First(
+		String objectName, String objectEvent,
 		OrderByComparator<Rule> orderByComparator) {
 
-		List<Rule> list = findByTA_TO(
-			triggerAction, triggerObject, 0, 1, orderByComparator);
+		List<Rule> list = findByON_OE(
+			objectName, objectEvent, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -367,22 +351,22 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the last rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching rule
 	 * @throws NoSuchRuleException if a matching rule could not be found
 	 */
 	@Override
-	public Rule findByTA_TO_Last(
-			String triggerAction, String triggerObject,
+	public Rule findByON_OE_Last(
+			String objectName, String objectEvent,
 			OrderByComparator<Rule> orderByComparator)
 		throws NoSuchRuleException {
 
-		Rule rule = fetchByTA_TO_Last(
-			triggerAction, triggerObject, orderByComparator);
+		Rule rule = fetchByON_OE_Last(
+			objectName, objectEvent, orderByComparator);
 
 		if (rule != null) {
 			return rule;
@@ -392,11 +376,11 @@ public class RulePersistenceImpl
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("triggerAction=");
-		msg.append(triggerAction);
+		msg.append("objectName=");
+		msg.append(objectName);
 
-		msg.append(", triggerObject=");
-		msg.append(triggerObject);
+		msg.append(", objectEvent=");
+		msg.append(objectEvent);
 
 		msg.append("}");
 
@@ -404,26 +388,26 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the last rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the last rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching rule, or <code>null</code> if a matching rule could not be found
 	 */
 	@Override
-	public Rule fetchByTA_TO_Last(
-		String triggerAction, String triggerObject,
+	public Rule fetchByON_OE_Last(
+		String objectName, String objectEvent,
 		OrderByComparator<Rule> orderByComparator) {
 
-		int count = countByTA_TO(triggerAction, triggerObject);
+		int count = countByON_OE(objectName, objectEvent);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Rule> list = findByTA_TO(
-			triggerAction, triggerObject, count - 1, count, orderByComparator);
+		List<Rule> list = findByON_OE(
+			objectName, objectEvent, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -433,23 +417,23 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the rules before and after the current rule in the ordered set where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the rules before and after the current rule in the ordered set where objectName = &#63; and objectEvent = &#63;.
 	 *
 	 * @param ruleId the primary key of the current rule
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next rule
 	 * @throws NoSuchRuleException if a rule with the primary key could not be found
 	 */
 	@Override
-	public Rule[] findByTA_TO_PrevAndNext(
-			long ruleId, String triggerAction, String triggerObject,
+	public Rule[] findByON_OE_PrevAndNext(
+			long ruleId, String objectName, String objectEvent,
 			OrderByComparator<Rule> orderByComparator)
 		throws NoSuchRuleException {
 
-		triggerAction = Objects.toString(triggerAction, "");
-		triggerObject = Objects.toString(triggerObject, "");
+		objectName = Objects.toString(objectName, "");
+		objectEvent = Objects.toString(objectEvent, "");
 
 		Rule rule = findByPrimaryKey(ruleId);
 
@@ -460,14 +444,14 @@ public class RulePersistenceImpl
 
 			Rule[] array = new RuleImpl[3];
 
-			array[0] = getByTA_TO_PrevAndNext(
-				session, rule, triggerAction, triggerObject, orderByComparator,
+			array[0] = getByON_OE_PrevAndNext(
+				session, rule, objectName, objectEvent, orderByComparator,
 				true);
 
 			array[1] = rule;
 
-			array[2] = getByTA_TO_PrevAndNext(
-				session, rule, triggerAction, triggerObject, orderByComparator,
+			array[2] = getByON_OE_PrevAndNext(
+				session, rule, objectName, objectEvent, orderByComparator,
 				false);
 
 			return array;
@@ -480,8 +464,8 @@ public class RulePersistenceImpl
 		}
 	}
 
-	protected Rule getByTA_TO_PrevAndNext(
-		Session session, Rule rule, String triggerAction, String triggerObject,
+	protected Rule getByON_OE_PrevAndNext(
+		Session session, Rule rule, String objectName, String objectEvent,
 		OrderByComparator<Rule> orderByComparator, boolean previous) {
 
 		StringBundler query = null;
@@ -497,26 +481,26 @@ public class RulePersistenceImpl
 
 		query.append(_SQL_SELECT_RULE_WHERE);
 
-		boolean bindTriggerAction = false;
+		boolean bindObjectName = false;
 
-		if (triggerAction.isEmpty()) {
-			query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_3);
+		if (objectName.isEmpty()) {
+			query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_3);
 		}
 		else {
-			bindTriggerAction = true;
+			bindObjectName = true;
 
-			query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_2);
+			query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_2);
 		}
 
-		boolean bindTriggerObject = false;
+		boolean bindObjectEvent = false;
 
-		if (triggerObject.isEmpty()) {
-			query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_3);
+		if (objectEvent.isEmpty()) {
+			query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_3);
 		}
 		else {
-			bindTriggerObject = true;
+			bindObjectEvent = true;
 
-			query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_2);
+			query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_2);
 		}
 
 		if (orderByComparator != null) {
@@ -588,12 +572,12 @@ public class RulePersistenceImpl
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		if (bindTriggerAction) {
-			qPos.add(triggerAction);
+		if (bindObjectName) {
+			qPos.add(objectName);
 		}
 
-		if (bindTriggerObject) {
-			qPos.add(triggerObject);
+		if (bindObjectEvent) {
+			qPos.add(objectEvent);
 		}
 
 		if (orderByComparator != null) {
@@ -615,16 +599,16 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Removes all the rules where triggerAction = &#63; and triggerObject = &#63; from the database.
+	 * Removes all the rules where objectName = &#63; and objectEvent = &#63; from the database.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 */
 	@Override
-	public void removeByTA_TO(String triggerAction, String triggerObject) {
+	public void removeByON_OE(String objectName, String objectEvent) {
 		for (Rule rule :
-				findByTA_TO(
-					triggerAction, triggerObject, QueryUtil.ALL_POS,
+				findByON_OE(
+					objectName, objectEvent, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS, null)) {
 
 			remove(rule);
@@ -632,20 +616,20 @@ public class RulePersistenceImpl
 	}
 
 	/**
-	 * Returns the number of rules where triggerAction = &#63; and triggerObject = &#63;.
+	 * Returns the number of rules where objectName = &#63; and objectEvent = &#63;.
 	 *
-	 * @param triggerAction the trigger action
-	 * @param triggerObject the trigger object
+	 * @param objectName the object name
+	 * @param objectEvent the object event
 	 * @return the number of matching rules
 	 */
 	@Override
-	public int countByTA_TO(String triggerAction, String triggerObject) {
-		triggerAction = Objects.toString(triggerAction, "");
-		triggerObject = Objects.toString(triggerObject, "");
+	public int countByON_OE(String objectName, String objectEvent) {
+		objectName = Objects.toString(objectName, "");
+		objectEvent = Objects.toString(objectEvent, "");
 
-		FinderPath finderPath = _finderPathCountByTA_TO;
+		FinderPath finderPath = _finderPathCountByON_OE;
 
-		Object[] finderArgs = new Object[] {triggerAction, triggerObject};
+		Object[] finderArgs = new Object[] {objectName, objectEvent};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -654,26 +638,26 @@ public class RulePersistenceImpl
 
 			query.append(_SQL_COUNT_RULE_WHERE);
 
-			boolean bindTriggerAction = false;
+			boolean bindObjectName = false;
 
-			if (triggerAction.isEmpty()) {
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_3);
+			if (objectName.isEmpty()) {
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_3);
 			}
 			else {
-				bindTriggerAction = true;
+				bindObjectName = true;
 
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGERACTION_2);
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTNAME_2);
 			}
 
-			boolean bindTriggerObject = false;
+			boolean bindObjectEvent = false;
 
-			if (triggerObject.isEmpty()) {
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_3);
+			if (objectEvent.isEmpty()) {
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_3);
 			}
 			else {
-				bindTriggerObject = true;
+				bindObjectEvent = true;
 
-				query.append(_FINDER_COLUMN_TA_TO_TRIGGEROBJECT_2);
+				query.append(_FINDER_COLUMN_ON_OE_OBJECTEVENT_2);
 			}
 
 			String sql = query.toString();
@@ -687,12 +671,12 @@ public class RulePersistenceImpl
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindTriggerAction) {
-					qPos.add(triggerAction);
+				if (bindObjectName) {
+					qPos.add(objectName);
 				}
 
-				if (bindTriggerObject) {
-					qPos.add(triggerObject);
+				if (bindObjectEvent) {
+					qPos.add(objectEvent);
 				}
 
 				count = (Long)q.uniqueResult();
@@ -712,17 +696,17 @@ public class RulePersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_TA_TO_TRIGGERACTION_2 =
-		"rule.triggerAction = ? AND ";
+	private static final String _FINDER_COLUMN_ON_OE_OBJECTNAME_2 =
+		"rule.objectName = ? AND ";
 
-	private static final String _FINDER_COLUMN_TA_TO_TRIGGERACTION_3 =
-		"(rule.triggerAction IS NULL OR rule.triggerAction = '') AND ";
+	private static final String _FINDER_COLUMN_ON_OE_OBJECTNAME_3 =
+		"(rule.objectName IS NULL OR rule.objectName = '') AND ";
 
-	private static final String _FINDER_COLUMN_TA_TO_TRIGGEROBJECT_2 =
-		"rule.triggerObject = ?";
+	private static final String _FINDER_COLUMN_ON_OE_OBJECTEVENT_2 =
+		"rule.objectEvent = ?";
 
-	private static final String _FINDER_COLUMN_TA_TO_TRIGGEROBJECT_3 =
-		"(rule.triggerObject IS NULL OR rule.triggerObject = '')";
+	private static final String _FINDER_COLUMN_ON_OE_OBJECTEVENT_3 =
+		"(rule.objectEvent IS NULL OR rule.objectEvent = '')";
 
 	public RulePersistenceImpl() {
 		setModelClass(Rule.class);
@@ -804,6 +788,17 @@ public class RulePersistenceImpl
 		for (Rule rule : rules) {
 			entityCache.removeResult(
 				entityCacheEnabled, RuleImpl.class, rule.getPrimaryKey());
+		}
+	}
+
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(FINDER_CLASS_NAME_ENTITY);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				entityCacheEnabled, RuleImpl.class, primaryKey);
 		}
 	}
 
@@ -953,13 +948,12 @@ public class RulePersistenceImpl
 		}
 		else if (isNew) {
 			Object[] args = new Object[] {
-				ruleModelImpl.getTriggerAction(),
-				ruleModelImpl.getTriggerObject()
+				ruleModelImpl.getObjectName(), ruleModelImpl.getObjectEvent()
 			};
 
-			finderCache.removeResult(_finderPathCountByTA_TO, args);
+			finderCache.removeResult(_finderPathCountByON_OE, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByTA_TO, args);
+				_finderPathWithoutPaginationFindByON_OE, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -967,26 +961,26 @@ public class RulePersistenceImpl
 		}
 		else {
 			if ((ruleModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByTA_TO.getColumnBitmask()) !=
+				 _finderPathWithoutPaginationFindByON_OE.getColumnBitmask()) !=
 					 0) {
 
 				Object[] args = new Object[] {
-					ruleModelImpl.getOriginalTriggerAction(),
-					ruleModelImpl.getOriginalTriggerObject()
+					ruleModelImpl.getOriginalObjectName(),
+					ruleModelImpl.getOriginalObjectEvent()
 				};
 
-				finderCache.removeResult(_finderPathCountByTA_TO, args);
+				finderCache.removeResult(_finderPathCountByON_OE, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTA_TO, args);
+					_finderPathWithoutPaginationFindByON_OE, args);
 
 				args = new Object[] {
-					ruleModelImpl.getTriggerAction(),
-					ruleModelImpl.getTriggerObject()
+					ruleModelImpl.getObjectName(),
+					ruleModelImpl.getObjectEvent()
 				};
 
-				finderCache.removeResult(_finderPathCountByTA_TO, args);
+				finderCache.removeResult(_finderPathCountByON_OE, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByTA_TO, args);
+					_finderPathWithoutPaginationFindByON_OE, args);
 			}
 		}
 
@@ -1061,7 +1055,7 @@ public class RulePersistenceImpl
 	 * Returns a range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules
@@ -1077,7 +1071,7 @@ public class RulePersistenceImpl
 	 * Returns an ordered range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules
@@ -1096,7 +1090,7 @@ public class RulePersistenceImpl
 	 * Returns an ordered range of all the rules.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not <code>QueryUtil#ALL_POS</code>), then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>RuleModelImpl</code>.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of rules
@@ -1110,14 +1104,11 @@ public class RulePersistenceImpl
 		int start, int end, OrderByComparator<Rule> orderByComparator,
 		boolean useFinderCache) {
 
-		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 			(orderByComparator == null)) {
-
-			pagination = false;
 
 			if (useFinderCache) {
 				finderPath = _finderPathWithoutPaginationFindAll;
@@ -1154,9 +1145,7 @@ public class RulePersistenceImpl
 			else {
 				sql = _SQL_SELECT_RULE;
 
-				if (pagination) {
-					sql = sql.concat(RuleModelImpl.ORDER_BY_JPQL);
-				}
+				sql = sql.concat(RuleModelImpl.ORDER_BY_JPQL);
 			}
 
 			Session session = null;
@@ -1166,18 +1155,7 @@ public class RulePersistenceImpl
 
 				Query q = session.createQuery(sql);
 
-				if (!pagination) {
-					list = (List<Rule>)QueryUtil.list(
-						q, getDialect(), start, end, false);
-
-					Collections.sort(list);
-
-					list = Collections.unmodifiableList(list);
-				}
-				else {
-					list = (List<Rule>)QueryUtil.list(
-						q, getDialect(), start, end);
-				}
+				list = (List<Rule>)QueryUtil.list(q, getDialect(), start, end);
 
 				cacheResult(list);
 
@@ -1290,25 +1268,25 @@ public class RulePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_finderPathWithPaginationFindByTA_TO = new FinderPath(
+		_finderPathWithPaginationFindByON_OE = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, RuleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByTA_TO",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByON_OE",
 			new String[] {
 				String.class.getName(), String.class.getName(),
 				Integer.class.getName(), Integer.class.getName(),
 				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByTA_TO = new FinderPath(
+		_finderPathWithoutPaginationFindByON_OE = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, RuleImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByTA_TO",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByON_OE",
 			new String[] {String.class.getName(), String.class.getName()},
-			RuleModelImpl.TRIGGERACTION_COLUMN_BITMASK |
-			RuleModelImpl.TRIGGEROBJECT_COLUMN_BITMASK);
+			RuleModelImpl.OBJECTNAME_COLUMN_BITMASK |
+			RuleModelImpl.OBJECTEVENT_COLUMN_BITMASK);
 
-		_finderPathCountByTA_TO = new FinderPath(
+		_finderPathCountByON_OE = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTA_TO",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByON_OE",
 			new String[] {String.class.getName(), String.class.getName()});
 	}
 

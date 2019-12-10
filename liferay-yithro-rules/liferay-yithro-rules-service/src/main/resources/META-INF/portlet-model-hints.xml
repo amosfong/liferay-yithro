@@ -1,25 +1,29 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.liferay.yithro.rules.model.Action">
-		<field name="actionId" type="long" />
+	<model name="com.liferay.yithro.rules.model.Rule">
 		<field name="ruleId" type="long" />
-		<field name="entity" type="String" />
 		<field name="name" type="String" />
+		<field name="objectName" type="String" />
+		<field name="objectEvent" type="String" />
+	</model>
+	<model name="com.liferay.yithro.rules.model.RuleAction">
+		<field name="ruleActionId" type="long" />
+		<field name="ruleId" type="long" />
+		<field name="actionClassName" type="String" />
+	</model>
+	<model name="com.liferay.yithro.rules.model.RuleActionData">
+		<field name="ruleActionDataId" type="long" />
+		<field name="ruleActionId" type="long" />
+		<field name="field" type="String" />
 		<field name="value" type="String" />
 	</model>
-	<model name="com.liferay.yithro.rules.model.Expression">
-		<field name="expressionId" type="long" />
+	<model name="com.liferay.yithro.rules.model.RuleCondition">
+		<field name="ruleConditionId" type="long" />
 		<field name="ruleId" type="long" />
 		<field name="type" type="String" />
 		<field name="field" type="String" />
 		<field name="operation" type="String" />
 		<field name="value" type="String" />
-	</model>
-	<model name="com.liferay.yithro.rules.model.Rule">
-		<field name="ruleId" type="long" />
-		<field name="name" type="String" />
-		<field name="triggerAction" type="String" />
-		<field name="triggerObject" type="String" />
 	</model>
 </model-hints>

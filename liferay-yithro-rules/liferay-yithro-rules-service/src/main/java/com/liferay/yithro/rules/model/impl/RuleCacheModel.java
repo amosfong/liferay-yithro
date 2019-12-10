@@ -24,15 +24,12 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * The cache model class for representing Rule in entity cache.
  *
  * @author Brian Wing Shun Chan
  * @generated
  */
-@ProviderType
 public class RuleCacheModel implements CacheModel<Rule>, Externalizable {
 
 	@Override
@@ -67,10 +64,10 @@ public class RuleCacheModel implements CacheModel<Rule>, Externalizable {
 		sb.append(ruleId);
 		sb.append(", name=");
 		sb.append(name);
-		sb.append(", triggerAction=");
-		sb.append(triggerAction);
-		sb.append(", triggerObject=");
-		sb.append(triggerObject);
+		sb.append(", objectName=");
+		sb.append(objectName);
+		sb.append(", objectEvent=");
+		sb.append(objectEvent);
 		sb.append("}");
 
 		return sb.toString();
@@ -89,18 +86,18 @@ public class RuleCacheModel implements CacheModel<Rule>, Externalizable {
 			ruleImpl.setName(name);
 		}
 
-		if (triggerAction == null) {
-			ruleImpl.setTriggerAction("");
+		if (objectName == null) {
+			ruleImpl.setObjectName("");
 		}
 		else {
-			ruleImpl.setTriggerAction(triggerAction);
+			ruleImpl.setObjectName(objectName);
 		}
 
-		if (triggerObject == null) {
-			ruleImpl.setTriggerObject("");
+		if (objectEvent == null) {
+			ruleImpl.setObjectEvent("");
 		}
 		else {
-			ruleImpl.setTriggerObject(triggerObject);
+			ruleImpl.setObjectEvent(objectEvent);
 		}
 
 		ruleImpl.resetOriginalValues();
@@ -112,8 +109,8 @@ public class RuleCacheModel implements CacheModel<Rule>, Externalizable {
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		ruleId = objectInput.readLong();
 		name = objectInput.readUTF();
-		triggerAction = objectInput.readUTF();
-		triggerObject = objectInput.readUTF();
+		objectName = objectInput.readUTF();
+		objectEvent = objectInput.readUTF();
 	}
 
 	@Override
@@ -127,24 +124,24 @@ public class RuleCacheModel implements CacheModel<Rule>, Externalizable {
 			objectOutput.writeUTF(name);
 		}
 
-		if (triggerAction == null) {
+		if (objectName == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(triggerAction);
+			objectOutput.writeUTF(objectName);
 		}
 
-		if (triggerObject == null) {
+		if (objectEvent == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(triggerObject);
+			objectOutput.writeUTF(objectEvent);
 		}
 	}
 
 	public long ruleId;
 	public String name;
-	public String triggerAction;
-	public String triggerObject;
+	public String objectName;
+	public String objectEvent;
 
 }

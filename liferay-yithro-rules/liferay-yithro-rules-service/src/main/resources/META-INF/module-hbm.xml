@@ -2,20 +2,35 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
-	<import class="com.liferay.yithro.rules.model.Action" />
-	<import class="com.liferay.yithro.rules.model.Expression" />
 	<import class="com.liferay.yithro.rules.model.Rule" />
-	<class name="com.liferay.yithro.rules.model.impl.ActionImpl" table="Yithro_Action">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="actionId" type="long">
+	<import class="com.liferay.yithro.rules.model.RuleAction" />
+	<import class="com.liferay.yithro.rules.model.RuleActionData" />
+	<import class="com.liferay.yithro.rules.model.RuleCondition" />
+	<class name="com.liferay.yithro.rules.model.impl.RuleImpl" table="Yithro_Rule">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="objectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="objectEvent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.yithro.rules.model.impl.RuleActionImpl" table="Yithro_RuleAction">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleActionId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="entity" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="actionClassName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.yithro.rules.model.impl.RuleActionDataImpl" table="Yithro_RuleActionData">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleActionDataId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleActionId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="field" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="value" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.liferay.yithro.rules.model.impl.ExpressionImpl" table="Yithro_Expression">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="expressionId" type="long">
+	<class name="com.liferay.yithro.rules.model.impl.RuleConditionImpl" table="Yithro_RuleCondition">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleConditionId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -23,13 +38,5 @@
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="field" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="operation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="value" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-	</class>
-	<class name="com.liferay.yithro.rules.model.impl.RuleImpl" table="Yithro_Rule">
-		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="ruleId" type="long">
-			<generator class="assigned" />
-		</id>
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="triggerAction" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="triggerObject" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>
