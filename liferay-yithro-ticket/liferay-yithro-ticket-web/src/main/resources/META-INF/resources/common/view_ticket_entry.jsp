@@ -47,6 +47,8 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 				dropdownItems='<%=
 					new JSPDropdownItemList(pageContext) {
 						{
+							ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+
 							PortletURL editTicketEntryURL = renderResponse.createRenderURL();
 
 							editTicketEntryURL.setParameter("mvcRenderCommandName", "/edit_ticket_entry");
@@ -59,6 +61,28 @@ List<TicketLink> ticketLinks = TicketLinkLocalServiceUtil.getTicketLinks(ticketE
 									dropdownItem.setHref("javascript:" + renderResponse.getNamespace() + "openDialog('" + LanguageUtil.get(request, "edit-ticket") + "', '" + editTicketEntryURL.toString() + "');");
 									dropdownItem.setLabel(LanguageUtil.get(request, "edit"));
 								});
+
+							boolean subscribed = SubscriptionLocalServiceUtil.isSubscribed(themeDisplay.getCompanyId(), themeDisplay.getUserId(), TicketEntry.class.getName(), ticketEntry.getTicketEntryId());
+
+							PortletURL subscribeURL = renderResponse.createActionURL();
+
+							subscribeURL.setParameter(ActionRequest.ACTION_NAME, "/subscribe");
+							subscribeURL.setParameter("redirect", PortalUtil.getCurrentURL(request));
+							subscribeURL.setParameter("ticketEntryId", String.valueOf(ticketEntry.getTicketEntryId()));
+
+							if (subscribed) {
+								subscribeURL.setParameter("subscribe", Boolean.FALSE.toString());
+							}
+							else {
+								subscribeURL.setParameter("subscribe", Boolean.TRUE.toString());
+							}
+
+							add(
+								dropdownItem -> {
+									dropdownItem.setHref(subscribeURL);
+									dropdownItem.setLabel(LanguageUtil.get(request, subscribed ? "unsubscribe" : "subscribe"));
+								});
+
 						}
 					}
 				%>'
