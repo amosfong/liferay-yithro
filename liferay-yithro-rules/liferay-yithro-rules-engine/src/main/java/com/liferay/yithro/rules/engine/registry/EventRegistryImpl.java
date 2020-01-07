@@ -12,12 +12,13 @@
  * details.
  */
 
-package com.liferay.yithro.rules.impl.registry;
+package com.liferay.yithro.rules.engine.registry;
 
-import com.liferay.yithro.rules.model.Operation;
-import com.liferay.yithro.rules.registry.OperationRegistry;
+import com.liferay.yithro.rules.engine.Event;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.service.component.annotations.Component;
@@ -27,17 +28,13 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
-@Component(service = OperationRegistry.class)
-public class OperationRegistryImpl implements OperationRegistry {
+@Component(service = EventRegistry.class)
+public class EventRegistryImpl implements EventRegistry {
 
-	public Operation getOperation(String symbol) {
-		return _operationsMap.get(symbol);
-	}
-
-	public Map<String, Operation> getOperationsMap() {
-		return _operationsMap;
+	public Map<String, Set<String>> getObjectEvents() {
+		return _eventMap;
 	}
 
 	@Reference(
@@ -45,20 +42,31 @@ public class OperationRegistryImpl implements OperationRegistry {
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
-	protected void registerOperation(
-			Operation operation, Map<String, Object> properties)
-		throws Exception {
+	protected void registerEvent(Event event, Map<String, Object> properties) {
+		Set<String> eventKeys = _eventMap.get(event.getObjectName());
 
-		_operationsMap.put(operation.getSymbol(), operation);
+		if (eventKeys == null) {
+			eventKeys = new TreeSet<>();
+
+			_eventMap.put(event.getObjectName(), eventKeys);
+		}
+
+		eventKeys.addAll(event.getEventKeys());
 	}
 
-	protected void unregisterOperation(
-		Operation operation, Map<String, Object> properties) {
+	protected void unregisterEvent(
+		Event event, Map<String, Object> properties) {
 
-		_operationsMap.remove(operation.getSymbol());
+		Set<String> eventKeys = _eventMap.get(event.getObjectName());
+
+		eventKeys.removeAll(event.getEventKeys());
+
+		if (eventKeys.isEmpty()) {
+			_eventMap.remove(event.getObjectName());
+		}
 	}
 
-	private final Map<String, Operation> _operationsMap =
+	private final Map<String, Set<String>> _eventMap =
 		new ConcurrentHashMap<>();
 
 }

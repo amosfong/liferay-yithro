@@ -1,3 +1,10 @@
 Bundle-Name: Liferay Yithro Rules API
 Bundle-SymbolicName: com.liferay.yithro.rules.api
 Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.yithro.rules.engine,\
+	com.liferay.yithro.rules.engine.constants,\
+	com.liferay.yithro.rules.engine.registry,\
+	com.liferay.yithro.rules.model,\
+	com.liferay.yithro.rules.exception,\
+	com.liferay.yithro.rules.service

@@ -12,39 +12,21 @@
  * details.
  */
 
-package com.liferay.yithro.rules.impl.operation;
+package com.liferay.yithro.rules.engine;
 
-import com.liferay.petra.string.StringPool;
-import com.liferay.yithro.rules.model.Operation;
-
-import org.osgi.service.component.annotations.Component;
+import java.util.Set;
 
 /**
  * @author Kyle Bischof
  */
-@Component(immediate = true, service = Operation.class)
-public class Equal extends Operation {
+public interface Condition {
 
-	public Equal() {
-		super(StringPool.EQUAL);
-	}
+	public Set<String> getFields();
 
-	@Override
-	public String getSymbol() {
-		return StringPool.EQUAL;
-	}
+	public String getFieldType(String field);
 
-	@Override
-	public boolean interpret(Object expressionValue, Object objectValue) {
-		if (objectValue == null) {
-			return false;
-		}
+	public String getObjectName();
 
-		if (expressionValue.equals(objectValue)) {
-			return true;
-		}
-
-		return false;
-	}
+	public Set<String> getOperations(String field);
 
 }

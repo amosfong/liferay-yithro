@@ -15,7 +15,6 @@
 package com.liferay.yithro.rules.engine.registry;
 
 import com.liferay.yithro.rules.engine.Operation;
-import com.liferay.yithro.rules.engine.registry.OperationRegistry;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
