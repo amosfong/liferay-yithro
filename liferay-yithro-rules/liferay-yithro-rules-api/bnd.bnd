@@ -7,4 +7,5 @@ Export-Package:\
 	com.liferay.yithro.rules.engine.registry,\
 	com.liferay.yithro.rules.model,\
 	com.liferay.yithro.rules.exception,\
-	com.liferay.yithro.rules.service
+	com.liferay.yithro.rules.service,\
+	com.liferay.yithro.rules.service.persistence
