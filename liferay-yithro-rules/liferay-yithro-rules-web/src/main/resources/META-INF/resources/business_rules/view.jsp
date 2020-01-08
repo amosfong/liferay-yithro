@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1", "automations");
+String tabs1 = ParamUtil.getString(request, "tabs1", "rules");
 %>
 
 <clay:navigation-bar
@@ -27,27 +27,13 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "automations");
 			{
 				add(
 					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("automations"));
-						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "automations");
-						navigationItem.setLabel(LanguageUtil.get(request, "automations"));
-					});
-
-				add(
-					navigationItem -> {
-						navigationItem.setActive(tabs1.equals("triggers"));
-						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "triggers");
-						navigationItem.setLabel(LanguageUtil.get(request, "triggers"));
+						navigationItem.setActive(tabs1.equals("rules"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "tabs1", "rules");
+						navigationItem.setLabel(LanguageUtil.get(request, "rules"));
 					});
 			}
 		}
 	%>'
 />
 
-<c:choose>
-	<c:when test='<%= tabs1.equals("automations") %>'>
-		<liferay-util:include page="/business_rules/automations.jsp" servletContext="<%= application %>" />
-	</c:when>
-	<c:otherwise>
-		<liferay-util:include page="/business_rules/triggers.jsp" servletContext="<%= application %>" />
-	</c:otherwise>
-</c:choose>
+<liferay-util:include page="/business_rules/rules.jsp" servletContext="<%= application %>" />
