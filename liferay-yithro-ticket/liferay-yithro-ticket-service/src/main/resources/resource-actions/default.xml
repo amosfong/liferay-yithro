@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.0.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
+
+<resource-action-mapping>
+	<model-resource>
+		<model-name>com.liferay.yithro.ticket</model-name>
+		<portlet-ref>
+			<portlet-name>com_liferay_yithro_ticket_web_AddTicketFormPortlet</portlet-name>
+			<portlet-name>com_liferay_yithro_ticket_web_TicketDetailsDisplayPortlet</portlet-name>
+		</portlet-ref>
+		<root>true</root>
+		<weight>1</weight>
+		<permissions>
+			<supports>
+				<action-key>ADD_TICKET</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>ADD_TICKET</action-key>
+			</site-member-defaults>
+			<guest-defaults />
+			<guest-unsupported>
+				<action-key>ADD_TICKET</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+	<model-resource>
+		<model-name>com.liferay.yithro.ticket.model.TicketEntry</model-name>
+		<portlet-ref>
+			<portlet-name>com_liferay_yithro_ticket_web_AddTicketFormPortlet</portlet-name>
+			<portlet-name>com_liferay_yithro_ticket_web_TicketDetailsDisplayPortlet</portlet-name>
+		</portlet-ref>
+		<weight>2</weight>
+		<permissions>
+			<supports>
+				<action-key>ADD_ATTACHMENT</action-key>
+				<action-key>ADD_COMMENT</action-key>
+				<action-key>ADD_LINK</action-key>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>ADD_ATTACHMENT</action-key>
+				<action-key>ADD_COMMENT</action-key>
+				<action-key>ADD_LINK</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults />
+			<guest-unsupported>
+				<action-key>ADD_ATTACHMENT</action-key>
+				<action-key>ADD_COMMENT</action-key>
+				<action-key>ADD_LINK</action-key>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+</resource-action-mapping>

@@ -162,7 +162,7 @@ public class EditTicketEntryMVCActionCommand extends BaseMVCActionCommand {
 				_ticketStatusLocalService.getInitialTicketStatus();
 
 			_ticketEntryService.addTicketEntry(
-				ticketStructureId, ticketStatus.getTicketStatusId(),
+				0, ticketStructureId, ticketStatus.getTicketStatusId(),
 				themeDisplay.getLanguageId(), summary, description, 0,
 				ticketFieldsMap, ticketAttachments);
 		}

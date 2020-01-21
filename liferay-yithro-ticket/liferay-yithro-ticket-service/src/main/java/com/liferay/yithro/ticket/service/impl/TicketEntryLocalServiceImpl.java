@@ -78,9 +78,9 @@ public class TicketEntryLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	public TicketEntry addTicketEntry(
-			long userId, long ticketStructureId, long ticketStatusId,
-			String languageId, String summary, String description, int weight,
-			Map<Long, String> ticketFieldsMap,
+			long userId, long groupId, long ticketStructureId,
+			long ticketStatusId, String languageId, String summary,
+			String description, int weight, Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
 
@@ -121,6 +121,7 @@ public class TicketEntryLocalServiceImpl
 		ticketEntry.setUserName(user.getFullName());
 		ticketEntry.setCreateDate(now);
 		ticketEntry.setModifiedDate(now);
+		ticketEntry.setGroupId(groupId);
 		ticketEntry.setTicketStructureId(ticketStructureId);
 		ticketEntry.setTicketStatusId(ticketStatusId);
 		ticketEntry.setLanguageId(languageId);

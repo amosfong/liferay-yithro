@@ -16,14 +16,18 @@ package com.liferay.yithro.ticket.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.yithro.constants.ActionKeys;
 import com.liferay.yithro.ticket.model.TicketAttachment;
 import com.liferay.yithro.ticket.model.TicketEntry;
+import com.liferay.yithro.ticket.permission.TicketEntryPermission;
+import com.liferay.yithro.ticket.permission.TicketResourcePermission;
 import com.liferay.yithro.ticket.service.base.TicketEntryServiceBaseImpl;
 
 import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Amos Fong
@@ -38,15 +42,18 @@ import org.osgi.service.component.annotations.Component;
 public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 
 	public TicketEntry addTicketEntry(
-			long ticketStructureId, long ticketStatusId, String languageId,
-			String summary, String description, int weight,
+			long groupId, long ticketStructureId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
 			Map<Long, String> ticketFieldsMap,
 			List<TicketAttachment> ticketAttachments)
 		throws PortalException {
 
+		_ticketResourcePermission.check(
+			getPermissionChecker(), groupId, ActionKeys.ADD_TICKET);
+
 		return ticketEntryLocalService.addTicketEntry(
-			getUserId(), ticketStructureId, ticketStatusId, languageId, summary,
-			description, weight, ticketFieldsMap, ticketAttachments);
+			getUserId(), groupId, ticketStructureId, ticketStatusId, languageId,
+			summary, description, weight, ticketFieldsMap, ticketAttachments);
 	}
 
 	public TicketEntry updateTicketEntry(
@@ -56,6 +63,9 @@ public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 
 		TicketEntry ticketEntry = ticketEntryLocalService.getTicketEntry(
 			ticketEntryId);
+
+		_ticketEntryPermission.check(
+			getPermissionChecker(), ticketEntry, ActionKeys.UPDATE);
 
 		return ticketEntryLocalService.updateTicketEntry(
 			ticketEntryId, reporterUserId, ticketEntry.getTicketStatusId(),
@@ -67,8 +77,17 @@ public class TicketEntryServiceImpl extends TicketEntryServiceBaseImpl {
 			long ticketEntryId, long ticketStatusId)
 		throws PortalException {
 
+		_ticketEntryPermission.check(
+			getPermissionChecker(), ticketEntryId, ActionKeys.UPDATE);
+
 		return ticketEntryLocalService.updateTicketStatus(
 			ticketEntryId, ticketStatusId);
 	}
+
+	@Reference
+	private TicketEntryPermission _ticketEntryPermission;
+
+	@Reference
+	private TicketResourcePermission _ticketResourcePermission;
 
 }
