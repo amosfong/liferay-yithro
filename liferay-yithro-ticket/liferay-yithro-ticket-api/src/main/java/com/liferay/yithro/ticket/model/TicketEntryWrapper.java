@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketEntryWrapper
 	extends BaseModelWrapper<TicketEntry>
-	implements TicketEntry, ModelWrapper<TicketEntry> {
+	implements ModelWrapper<TicketEntry>, TicketEntry {
 
 	public TicketEntryWrapper(TicketEntry ticketEntry) {
 		super(ticketEntry);
@@ -48,6 +48,7 @@ public class TicketEntryWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("groupId", getGroupId());
 		attributes.put("ticketStructureId", getTicketStructureId());
 		attributes.put("ticketStatusId", getTicketStatusId());
 		attributes.put("languageId", getLanguageId());
@@ -98,6 +99,12 @@ public class TicketEntryWrapper
 
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
+		}
+
+		Long groupId = (Long)attributes.get("groupId");
+
+		if (groupId != null) {
+			setGroupId(groupId);
 		}
 
 		Long ticketStructureId = (Long)attributes.get("ticketStructureId");
@@ -209,6 +216,16 @@ public class TicketEntryWrapper
 	@Override
 	public Date getDueDate() {
 		return model.getDueDate();
+	}
+
+	/**
+	 * Returns the group ID of this ticket entry.
+	 *
+	 * @return the group ID of this ticket entry
+	 */
+	@Override
+	public long getGroupId() {
+		return model.getGroupId();
 	}
 
 	/**
@@ -355,11 +372,6 @@ public class TicketEntryWrapper
 		return model.isClosed();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket entry model instance should use the <code>TicketEntry</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();
@@ -413,6 +425,16 @@ public class TicketEntryWrapper
 	@Override
 	public void setDueDate(Date dueDate) {
 		model.setDueDate(dueDate);
+	}
+
+	/**
+	 * Sets the group ID of this ticket entry.
+	 *
+	 * @param groupId the group ID of this ticket entry
+	 */
+	@Override
+	public void setGroupId(long groupId) {
+		model.setGroupId(groupId);
 	}
 
 	/**

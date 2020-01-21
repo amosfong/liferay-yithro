@@ -41,7 +41,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketFieldOptionModel
 	extends BaseModel<TicketFieldOption>, LocalizedModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket field option model instance should use the {@link TicketFieldOption} interface instead.

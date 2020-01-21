@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketStructureServiceWrapper
-	implements TicketStructureService, ServiceWrapper<TicketStructureService> {
+	implements ServiceWrapper<TicketStructureService>, TicketStructureService {
 
 	public TicketStructureServiceWrapper(
 		TicketStructureService ticketStructureService) {

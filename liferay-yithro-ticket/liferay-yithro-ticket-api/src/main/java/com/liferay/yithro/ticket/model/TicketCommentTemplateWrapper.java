@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketCommentTemplateWrapper
 	extends BaseModelWrapper<TicketCommentTemplate>
-	implements TicketCommentTemplate, ModelWrapper<TicketCommentTemplate> {
+	implements ModelWrapper<TicketCommentTemplate>, TicketCommentTemplate {
 
 	public TicketCommentTemplateWrapper(
 		TicketCommentTemplate ticketCommentTemplate) {
@@ -355,11 +355,6 @@ public class TicketCommentTemplateWrapper
 		return model.getUserUuid();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket comment template model instance should use the <code>TicketCommentTemplate</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketCommunicationLocalServiceUtil;
 public abstract class TicketCommunicationBaseImpl
 	extends TicketCommunicationModelImpl implements TicketCommunication {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket communication model instance should use the <code>TicketCommunication</code> interface instead.

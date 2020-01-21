@@ -56,9 +56,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TicketLinkServiceBaseImpl
 	extends BaseServiceImpl
-	implements TicketLinkService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, TicketLinkService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketLinkService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketLinkServiceUtil</code>.
@@ -112,8 +112,8 @@ public abstract class TicketLinkServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

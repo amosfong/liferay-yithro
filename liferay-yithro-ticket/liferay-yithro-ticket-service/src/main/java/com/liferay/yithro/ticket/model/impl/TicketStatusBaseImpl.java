@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketStatusLocalServiceUtil;
 public abstract class TicketStatusBaseImpl
 	extends TicketStatusModelImpl implements TicketStatus {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket status model instance should use the <code>TicketStatus</code> interface instead.

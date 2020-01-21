@@ -31,7 +31,7 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface TicketLink extends PersistedModel, TicketLinkModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify this interface directly. Add methods to <code>com.liferay.yithro.ticket.model.impl.TicketLinkImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.

@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketAttachmentLocalServiceUtil;
 public abstract class TicketAttachmentBaseImpl
 	extends TicketAttachmentModelImpl implements TicketAttachment {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket attachment model instance should use the <code>TicketAttachment</code> interface instead.

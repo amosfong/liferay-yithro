@@ -41,7 +41,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketStatusModel
 	extends BaseModel<TicketStatus>, LocalizedModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket status model instance should use the {@link TicketStatus} interface instead.

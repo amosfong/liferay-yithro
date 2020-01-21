@@ -60,6 +60,7 @@ create table Yithro_TicketEntry (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	groupId LONG,
 	ticketStructureId LONG,
 	ticketStatusId LONG,
 	languageId VARCHAR(75) null,

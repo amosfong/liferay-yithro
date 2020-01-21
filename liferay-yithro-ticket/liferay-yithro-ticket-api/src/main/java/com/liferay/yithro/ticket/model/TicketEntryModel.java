@@ -15,8 +15,8 @@
 package com.liferay.yithro.ticket.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
@@ -36,9 +36,9 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface TicketEntryModel
-	extends AuditedModel, BaseModel<TicketEntry>, ShardedModel {
+	extends BaseModel<TicketEntry>, GroupedModel, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket entry model instance should use the {@link TicketEntry} interface instead.
@@ -168,6 +168,22 @@ public interface TicketEntryModel
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the group ID of this ticket entry.
+	 *
+	 * @return the group ID of this ticket entry
+	 */
+	@Override
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this ticket entry.
+	 *
+	 * @param groupId the group ID of this ticket entry
+	 */
+	@Override
+	public void setGroupId(long groupId);
 
 	/**
 	 * Returns the ticket structure ID of this ticket entry.

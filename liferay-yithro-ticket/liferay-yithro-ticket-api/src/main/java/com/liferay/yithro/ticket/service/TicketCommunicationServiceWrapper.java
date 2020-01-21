@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketCommunicationServiceWrapper
-	implements TicketCommunicationService,
-			   ServiceWrapper<TicketCommunicationService> {
+	implements ServiceWrapper<TicketCommunicationService>,
+			   TicketCommunicationService {
 
 	public TicketCommunicationServiceWrapper(
 		TicketCommunicationService ticketCommunicationService) {

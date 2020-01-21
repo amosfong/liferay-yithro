@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketFieldOptionWrapper
 	extends BaseModelWrapper<TicketFieldOption>
-	implements TicketFieldOption, ModelWrapper<TicketFieldOption> {
+	implements ModelWrapper<TicketFieldOption>, TicketFieldOption {
 
 	public TicketFieldOptionWrapper(TicketFieldOption ticketFieldOption) {
 		super(ticketFieldOption);
@@ -288,11 +288,6 @@ public class TicketFieldOptionWrapper
 		return model.getVisibility();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket field option model instance should use the <code>TicketFieldOption</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketAttachmentWrapper
 	extends BaseModelWrapper<TicketAttachment>
-	implements TicketAttachment, ModelWrapper<TicketAttachment> {
+	implements ModelWrapper<TicketAttachment>, TicketAttachment {
 
 	public TicketAttachmentWrapper(TicketAttachment ticketAttachment) {
 		super(ticketAttachment);
@@ -299,11 +299,6 @@ public class TicketAttachmentWrapper
 		return model.getVisibilityLabel();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket attachment model instance should use the <code>TicketAttachment</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

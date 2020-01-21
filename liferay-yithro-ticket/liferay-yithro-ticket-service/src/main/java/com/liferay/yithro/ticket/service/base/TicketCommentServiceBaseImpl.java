@@ -56,9 +56,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TicketCommentServiceBaseImpl
 	extends BaseServiceImpl
-	implements TicketCommentService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, TicketCommentService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketCommentService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketCommentServiceUtil</code>.
@@ -112,8 +112,8 @@ public abstract class TicketCommentServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

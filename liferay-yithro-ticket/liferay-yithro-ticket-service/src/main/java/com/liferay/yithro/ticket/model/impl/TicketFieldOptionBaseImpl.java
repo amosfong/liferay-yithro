@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketFieldOptionLocalServiceUtil;
 public abstract class TicketFieldOptionBaseImpl
 	extends TicketFieldOptionModelImpl implements TicketFieldOption {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket field option model instance should use the <code>TicketFieldOption</code> interface instead.

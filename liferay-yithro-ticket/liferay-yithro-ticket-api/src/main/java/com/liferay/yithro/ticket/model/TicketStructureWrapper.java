@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketStructureWrapper
 	extends BaseModelWrapper<TicketStructure>
-	implements TicketStructure, ModelWrapper<TicketStructure> {
+	implements ModelWrapper<TicketStructure>, TicketStructure {
 
 	public TicketStructureWrapper(TicketStructure ticketStructure) {
 		super(ticketStructure);
@@ -234,11 +234,6 @@ public class TicketStructureWrapper
 		return model.getUserUuid();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket structure model instance should use the <code>TicketStructure</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

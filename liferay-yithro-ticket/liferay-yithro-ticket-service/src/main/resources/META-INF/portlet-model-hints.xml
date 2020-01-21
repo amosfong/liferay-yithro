@@ -64,6 +64,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="groupId" type="long" />
 		<field name="ticketStructureId" type="long" />
 		<field name="ticketStatusId" type="long" />
 		<field name="languageId" type="String" />

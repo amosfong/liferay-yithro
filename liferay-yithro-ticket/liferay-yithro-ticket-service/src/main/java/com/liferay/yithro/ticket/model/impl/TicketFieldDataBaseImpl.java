@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketFieldDataLocalServiceUtil;
 public abstract class TicketFieldDataBaseImpl
 	extends TicketFieldDataModelImpl implements TicketFieldData {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket field data model instance should use the <code>TicketFieldData</code> interface instead.

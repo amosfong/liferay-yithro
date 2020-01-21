@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketFieldDataServiceWrapper
-	implements TicketFieldDataService, ServiceWrapper<TicketFieldDataService> {
+	implements ServiceWrapper<TicketFieldDataService>, TicketFieldDataService {
 
 	public TicketFieldDataServiceWrapper(
 		TicketFieldDataService ticketFieldDataService) {

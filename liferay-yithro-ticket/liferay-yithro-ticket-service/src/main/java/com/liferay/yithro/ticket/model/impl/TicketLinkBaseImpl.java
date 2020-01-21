@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketLinkLocalServiceUtil;
 public abstract class TicketLinkBaseImpl
 	extends TicketLinkModelImpl implements TicketLink {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket link model instance should use the <code>TicketLink</code> interface instead.

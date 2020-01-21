@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketCommunicationWrapper
 	extends BaseModelWrapper<TicketCommunication>
-	implements TicketCommunication, ModelWrapper<TicketCommunication> {
+	implements ModelWrapper<TicketCommunication>, TicketCommunication {
 
 	public TicketCommunicationWrapper(TicketCommunication ticketCommunication) {
 		super(ticketCommunication);
@@ -237,11 +237,6 @@ public class TicketCommunicationWrapper
 		return model.getVisibility();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket communication model instance should use the <code>TicketCommunication</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

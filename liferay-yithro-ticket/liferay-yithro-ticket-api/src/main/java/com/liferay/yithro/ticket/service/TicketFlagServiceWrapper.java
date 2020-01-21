@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketFlagServiceWrapper
-	implements TicketFlagService, ServiceWrapper<TicketFlagService> {
+	implements ServiceWrapper<TicketFlagService>, TicketFlagService {
 
 	public TicketFlagServiceWrapper(TicketFlagService ticketFlagService) {
 		_ticketFlagService = ticketFlagService;

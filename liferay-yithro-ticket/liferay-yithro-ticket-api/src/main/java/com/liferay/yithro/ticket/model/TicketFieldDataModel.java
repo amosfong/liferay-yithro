@@ -37,7 +37,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketFieldDataModel
 	extends BaseModel<TicketFieldData>, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket field data model instance should use the {@link TicketFieldData} interface instead.

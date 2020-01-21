@@ -24,29 +24,24 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketEntryServiceWrapper
-	implements TicketEntryService, ServiceWrapper<TicketEntryService> {
+	implements ServiceWrapper<TicketEntryService>, TicketEntryService {
 
 	public TicketEntryServiceWrapper(TicketEntryService ticketEntryService) {
 		_ticketEntryService = ticketEntryService;
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link TicketEntryServiceUtil} to access the ticket entry remote service. Add custom service methods to <code>com.liferay.yithro.ticket.service.impl.TicketEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	@Override
 	public com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			long ticketStructureId, long ticketStatusId, String languageId,
-			String summary, String description, int weight,
+			long groupId, long ticketStructureId, long ticketStatusId,
+			String languageId, String summary, String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
 			java.util.List<com.liferay.yithro.ticket.model.TicketAttachment>
 				ticketAttachments)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _ticketEntryService.addTicketEntry(
-			ticketStructureId, ticketStatusId, languageId, summary, description,
-			weight, ticketFieldsMap, ticketAttachments);
+			groupId, ticketStructureId, ticketStatusId, languageId, summary,
+			description, weight, ticketFieldsMap, ticketAttachments);
 	}
 
 	/**

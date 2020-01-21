@@ -52,7 +52,7 @@ import com.liferay.yithro.ticket.service.TicketEntryServiceUtil;
 public class TicketEntryServiceHttp {
 
 	public static com.liferay.yithro.ticket.model.TicketEntry addTicketEntry(
-			HttpPrincipal httpPrincipal, long ticketStructureId,
+			HttpPrincipal httpPrincipal, long groupId, long ticketStructureId,
 			long ticketStatusId, String languageId, String summary,
 			String description, int weight,
 			java.util.Map<Long, String> ticketFieldsMap,
@@ -66,8 +66,8 @@ public class TicketEntryServiceHttp {
 				_addTicketEntryParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, ticketStructureId, ticketStatusId, languageId,
-				summary, description, weight, ticketFieldsMap,
+				methodKey, groupId, ticketStructureId, ticketStatusId,
+				languageId, summary, description, weight, ticketFieldsMap,
 				ticketAttachments);
 
 			Object returnObj = null;
@@ -75,24 +75,26 @@ public class TicketEntryServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception e) {
-				if (e instanceof
+			catch (Exception exception) {
+				if (exception instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
+					exception);
 			}
 
 			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
 
-			throw se;
+			_log.error(systemException, systemException);
+
+			throw systemException;
 		}
 	}
 
@@ -114,24 +116,26 @@ public class TicketEntryServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception e) {
-				if (e instanceof
+			catch (Exception exception) {
+				if (exception instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
+					exception);
 			}
 
 			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
 
-			throw se;
+			_log.error(systemException, systemException);
+
+			throw systemException;
 		}
 	}
 
@@ -154,24 +158,26 @@ public class TicketEntryServiceHttp {
 			try {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
-			catch (Exception e) {
-				if (e instanceof
+			catch (Exception exception) {
+				if (exception instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
-						e;
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
-					e);
+					exception);
 			}
 
 			return (com.liferay.yithro.ticket.model.TicketEntry)returnObj;
 		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
 
-			throw se;
+			_log.error(systemException, systemException);
+
+			throw systemException;
 		}
 	}
 
@@ -180,8 +186,8 @@ public class TicketEntryServiceHttp {
 
 	private static final Class<?>[] _addTicketEntryParameterTypes0 =
 		new Class[] {
-			long.class, long.class, String.class, String.class, String.class,
-			int.class, java.util.Map.class, java.util.List.class
+			long.class, long.class, long.class, String.class, String.class,
+			String.class, int.class, java.util.Map.class, java.util.List.class
 		};
 	private static final Class<?>[] _updateTicketEntryParameterTypes1 =
 		new Class[] {long.class, long.class, String.class, String.class};

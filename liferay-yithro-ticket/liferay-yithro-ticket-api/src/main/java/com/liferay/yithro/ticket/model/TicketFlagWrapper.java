@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketFlagWrapper
 	extends BaseModelWrapper<TicketFlag>
-	implements TicketFlag, ModelWrapper<TicketFlag> {
+	implements ModelWrapper<TicketFlag>, TicketFlag {
 
 	public TicketFlagWrapper(TicketFlag ticketFlag) {
 		super(ticketFlag);
@@ -193,11 +193,6 @@ public class TicketFlagWrapper
 		return model.getValue();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket flag model instance should use the <code>TicketFlag</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketFieldWrapper
 	extends BaseModelWrapper<TicketField>
-	implements TicketField, ModelWrapper<TicketField> {
+	implements ModelWrapper<TicketField>, TicketField {
 
 	public TicketFieldWrapper(TicketField ticketField) {
 		super(ticketField);
@@ -428,11 +428,6 @@ public class TicketFieldWrapper
 		return model.isSummaryField();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket field model instance should use the <code>TicketField</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

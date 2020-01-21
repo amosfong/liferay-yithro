@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketCommentWrapper
 	extends BaseModelWrapper<TicketComment>
-	implements TicketComment, ModelWrapper<TicketComment> {
+	implements ModelWrapper<TicketComment>, TicketComment {
 
 	public TicketCommentWrapper(TicketComment ticketComment) {
 		super(ticketComment);
@@ -320,11 +320,6 @@ public class TicketCommentWrapper
 		return model.getVisibility();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket comment model instance should use the <code>TicketComment</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

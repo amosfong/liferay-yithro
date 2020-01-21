@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketEntryLocalServiceUtil;
 public abstract class TicketEntryBaseImpl
 	extends TicketEntryModelImpl implements TicketEntry {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket entry model instance should use the <code>TicketEntry</code> interface instead.

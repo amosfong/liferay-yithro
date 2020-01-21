@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketWorkerWrapper
 	extends BaseModelWrapper<TicketWorker>
-	implements TicketWorker, ModelWrapper<TicketWorker> {
+	implements ModelWrapper<TicketWorker>, TicketWorker {
 
 	public TicketWorkerWrapper(TicketWorker ticketWorker) {
 		super(ticketWorker);
@@ -261,11 +261,6 @@ public class TicketWorkerWrapper
 		return model.isPrimary();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket worker model instance should use the <code>TicketWorker</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

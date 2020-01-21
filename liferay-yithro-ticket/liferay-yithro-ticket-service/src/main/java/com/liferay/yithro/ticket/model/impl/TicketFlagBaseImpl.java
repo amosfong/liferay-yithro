@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketFlagLocalServiceUtil;
 public abstract class TicketFlagBaseImpl
 	extends TicketFlagModelImpl implements TicketFlag {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket flag model instance should use the <code>TicketFlag</code> interface instead.

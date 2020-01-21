@@ -38,7 +38,7 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface TicketCommentModel
 	extends AuditedModel, BaseModel<TicketComment>, ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket comment model instance should use the {@link TicketComment} interface instead.

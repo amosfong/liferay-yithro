@@ -62,7 +62,7 @@ public class TicketEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(33);
+		StringBundler sb = new StringBundler(35);
 
 		sb.append("{ticketEntryId=");
 		sb.append(ticketEntryId);
@@ -76,6 +76,8 @@ public class TicketEntryCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", groupId=");
+		sb.append(groupId);
 		sb.append(", ticketStructureId=");
 		sb.append(ticketStructureId);
 		sb.append(", ticketStatusId=");
@@ -130,6 +132,7 @@ public class TicketEntryCacheModel
 			ticketEntryImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		ticketEntryImpl.setGroupId(groupId);
 		ticketEntryImpl.setTicketStructureId(ticketStructureId);
 		ticketEntryImpl.setTicketStatusId(ticketStatusId);
 
@@ -195,6 +198,8 @@ public class TicketEntryCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
+		groupId = objectInput.readLong();
+
 		ticketStructureId = objectInput.readLong();
 
 		ticketStatusId = objectInput.readLong();
@@ -227,6 +232,8 @@ public class TicketEntryCacheModel
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		objectOutput.writeLong(groupId);
 
 		objectOutput.writeLong(ticketStructureId);
 
@@ -267,6 +274,7 @@ public class TicketEntryCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long groupId;
 	public long ticketStructureId;
 	public long ticketStatusId;
 	public String languageId;

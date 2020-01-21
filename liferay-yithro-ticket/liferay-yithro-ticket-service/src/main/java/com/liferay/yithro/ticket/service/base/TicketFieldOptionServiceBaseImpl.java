@@ -56,9 +56,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class TicketFieldOptionServiceBaseImpl
 	extends BaseServiceImpl
-	implements TicketFieldOptionService, AopService, IdentifiableOSGiService {
+	implements AopService, IdentifiableOSGiService, TicketFieldOptionService {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. Use <code>TicketFieldOptionService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.liferay.yithro.ticket.service.TicketFieldOptionServiceUtil</code>.
@@ -113,8 +113,8 @@ public abstract class TicketFieldOptionServiceBaseImpl
 
 			sqlUpdate.update();
 		}
-		catch (Exception e) {
-			throw new SystemException(e);
+		catch (Exception exception) {
+			throw new SystemException(exception);
 		}
 	}
 

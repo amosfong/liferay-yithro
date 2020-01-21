@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketCommentLocalServiceUtil;
 public abstract class TicketCommentBaseImpl
 	extends TicketCommentModelImpl implements TicketComment {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket comment model instance should use the <code>TicketComment</code> interface instead.

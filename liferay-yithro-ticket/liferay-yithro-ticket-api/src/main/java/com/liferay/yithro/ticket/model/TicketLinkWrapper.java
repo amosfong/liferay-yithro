@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketLinkWrapper
 	extends BaseModelWrapper<TicketLink>
-	implements TicketLink, ModelWrapper<TicketLink> {
+	implements ModelWrapper<TicketLink>, TicketLink {
 
 	public TicketLinkWrapper(TicketLink ticketLink) {
 		super(ticketLink);
@@ -245,11 +245,6 @@ public class TicketLinkWrapper
 		return model.getVisibilityLabel();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket link model instance should use the <code>TicketLink</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

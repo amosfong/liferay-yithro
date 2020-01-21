@@ -14,7 +14,6 @@
 
 package com.liferay.yithro.ticket.service.http;
 
-
 /**
  * Provides the HTTP utility for the
  * <code>com.liferay.yithro.ticket.service.TicketWorkerServiceUtil</code> service

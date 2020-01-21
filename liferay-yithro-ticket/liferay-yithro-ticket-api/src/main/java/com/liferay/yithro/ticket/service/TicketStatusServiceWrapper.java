@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketStatusServiceWrapper
-	implements TicketStatusService, ServiceWrapper<TicketStatusService> {
+	implements ServiceWrapper<TicketStatusService>, TicketStatusService {
 
 	public TicketStatusServiceWrapper(TicketStatusService ticketStatusService) {
 		_ticketStatusService = ticketStatusService;

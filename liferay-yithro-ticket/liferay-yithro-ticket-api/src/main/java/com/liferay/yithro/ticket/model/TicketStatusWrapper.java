@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class TicketStatusWrapper
 	extends BaseModelWrapper<TicketStatus>
-	implements TicketStatus, ModelWrapper<TicketStatus> {
+	implements ModelWrapper<TicketStatus>, TicketStatus {
 
 	public TicketStatusWrapper(TicketStatus ticketStatus) {
 		super(ticketStatus);
@@ -391,11 +391,6 @@ public class TicketStatusWrapper
 		return model.isTerminal();
 	}
 
-	/**
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. All methods that expect a ticket status model instance should use the <code>TicketStatus</code> interface instead.
-	 */
 	@Override
 	public void persist() {
 		model.persist();

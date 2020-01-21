@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
  * @generated
  */
 public class TicketAttachmentServiceWrapper
-	implements TicketAttachmentService,
-			   ServiceWrapper<TicketAttachmentService> {
+	implements ServiceWrapper<TicketAttachmentService>,
+			   TicketAttachmentService {
 
 	public TicketAttachmentServiceWrapper(
 		TicketAttachmentService ticketAttachmentService) {

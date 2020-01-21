@@ -43,7 +43,7 @@ public interface TicketCommentTemplateModel
 	extends AuditedModel, BaseModel<TicketCommentTemplate>, LocalizedModel,
 			ShardedModel {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this interface directly. All methods that expect a ticket comment template model instance should use the {@link TicketCommentTemplate} interface instead.

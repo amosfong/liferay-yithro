@@ -32,7 +32,7 @@ import com.liferay.yithro.ticket.service.TicketWorkerLocalServiceUtil;
 public abstract class TicketWorkerBaseImpl
 	extends TicketWorkerModelImpl implements TicketWorker {
 
-	/**
+	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a ticket worker model instance should use the <code>TicketWorker</code> interface instead.
