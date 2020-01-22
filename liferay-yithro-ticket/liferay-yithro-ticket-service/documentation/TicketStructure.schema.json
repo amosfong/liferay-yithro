@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "ticketFields": {
+      "title": "List of Ticket Fields configured in control panel.",
+      "type": "array",
+      "items": [
+        {
+          "title": "A Ticket Field configured in control panel",
+          "type": "object",
+          "properties": {
+            "ticketFieldId": {
+              "title": "ID of the Ticket Field",
+              "type": "number"
+            },
+            "displayRules": {
+              "title": "Conditions in javascript syntax that must be true to display this Ticket Field. You can access other field values using ${ticketFieldId} syntax. For Example, to make this field display if Ticket Field with ID 123 has value 456 and Ticket Field with ID 789 is not blank: (${123} == 456) || (${789} != '')",
+              "type": "string"
+            },
+            "ticketFieldOptions": {
+              "title": "If the Ticket Field is a Select Field, optionally specify display rules for the options configured in control panel.",
+              "type": "array",
+              "items": [
+                {
+                  "title": "A Ticket Field option",
+                  "type": "object",
+                  "properties": {
+                    "[ticketOptionId]": {
+                      "title": "ID of the Ticket Field Option",
+                      "type": "object",
+                      "properties": {
+                        "displayRules": {
+                          "title": "Conditions in javascript syntax that must be true to display this Ticket Field Option",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "ticketFieldId"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "ticketFields"
+  ]
+}
